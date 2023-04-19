@@ -249,7 +249,12 @@ const cn = {
       SubTitle: "使用自己的 Key 可绕过密码访问限制",
       Placeholder: "OpenAI API Key",
     },
-
+    EnableAOAI: "使用 Azure OpenAI",
+    AzureDeploymentName: {
+      Title: "Azure OpenAI 部署实例名称",
+      SubTitle: "启用Azure OpenAI后, 输入部署的实例名称",
+      Placeholder: "实例名称",
+    },
     Usage: {
       Title: "余额查询",
       SubTitle(used: any, total: any) {

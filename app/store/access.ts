@@ -17,6 +17,10 @@ export interface worker {
 export interface AccessControlStore {
   accessCode: string;
   token: string;
+
+  enableAOAI: boolean;
+  azureDeployName: string;
+
   needCode: boolean;
   hideUserApiKey: boolean;
   openaiUrl: string;
@@ -28,6 +32,8 @@ export interface AccessControlStore {
 
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
+  updateDeployName: (_: string) => void;
+  switchAOAI: (_: boolean) => void;
   updateOpenAiUrl: (_: string) => void;
   enabledAccessControl: () => boolean;
   isAuthorized: () => boolean;
@@ -44,6 +50,8 @@ export const useAccessStore = create<AccessControlStore>()(
     (set, get) => ({
       token: "",
       accessCode: "",
+      azureDeployName: "",
+      enableAOAI: false,
       needCode: true,
       hideUserApiKey: false,
       openaiUrl: DEFAULT_OPENAI_URL,
@@ -71,10 +79,20 @@ export const useAccessStore = create<AccessControlStore>()(
       updateOpenAiUrl(url: string) {
         set(() => ({ openaiUrl: url?.trim() }));
       },
+      updateDeployName(azureDeployName: string) {
+        set((state) => ({ azureDeployName }));
+      },
+      switchAOAI(switchStatus: boolean) {
+        set((state) => ({ enableAOAI: switchStatus }));
+      },
       isAuthorized() {
         get().fetch();
 
         // has token or has code or disabled access control
+        if (get().enableAOAI) {
+          return !!get().azureDeployName && !!get().token;
+        }
+
         return (
           !!get().token || !!get().accessCode || !get().enabledAccessControl()
         );

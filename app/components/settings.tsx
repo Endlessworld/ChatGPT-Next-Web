@@ -585,7 +585,33 @@ export function Settings() {
               }
             ></input>
           </ListItem>
+          <ListItem title={Locale.Settings.EnableAOAI}>
+            <input
+              type="checkbox"
+              checked={accessStore.enableAOAI}
+              onChange={(e) => {
+                accessStore.switchAOAI(e.currentTarget.checked);
+              }}
+            ></input>
+          </ListItem>
 
+          {accessStore.enableAOAI ? (
+            <ListItem
+              title={Locale.Settings.AzureDeploymentName.Title}
+              subTitle={Locale.Settings.AzureDeploymentName.SubTitle}
+            >
+              <PasswordInput
+                value={accessStore.azureDeployName}
+                type="text"
+                placeholder={Locale.Settings.AzureDeploymentName.Placeholder}
+                onChange={(e) => {
+                  accessStore.updateDeployName(e.currentTarget.value);
+                }}
+              />
+            </ListItem>
+          ) : (
+            <></>
+          )}
           <ListItem
             title={Locale.Settings.Mask.Builtin.Title}
             subTitle={Locale.Settings.Mask.Builtin.SubTitle}
