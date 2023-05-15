@@ -19,6 +19,8 @@ const cn = {
       Stop: "停止",
       Retry: "重试",
       Delete: "删除",
+      Replace: "替换选中",
+      Merge: "代码合并",
     },
     Rename: "重命名对话",
     Typing: "正在输入…",
@@ -180,6 +182,14 @@ const cn = {
       Summarize:
         "简要总结一下你和用户的对话，用作后续的上下文提示 prompt，控制在 200 字以内",
     },
+  },
+  Replace: {
+    Success: "已将代码块替换/插入至编辑器",
+    Failed: "复制失败，请赋予剪切板权限",
+  },
+  Merge: {
+    Success: "已打开代码合并窗口",
+    Failed: "代码合并窗口打开失败",
   },
   Copy: {
     Success: "已写入剪切板",

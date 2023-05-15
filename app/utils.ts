@@ -6,6 +6,52 @@ export function trimTopic(topic: string) {
   return topic.replace(/[，。！？”“"、,.!?]*$/, "");
 }
 
+export function isIdeaPlugin() {
+  return (window as any).cefQuery;
+}
+
+export async function ideaMessage(
+  message: Record<string, unknown> = { event: "replace", message: "" },
+) {
+  console.log((window as any).cefQuery);
+  try {
+    if ((window as any).cefQuery) {
+      console.log("cefQuery", message);
+      (window as any).cefQuery({
+        request: JSON.stringify(message),
+        onSuccess: function (cefResponse: any) {
+          if (message.event === "replace") {
+            showToast(Locale.Replace.Success);
+          }
+          if (message.event === "diff") {
+            showToast(Locale.Merge.Success);
+          }
+        },
+        onFailure: function (error_code: any, error_message: any) {
+          if (message.event === "replace") {
+            showToast(Locale.Replace.Failed);
+          }
+          if (message.event === "diff") {
+            showToast(Locale.Merge.Failed);
+          }
+        },
+      });
+    } else {
+      console.log("cefQuery not available");
+    }
+  } catch (error) {
+    console.error("cefQuery error", error);
+  }
+}
+
+export async function Merge(messageText: string) {
+  ideaMessage({ event: "diff", message: messageText });
+}
+
+export async function Replace(messageText: string) {
+  ideaMessage({ event: "replace", message: messageText });
+}
+
 export async function copyToClipboard(text: string) {
   try {
     await navigator.clipboard.writeText(text);
@@ -117,7 +163,7 @@ export function selectOrCopy(el: HTMLElement, content: string) {
   if (currentSelection?.type === "Range") {
     return false;
   }
-
+  console.log(content);
   copyToClipboard(content);
 
   return true;
