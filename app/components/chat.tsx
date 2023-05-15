@@ -484,7 +484,7 @@ export function Chat() {
     if (!isMobileScreen) inputRef.current?.focus();
     setAutoScroll(true);
   };
-
+  (window as any).doSubmit = doSubmit;
   // stop response
   const onUserStop = (messageId: number) => {
     ControllerPool.stop(sessionIndex, messageId);

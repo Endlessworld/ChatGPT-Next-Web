@@ -216,6 +216,9 @@ export async function requestChatStream(
     } else if (res.status === 401) {
       console.error("Unauthorized");
       options?.onError(new Error("Unauthorized"), res.status);
+    } else if (res.status === 429) {
+      console.error("Limit Error", res.body);
+      options?.onMessage("当前ip达到了限制 30次/小时", true);
     } else {
       console.error("Stream Error", res.body);
       options?.onError(new Error("Stream Error"), res.status);

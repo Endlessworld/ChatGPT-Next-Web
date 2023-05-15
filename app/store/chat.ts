@@ -227,13 +227,32 @@ export const useChatStore = create<ChatStore>()(
 
         return session;
       },
-
       onNewMessage(message) {
         get().updateCurrentSession((session) => {
           session.lastUpdate = Date.now();
         });
         get().updateStat(message);
         get().summarizeSession();
+        console.log((window as any).cefQuery);
+        try {
+          if ((window as any).cefQuery) {
+            console.log("cefQuery", message);
+            (window as any).cefQuery({
+              request: JSON.stringify({
+                message: message.content,
+                event: "replace",
+              }),
+              onSuccess: function (cefResponse: any) {
+                console.log(cefResponse);
+              },
+              onFailure: function (error_code: any, error_message: any) {},
+            });
+          } else {
+            console.log("cefQuery not available");
+          }
+        } catch (error) {
+          console.error("cefQuery error", error);
+        }
       },
 
       async onUserInput(content) {

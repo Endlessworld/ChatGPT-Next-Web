@@ -51,9 +51,17 @@ async function handle(
   console.log("[OpenAI Route] params ", params);
 
   const authResult = auth(req);
-  if (authResult.error) {
+  if (authResult.error && authResult.status === 401) {
     return NextResponse.json(authResult, {
       status: 401,
+    });
+  } else if (authResult.error && authResult.status === 429) {
+    return NextResponse.json(authResult, {
+      status: 429,
+    });
+  } else if (authResult.error) {
+    return NextResponse.json(authResult, {
+      status: 500,
     });
   }
 
