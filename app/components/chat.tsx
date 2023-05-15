@@ -39,6 +39,9 @@ import {
   selectOrCopy,
   autoGrowTextArea,
   useMobileScreen,
+  Merge,
+  Replace,
+  isIdeaPlugin,
 } from "../utils";
 
 import dynamic from "next/dynamic";
@@ -747,6 +750,18 @@ export function Chat() {
                           >
                             {Locale.Chat.Actions.Retry}
                           </div>
+                          <div
+                            className={styles["chat-message-top-action"]}
+                            onClick={() => Replace(message.content)}
+                          >
+                            {Locale.Chat.Actions.Replace}
+                          </div>
+                          <div
+                            className={styles["chat-message-top-action"]}
+                            onClick={() => Merge(message.content)}
+                          >
+                            {Locale.Chat.Actions.Merge}
+                          </div>
                         </>
                       )}
 
@@ -766,6 +781,9 @@ export function Chat() {
                     }
                     onContextMenu={(e) => onRightClick(e, message)}
                     onDoubleClickCapture={() => {
+                      if (isIdeaPlugin()) {
+                        Merge(message.content);
+                      }
                       if (!isMobileScreen) return;
                       setUserInput(message.content);
                     }}
