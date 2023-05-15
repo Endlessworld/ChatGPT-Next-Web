@@ -5,7 +5,7 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
-  - init: export CODE=934393489 && export OPENAI_API_KEY="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" && yarn install && yarn run dev
+  - init: yarn install && yarn run dev
     command: yarn run dev
 
 
