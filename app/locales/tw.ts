@@ -19,6 +19,8 @@ const tw: LocaleType = {
       Stop: "停止",
       Retry: "重試",
       Delete: "刪除",
+      Replace: "取代選取的",
+      Merge: "合併程式碼",
     },
     Rename: "重命名對話",
     Typing: "正在輸入…",

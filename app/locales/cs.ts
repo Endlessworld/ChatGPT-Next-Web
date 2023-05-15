@@ -20,6 +20,8 @@ const cs: LocaleType = {
       Stop: "Zastavit",
       Retry: "Zopakovat",
       Delete: "Smazat",
+      Replace: "Nahradit vybrané",
+      Merge: "Sloučit kódy",
     },
     Rename: "Přejmenovat chat",
     Typing: "Píše...",
@@ -70,8 +72,8 @@ const cs: LocaleType = {
     },
     Lang: {
       Name: "Language", // ATTENTION: if you wanna add a new translation, please do not translate this value, leave it as `Language`
-        All: "Všechny jazyky",
-        Options: {
+      All: "Všechny jazyky",
+      Options: {
         cn: "简体中文",
         en: "English",
         tw: "繁體中文",
@@ -166,8 +168,7 @@ const cs: LocaleType = {
     },
     PresencePenlty: {
       Title: "Přítomnostní korekce",
-      SubTitle:
-        "Větší hodnota zvyšuje pravděpodobnost nových témat.",
+      SubTitle: "Větší hodnota zvyšuje pravděpodobnost nových témat.",
     },
   },
   Store: {
@@ -182,7 +183,7 @@ const cs: LocaleType = {
         "Vytvořte prosím název o čtyřech až pěti slovech vystihující průběh našeho rozhovoru bez jakýchkoli úvodních slov, interpunkčních znamének, uvozovek, teček, symbolů nebo dalšího textu. Odstraňte uvozovky.",
       Summarize:
         "Krátce shrň naši diskusi v rozsahu do 200 slov a použij ji jako podnět pro budoucí kontext.",
-      },
+    },
   },
   Copy: {
     Success: "Zkopírováno do schránky",
@@ -231,7 +232,7 @@ const cs: LocaleType = {
     More: "Najít více",
     NotShow: "Nezobrazovat znovu",
     ConfirmNoShow: "Potvrdit zakázání？Můžete jej povolit později v nastavení.",
-},
+  },
 
   UI: {
     Confirm: "Potvrdit",
@@ -239,7 +240,7 @@ const cs: LocaleType = {
     Close: "Zavřít",
     Create: "Vytvořit",
     Edit: "Upravit",
-  }
+  },
 };
 
 export default cs;

@@ -20,6 +20,8 @@ const tr: LocaleType = {
       Stop: "Durdur",
       Retry: "Tekrar Dene",
       Delete: "Delete",
+      Replace: "Seçileni değiştir",
+      Merge: "Kodları birleştir",
     },
     Rename: "Sohbeti Yeniden Adlandır",
     Typing: "Yazıyor…",

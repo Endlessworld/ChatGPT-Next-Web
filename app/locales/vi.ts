@@ -20,6 +20,8 @@ const vi: LocaleType = {
       Stop: "Dừng",
       Retry: "Thử lại",
       Delete: "Xóa",
+      Replace: "Thay thế được chọn",
+      Merge: "Hợp nhất mã",
     },
     Rename: "Đổi tên",
     Typing: "Đang nhập…",
