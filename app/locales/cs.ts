@@ -185,6 +185,14 @@ const cs: LocaleType = {
         "Krátce shrň naši diskusi v rozsahu do 200 slov a použij ji jako podnět pro budoucí kontext.",
     },
   },
+  Replace: {
+    Success: "Kódový blok byl nahrazen/vložen do editoru",
+    Failed: "Kopírování se nezdařilo, povolte přístup k schránce",
+  },
+  Merge: {
+    Success: "Bylo otevřeno okno pro sloučení kódu",
+    Failed: "Nepodařilo se otevřít okno pro sloučení kódu",
+  },
   Copy: {
     Success: "Zkopírováno do schránky",
     Failed: "Kopírování selhalo, prosím, povolte přístup ke schránce",

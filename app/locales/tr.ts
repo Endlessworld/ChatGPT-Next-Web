@@ -188,6 +188,14 @@ const tr: LocaleType = {
         "Gelecekteki bağlam için bir bilgi istemi olarak kullanmak üzere tartışmamızı en fazla 200 kelimeyle özetleyin.",
     },
   },
+  Replace: {
+    Success: "Kod bloğu editöre yerleştirildi/değiştirildi",
+    Failed: "Kopyalama başarısız oldu, lütfen panoya erişime izin verin",
+  },
+  Merge: {
+    Success: "Kod birleştirme penceresi açıldı",
+    Failed: "Kod birleştirme penceresi açılırken hata oluştu",
+  },
   Copy: {
     Success: "Panoya kopyalandı",
     Failed: "Kopyalama başarısız oldu, lütfen panoya erişim izni verin",

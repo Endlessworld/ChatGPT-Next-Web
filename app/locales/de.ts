@@ -189,6 +189,15 @@ const de: LocaleType = {
         "Fassen Sie unsere Diskussion kurz in 200 Wörtern oder weniger zusammen, um sie als Pronpt für zukünftige Gespräche zu verwenden.",
     },
   },
+  Replace: {
+    Success: "Codeblock wurde ersetzt/eingefügt",
+    Failed:
+      "Kopieren fehlgeschlagen, bitte Zugriff auf Zwischenablage erteilen",
+  },
+  Merge: {
+    Success: "Fenster zur Code-Zusammenführung wurde geöffnet.",
+    Failed: "Öffnen des Fensters zur Code-Zusammenführung fehlgeschlagen.",
+  },
   Copy: {
     Success: "In die Zwischenablage kopiert",
     Failed:

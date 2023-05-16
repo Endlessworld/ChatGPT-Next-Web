@@ -183,6 +183,15 @@ const vi: LocaleType = {
         "Tóm tắt cuộc trò chuyện này một cách ngắn gọn trong 200 từ hoặc ít hơn để sử dụng làm gợi ý cho ngữ cảnh tiếp theo.",
     },
   },
+  Replace: {
+    Success: "Khối mã đã được thay thế/chèn vào trình soạn thảo",
+    Failed:
+      "Sao chép không thành công, vui lòng cấp quyền truy cập vào bảng ghi tạm",
+  },
+  Merge: {
+    Success: "Cửa sổ hợp nhất mã đã được mở",
+    Failed: "Mở cửa sổ hợp nhất mã thất bại",
+  },
   Copy: {
     Success: "Sao chép vào bộ nhớ tạm",
     Failed:

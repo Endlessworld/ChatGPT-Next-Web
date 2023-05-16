@@ -181,6 +181,14 @@ const tw: LocaleType = {
         "Use the language used by the user (e.g. en-us for english conversation, zh-hant for chinese conversation, etc.) to summarise the conversation in at most 200 words. The summary will be used as prompt for you to continue the conversation in the future.",
     },
   },
+  Replace: {
+    Success: "已將代碼區塊取代/插入至編輯器",
+    Failed: "複製失敗，請授權剪貼簿存取權限",
+  },
+  Merge: {
+    Success: "已打開代碼合併視窗",
+    Failed: "代碼合併視窗開啟失敗",
+  },
   Copy: {
     Success: "已複製到剪貼簿中",
     Failed: "複製失敗，請賦予剪貼簿權限",

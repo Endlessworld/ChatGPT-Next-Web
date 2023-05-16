@@ -186,6 +186,14 @@ const en: LocaleType = {
         "Summarize our discussion briefly in 200 words or less to use as a prompt for future context.",
     },
   },
+  Replace: {
+    Success: "Code block has been replaced/inserted to editor",
+    Failed: "Copy failed, please grant clipboard access",
+  },
+  Merge: {
+    Success: "Code merge window has been opened",
+    Failed: "Opening code merge window failed",
+  },
   Copy: {
     Success: "Copied to clipboard",
     Failed: "Copy failed, please grant permission to access clipboard",
