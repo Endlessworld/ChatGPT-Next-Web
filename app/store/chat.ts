@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { trimTopic } from "../utils";
+import { ideaMessage, trimTopic } from "../utils";
 
 import Locale from "../locales";
 import { showToast } from "../components/ui-lib";
@@ -228,26 +228,7 @@ export const useChatStore = create<ChatStore>()(
         });
         get().updateStat(message);
         get().summarizeSession();
-        console.log((window as any).cefQuery);
-        try {
-          if ((window as any).cefQuery) {
-            console.log("cefQuery", message);
-            (window as any).cefQuery({
-              request: JSON.stringify({
-                message: message.content,
-                event: "replace",
-              }),
-              onSuccess: function (cefResponse: any) {
-                console.log(cefResponse);
-              },
-              onFailure: function (error_code: any, error_message: any) {},
-            });
-          } else {
-            console.log("cefQuery not available");
-          }
-        } catch (error) {
-          console.error("cefQuery error", error);
-        }
+        ideaMessage({ event: "auto", message: message }).then((r) => {});
       },
 
       async onUserInput(content) {
