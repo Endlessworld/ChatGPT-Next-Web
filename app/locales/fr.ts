@@ -20,6 +20,8 @@ const fr: LocaleType = {
       Stop: "Arrêter",
       Retry: "Réessayer",
       Delete: "Supprimer",
+      Replace: "替换选中",
+      Merge: "代码合并",
     },
     Rename: "Renommer la conversation",
     Typing: "En train d'écrire…",
@@ -187,6 +189,14 @@ const fr: LocaleType = {
       Summarize:
         "Résumez brièvement nos discussions en 200 mots ou moins pour les utiliser comme prompt de contexte futur.",
     },
+  },
+  Replace: {
+    Success: "已将代码块替换/插入至编辑器",
+    Failed: "复制失败，请赋予剪切板权限",
+  },
+  Merge: {
+    Success: "已打开代码合并窗口",
+    Failed: "代码合并窗口打开失败",
   },
   Copy: {
     Success: "Copié dans le presse-papiers",
