@@ -48,6 +48,7 @@ async function fetchEN() {
 }
 
 async function main() {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   Promise.all([fetchCN(), fetchEN()])
     .then(([cn, en]) => {
       fs.writeFile(FILE, JSON.stringify({ cn, en }));
