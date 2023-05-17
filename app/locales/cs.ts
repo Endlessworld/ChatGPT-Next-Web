@@ -20,6 +20,8 @@ const cs: LocaleType = {
       Stop: "Zastavit",
       Retry: "Zopakovat",
       Delete: "Smazat",
+      Replace: "Nahradit vybrané",
+      Merge: "Sloučit kódy",
     },
     Rename: "Přejmenovat chat",
     Typing: "Píše...",
@@ -182,6 +184,14 @@ const cs: LocaleType = {
       Summarize:
         "Krátce shrň naši diskusi v rozsahu do 200 slov a použij ji jako podnět pro budoucí kontext.",
     },
+  },
+  Replace: {
+    Success: "Kódový blok byl nahrazen/vložen do editoru",
+    Failed: "Kopírování se nezdařilo, povolte přístup k schránce",
+  },
+  Merge: {
+    Success: "Bylo otevřeno okno pro sloučení kódu",
+    Failed: "Nepodařilo se otevřít okno pro sloučení kódu",
   },
   Copy: {
     Success: "Zkopírováno do schránky",

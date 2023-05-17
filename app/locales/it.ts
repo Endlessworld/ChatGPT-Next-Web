@@ -20,6 +20,8 @@ const it: LocaleType = {
       Stop: "Stop",
       Retry: "Riprova",
       Delete: "Delete",
+      Replace: "Sostituisci selezionato",
+      Merge: "Unisci codice",
     },
     Rename: "Rinomina Chat",
     Typing: "Typing…",
@@ -184,6 +186,14 @@ const it: LocaleType = {
       Summarize:
         "Riassumi brevemente la nostra discussione in 200 caratteri o meno per usarla come spunto per una futura conversazione.",
     },
+  },
+  Replace: {
+    Success: "Il blocco di codice è stato sostituito / inserito nell'editor",
+    Failed: "Copia non riuscita, concedere l'accesso agli appunti",
+  },
+  Merge: {
+    Success: "È stata aperta la finestra di unione del codice",
+    Failed: "Apertura della finestra di unione del codice non riuscita",
   },
   Copy: {
     Success: "Copiato sugli appunti",

@@ -20,6 +20,8 @@ const es: LocaleType = {
       Stop: "Detener",
       Retry: "Reintentar",
       Delete: "Delete",
+      Replace: "Reemplazar seleccionado",
+      Merge: "Combinar código",
     },
     Rename: "Renombrar chat",
     Typing: "Escribiendo...",
@@ -183,6 +185,14 @@ const es: LocaleType = {
       Summarize:
         "Resuma nuestra discusión brevemente en 200 caracteres o menos para usarlo como un recordatorio para futuros contextos.",
     },
+  },
+  Replace: {
+    Success: "El bloque de código se ha reemplazado / insertado en el editor",
+    Failed: "Error al copiar, conceda permisos de acceso al portapapeles",
+  },
+  Merge: {
+    Success: "Se ha abierto la ventana de unión de código",
+    Failed: "Error al abrir la ventana de unión de código",
   },
   Copy: {
     Success: "Copiado al portapapeles",
