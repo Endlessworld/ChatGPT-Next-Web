@@ -26,6 +26,9 @@ export async function ideaMessage(
           if (message.event === "diff") {
             showToast(Locale.Merge.Success);
           }
+          if (message.event === "auto") {
+            showToast("自动成功");
+          }
         },
         onFailure: function (error_code: any, error_message: any) {
           if (message.event === "replace") {
