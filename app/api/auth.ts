@@ -3,42 +3,23 @@ import { getServerSideConfig } from "../config/server";
 import md5 from "spark-md5";
 import { ACCESS_CODE_PREFIX } from "../constant";
 
-const serverConfig = getServerSideConfig();
-
 const REQUEST_LIMIT = 300;
 const REQUEST_LIMIT_TIME = 60 * 60 * 1000; // 将时间转换为毫秒
 const ipRequests = new Map<string, { count: number; lastTimestamp: number }>();
 
-/**
- * 获取用户 IP 地址
- *
- * @param req Next.js API 路由处理函数的 req 参数
- * @returns 用户 IP 地址
- */
-function getIP(req: NextRequest): string {
-  // 获取用户 IP 地址，如果 req.ip 不存在，则使用 x-real-ip 请求头
+function getIP(req: NextRequest) {
   let ip = req.ip ?? req.headers.get("x-real-ip");
-  // 获取 x-forwarded-for 请求头
   const forwardedFor = req.headers.get("x-forwarded-for");
-  // 如果没有获取到 IP 地址，并且存在 x-forwarded-for 请求头，则使用该请求头中的第一个 IP 地址
   if (!ip && forwardedFor) {
     ip = forwardedFor.split(",").at(0) ?? "";
   }
   return typeof ip === "string" ? ip : "";
 }
 
-/**
- * 解析 API 密钥
- *
- * @param bearToken Bearer Token，格式为 "Bearer {API Key}"
- * @returns 解析结果对象，包含 accessCode 和 apiKey 两个属性
- */
 function parseApiKey(bearToken: string) {
-  // 去除 Bearer 前缀和首尾空格
   const token = bearToken.trim().replaceAll("Bearer ", "").trim();
-  // 判断是否为 OpenAI API Key
   const isOpenAiKey = !token.startsWith(ACCESS_CODE_PREFIX);
-  // 根据是否为 OpenAI API Key 返回不同的解析结果对象
+
   return {
     accessCode: isOpenAiKey ? "" : token.slice(ACCESS_CODE_PREFIX.length),
     apiKey: isOpenAiKey ? token : "",
@@ -61,6 +42,7 @@ export function auth(req: NextRequest) {
   const remoteIp = getIP(req);
 
   // 输出调试信息
+  const serverConfig = getServerSideConfig();
   console.log("[Auth] allowed hashed codes: ", [...serverConfig.codes]);
   console.log("[Auth] got access code:", accessCode);
   console.log("[Auth] hashed access code:", hashedCode);
