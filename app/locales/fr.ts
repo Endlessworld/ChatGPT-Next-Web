@@ -87,6 +87,7 @@ const fr: LocaleType = {
         vi: "Vietnamese",
         ru: "Русский",
         cs: "Čeština",
+        ko: "한국어"
       },
     },
 
