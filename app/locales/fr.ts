@@ -20,8 +20,8 @@ const fr: LocaleType = {
       Stop: "Arrêter",
       Retry: "Réessayer",
       Delete: "Supprimer",
-      Replace: "替换选中",
-      Merge: "代码合并",
+      Replace: "Remplacer la sélection",
+      Merge: "Fusionner le code",
     },
     Rename: "Renommer la conversation",
     Typing: "En train d'écrire…",
@@ -87,7 +87,7 @@ const fr: LocaleType = {
         vi: "Vietnamese",
         ru: "Русский",
         cs: "Čeština",
-        ko: "한국어"
+        ko: "한국어",
       },
     },
 
@@ -192,12 +192,14 @@ const fr: LocaleType = {
     },
   },
   Replace: {
-    Success: "已将代码块替换/插入至编辑器",
-    Failed: "复制失败，请赋予剪切板权限",
+    Success:
+      "Le bloc de code a été remplacé / inséré dans l'éditeur avec succès",
+    Failed:
+      "Échec de la copie, veuillez accorder l'autorisation du presse-papiers",
   },
   Merge: {
-    Success: "已打开代码合并窗口",
-    Failed: "代码合并窗口打开失败",
+    Success: "La fenêtre de fusion de code a été ouverte avec succès",
+    Failed: "Échec de l'ouverture de la fenêtre de fusion de code",
   },
   Copy: {
     Success: "Copié dans le presse-papiers",
