@@ -405,6 +405,12 @@ export function Chat() {
     state.currentSessionIndex,
   ]);
   const config = useAppConfig();
+  useEffect(() => {
+    if (isIdeaPlugin()) {
+      config.update((c) => (c.tightBorder = true));
+    }
+  }, []);
+
   const fontSize = config.fontSize;
 
   const inputRef = useRef<HTMLTextAreaElement>(null);

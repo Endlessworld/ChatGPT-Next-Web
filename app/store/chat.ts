@@ -228,7 +228,9 @@ export const useChatStore = create<ChatStore>()(
         });
         get().updateStat(message);
         get().summarizeSession();
-        ideaMessage({ event: "auto", message: message }).then((r) => {});
+        ideaMessage({ event: "auto", message: message.content }).then(
+          (r) => {},
+        );
       },
 
       async onUserInput(content) {
