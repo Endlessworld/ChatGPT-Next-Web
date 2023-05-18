@@ -27,7 +27,7 @@ export async function ideaMessage(
             showToast(Locale.Merge.Success);
           }
           if (message.event === "auto") {
-            showToast("自动成功");
+            showToast("自动回写成功");
           }
         },
         onFailure: function (error_code: any, error_message: any) {
