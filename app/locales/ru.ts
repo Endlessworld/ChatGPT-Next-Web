@@ -146,6 +146,28 @@ const ru: LocaleType = {
       SubTitle: "Используйте свой ключ, чтобы игнорировать лимит доступа",
       Placeholder: "API ключ OpenAI",
     },
+    MjKey: {
+      Title: "Ключ API MJ",
+      SubTitle: "Быстрая настройка ключа API MJ",
+      Placeholder: "Ключ API Midjourney",
+    },
+
+    MjApiUrl: {
+      Title: "URL API MJ",
+      SubTitle: "Настройка URL API MJ",
+      Placeholder: "URL API Midjourney",
+    },
+
+    MjMode: {
+      name: "Быстрый режим MJ",
+      fastMode: false,
+    },
+
+    MJAccessCode: {
+      Title: "Код доступа",
+      SubTitle: "Администратор активировал зашифрованный доступ",
+      Placeholder: "Введите код доступа",
+    },
     Usage: {
       Title: "Баланс аккаунта",
       SubTitle(used: any, total: any) {

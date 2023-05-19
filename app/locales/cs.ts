@@ -145,6 +145,29 @@ const cs: LocaleType = {
       SubTitle: "Použitím klíče ignorujete omezení přístupového kódu",
       Placeholder: "Klíč API OpenAI",
     },
+    MjKey: {
+      Title: "MJ API Klíč",
+      SubTitle: "Rychlé nastavení MJ API Klíče",
+      Placeholder: "MJ API Klíč",
+    },
+
+    MjApiUrl: {
+      Title: "MJ API URL",
+      SubTitle: "Nastavení MJ API URL",
+      Placeholder: "MJ API URL",
+    },
+
+    MjMode: {
+      name: "MJ Rychlý režim",
+      fastMode: false,
+    },
+
+    MJAccessCode: {
+      Title: "Přístupové heslo",
+      SubTitle: "Správce povolil šifrovaný přístup",
+      Placeholder: "Zadejte přístupové heslo",
+    },
+
     Usage: {
       Title: "Stav účtu",
       SubTitle(used: any, total: any) {

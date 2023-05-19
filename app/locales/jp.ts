@@ -86,7 +86,7 @@ const jp: LocaleType = {
         vi: "Tiếng Việt",
         ru: "Русский",
         cs: "Čeština",
-        ko: "한국어"
+        ko: "한국어",
       },
     },
     Avatar: "アバター",
@@ -146,6 +146,28 @@ const jp: LocaleType = {
       Title: "APIキー",
       SubTitle: "自分のキーを使用してパスワードアクセス制限を迂回する",
       Placeholder: "OpenAI APIキー",
+    },
+    MjKey: {
+      Title: "MJ APIキー",
+      SubTitle: "MJ APIキーのクイック設定",
+      Placeholder: "Midjourney APIキー",
+    },
+
+    MjApiUrl: {
+      Title: "MJ API URL",
+      SubTitle: "MJ API URLの設定",
+      Placeholder: "Midjourney API URL",
+    },
+
+    MjMode: {
+      name: "MJクイックモード",
+      fastMode: false,
+    },
+
+    MJAccessCode: {
+      Title: "アクセスコード",
+      SubTitle: "管理者によって暗号化アクセスが有効化されています",
+      Placeholder: "アクセスコードを入力してください",
     },
     Usage: {
       Title: "残高照会",

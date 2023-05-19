@@ -13,13 +13,31 @@ One-Click to deploy well-designed ChatGPT web UI on Vercel.
 
 [演示](https://chatgpt.nextweb.fun/) / [反馈](https://github.com/Yidadaa/ChatGPT-Next-Web/issues) / [QQ 群](https://github.com/Yidadaa/ChatGPT-Next-Web/assets/16968934/3ff423d5-5703-4772-8b6d-abec7eec3a4b) / [QQ 频道](https://github.com/Yidadaa/ChatGPT-Next-Web/assets/16968934/debfbee7-e682-4814-a601-f4403dac6d1d) / [打赏开发者](https://user-images.githubusercontent.com/16968934/227772541-5bcd52d8-61b7-488c-a203-0330d8006e2b.jpg)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FYidadaa%2FChatGPT-Next-Web&env=OPENAI_API_KEY&env=CODE&project-name=chatgpt-next-web&repository-name=ChatGPT-Next-Web)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Zo3i/chatgptWithMidjourney&env=OPENAI_API_KEY&env=CODE&project-name=chatgpt-next-web&repository-name=ChatGPT-Next-Web)
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Yidadaa/ChatGPT-Next-Web)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Zo3i/chatgptWithMidjourney)
 
 ![cover](./docs/images/cover.png)
 
 </div>
+
+### 如何使用Midjourney
+- 在.env.local(没有要创建)中添加MIDJOURNEY_API_KEY、MIDJOURNEY_API_URL。接口地址和key
+  ```local
+   示例:
+   OPENAI_API_KEY=sk-xxx
+   MIDJOURNEY_API_KEY=35fc0377-ca20-4244-8e44-7a930b7591ab
+   MIDJOURNEY_API_URL=https://api.zxx.im/
+   ```
+- 输入/mj 即可使用绘图模式
+- 绘图期间请勿刷新网页、切换别的聊天窗口。
+- [MidjourneyAPI](https://midjourneyapi.zxx.im/)
+
+也可以直接在设置里面填写mj key即可调用绘图功能。
+<img width="810" alt="image" src="https://github.com/Zo3i/chatgptWithMidjourney/assets/30296801/d15f6c9a-9175-4399-bed8-8517db32fffe">
+
+
+![](https://s3.bmp.ovh/imgs/2023/05/15/f0c7f67ef3eb075b.png)
 
 ## Features
 
@@ -91,7 +109,7 @@ One-Click to deploy well-designed ChatGPT web UI on Vercel.
 
 1. Get [OpenAI API Key](https://platform.openai.com/account/api-keys);
 2. Click
-   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FYidadaa%2FChatGPT-Next-Web&env=OPENAI_API_KEY&env=CODE&project-name=chatgpt-next-web&repository-name=ChatGPT-Next-Web), remember that `CODE` is your page password;
+   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Zo3i/chatgptWithMidjourney&env=OPENAI_API_KEY&env=CODE&project-name=chatgpt-next-web&repository-name=ChatGPT-Next-Web), remember that `CODE` is your page password;
 3. Enjoy :)
 
 ## FAQ
@@ -180,7 +198,7 @@ If you do not want users to use GPT-4, set this value to 1.
 
 > [简体中文 > 如何进行二次开发](./README_CN.md#开发)
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Yidadaa/ChatGPT-Next-Web)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Zo3i/chatgptWithMidjourney)
 
 Before starting development, you must create a new `.env.local` file at project root, and place your api key into it:
 
@@ -205,12 +223,9 @@ yarn dev
 ### Docker (Recommended)
 
 ```shell
-docker pull yidadaa/chatgpt-next-web
+docker pull zo3i/chatgptwithmidjourney
 
-docker run -d -p 3000:3000 \
-   -e OPENAI_API_KEY="sk-xxxx" \
-   -e CODE="your-password" \
-   yidadaa/chatgpt-next-web
+docker run -d -p 3000:3000 -e OPENAI_API_KEY="sk-xxxx" -e CODE="your-password" zo3i/chatgptwithmidjourney
 ```
 
 You can start service behind a proxy:
