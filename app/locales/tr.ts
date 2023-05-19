@@ -4,8 +4,10 @@ import type { LocaleType } from "./index";
 const tr: LocaleType = {
   WIP: "Çalışma devam ediyor...",
   Error: {
-    Unauthorized:
-      "Yetkisiz erişim, lütfen erişim kodunu ayarlar sayfasından giriniz.",
+    Unauthorized: `Erişim şifresi yanlış veya boş. Doğru erişim şifresini girmek için [设置](/#/settings) sayfasına gidin. 
+    İlk kez kullanıyorsanız, halka açık 【[微聊小助手]()】 hesabına gidin ve erişim şifresini almak için "密码" gönderin.
+     Ayrıca, bu sınırlamayı kaldırmak için kendi "OpenAI API Key" inizi girin.
+    ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} mesaj`,

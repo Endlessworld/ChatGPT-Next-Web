@@ -4,8 +4,11 @@ import type { LocaleType } from "./index";
 const de: LocaleType = {
   WIP: "In Bearbeitung...",
   Error: {
-    Unauthorized:
-      "Unbefugter Zugriff, bitte geben Sie den Zugangscode auf der Einstellungsseite ein.",
+    Unauthorized: ` Das Zugangspasswort ist falsch oder leer. Gehen Sie zur Seite [设置](/#/settings) und geben Sie das richtige Zugangspasswort ein.
+     Wenn Sie es zum ersten Mal verwenden, gehen Sie zum öffentlichen Konto 【[微聊小助手]()】 und senden Sie "密码", um das Zugangspasswort zu erhalten. 
+     Oder Sie können Ihren "OpenAI API" -Schlüssel eingeben, um diese Einschränkung aufzuheben.
+     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)
+    `,
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} Nachrichten`,

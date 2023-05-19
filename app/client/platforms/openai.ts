@@ -117,7 +117,6 @@ export class ChatGPTApi implements LLMApi {
               if (res.status === 401) {
                 responseTexts.push(Locale.Error.Unauthorized);
               }
-              responseTexts.push("![example image](/weixin-logo.png)");
               responseText = responseTexts.join("\n\n");
 
               return finish();

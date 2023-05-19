@@ -4,8 +4,10 @@ import type { LocaleType } from "./index";
 const es: LocaleType = {
   WIP: "En construcción...",
   Error: {
-    Unauthorized:
-      "Acceso no autorizado, por favor ingrese el código de acceso en la página de configuración.",
+    Unauthorized: `La contraseña de acceso es incorrecta o está vacía. Vaya a la página [设置](/#/settings) e introduzca la contraseña de acceso correcta. 
+    Si es la primera vez que la usa, vaya a la cuenta pública 【[微聊小助手]()】 y envíe "密码" para obtener la contraseña de acceso. 
+    Alternativamente, puede ingresar su propio "OpenAI API Key" para eliminar esta limitación.
+     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} mensajes`,
@@ -86,7 +88,7 @@ const es: LocaleType = {
         vi: "Tiếng Việt",
         ru: "Русский",
         cs: "Čeština",
-        ko: "한국어"
+        ko: "한국어",
       },
     },
     Avatar: "Avatar",

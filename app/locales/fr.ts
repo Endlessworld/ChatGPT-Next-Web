@@ -4,8 +4,10 @@ import type { LocaleType } from "./index";
 const fr: LocaleType = {
   WIP: "Prochainement...",
   Error: {
-    Unauthorized:
-      "Accès non autorisé, veuillez saisir le code d'accès dans la page des paramètres.",
+    Unauthorized: `Le mot de passe d'accès est incorrect ou vide. Veuillez vous rendre à la page [设置](/#/settings) et entrer le mot de passe d'accès correct. 
+    Si vous l'utilisez pour la première fois, allez sur le compte public 【[微聊小助手]()】 et envoyez "密码" pour obtenir le mot de passe d'accès. 
+    Vous pouvez également saisir votre propre "OpenAI API Key" pour supprimer cette limitation.
+     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages en total`,

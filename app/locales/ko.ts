@@ -5,7 +5,10 @@ import type { LocaleType } from "./index";
 const ko: LocaleType = {
   WIP: "곧 출시 예정...",
   Error: {
-    Unauthorized: "권한이 없습니다. 설정 페이지에서 액세스 코드를 입력하세요.",
+    Unauthorized: `액세스 비밀번호가 잘못되었거나 비어 있습니다. [设置](/#/settings) 페이지로 이동하여 올바른 액세스 비밀번호를 입력하십시오. 
+    처음 사용하는 경우 【[微聊小助手]()】 공공 계정으로 이동하여 액세스 비밀번호를 얻으려면 "密码" 를 보내십시오. 
+    대체로, 자체 "Open AI API 키"를 입력하여이 제한을 제거 할 수 있습니다.
+     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count}개의 메시지`,

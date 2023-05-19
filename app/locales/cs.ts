@@ -4,8 +4,11 @@ import type { LocaleType } from "./index";
 const cs: LocaleType = {
   WIP: "V přípravě...",
   Error: {
-    Unauthorized:
-      "Neoprávněný přístup, zadejte přístupový kód na stránce nastavení.",
+    Unauthorized: `Přístupové heslo není správné nebo není zadáno. Přejděte na stránku [设置](/#/settings) a zadejte správné přístupové heslo. 
+    Pokud používáte poprvé, přejděte na veřejný účet 【[微聊小助手]()】 a odešlete "密码", 
+    abyste získali přístupové heslo. Nebo můžete zadat svůj klíč "OpenAI API", aby se tato omezení odstranila.
+    ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)
+    `,
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} zpráv`,
