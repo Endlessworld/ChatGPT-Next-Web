@@ -103,6 +103,7 @@ const cn = {
     },
     SendKey: "发送键",
     Theme: "主题",
+    ApiServerAddress: "服务地址",
     TightBorder: "无边框模式",
     SendPreviewBubble: {
       Title: "预览气泡",

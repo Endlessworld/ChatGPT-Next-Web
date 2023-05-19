@@ -54,7 +54,7 @@ export function auth(req: NextRequest) {
     return {
       error: true,
       needAccessCode: true,
-      msg: "请前往设置页面填写您的 Access Code。",
+      msg: "当前为免费通道，暂时提供每小时20次/ip免费请求次数。需要设置访问密码，请前往设置页面填写您的 Access Code 或 OpenAI API Key",
       status: 401,
     };
   }

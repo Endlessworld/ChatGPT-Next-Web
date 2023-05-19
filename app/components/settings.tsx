@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, HTMLProps, useRef } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import styles from "./settings.module.scss";
 
@@ -24,11 +24,11 @@ import { ModelConfigList } from "./model-config";
 import { IconButton } from "./button";
 import {
   SubmitKey,
-  useChatStore,
   Theme,
-  useUpdateStore,
   useAccessStore,
   useAppConfig,
+  useChatStore,
+  useUpdateStore,
 } from "../store";
 
 import Locale, { AllLangs, changeLang, getLang } from "../locales";
@@ -248,6 +248,7 @@ export function Settings() {
   }
 
   const accessStore = useAccessStore();
+  const updateOpenaiUrl = accessStore.updateOpenaiUrl;
   const enabledAccessControl = useMemo(
     () => accessStore.enabledAccessControl(),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -479,6 +480,23 @@ export function Settings() {
         </List>
 
         <List>
+          <ListItem title={Locale.Settings.ApiServerAddress}>
+            <Select
+              value={accessStore.openaiUrl}
+              onChange={(e) => {
+                updateOpenaiUrl(e.target.value as string);
+              }}
+            >
+              {Object.values(accessStore.workers).map((worker, index) => {
+                console.log(worker, index);
+                return (
+                  <option value={worker.api} key={worker.api}>
+                    {worker.title}
+                  </option>
+                );
+              })}
+            </Select>
+          </ListItem>
           {enabledAccessControl ? (
             <ListItem
               title={Locale.Settings.AccessCode.Title}

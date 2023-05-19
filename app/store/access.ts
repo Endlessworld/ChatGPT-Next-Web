@@ -5,14 +5,19 @@ import { getHeaders } from "../client/api";
 import { BOT_HELLO } from "./chat";
 import { ALL_MODELS } from "./config";
 
+export interface worker {
+  title: string;
+  api: string;
+}
 export interface AccessControlStore {
   accessCode: string;
   token: string;
-
   needCode: boolean;
   hideUserApiKey: boolean;
   openaiUrl: string;
+  workers: worker[];
 
+  updateOpenaiUrl: (_: string) => void;
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
   enabledAccessControl: () => boolean;
@@ -30,17 +35,23 @@ export const useAccessStore = create<AccessControlStore>()(
       needCode: true,
       hideUserApiKey: false,
       openaiUrl: "/api/openai/",
-
+      workers: [],
       enabledAccessControl() {
         get().fetch();
 
         return get().needCode;
+      },
+      updateOpenaiUrl(openaiUrl: string) {
+        set(() => ({ openaiUrl: openaiUrl }));
       },
       updateCode(code: string) {
         set(() => ({ accessCode: code }));
       },
       updateToken(token: string) {
         set(() => ({ token }));
+      },
+      updateWorkers(workers: worker[]) {
+        set(() => ({ workers }));
       },
       isAuthorized() {
         get().fetch();
@@ -64,7 +75,6 @@ export const useAccessStore = create<AccessControlStore>()(
           .then((res: DangerConfig) => {
             console.log("[Config] got config from server", res);
             set(() => ({ ...res }));
-
             if (!res.enableGPT4) {
               ALL_MODELS.forEach((model) => {
                 if (model.name.startsWith("gpt-4")) {
