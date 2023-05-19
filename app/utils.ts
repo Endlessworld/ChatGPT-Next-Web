@@ -32,10 +32,10 @@ export async function ideaMessage(
         },
         onFailure: function (error_code: any, error_message: any) {
           if (message.event === "replace") {
-            showToast(Locale.Replace.Failed);
+            showToast(error_message);
           }
           if (message.event === "diff") {
-            showToast(Locale.Merge.Failed);
+            showToast(error_message);
           }
         },
       });
