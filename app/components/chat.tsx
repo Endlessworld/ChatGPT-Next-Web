@@ -1,5 +1,5 @@
 import { useDebouncedCallback } from "use-debounce";
-import { useState, useRef, useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
@@ -22,26 +22,26 @@ import BottomIcon from "../icons/bottom.svg";
 import StopIcon from "../icons/pause.svg";
 
 import {
-  ChatMessage,
-  SubmitKey,
-  useChatStore,
   BOT_HELLO,
+  ChatMessage,
   createMessage,
-  useAccessStore,
-  Theme,
-  useAppConfig,
   DEFAULT_TOPIC,
+  SubmitKey,
+  Theme,
+  useAccessStore,
+  useAppConfig,
+  useChatStore,
 } from "../store";
 
 import {
+  autoGrowTextArea,
   copyToClipboard,
   downloadAs,
-  selectOrCopy,
-  autoGrowTextArea,
-  useMobileScreen,
+  isIdeaPlugin,
   Merge,
   Replace,
-  isIdeaPlugin,
+  selectOrCopy,
+  useMobileScreen,
 } from "../utils";
 
 import dynamic from "next/dynamic";
@@ -405,14 +405,7 @@ export function Chat() {
     state.currentSessionIndex,
   ]);
   const config = useAppConfig();
-  useEffect(() => {
-    if (isIdeaPlugin()) {
-      config.update((c) => (c.tightBorder = true));
-    }
-  }, []);
-
   const fontSize = config.fontSize;
-
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [userInput, setUserInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -493,7 +486,6 @@ export function Chat() {
     if (!isMobileScreen) inputRef.current?.focus();
     setAutoScroll(true);
   };
-  (window as any).doSubmit = doSubmit;
   // stop response
   const onUserStop = (messageId: number) => {
     ChatControllerPool.stop(sessionIndex, messageId);
@@ -638,6 +630,18 @@ export function Chat() {
   const location = useLocation();
   const isChat = location.pathname === Path.Chat;
   const autoFocus = !isMobileScreen || isChat; // only focus in chat page
+
+  useEffect(() => {
+    if (isIdeaPlugin()) {
+      config.update((settings) => (settings.tightBorder = true));
+      (window as any).doSubmit = doSubmit;
+      (window as any).syncThemes = (isDark: boolean) => {
+        config.update(
+          (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
+        );
+      };
+    }
+  }, []);
 
   useCommand({
     fill: setUserInput,
