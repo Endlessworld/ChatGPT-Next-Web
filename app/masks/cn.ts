@@ -36,8 +36,8 @@ export const CN_MASKS: BuiltinMask[] = [
     builtin: true,
   },
   {
-    avatar: "gpt-bot",
-    name: "文生图",
+    avatar: "1f5bc-fe0f",
+    name: "以文搜图",
     context: [
       {
         role: "system",
