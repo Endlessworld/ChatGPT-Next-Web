@@ -106,6 +106,7 @@ const it: LocaleType = {
     },
     SendKey: "Tasto invia",
     Theme: "Tema",
+    ApiServerAddress: "Indirizzo di servizio",
     TightBorder: "Schermo intero",
     SendPreviewBubble: {
       Title: "Anteprima di digitazione",

@@ -107,6 +107,7 @@ const vi: LocaleType = {
     },
     SendKey: "Phím gửi",
     Theme: "Theme",
+    ApiServerAddress: "Địa chỉ dịch vụ",
     TightBorder: "Chế độ không viền",
     SendPreviewBubble: {
       Title: "Gửi bong bóng xem trước",

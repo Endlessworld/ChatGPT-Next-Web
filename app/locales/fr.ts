@@ -108,6 +108,7 @@ const fr: LocaleType = {
     },
     SendKey: "Clé d'envoi",
     Theme: "Thème",
+    ApiServerAddress: "Adresse de service",
     TightBorder: "Bordure serrée",
     SendPreviewBubble: {
       Title: "Aperçu de l'envoi dans une bulle",

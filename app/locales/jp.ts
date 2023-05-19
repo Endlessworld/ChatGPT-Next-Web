@@ -107,6 +107,7 @@ const jp: LocaleType = {
     },
     SendKey: "送信キー",
     Theme: "テーマ",
+    ApiServerAddress: " サービスアドレス",
     TightBorder: "ボーダーレスモード",
     SendPreviewBubble: {
       Title: "プレビューバブルの送信",

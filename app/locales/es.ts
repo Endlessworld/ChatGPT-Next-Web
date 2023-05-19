@@ -106,6 +106,7 @@ const es: LocaleType = {
     },
     SendKey: "Tecla de envío",
     Theme: "Tema",
+    ApiServerAddress: "Dirección de servicio",
     TightBorder: "Borde ajustado",
     SendPreviewBubble: {
       Title: "Enviar burbuja de vista previa",

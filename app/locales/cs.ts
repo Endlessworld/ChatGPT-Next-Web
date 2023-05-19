@@ -107,6 +107,7 @@ const cs: LocaleType = {
     },
     SendKey: "Odeslat klíč",
     Theme: "Téma",
+    ApiServerAddress: "服务地址",
     TightBorder: "Těsné ohraničení",
     SendPreviewBubble: {
       Title: "Odesílat chatovací bublinu s náhledem",

@@ -106,6 +106,7 @@ const ru: LocaleType = {
     },
     SendKey: "Клавиша отправки",
     Theme: "Тема",
+    ApiServerAddress: "Адрес сервиса",
     TightBorder: "Узкая граница",
     SendPreviewBubble: {
       Title: "Отправить предпросмотр",

@@ -107,6 +107,7 @@ const ko: LocaleType = {
     },
     SendKey: "전송 키",
     Theme: "테마",
+    ApiServerAddress: "서비스 주소",
     TightBorder: "조밀한 테두리",
     SendPreviewBubble: {
       Title: "미리 보기 버블 전송",

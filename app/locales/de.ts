@@ -108,6 +108,7 @@ const de: LocaleType = {
     },
     SendKey: "Senden-Taste",
     Theme: "Erscheinungsbild",
+    ApiServerAddress: "Dienstadresse",
     TightBorder: "Enger Rahmen",
     SendPreviewBubble: {
       Title: "Vorschau-Bubble senden",

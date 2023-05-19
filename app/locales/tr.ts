@@ -106,6 +106,7 @@ const tr: LocaleType = {
     },
     SendKey: "Gönder Tuşu",
     Theme: "Tema",
+    ApiServerAddress: "Hizmet adresi",
     TightBorder: "Tam Ekran",
     SendPreviewBubble: {
       Title: "Mesaj Önizleme Balonu",

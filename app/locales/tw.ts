@@ -105,6 +105,7 @@ const tw: LocaleType = {
     },
     SendKey: "發送鍵",
     Theme: "主題",
+    ApiServerAddress: "服務地址",
     TightBorder: "緊湊邊框",
     SendPreviewBubble: {
       Title: "預覽氣泡",

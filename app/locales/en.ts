@@ -106,6 +106,7 @@ const en: LocaleType = {
     },
     SendKey: "Send Key",
     Theme: "Theme",
+    ApiServerAddress: "Service address",
     TightBorder: "Tight Border",
     SendPreviewBubble: {
       Title: "Send Preview Bubble",
