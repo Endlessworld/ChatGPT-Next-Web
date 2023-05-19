@@ -3,7 +3,8 @@ import { getServerSideConfig } from "../config/server";
 import md5 from "spark-md5";
 import { ACCESS_CODE_PREFIX } from "../constant";
 
-const REQUEST_LIMIT = 300;
+const REQUEST_LIMIT = 10;
+const REQUEST_MAX_LIMIT = 30;
 const REQUEST_LIMIT_TIME = 60 * 60 * 1000; // 将时间转换为毫秒
 const ipRequests = new Map<string, { count: number; lastTimestamp: number }>();
 
@@ -49,15 +50,7 @@ export function auth(req: NextRequest) {
   console.log("[User IP] ", remoteIp);
   console.log("[Time] ", new Date().toLocaleString());
   console.log("ipRequests ", ipRequests);
-  // 如果需要 Access Code 并且用户没有提供 Access Code 或提供的 Access Code 不在允许列表中，则返回错误响应
-  if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !token) {
-    return {
-      error: true,
-      needAccessCode: true,
-      msg: "当前为免费通道，暂时提供每小时20次/ip免费请求次数。需要设置访问密码，请前往设置页面填写您的 Access Code 或 OpenAI API Key",
-      status: 401,
-    };
-  }
+
   // 如果ipRequest字典中没有该IP地址的记录，则在字典中添加该记录
   if (!ipRequests.has(remoteIp)) {
     ipRequests.set(remoteIp, { count: 0, lastTimestamp: 0 });
@@ -81,9 +74,28 @@ export function auth(req: NextRequest) {
 
   // 如果计数器超过了请求数限制，则返回 429 Too Many Requests 响应
   console.log(requestRecord.count > REQUEST_LIMIT);
-  // if (requestRecord.count > REQUEST_LIMIT) {
-  //     return {error: true, msg: "Too many requests",status: 429};
-  // }
+
+  // 如果需要 Access Code 并且用户没有提供 Access Code 或提供的 Access Code 不在允许列表中，则返回错误响应
+  if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !token) {
+    if (requestRecord.count > REQUEST_LIMIT) {
+      return {
+        error: true,
+        needAccessCode: true,
+        msg: "当前为免费通道，暂时提供每小时10次/ip免费体验次数。继续使用请以访问密码解锁至每小时30次/ip，请前往设置页面填写您的 Access Code 或 OpenAI API Key",
+        status: 401,
+      };
+    }
+  } else if (serverConfig.needCode && serverConfig.codes.has(hashedCode)) {
+    if (requestRecord.count > REQUEST_MAX_LIMIT) {
+      return {
+        error: true,
+        needAccessCode: true,
+        msg: "当前为免费通道，暂时提供最高每小时30次/ip免费请求次数。休息一下再来吧~。 若要继续使用 请前往设置页面填写您的 OpenAI API Key",
+        status: 401,
+      };
+    }
+  }
+  // return {error: true, msg: "Too many requests",status: 429};
   // 如果用户没有提供 API Key，且系统配置了默认 API Key，则使用系统默认 API Key
   if (!token) {
     const apiKey = serverConfig.apiKey;
