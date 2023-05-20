@@ -5,7 +5,7 @@ const en: LocaleType = {
   WIP: "Coming Soon...",
   Error: {
     Unauthorized: `The access password is incorrect or empty. Please go to page [settings](/#/settings) and enter the correct access password. 
-    If you are using it for the first time, go to public account 【[微聊小助手]()】 and send "密码" to get the access password. 
+    If you are using it for the first time, go to public account 【[微聊小助手]()】 and send "密码" Or visit [forum.xr21.me](https://forum.xr21.me)" to get the access password. 
     Alternatively, you can input your own "OpenAI API Key" to remove this limitation.
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
   },

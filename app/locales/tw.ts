@@ -5,7 +5,7 @@ const tw: LocaleType = {
   WIP: "該功能仍在開發中……",
   Error: {
     Unauthorized: `存取密碼不正確或為空。請前往 [设置](/#/settings) 頁面輸入正確的存取密碼。
-    如果您是第一次使用，請前往公眾號 【[微聊小助手]()】 發送 "密码" 以獲取存取密碼。
+    如果您是第一次使用，請前往公眾號 【[微聊小助手]()】 發送 "密码" 或者訪問 [forum.xr21.me](https://forum.xr21.me) 以獲取存取密碼。
     或者，您可以填寫自己的 "OpenAI API Key" 以解除此限制。
     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
   },

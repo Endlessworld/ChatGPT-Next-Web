@@ -5,7 +5,7 @@ const es: LocaleType = {
   WIP: "En construcción...",
   Error: {
     Unauthorized: `La contraseña de acceso es incorrecta o está vacía. Vaya a la página [设置](/#/settings) e introduzca la contraseña de acceso correcta. 
-    Si es la primera vez que la usa, vaya a la cuenta pública 【[微聊小助手]()】 y envíe "密码" para obtener la contraseña de acceso. 
+    Si es la primera vez que la usa, vaya a la cuenta pública 【[微聊小助手]()】 y envíe "密码" o visita [forum.xr21.me](https://forum.xr21.me) para obtener la contraseña de acceso. 
     Alternativamente, puede ingresar su propio "OpenAI API Key" para eliminar esta limitación.
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
   },

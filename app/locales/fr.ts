@@ -5,7 +5,7 @@ const fr: LocaleType = {
   WIP: "Prochainement...",
   Error: {
     Unauthorized: `Le mot de passe d'accès est incorrect ou vide. Veuillez vous rendre à la page [设置](/#/settings) et entrer le mot de passe d'accès correct. 
-    Si vous l'utilisez pour la première fois, allez sur le compte public 【[微聊小助手]()】 et envoyez "密码" pour obtenir le mot de passe d'accès. 
+    Si vous l'utilisez pour la première fois, allez sur le compte public 【[微聊小助手]()】 et envoyez "密码" ou visitez [forum.xr21.me](https://forum.xr21.me) pour obtenir le mot de passe d'accès. 
     Vous pouvez également saisir votre propre "OpenAI API Key" pour supprimer cette limitation.
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
   },

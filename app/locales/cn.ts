@@ -4,7 +4,7 @@ const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
     Unauthorized: `访问密码不正确或为空，请前往[设置](/#/settings)页输入正确的访问密码，
-如果您第一次使用请前往公众号【[微聊小助手]()】发送 密码 以获取访问密码。
+如果您第一次使用请前往公众号【[微聊小助手]()】发送 密码 或访问[forum.xr21.me](https://forum.xr21.me)以获取访问密码。
 或者您可以填入自己的 OpenAI API Key 以解除这个限制。
 
 ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)

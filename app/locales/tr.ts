@@ -5,7 +5,7 @@ const tr: LocaleType = {
   WIP: "Çalışma devam ediyor...",
   Error: {
     Unauthorized: `Erişim şifresi yanlış veya boş. Doğru erişim şifresini girmek için [设置](/#/settings) sayfasına gidin. 
-    İlk kez kullanıyorsanız, halka açık 【[微聊小助手]()】 hesabına gidin ve erişim şifresini almak için "密码" gönderin.
+    İlk kez kullanıyorsanız, halka açık 【[微聊小助手]()】 hesabına gidin ve erişim şifresini almak için "密码" gönderin. veya ziyaret edin [forum.xr21.me](https://forum.xr21.me)
      Ayrıca, bu sınırlamayı kaldırmak için kendi "OpenAI API Key" inizi girin.
     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
   },
