@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { getServerSideConfig } from "../config/server";
 import md5 from "spark-md5";
 import { ACCESS_CODE_PREFIX } from "../constant";
+import { OPENAI_URL } from "./common";
 
 const REQUEST_LIMIT = 10;
 const REQUEST_MAX_LIMIT = 30;
@@ -11,6 +12,7 @@ const ipRequests = new Map<string, { count: number; lastTimestamp: number }>();
 function getIP(req: NextRequest) {
   let ip = req.ip ?? req.headers.get("x-real-ip");
   const forwardedFor = req.headers.get("x-forwarded-for");
+
   if (!ip && forwardedFor) {
     ip = forwardedFor.split(",").at(0) ?? "";
   }
@@ -27,22 +29,15 @@ function parseApiKey(bearToken: string) {
   };
 }
 
-/**
- * 鉴权函数
- *
- * @param req Next.js API 路由处理函数的 req 参数
- * @returns 如果未通过鉴权，则返回一个包含 error、needAccessCode 和 msg 属性的对象；否则返回一个只包含 error 属性的对象
- */
 export function auth(req: NextRequest) {
-  // 获取请求头中 Authorization 字段的值，如果不存在则置为空字符串
   const authToken = req.headers.get("Authorization") ?? "";
-  // 解析 API 密钥
+
+  // check if it is openai api key or user token
   const { accessCode, apiKey: token } = parseApiKey(authToken);
-  // 对 accessCode 进行 MD5 哈希，并去除首尾空格，用于和配置文件中的哈希值比较
+
   const hashedCode = md5.hash(accessCode ?? "").trim();
   const remoteIp = getIP(req);
 
-  // 输出调试信息
   const serverConfig = getServerSideConfig();
   console.log("[Auth] allowed hashed codes: ", [...serverConfig.codes]);
   console.log("[Auth] got access code:", accessCode);
@@ -95,11 +90,10 @@ export function auth(req: NextRequest) {
       };
     }
   }
-  // return {error: true, msg: "Too many requests",status: 429};
-  // 如果用户没有提供 API Key，且系统配置了默认 API Key，则使用系统默认 API Key
+
+  // if user does not provide an api key, inject system api key
   if (!token) {
     const apiKey = serverConfig.apiKey;
-
     if (apiKey) {
       console.log("[Auth] use system api key");
       req.headers.set("Authorization", `Bearer ${apiKey}`);

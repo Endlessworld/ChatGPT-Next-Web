@@ -61,6 +61,7 @@ import { Avatar } from "./emoji";
 import { MaskAvatar, MaskConfig } from "./mask";
 import { useMaskStore } from "../store/mask";
 import { useCommand } from "../command";
+import { prettyObject } from "../utils/format";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -146,6 +147,7 @@ export function SessionConfigModel(props: { onClose: () => void }) {
             updater(mask);
             chatStore.updateCurrentSession((session) => (session.mask = mask));
           }}
+          shouldSyncFromGlobal
           extraListItems={
             session.mask.modelConfig.sendMemory ? (
               <ListItem
@@ -496,17 +498,28 @@ export function Chat() {
       const stopTiming = Date.now() - REQUEST_TIMEOUT_MS;
       session.messages.forEach((m) => {
         // check if should stop all stale messages
-        if (new Date(m.date).getTime() < stopTiming) {
+        if (m.isError || new Date(m.date).getTime() < stopTiming) {
           if (m.streaming) {
             m.streaming = false;
           }
 
           if (m.content.length === 0) {
-            m.content = "No content in this message.";
+            m.isError = true;
+            m.content = prettyObject({
+              error: true,
+              message: "empty response",
+            });
           }
         }
       });
+
+      // auto sync mask config from global config
+      if (session.mask.syncGlobalConfig) {
+        console.log("[Mask] syncing from global, name = ", session.mask.name);
+        session.mask.modelConfig = { ...config.modelConfig };
+      }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // check if should send message
@@ -573,7 +586,9 @@ export function Chat() {
     inputRef.current?.focus();
   };
 
-  const context: RenderMessage[] = session.mask.context.slice();
+  const context: RenderMessage[] = session.mask.hideContext
+    ? []
+    : session.mask.context.slice();
 
   const accessStore = useAccessStore();
 

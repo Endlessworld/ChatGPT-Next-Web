@@ -1,7 +1,7 @@
 import { SubmitKey } from "../store/config";
-import type { LocaleType } from "./index";
+import { RequiredLocaleType } from "./index";
 
-const en: LocaleType = {
+const en: RequiredLocaleType = {
   WIP: "Coming Soon...",
   Error: {
     Unauthorized: `The access password is incorrect or empty. Please go to page [settings](/#/settings) and enter the correct access password. 
@@ -75,21 +75,6 @@ const en: LocaleType = {
     Lang: {
       Name: "Language", // ATTENTION: if you wanna add a new translation, please do not translate this value, leave it as `Language`
       All: "All Languages",
-      Options: {
-        cn: "简体中文",
-        en: "English",
-        tw: "繁體中文",
-        fr: "Français",
-        es: "Español",
-        it: "Italiano",
-        tr: "Türkçe",
-        jp: "日本語",
-        de: "Deutsch",
-        vi: "Tiếng Việt",
-        ru: "Русский",
-        cs: "Čeština",
-        ko: "한국어",
-      },
     },
     Avatar: "Avatar",
     FontSize: {
@@ -236,6 +221,15 @@ const en: LocaleType = {
     Config: {
       Avatar: "Bot Avatar",
       Name: "Bot Name",
+      Sync: {
+        Title: "Use Global Config",
+        SubTitle: "Use global config in this chat",
+        Confirm: "Confirm to override custom config with global config?",
+      },
+      HideContext: {
+        Title: "Hide Context Prompts",
+        SubTitle: "Do not show in-context prompts in chat",
+      },
     },
   },
   NewChat: {
@@ -244,7 +238,7 @@ const en: LocaleType = {
     Title: "Pick a Mask",
     SubTitle: "Chat with the Soul behind the Mask",
     More: "Find More",
-    NotShow: "Not Show Again",
+    NotShow: "Dont Show Again",
     ConfirmNoShow: "Confirm to disable？You can enable it in settings later.",
   },
 
