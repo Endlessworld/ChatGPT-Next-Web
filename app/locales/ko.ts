@@ -9,6 +9,14 @@ const ko: LocaleType = {
     처음 사용하는 경우 【[微聊小助手]()】 공공 계정으로 이동하여 액세스 비밀번호를 얻으려면 "密码" 를 보내십시오 또는 방문 [forum.xr21.me](https://forum.xr21.me). 
     대체로, 자체 "Open AI API 키"를 입력하여이 제한을 제거 할 수 있습니다.
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
+    HelloMessage: `X-ChatGPT 에 오신 것을 환영합니다.
+      시간당 / IP당 15 회의 무료 체험 액세스를 제공하는 무료 채널이 있습니다.
+      액세스 비밀번호를 사용하여 시간당 / IP당 최대 30 회의 무료 액세스를 잠금 해제 할 수 있습니다.
+      다음 QR 코드를 스캔하고 WeChat 계정 "微聊小助手"을 구독하여 "password"를 보내면 무료로 액세스 비밀번호를 얻을 수 있습니다.
+      대신 자체 OpenAI API 키를 입력하여이 제한을 해제 할 수도 있습니다.
+      자세한 내용은 [ChatGPT forum](https://forum.xr21.me)를 방문하십시오.
+      ![weixin](/weixin-logo.png) ![tme](/t-logo.jpg)
+     `,
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count}개의 메시지`,

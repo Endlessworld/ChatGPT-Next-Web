@@ -8,6 +8,14 @@ const it: LocaleType = {
      Se la stai utilizzando per la prima volta, vai all'account pubblico 【[微聊小助手]()】 e invia "密码" o visita [forum.xr21.me](https://forum.xr21.me) per ottenere la password di accesso. 
      In alternativa, è possibile inserire il proprio "OpenAI API Key" per rimuovere questa limitazione.
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
+    HelloMessage: `Benvenuto su X-ChatGPT
+        È disponibile un canale gratuito che fornisce 15 accessi di prova gratuiti all'ora / IP.
+        È possibile utilizzare una password di accesso per sbloccare fino a 30 accessi gratuiti all'ora / IP.
+        È possibile scannerizzare il seguente codice QR e abbonarsi all'account WeChat "微聊小助手" per ottenere la password di accesso gratuitamente inviando "password".
+        In alternativa, è possibile inserire la propria chiave API OpenAI per rimuovere questa limitazione.
+        Per ulteriori informazioni, visitare  [ChatGPT forum](https://forum.xr21.me)
+      ![weixin](/weixin-logo.png) ![tme](/t-logo.jpg)
+     `,
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messaggi`,

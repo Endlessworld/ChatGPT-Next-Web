@@ -9,6 +9,14 @@ const cn = {
 
 ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)
 `,
+    HelloMessage: `欢迎使用X-ChatGPT
+    免费通道，暂时提供每小时15次/ip免费体验次数。
+    您可以使用访问密码解锁至每小时30次/ip。
+    您可以扫描以下二维码关注公众号【微聊小助手】发送【密码】以免费获取访问密码 。
+    或者您可以填入自己的 OpenAI API Key 以解除这个限制。
+    更多信息请访问[ChatGPT论坛](https://forum.xr21.me)
+    ![weixin](/weixin-logo.png)
+    `,
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,

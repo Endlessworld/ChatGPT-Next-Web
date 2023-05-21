@@ -9,6 +9,14 @@ const cs: LocaleType = {
     abyste získali přístupové heslo. Nebo můžete zadat svůj klíč "OpenAI API", aby se tato omezení odstranila.
     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)
     `,
+    HelloMessage: `Vítejte v "X-ChatGPT"
+      K dispozici je bezplatný kanál, který vám poskytuje 15 bezplatných zkušebních přístupů na hodinu / ip.
+      Můžete použít přístupové heslo k odemčení až 30 bezplatných přístupů na hodinu / ip.
+      Můžete naskenovat následující QR kód a odebírat veřejný účet WeChat "微聊小助手" a poslat "password" pro bezplatné získání přístupového hesla.
+      Nebo můžete zadat svůj vlastní OpenAI API klíč k odstranění tohoto omezení.
+      Další informace naleznete na [ChatGPT论坛](https://forum.xr21.me)
+      ![weixin](/weixin-logo.png) ![tme](/t-logo.jpg)
+     `,
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} zpráv`,

@@ -8,6 +8,13 @@ const tw: LocaleType = {
     如果您是第一次使用，請前往公眾號 【[微聊小助手]()】 發送 "密码" 或者訪問 [forum.xr21.me](https://forum.xr21.me) 以獲取存取密碼。
     或者，您可以填寫自己的 "OpenAI API Key" 以解除此限制。
     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
+    HelloMessage: `歡迎使用X-ChatGPT
+      提供每小時/IP 15 次免費試用，可使用存取密碼解鎖至每小時/IP 30 次免費試用。
+      您可以掃描以下 QR 碼訂閱 WeChat 公眾號 "微聊小助手"，並發送 "密碼" 以免費獲取存取密碼。
+      或者您可以輸入自己的 OpenAI API 金鑰以解除此限制。
+      更多信息請訪問[ChatGPT forum](https://forum.xr21.me)
+      ![weixin](/weixin-logo.png) ![tme](/t-logo.jpg)
+     `,
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 條對話`,

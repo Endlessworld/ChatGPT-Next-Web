@@ -1,5 +1,5 @@
 import { useDebouncedCallback } from "use-debounce";
-import { useState, useRef, useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
@@ -24,26 +24,26 @@ import BottomIcon from "../icons/bottom.svg";
 import StopIcon from "../icons/pause.svg";
 
 import {
-  ChatMessage,
-  SubmitKey,
-  useChatStore,
   BOT_HELLO,
+  ChatMessage,
   createMessage,
-  useAccessStore,
-  Theme,
-  useAppConfig,
   DEFAULT_TOPIC,
+  SubmitKey,
+  Theme,
+  useAccessStore,
+  useAppConfig,
+  useChatStore,
 } from "../store";
 
 import {
+  autoGrowTextArea,
   copyToClipboard,
   downloadAs,
-  selectOrCopy,
-  autoGrowTextArea,
-  useMobileScreen,
   isIdeaPlugin,
   Merge,
   Replace,
+  selectOrCopy,
+  useMobileScreen,
 } from "../utils";
 
 import dynamic from "next/dynamic";
@@ -56,7 +56,7 @@ import { IconButton } from "./button";
 import styles from "./home.module.scss";
 import chatStyle from "./chat.module.scss";
 
-import { ListItem, Modal, showModal, showToast } from "./ui-lib";
+import { ListItem, Modal, showModal } from "./ui-lib";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LAST_INPUT_KEY, Path, REQUEST_TIMEOUT_MS } from "../constant";
 import { Avatar } from "./emoji";
@@ -645,7 +645,7 @@ export function Chat() {
   ) {
     const copiedHello = Object.assign({}, BOT_HELLO);
     if (!accessStore.isAuthorized()) {
-      copiedHello.content = Locale.Error.Unauthorized;
+      copiedHello.content = Locale.Error.HelloMessage;
     }
     context.push(copiedHello);
   }
@@ -849,6 +849,10 @@ export function Chat() {
                             >
                               {Locale.Chat.Actions.Retry}
                             </div>
+                          </>
+                        )}
+                        {isIdeaPlugin() ? (
+                          <>
                             <div
                               className={styles["chat-message-top-action"]}
                               onClick={() => Replace(message.content)}
@@ -862,8 +866,9 @@ export function Chat() {
                               {Locale.Chat.Actions.Merge}
                             </div>
                           </>
+                        ) : (
+                          <></>
                         )}
-
                         <div
                           className={styles["chat-message-top-action"]}
                           onClick={() => copyToClipboard(message.content)}
@@ -880,7 +885,10 @@ export function Chat() {
                       }
                       onContextMenu={(e) => onRightClick(e, message)}
                       onDoubleClickCapture={() => {
-                        if (!isMobileScreen) return;
+                        if (isIdeaPlugin()) {
+                          Merge(message.content);
+                        }
+                        if (!isMobileScreen || isIdeaPlugin()) return;
                         setUserInput(message.content);
                       }}
                       fontSize={fontSize}
