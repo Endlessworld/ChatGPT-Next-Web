@@ -233,6 +233,15 @@ export function PromptHints(props: {
     };
 
     window.addEventListener("keydown", onKeyDown);
+    (window as any).XAction = function (query: string) {
+      const textarea = document.querySelector(
+        ".home_chat-input__qM_hd",
+      ) as HTMLTextAreaElement;
+      textarea.value = query;
+      console.log(textarea);
+      textarea.dispatchEvent(new Event("input", { bubbles: true }));
+      (window as any).doSubmit(textarea.value);
+    };
 
     return () => window.removeEventListener("keydown", onKeyDown);
     // eslint-disable-next-line react-hooks/exhaustive-deps
