@@ -3,7 +3,12 @@ import Locale from "../locales";
 import styles from "./exporter.module.scss";
 import { List, ListItem, Modal, showToast } from "./ui-lib";
 import { IconButton } from "./button";
-import { copyToClipboard, downloadAs, useMobileScreen } from "../utils";
+import {
+  copyToClipboard,
+  downloadAs,
+  isIdeaPlugin,
+  useMobileScreen,
+} from "../utils";
 
 import CopyIcon from "../icons/copy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
@@ -295,7 +300,7 @@ export function ImagePreviewer(props: {
       .then((blob) => {
         if (!blob) return;
 
-        if (isMobile) {
+        if (isMobile && !isIdeaPlugin()) {
           const image = new Image();
           image.src = blob;
           const win = window.open("");
