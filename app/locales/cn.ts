@@ -4,7 +4,7 @@ const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
     Unauthorized: `访问密码不正确或为空，请前往[设置](/#/settings)页输入正确的访问密码，
-如果您第一次使用请前往公众号【[微聊小助手]()】发送 密码 或访问[forum.xr21.me](https://forum.xr21.me)以获取访问密码。
+如果您第一次使用请关注公众号【[微聊小助手]()】或访问[forum.xr21.me](https://forum.xr21.me)以获取访问密码。
 或者您可以填入自己的 OpenAI API Key 以解除这个限制。
 
 ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)
@@ -12,7 +12,7 @@ const cn = {
     HelloMessage: `欢迎使用X-ChatGPT
     免费通道，暂时提供每小时15次/ip免费体验次数。
     您可以使用访问密码解锁至每小时30次/ip。
-    您可以扫描以下二维码关注公众号【微聊小助手】发送【密码】以免费获取访问密码 。
+    您可以扫描以下二维码关注公众号【微聊小助手】以免费获取访问密码 。
     或者您可以填入自己的 OpenAI API Key 以解除这个限制。
     更多信息请访问[ChatGPT论坛](https://forum.xr21.me)
     ![weixin](/weixin-logo.png)
