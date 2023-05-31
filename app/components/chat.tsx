@@ -58,7 +58,7 @@ import styles from "./home.module.scss";
 import chatStyle from "./chat.module.scss";
 
 import { List, ListItem, Modal, showModal } from "./ui-lib";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Path } from "../constant";
 import { Avatar } from "./emoji";
 import { MaskAvatar, MaskConfig } from "./mask";
