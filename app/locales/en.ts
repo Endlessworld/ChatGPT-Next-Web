@@ -32,6 +32,7 @@ const en: RequiredLocaleType = {
       Delete: "Delete",
       Replace: "Replace",
       Merge: "Merge",
+      Speak: "Speak",
     },
     Rename: "Rename Chat",
     Typing: "Typing…",
@@ -188,6 +189,7 @@ const en: RequiredLocaleType = {
       SubTitle:
         "A larger value increases the likelihood to talk about new topics",
     },
+    Voice: "Voice",
   },
   Store: {
     DefaultTopic: "New Conversation",
@@ -220,6 +222,9 @@ const en: RequiredLocaleType = {
     Add: "Add a Prompt",
     Clear: "Context Cleared",
     Revert: "Revert",
+  },
+  Voice: {
+    Edit: "Voice Preference",
   },
   Plugin: {
     Name: "Plugin",

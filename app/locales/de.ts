@@ -31,6 +31,7 @@ const de: LocaleType = {
       Stop: "Stop",
       Retry: "Wiederholen",
       Delete: "Delete",
+      Speak: "Sprechen",
       Replace: "Ausgewählte ersetzen",
       Merge: "Code zusammenführen",
     },
@@ -172,6 +173,7 @@ const de: LocaleType = {
       SubTitle:
         "Ein größerer Wert erhöht die Wahrscheinlichkeit, dass über neue Themen gesprochen wird",
     },
+    Voice: "Stimme",
   },
   Store: {
     DefaultTopic: "Neues Gespräch",
@@ -206,6 +208,9 @@ const de: LocaleType = {
     Toast: (x: any) => `Mit ${x} Kontext-Prompts`,
     Edit: "Kontext- und Gedächtnis-Prompts",
     Add: "Hinzufügen",
+  },
+  Voice: {
+    Edit: "Stimmeinstellungen",
   },
   Plugin: {
     Name: "Plugin",

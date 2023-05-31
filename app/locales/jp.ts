@@ -32,6 +32,7 @@ const jp: LocaleType = {
       Delete: "Delete",
       Replace: "選択されたものを置換する",
       Merge: "コードをマージする",
+      Speak: "話す",
     },
     Rename: "チャットの名前を変更",
     Typing: "入力中…",
@@ -171,6 +172,7 @@ const jp: LocaleType = {
       Title: "トピックの新鮮度 (presence_penalty)",
       SubTitle: "値が大きいほど、新しいトピックへの展開が可能になります。",
     },
+    Voice: "音声",
   },
   Store: {
     DefaultTopic: "新しいチャット",
@@ -202,6 +204,9 @@ const jp: LocaleType = {
     Toast: (x: any) => `前置コンテキストが ${x} 件設定されました`,
     Edit: "前置コンテキストと履歴メモリ",
     Add: "新規追加",
+  },
+  Voice: {
+    Edit: "音声設定",
   },
   Plugin: { Name: "插件" },
   Mask: {
