@@ -208,7 +208,12 @@ const jp: LocaleType = {
   Voice: {
     Edit: "音声設定",
   },
-  Plugin: { Name: "插件" },
+  Plugin: {
+    Name: "插件",
+  },
+  Shopping: {
+    Name: "ショッピング",
+  },
   Mask: {
     Name: "面具",
     Page: {

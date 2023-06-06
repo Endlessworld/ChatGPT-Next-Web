@@ -229,6 +229,9 @@ const en: RequiredLocaleType = {
   Plugin: {
     Name: "Plugin",
   },
+  Shopping: {
+    Name: "Shopping",
+  },
   Mask: {
     Name: "Mask",
     Page: {

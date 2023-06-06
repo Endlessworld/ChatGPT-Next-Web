@@ -202,6 +202,9 @@ const ko: LocaleType = {
   Plugin: {
     Name: "플러그인",
   },
+  Shopping: {
+    Name: "쇼핑",
+  },
   Mask: {
     Name: "마스크",
     Page: {

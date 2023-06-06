@@ -29,6 +29,7 @@ import {
   useAppConfig,
   useChatStore,
   useUpdateStore,
+  useNoticeStore,
 } from "../store";
 
 import Locale, {
@@ -217,13 +218,11 @@ export function Settings() {
   const updateConfig = config.update;
   const resetConfig = config.reset;
   const chatStore = useChatStore();
-
   const updateStore = useUpdateStore();
   const [checkingUpdate, setCheckingUpdate] = useState(false);
   const currentVersion = formatVersionDate(updateStore.version);
   const remoteId = formatVersionDate(updateStore.remoteVersion);
   const hasNewVersion = currentVersion !== remoteId;
-
   function checkUpdate(force = false) {
     setCheckingUpdate(true);
     updateStore.getLatestVersion(force).then(() => {

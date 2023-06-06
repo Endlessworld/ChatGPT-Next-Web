@@ -9,10 +9,12 @@ import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
+import AnnouncementIcon from "../icons/announcement.svg";
+import UserIcon from "../icons/user.svg";
+import ShoppingIcon from "../icons/shopping.svg";
 
 import Locale from "../locales";
-
-import { useAppConfig, useChatStore } from "../store";
+import { useAppConfig, useNoticeStore, useChatStore } from "../store";
 
 import {
   MAX_SIDEBAR_WIDTH,
@@ -24,7 +26,8 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
-import { showToast } from "./ui-lib";
+import { showModal, showToast } from "./ui-lib";
+import { Markdown } from "@/app/components/markdown";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
@@ -107,7 +110,7 @@ export function SideBar(props: { className?: string }) {
   const { onDragMouseDown, shouldNarrow } = useDragSideBar();
   const navigate = useNavigate();
   const config = useAppConfig();
-
+  const notice = useNoticeStore((store) => store.notice) ?? "当前无公告";
   useHotKey();
 
   return (
@@ -118,7 +121,7 @@ export function SideBar(props: { className?: string }) {
     >
       <div className={styles["sidebar-header"]}>
         <div className={styles["sidebar-title"]}>X-ChatGPT</div>
-        <div className={styles["sidebar-sub-title"]}>打造全网最快GPT</div>
+        <div className={styles["sidebar-sub-title"]}>打造最快GPT</div>
         <div className={styles["sidebar-logo"] + " no-dark"}>
           <ChatGptIcon />
         </div>
@@ -132,13 +135,20 @@ export function SideBar(props: { className?: string }) {
           onClick={() => navigate(Path.NewChat, { state: { fromHome: true } })}
           shadow
         />
-        <IconButton
-          icon={<PluginIcon />}
-          text={shouldNarrow ? undefined : Locale.Plugin.Name}
-          className={styles["sidebar-bar-button"]}
-          onClick={() => showToast(Locale.WIP)}
-          shadow
-        />
+        {/*<IconButton*/}
+        {/*  icon={<PluginIcon />}*/}
+        {/*  text={shouldNarrow ? undefined : Locale.Plugin.Name}*/}
+        {/*  className={styles["sidebar-bar-button"]}*/}
+        {/*  onClick={() => showToast(Locale.WIP)}*/}
+        {/*  shadow*/}
+        {/*/>*/}
+        {/*<IconButton*/}
+        {/*    icon={<ShoppingIcon />}*/}
+        {/*    text={shouldNarrow ? undefined : Locale.Shopping.Name}*/}
+        {/*    className={styles["sidebar-bar-button"]}*/}
+        {/*    onClick={() => showToast(Locale.WIP)}*/}
+        {/*    shadow*/}
+        {/*/>*/}
       </div>
 
       <div
@@ -168,6 +178,27 @@ export function SideBar(props: { className?: string }) {
             <Link to={Path.Settings}>
               <IconButton icon={<SettingsIcon />} shadow />
             </Link>
+          </div>
+          <div className={styles["sidebar-action"]}>
+            <IconButton
+              icon={<AnnouncementIcon />}
+              onClick={() => {
+                console.log(notice);
+                showModal({
+                  title: "公告",
+                  children: (
+                    <Markdown content={Locale.Error.HelloMessage} defaultShow />
+                  ),
+                  onClose: () => {},
+                });
+              }}
+            />
+          </div>
+
+          <div className={styles["sidebar-action"]}>
+            <a href="https://forum.xr21.me" target="_blank">
+              <IconButton icon={<UserIcon />} shadow />
+            </a>
           </div>
         </div>
         <div>

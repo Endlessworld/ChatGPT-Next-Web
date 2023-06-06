@@ -211,6 +211,9 @@ const tr: LocaleType = {
   Plugin: {
     Name: "Plugin",
   },
+  Shopping: {
+    Name: "Alışveriş",
+  },
   Mask: {
     Name: "Mask",
     Page: {

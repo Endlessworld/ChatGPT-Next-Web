@@ -228,6 +228,9 @@ const cn = {
   Plugin: {
     Name: "插件",
   },
+  Shopping: {
+    Name: "商店",
+  },
   Mask: {
     Name: "面具",
     Page: {

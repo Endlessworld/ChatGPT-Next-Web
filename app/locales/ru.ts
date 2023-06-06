@@ -206,6 +206,9 @@ const ru: LocaleType = {
   Plugin: {
     Name: "Плагин",
   },
+  Shopping: {
+    Name: "Шоппинг",
+  },
   Mask: {
     Name: "Маска",
     Page: {

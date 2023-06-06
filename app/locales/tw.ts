@@ -201,7 +201,12 @@ const tw: LocaleType = {
   Voice: {
     Edit: "語音偏好",
   },
-  Plugin: { Name: "插件" },
+  Plugin: {
+    Name: "插件",
+  },
+  Shopping: {
+    Name: "購物",
+  },
   Mask: {
     Name: "面具",
     Page: {

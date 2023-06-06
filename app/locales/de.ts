@@ -215,6 +215,9 @@ const de: LocaleType = {
   Plugin: {
     Name: "Plugin",
   },
+  Shopping: {
+    Name: "Einkaufen",
+  },
   Mask: {
     Name: "Mask",
     Page: {

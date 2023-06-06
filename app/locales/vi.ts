@@ -204,6 +204,9 @@ const vi: LocaleType = {
   Plugin: {
     Name: "Plugin",
   },
+  Shopping: {
+    Name: "Mua sắm",
+  },
   Mask: {
     Name: "Mẫu",
     Page: {
