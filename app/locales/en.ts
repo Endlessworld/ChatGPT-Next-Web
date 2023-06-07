@@ -17,6 +17,13 @@ const en: RequiredLocaleType = {
       ![weixin](/weixin-logo.png) ![tme](/t-logo.jpg)
      `,
   },
+  Auth: {
+    Title: "Need Access Code",
+    Tips: "Please enter access code below",
+    Input: "access code",
+    Confirm: "Confirm",
+    Later: "Later",
+  },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,
   },

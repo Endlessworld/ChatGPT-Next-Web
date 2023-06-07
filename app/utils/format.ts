@@ -6,5 +6,8 @@ export function prettyObject(msg: any) {
   if (msg === "{}") {
     return obj.toString();
   }
+  if (msg.startsWith("```json")) {
+    return msg;
+  }
   return ["\n```json", msg, "```"].join("\n");
 }
