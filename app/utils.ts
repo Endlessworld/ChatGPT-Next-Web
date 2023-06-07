@@ -149,12 +149,10 @@ export function useMobileScreen() {
 
 export function useUserInfo(): any {
   let userInfo = getCookie("user_info");
-  console.log(userInfo);
   return JSON.parse(userInfo);
 }
 export function useUserAvatar(): any {
   let userInfo = getCookie("user_info");
-  console.log(userInfo);
   return JSON.parse(userInfo).custom_avatar;
 }
 export function getCookie(name: string | any[]) {
