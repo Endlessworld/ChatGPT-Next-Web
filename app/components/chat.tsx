@@ -1,5 +1,5 @@
 import { useDebouncedCallback } from "use-debounce";
-import { useState, useRef, useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
@@ -46,6 +46,7 @@ import {
   Replace,
   selectOrCopy,
   useMobileScreen,
+  useUserInfo,
 } from "../utils";
 
 import dynamic from "next/dynamic";
@@ -326,6 +327,7 @@ export function PromptHints(props: {
       console.log(textarea);
       textarea.dispatchEvent(new Event("input", { bubbles: true }));
       (window as any).doSubmit(textarea.value);
+      textarea.focus();
     };
 
     return () => window.removeEventListener("keydown", onKeyDown);
@@ -543,7 +545,7 @@ export function Chat() {
   const [soundOn, setSoundOn] = useState(true);
   const isMobileScreen = useMobileScreen();
   const navigate = useNavigate();
-
+  const userInfo = useUserInfo();
   const onChatBodyScroll = (e: HTMLElement) => {
     const isTouchBottom = e.scrollTop + e.clientHeight >= e.scrollHeight - 100;
     setHitBottom(isTouchBottom);

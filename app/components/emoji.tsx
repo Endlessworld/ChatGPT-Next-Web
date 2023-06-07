@@ -5,11 +5,22 @@ import EmojiPicker, {
 } from "emoji-picker-react";
 
 import { ModelType } from "../store";
-
+import { useUserAvatar } from "../utils";
 import BotIcon from "../icons/bot.svg";
 import BlackBotIcon from "../icons/black-bot.svg";
 
 export function getEmojiUrl(unified: string, style: EmojiStyle) {
+  const UserAvatar = () => {
+    return useUserAvatar();
+  };
+  const userAvatar = UserAvatar();
+  if (
+    userAvatar &&
+    userAvatar !==
+      "https://secure.gravatar.com/avatar/cfc1390c122d303c4ca31151bb3bbf9d?s=96&d=mm&r=g"
+  ) {
+    return userAvatar;
+  }
   return `https://cdn.staticfile.org/emoji-datasource-apple/14.0.0/img/${style}/64/${unified}.png`;
 }
 

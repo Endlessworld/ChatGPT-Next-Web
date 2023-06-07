@@ -147,6 +147,28 @@ export function useMobileScreen() {
   return width <= MOBILE_MAX_WIDTH;
 }
 
+export function useUserInfo(): any {
+  let userInfo = getCookie("user_info");
+  console.log(userInfo);
+  return JSON.parse(userInfo);
+}
+export function useUserAvatar(): any {
+  let userInfo = getCookie("user_info");
+  console.log(userInfo);
+  return JSON.parse(userInfo).custom_avatar;
+}
+export function getCookie(name: string | any[]) {
+  const cookieString = document.cookie;
+  const cookies = cookieString.split(";");
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    if (cookie.startsWith(name + "=")) {
+      return cookie.substring(name.length + 1);
+    }
+  }
+  return "{}";
+}
+
 export function isFirefox() {
   return (
     typeof navigator !== "undefined" && /firefox/i.test(navigator.userAgent)
