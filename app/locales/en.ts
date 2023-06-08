@@ -10,7 +10,7 @@ const en: RequiredLocaleType = {
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
     HelloMessage: `Welcome to "X-ChatGPT"
       A free channel is available that provides you with 15 free trial accesses per hour / IP.
-      You can use an access password to unlock up to 30 free accesses per hour / IP.
+      You can use an access password to unlock up to 50 free accesses per hour / IP.
       You can scan the following QR code and subscribe to the WeChat account "微聊小助手" to get the access password for free by sending "password".
       Alternatively, you can enter your own OpenAI API key to remove this limitation.
       For more information, please visit [ChatGPT forum](https://forum.xr21.me)
@@ -115,6 +115,12 @@ const en: RequiredLocaleType = {
     FontSize: {
       Title: "Font Size",
       SubTitle: "Adjust font size of chat content",
+    },
+    User: {
+      Title: "Username",
+      SubTitle: "Login to sync user information",
+      PointsTitle: "User Points",
+      PointsSubTitle: "Community user points can be exchanged for usage",
     },
     Update: {
       Version: (x: string) => `Version: ${x}`,

@@ -90,6 +90,13 @@ const vi: LocaleType = {
       Title: "Font chữ",
       SubTitle: "Thay đổi font chữ của nội dung trò chuyện",
     },
+    User: {
+      Title: "Tên đăng nhập",
+      SubTitle: "Đăng nhập để đồng bộ thông tin người dùng",
+      PointsTitle: "Điểm người dùng",
+      PointsSubTitle:
+        "Điểm người dùng của cộng đồng có thể đổi lấy quyền sử dụng",
+    },
     Update: {
       Version: (x: string) => `Phiên bản: ${x}`,
       IsLatest: "Phiên bản mới nhất",

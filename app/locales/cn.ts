@@ -11,7 +11,7 @@ const cn = {
 `,
     HelloMessage: `欢迎使用X-ChatGPT
     免费通道，暂时提供每小时15次/ip免费体验次数。
-    您可以使用访问密码解锁至每小时30次/ip。
+    您可以使用访问密码解锁至每小时50次/ip。
     您可以扫描以下二维码关注公众号【微聊小助手】以免费获取访问密码 。
     或者您可以填入自己的 OpenAI API Key 以解除这个限制。
     更多信息请访问[ChatGPT论坛](https://forum.xr21.me)
@@ -116,7 +116,12 @@ const cn = {
       Title: "字体大小",
       SubTitle: "聊天内容的字体大小",
     },
-
+    User: {
+      Title: "用户名",
+      SubTitle: "登录后可同步用户信息",
+      PointsTitle: "用户积分",
+      PointsSubTitle: "社区用户积分可兑换使用次数",
+    },
     Update: {
       Version: (x: string) => `当前版本：${x}`,
       IsLatest: "已是最新版本",

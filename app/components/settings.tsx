@@ -38,7 +38,7 @@ import Locale, {
   changeLang,
   getLang,
 } from "../locales";
-import { copyToClipboard } from "../utils";
+import { copyToClipboard, useUserInfo } from "../utils";
 import Link from "next/link";
 import { Path, UPDATE_URL } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
@@ -46,6 +46,7 @@ import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarPicker } from "./emoji";
+import UserIcon from "@/app/icons/user.svg";
 
 function EditPromptModal(props: { id: number; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -223,6 +224,7 @@ export function Settings() {
   const currentVersion = formatVersionDate(updateStore.version);
   const remoteId = formatVersionDate(updateStore.remoteVersion);
   const hasNewVersion = currentVersion !== remoteId;
+  const userInfo = useUserInfo();
   function checkUpdate(force = false) {
     setCheckingUpdate(true);
     updateStore.getLatestVersion(force).then(() => {
@@ -333,6 +335,32 @@ export function Settings() {
       </div>
       <div className={styles["settings"]}>
         <List>
+          <ListItem
+            title={Locale.Settings.User.Title}
+            subTitle={Locale.Settings.User.SubTitle}
+          >
+            <div className={styles["sidebar-action"]}>
+              <a href="https://forum.xr21.me/user/level" target="_blank">
+                <IconButton
+                  text={
+                    userInfo.display_name ? userInfo.display_name : "未登录"
+                  }
+                  icon={<UserIcon />}
+                  shadow
+                />
+              </a>
+            </div>
+          </ListItem>
+          {/*{userInfo.points && userInfo.points !== '' &&*/}
+          {/*    <ListItem title={Locale.Settings.User.PointsTitle}*/}
+          {/*              subTitle={Locale.Settings.User.PointsSubTitle}*/}
+          {/*    >*/}
+          {/*      <div className={styles["sidebar-action"]}>*/}
+          {/*        {userInfo.points}*/}
+          {/*      </div>*/}
+          {/*    </ListItem>*/}
+          {/*}*/}
+
           <ListItem title={Locale.Settings.Avatar}>
             <Popover
               onClose={() => setShowEmojiPicker(false)}
@@ -350,35 +378,35 @@ export function Settings() {
                 className={styles.avatar}
                 onClick={() => setShowEmojiPicker(true)}
               >
-                <Avatar avatar={config.avatar} />
+                <Avatar avatar={config.avatar} isChatAvatar={true} />
               </div>
             </Popover>
           </ListItem>
 
-          <ListItem
-            title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}
-            subTitle={
-              checkingUpdate
-                ? Locale.Settings.Update.IsChecking
-                : hasNewVersion
-                ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")
-                : Locale.Settings.Update.IsLatest
-            }
-          >
-            {checkingUpdate ? (
-              <LoadingIcon />
-            ) : hasNewVersion ? (
-              <Link href={UPDATE_URL} target="_blank" className="link">
-                {Locale.Settings.Update.GoToUpdate}
-              </Link>
-            ) : (
-              <IconButton
-                icon={<ResetIcon></ResetIcon>}
-                text={Locale.Settings.Update.CheckUpdate}
-                onClick={() => checkUpdate(true)}
-              />
-            )}
-          </ListItem>
+          {/*<ListItem*/}
+          {/*  title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}*/}
+          {/*  subTitle={*/}
+          {/*    checkingUpdate*/}
+          {/*      ? Locale.Settings.Update.IsChecking*/}
+          {/*      : hasNewVersion*/}
+          {/*      ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")*/}
+          {/*      : Locale.Settings.Update.IsLatest*/}
+          {/*  }*/}
+          {/*>*/}
+          {/*  {checkingUpdate ? (*/}
+          {/*    <LoadingIcon />*/}
+          {/*  ) : hasNewVersion ? (*/}
+          {/*    <Link href={UPDATE_URL} target="_blank" className="link">*/}
+          {/*      {Locale.Settings.Update.GoToUpdate}*/}
+          {/*    </Link>*/}
+          {/*  ) : (*/}
+          {/*    <IconButton*/}
+          {/*      icon={<ResetIcon></ResetIcon>}*/}
+          {/*      text={Locale.Settings.Update.CheckUpdate}*/}
+          {/*      onClick={() => checkUpdate(true)}*/}
+          {/*    />*/}
+          {/*  )}*/}
+          {/*</ListItem>*/}
 
           <ListItem title={Locale.Settings.SendKey}>
             <Select

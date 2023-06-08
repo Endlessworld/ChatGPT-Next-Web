@@ -4,7 +4,7 @@ import md5 from "spark-md5";
 import { ACCESS_CODE_PREFIX } from "../constant";
 
 const REQUEST_LIMIT = 15;
-const REQUEST_MAX_LIMIT = 30;
+const REQUEST_MAX_LIMIT = 50;
 const REQUEST_LIMIT_TIME = 60 * 60 * 1000; // 将时间转换为毫秒
 const ipRequests = new Map<string, { count: number; lastTimestamp: number }>();
 
@@ -76,7 +76,9 @@ export function auth(req: NextRequest) {
         msg:
           "当前为免费通道，暂时提供每小时" +
           REQUEST_LIMIT +
-          "次/ip免费体验次数。继续使用请以访问密码解锁至每小时30次/ip，请前往设置页面填写您的 Access Code 或 OpenAI API Key",
+          "次/ip免费体验次数。继续使用请以访问密码解锁至每小时" +
+          REQUEST_MAX_LIMIT +
+          "次/ip，请前往设置页面填写您的 Access Code 或 OpenAI API Key",
         status: 401,
       };
     }

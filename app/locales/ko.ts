@@ -11,7 +11,7 @@ const ko: LocaleType = {
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
     HelloMessage: `X-ChatGPT 에 오신 것을 환영합니다.
       시간당 / IP당 15 회의 무료 체험 액세스를 제공하는 무료 채널이 있습니다.
-      액세스 비밀번호를 사용하여 시간당 / IP당 최대 30 회의 무료 액세스를 잠금 해제 할 수 있습니다.
+      액세스 비밀번호를 사용하여 시간당 / IP당 최대 50 회의 무료 액세스를 잠금 해제 할 수 있습니다.
       다음 QR 코드를 스캔하고 WeChat 계정 "微聊小助手"을 구독하여 "password"를 보내면 무료로 액세스 비밀번호를 얻을 수 있습니다.
       대신 자체 OpenAI API 키를 입력하여이 제한을 해제 할 수도 있습니다.
       자세한 내용은 [ChatGPT forum](https://forum.xr21.me)를 방문하십시오.
@@ -89,6 +89,13 @@ const ko: LocaleType = {
     FontSize: {
       Title: "글꼴 크기",
       SubTitle: "채팅 내용의 글꼴 크기 조정",
+    },
+    User: {
+      Title: "사용자 이름",
+      SubTitle: "로그인하여 사용자 정보를 동기화할 수 있습니다",
+      PointsTitle: "사용자 포인트",
+      PointsSubTitle:
+        "커뮤니티 사용자 포인트는 사용 권한으로 교환할 수 있습니다",
     },
     Update: {
       Version: (x: string) => `버전: ${x}`,

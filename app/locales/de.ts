@@ -11,7 +11,7 @@ const de: LocaleType = {
     `,
     HelloMessage: `Willkommen bei "X-ChatGPT"
       Es steht ein kostenloser Kanal zur Verfügung, der Ihnen 15 kostenlose Testzugriffe pro Stunde / IP bietet.
-      Sie können ein Zugriffspasswort verwenden, um bis zu 30 kostenlose Zugriffe pro Stunde / IP freizuschalten.
+      Sie können ein Zugriffspasswort verwenden, um bis zu 50 kostenlose Zugriffe pro Stunde / IP freizuschalten.
       Sie können den folgenden QR-Code scannen und das WeChat-Konto "微聊小助手" abonnieren, um das Zugriffspasswort kostenlos zu erhalten, indem Sie "password" senden.
       Alternativ können Sie Ihren eigenen OpenAI-API-Schlüssel eingeben, um diese Einschränkung aufzuheben.
       Weitere Informationen finden Sie auf [ChatGPT论坛](https://forum.xr21.me)
@@ -91,6 +91,14 @@ const de: LocaleType = {
     FontSize: {
       Title: "Schriftgröße",
       SubTitle: "Schriftgröße des Chat-Inhalts anpassen",
+    },
+    User: {
+      Title: "Benutzername",
+      SubTitle:
+        "Nach der Anmeldung können Benutzerinformationen synchronisiert werden",
+      PointsTitle: "Benutzerpunkte",
+      PointsSubTitle:
+        "Community-Benutzerpunkte können gegen die Verwendung eingetauscht werden",
     },
     Update: {
       Version: (x: string) => `Version: ${x}`,

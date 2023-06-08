@@ -10,7 +10,7 @@ const jp: LocaleType = {
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
     HelloMessage: `「X-ChatGPT」へようこそ
       時間あたり/ IPあたり15回の無料トライアルアクセスを提供する無料のチャンネルがあります。
-      アクセスパスワードを使用して、時間あたり/ IPあたり最大30回の無料アクセスをアンロックできます。
+      アクセスパスワードを使用して、時間あたり/ IPあたり最大50回の無料アクセスをアンロックできます。
       次のQRコードをスキャンして、WeChatアカウント「微聊小助手」を購読し、「password」と送信してアクセスパスワードを無料で取得することができます。
       代わりに、独自のOpenAI APIキーを入力して、この制限を解除することもできます。
       詳細については、[ChatGPT forum](https://forum.xr21.me)をご覧ください 
@@ -90,7 +90,12 @@ const jp: LocaleType = {
       Title: "フォントサイズ",
       SubTitle: "チャット内容のフォントサイズ",
     },
-
+    User: {
+      Title: "ユーザー名",
+      SubTitle: "ログインしてユーザー情報を同期できます",
+      PointsTitle: "ユーザーポイント",
+      PointsSubTitle: "コミュニティユーザーポイントは使用に交換できます",
+    },
     Update: {
       Version: (x: string) => `現在のバージョン：${x}`,
       IsLatest: "最新バージョンです",

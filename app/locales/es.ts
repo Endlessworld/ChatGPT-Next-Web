@@ -10,7 +10,7 @@ const es: LocaleType = {
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
     HelloMessage: `Bienvenido a "X-ChatGPT"
       Hay un canal gratuito disponible que le proporciona 15 accesos de prueba gratuitos por hora / IP.
-      Puede utilizar una contraseña de acceso para desbloquear hasta 30 accesos gratuitos por hora / IP.
+      Puede utilizar una contraseña de acceso para desbloquear hasta 50 accesos gratuitos por hora / IP.
       Puede escanear el siguiente código QR y suscribirse a la cuenta de WeChat "微聊小助手" para obtener la contraseña de acceso de forma gratuita enviando "password".
       Alternativamente, puede ingresar su propia clave de API de OpenAI para eliminar esta limitación.
       Para obtener más información, visite [ChatGPT forum](https://forum.xr21.me)
@@ -89,6 +89,13 @@ const es: LocaleType = {
     FontSize: {
       Title: "Tamaño de fuente",
       SubTitle: "Ajustar el tamaño de fuente del contenido del chat",
+    },
+    User: {
+      Title: "Nombre de usuario",
+      SubTitle: "Inicie sesión para sincronizar la información del usuario",
+      PointsTitle: "Puntos de usuario",
+      PointsSubTitle:
+        "Los puntos de usuario de la comunidad se pueden intercambiar por el uso",
     },
     Update: {
       Version: (x: string) => `Versión: ${x}`,

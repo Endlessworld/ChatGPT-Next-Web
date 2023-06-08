@@ -9,7 +9,7 @@ import { useUserAvatar } from "../utils";
 import BotIcon from "../icons/bot.svg";
 import BlackBotIcon from "../icons/black-bot.svg";
 
-export function getEmojiUrl(unified: string, style: EmojiStyle) {
+export function getChatAvatarUrl(unified: string, style: EmojiStyle) {
   const UserAvatar = () => {
     return useUserAvatar();
   };
@@ -23,7 +23,6 @@ export function getEmojiUrl(unified: string, style: EmojiStyle) {
   }
   return `https://cdn.staticfile.org/emoji-datasource-apple/14.0.0/img/${style}/64/${unified}.png`;
 }
-
 export function getEmojiPickerUrl(unified: string, style: EmojiStyle) {
   return `https://cdn.staticfile.org/emoji-datasource-apple/14.0.0/img/${style}/64/${unified}.png`;
 }
@@ -42,7 +41,12 @@ export function AvatarPicker(props: {
   );
 }
 
-export function Avatar(props: { model?: ModelType; avatar?: string }) {
+export function Avatar(props: {
+  model?: ModelType;
+  avatar?: string;
+  size?: number;
+  isChatAvatar?: boolean;
+}) {
   if (props.model) {
     return (
       <div className="no-dark">
@@ -57,17 +61,27 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
 
   return (
     <div className="user-avatar">
-      {props.avatar && <EmojiAvatar avatar={props.avatar} />}
+      {props.avatar && (
+        <EmojiAvatar
+          avatar={props.avatar}
+          size={props.size}
+          isChatAvatar={props.isChatAvatar}
+        />
+      )}
     </div>
   );
 }
 
-export function EmojiAvatar(props: { avatar: string; size?: number }) {
+export function EmojiAvatar(props: {
+  avatar: string;
+  size?: number;
+  isChatAvatar?: boolean;
+}) {
   return (
     <Emoji
       unified={props.avatar}
       size={props.size ?? 18}
-      getEmojiUrl={getEmojiUrl}
+      getEmojiUrl={props.isChatAvatar ? getChatAvatarUrl : getEmojiPickerUrl}
     />
   );
 }

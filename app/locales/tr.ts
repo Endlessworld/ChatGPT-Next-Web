@@ -10,7 +10,7 @@ const tr: LocaleType = {
     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
     HelloMessage: `X-ChatGPT e hoş geldiniz
       Saat başına / IP başına 15 ücretsiz deneme erişimi sağlayan ücretsiz bir kanal mevcuttur.
-      Saat başına / IP başına en fazla 30 ücretsiz erişimi açmak için bir erişim şifresi kullanabilirsiniz.
+      Saat başına / IP başına en fazla 50 ücretsiz erişimi açmak için bir erişim şifresi kullanabilirsiniz.
       Aşağıdaki QR kodunu tarayabilir ve "password" göndererek erişim şifresini ücretsiz olarak almak için WeChat hesabına "微聊小助手" abone olabilirsiniz.
       Alternatif olarak, bu sınırlamayı kaldırmak için kendi OpenAI API anahtarınızı girebilirsiniz.
       Daha fazla bilgi için [ChatGPT forum](https://forum.xr21.me) yi ziyaret edin. 
@@ -89,6 +89,13 @@ const tr: LocaleType = {
     FontSize: {
       Title: "Yazı Boyutu",
       SubTitle: "Sohbet içeriğinin yazı boyutunu ayarlayın",
+    },
+    User: {
+      Title: "Kullanıcı adı",
+      SubTitle: "Kullanıcı bilgilerini senkronize etmek için giriş yapın",
+      PointsTitle: "Kullanıcı Puanları",
+      PointsSubTitle:
+        "Topluluk kullanıcı puanları kullanım için takas edilebilir",
     },
     Update: {
       Version: (x: string) => `Sürüm: ${x}`,

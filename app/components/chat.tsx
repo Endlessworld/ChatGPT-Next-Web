@@ -1027,7 +1027,7 @@ export function Chat() {
                 <div className={styles["chat-message-container"]}>
                   <div className={styles["chat-message-avatar"]}>
                     {message.role === "user" ? (
-                      <Avatar avatar={config.avatar} />
+                      <Avatar avatar={config.avatar} isChatAvatar={true} />
                     ) : (
                       <MaskAvatar mask={session.mask} />
                     )}

@@ -11,7 +11,7 @@ const cs: LocaleType = {
     `,
     HelloMessage: `Vítejte v "X-ChatGPT"
       K dispozici je bezplatný kanál, který vám poskytuje 15 bezplatných zkušebních přístupů na hodinu / ip.
-      Můžete použít přístupové heslo k odemčení až 30 bezplatných přístupů na hodinu / ip.
+      Můžete použít přístupové heslo k odemčení až 50 bezplatných přístupů na hodinu / ip.
       Můžete naskenovat následující QR kód a odebírat veřejný účet WeChat "微聊小助手" a poslat "password" pro bezplatné získání přístupového hesla.
       Nebo můžete zadat svůj vlastní OpenAI API klíč k odstranění tohoto omezení.
       Další informace naleznete na [ChatGPT论坛](https://forum.xr21.me)
@@ -89,6 +89,12 @@ const cs: LocaleType = {
     FontSize: {
       Title: "Velikost písma",
       SubTitle: "Nastavení velikosti písma obsahu chatu",
+    },
+    User: {
+      Title: "Uživatelské jméno",
+      SubTitle: "Po přihlášení lze synchronizovat informace o uživateli",
+      PointsTitle: "Uživatelské body",
+      PointsSubTitle: "Body uživatele komunity lze vyměnit za použití",
     },
     Update: {
       Version: (x: string) => `Verze: ${x}`,
