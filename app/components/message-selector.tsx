@@ -193,7 +193,7 @@ export function MessageSelector(props: {
             >
               <div className={styles["avatar"]}>
                 {m.role === "user" ? (
-                  <Avatar avatar={config.avatar}></Avatar>
+                  <Avatar avatar={config.avatar} isChatAvatar={true}></Avatar>
                 ) : (
                   <MaskAvatar mask={session.mask} />
                 )}

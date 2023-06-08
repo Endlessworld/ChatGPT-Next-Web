@@ -340,7 +340,10 @@ export function Settings() {
             subTitle={Locale.Settings.User.SubTitle}
           >
             <div className={styles["sidebar-action"]}>
-              <a href="https://forum.xr21.me/user/level" target="_blank">
+              <a
+                href="https://forum.xr21.me/user-sign/?tab=signin&redirect_to=https%3A%2F%2Fforum.xr21.me%2Fchatgpt-login-callback%2F"
+                target="_blank"
+              >
                 <IconButton
                   text={
                     userInfo.display_name ? userInfo.display_name : "未登录"

@@ -346,7 +346,7 @@ export function PreviewActions(props: {
   );
 }
 
-function ExportAvatar(props: { avatar: string }) {
+function ExportAvatar(props: { avatar: string; isChatAvatar?: boolean }) {
   if (props.avatar === DEFAULT_MASK_AVATAR) {
     return (
       <NextImage
@@ -359,7 +359,9 @@ function ExportAvatar(props: { avatar: string }) {
     );
   }
 
-  return <Avatar avatar={props.avatar}></Avatar>;
+  return (
+    <Avatar avatar={props.avatar} isChatAvatar={props.isChatAvatar}></Avatar>
+  );
 }
 
 export function ImagePreviewer(props: {
@@ -447,7 +449,7 @@ export function ImagePreviewer(props: {
               {/*github.com/Yidadaa/ChatGPT-Next-Web*/}
             </div>
             <div className={styles["icons"]}>
-              <ExportAvatar avatar={config.avatar} />
+              <ExportAvatar avatar={config.avatar} isChatAvatar={true} />
               <span className={styles["icon-space"]}>&</span>
               <ExportAvatar avatar={mask.avatar} />
             </div>
@@ -478,6 +480,7 @@ export function ImagePreviewer(props: {
             >
               <div className={styles["avatar"]}>
                 <ExportAvatar
+                  isChatAvatar={m.role === "user"}
                   avatar={m.role === "user" ? config.avatar : mask.avatar}
                 />
               </div>
