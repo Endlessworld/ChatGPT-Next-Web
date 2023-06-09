@@ -342,7 +342,7 @@ export function Settings() {
             <div className={styles["sidebar-action"]}>
               <a
                 href="https://forum.xr21.me/user-sign/?tab=signin&redirect_to=https%3A%2F%2Fforum.xr21.me%2Fchatgpt-login-callback%2F"
-                target="_blank"
+                target="_self"
               >
                 <IconButton
                   text={
