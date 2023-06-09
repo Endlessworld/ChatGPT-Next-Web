@@ -196,7 +196,7 @@ export function SideBar(props: { className?: string }) {
           </div>
 
           <div className={styles["sidebar-action"]}>
-            <a href="https://forum.xr21.me/user/level" target="_blank">
+            <a href="https://forum.xr21.me/user" target="_self">
               <IconButton icon={<UserIcon />} shadow />
             </a>
           </div>
