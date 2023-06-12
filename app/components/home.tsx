@@ -9,7 +9,7 @@ import styles from "./home.module.scss";
 import BotIcon from "../icons/bot.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 
-import { getCSSVar, useMobileScreen } from "../utils";
+import { clearCache, getCSSVar, isIdeaPlugin, useMobileScreen } from "../utils";
 
 import dynamic from "next/dynamic";
 import { Path, SlotID } from "../constant";
@@ -22,7 +22,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { SideBar } from "./sidebar";
-import { useAppConfig } from "../store/config";
+import { Theme, useAppConfig } from "../store/config";
 import { AuthPage } from "./auth";
 
 export function Loading(props: { noLogo?: boolean }) {
@@ -50,6 +50,19 @@ const MaskPage = dynamic(async () => (await import("./mask")).MaskPage, {
   loading: () => <Loading noLogo />,
 });
 
+const useCefFunctionInit = function () {
+  const config = useAppConfig();
+  useEffect(() => {
+    // if (isIdeaPlugin()) {
+    (window as any).clearCache = clearCache;
+    (window as any).syncThemes = (isDark: boolean) => {
+      config.update(
+        (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
+      );
+    };
+    // }
+  }, []);
+};
 export function useSwitchTheme() {
   const config = useAppConfig();
 
@@ -146,7 +159,7 @@ function Screen() {
 
 export function Home() {
   useSwitchTheme();
-
+  useCefFunctionInit();
   if (!useHasHydrated()) {
     return <Loading />;
   }

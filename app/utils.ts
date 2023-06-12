@@ -147,6 +147,28 @@ export function useMobileScreen() {
   return width <= MOBILE_MAX_WIDTH;
 }
 
+export async function clearCache() {
+  let clearCache = async function () {
+    // del storage
+    localStorage.clear();
+    sessionStorage.clear();
+    // del sw cache
+    const cacheKeys = await caches.keys();
+    for (const cacheKey of cacheKeys) {
+      await caches.open(cacheKey).then(async (cache) => {
+        const requests = await cache.keys();
+        return await Promise.all(
+          requests.map((request) => {
+            console.log(`del cache : `, request.url);
+            return cache.delete(request);
+          }),
+        );
+      });
+    }
+  };
+  await clearCache();
+}
+
 export function useUserInfo(): any {
   let userInfo = getCookie("user_info");
   return JSON.parse(userInfo);
