@@ -5,33 +5,12 @@ import Locale from "./locales";
 export function trimTopic(topic: string) {
   return topic.replace(/[，。！？”“"、,.!?]*$/, "");
 }
-export function projectContext() {
-  let content = `在单个代码块中输出代码
-            保持你的回答简短和客观。
-            在你的回答中使用 Markdown 格式。
-            确保在 Markdown 代码块的开头包含编程语言名称。
-            避免用三个反引号包装整个回答。 
-            你每次只能给出一个回复。
-            你应该始终生成与对话相关且不冒犯的下一个用户回合的简短建议。`;
-
-  if (isIdeaPlugin()) {
-    const projectContext = localStorage.getItem("project-context");
-    if (projectContext) {
-      let enableContext = JSON.parse(projectContext).enableContext;
-      let projectContent = JSON.parse(projectContext).content;
-      if (enableContext && projectContent) {
-        return content.concat(`
-          以下是我项目的配置或代码片段，你需要以此作为每个回答的参考依据:
-          ${projectContent}`);
-      }
-    }
-  }
-  return content;
-}
 export function isIdeaPlugin() {
+  if (typeof window == "undefined") {
+    return false;
+  }
   return (window as any).cefQuery;
 }
-
 export async function ideaMessage(
   message: Record<string, unknown> = { event: "replace", message: "" },
 ) {
@@ -76,7 +55,29 @@ export async function Merge(messageText: string) {
 export async function Replace(messageText: string) {
   ideaMessage({ event: "replace", message: messageText });
 }
+export function projectContext() {
+  let content = `在单个代码块中输出代码
+            保持你的回答简短和客观。
+            在你的回答中使用 Markdown 格式。
+            确保在 Markdown 代码块的开头包含编程语言名称。
+            避免用三个反引号包装整个回答。 
+            你每次只能给出一个回复。
+            你应该始终生成与对话相关且不冒犯的下一个用户回合的简短建议。`;
 
+  if (isIdeaPlugin()) {
+    const projectContext = localStorage.getItem("project-context");
+    if (projectContext) {
+      let enableContext = JSON.parse(projectContext).enableContext;
+      let projectContent = JSON.parse(projectContext).content;
+      if (enableContext && projectContent) {
+        return content.concat(`
+          以下是我项目的配置或代码片段，你需要以此作为每个回答的参考依据:
+          ${projectContent}`);
+      }
+    }
+  }
+  return content;
+}
 export async function copyToClipboard(text: string) {
   try {
     await navigator.clipboard.writeText(text);

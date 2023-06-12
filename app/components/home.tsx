@@ -2,14 +2,14 @@
 
 require("../polyfill");
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import styles from "./home.module.scss";
 
 import BotIcon from "../icons/bot.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 
-import { clearCache, getCSSVar, isIdeaPlugin, useMobileScreen } from "../utils";
+import { clearCache, getCSSVar, useMobileScreen } from "../utils";
 
 import dynamic from "next/dynamic";
 import { Path, SlotID } from "../constant";
@@ -17,8 +17,8 @@ import { ErrorBoundary } from "./error";
 
 import {
   HashRouter as Router,
-  Routes,
   Route,
+  Routes,
   useLocation,
 } from "react-router-dom";
 import { SideBar } from "./sidebar";
@@ -61,7 +61,7 @@ const useCefFunctionInit = function () {
       );
     };
     // }
-  }, []);
+  }, [config]);
 };
 export function useSwitchTheme() {
   const config = useAppConfig();
