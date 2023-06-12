@@ -13,7 +13,7 @@ import AnnouncementIcon from "../icons/announcement.svg";
 import UserIcon from "../icons/user.svg";
 import ShoppingIcon from "../icons/shopping.svg";
 
-import Locale from "../locales";
+import Locale, { getLang } from "../locales";
 import { useAppConfig, useNoticeStore, useChatStore } from "../store";
 
 import {
@@ -24,10 +24,11 @@ import {
 } from "../constant";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useMobileScreen } from "../utils";
+import { isIdeaPlugin, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { showModal, showToast } from "./ui-lib";
 import { Markdown } from "@/app/components/markdown";
+import { useMaskStore } from "@/app/store/mask";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
@@ -105,7 +106,7 @@ function useDragSideBar() {
 
 export function SideBar(props: { className?: string }) {
   const chatStore = useChatStore();
-
+  const maskStore = useMaskStore();
   // drag side bar
   const { onDragMouseDown, shouldNarrow } = useDragSideBar();
   const navigate = useNavigate();
@@ -207,7 +208,15 @@ export function SideBar(props: { className?: string }) {
             text={shouldNarrow ? undefined : Locale.Home.NewChat}
             onClick={() => {
               if (config.dontShowMaskSplashScreen) {
-                chatStore.newSession();
+                let mask;
+                if (isIdeaPlugin()) {
+                  mask = mask
+                    ? mask
+                    : maskStore
+                        .getAll()
+                        .filter((m) => m.name === "X-ChatGPT")[0];
+                }
+                chatStore.newSession(mask);
                 navigate(Path.Chat);
               } else {
                 navigate(Path.NewChat);
