@@ -1,17 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { ideaMessage, isIdeaPlugin, trimTopic } from "../utils";
+import { ideaMessage, trimTopic } from "../utils";
 
 import Locale from "../locales";
 import { showToast } from "../components/ui-lib";
-import {
-  DEFAULT_CONFIG,
-  ModelConfig,
-  ModelType,
-  useAppConfig,
-  VoiceConfig,
-} from "./config";
+import { ModelType, VoiceConfig } from "./config";
 import { createEmptyMask, Mask } from "./mask";
 import { StoreKey } from "../constant";
 import { api, RequestMessage } from "../client/api";
@@ -167,21 +161,6 @@ export const useChatStore = create<ChatStore>()(
         set(() => ({ globalId: get().globalId + 1 }));
         session.id = get().globalId;
         if (mask) {
-          if (isIdeaPlugin()) {
-            const projectContext = localStorage.getItem("project-context");
-            if (projectContext) {
-              let enableContext = JSON.parse(projectContext).enableContext;
-              let content = JSON.parse(projectContext).content;
-              let role = JSON.parse(projectContext).role;
-              if (enableContext && content) {
-                mask.context.push({
-                  role: role,
-                  content: content,
-                  date: "",
-                });
-              }
-            }
-          }
           session.mask = { ...mask };
           session.topic = mask.name;
         }

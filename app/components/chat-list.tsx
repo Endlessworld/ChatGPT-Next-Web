@@ -1,29 +1,28 @@
 import DeleteIcon from "../icons/delete.svg";
-import BotIcon from "../icons/bot.svg";
 
 import styles from "./home.module.scss";
 import {
   DragDropContext,
-  Droppable,
   Draggable,
+  Droppable,
   OnDragEndResponder,
 } from "@hello-pangea/dnd";
 
 import { useChatStore } from "../store";
 
 import Locale from "../locales";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Path } from "../constant";
 import { MaskAvatar } from "./mask";
 import { Mask } from "../store/mask";
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export function ChatItem(props: {
   onClick?: () => void;
   onDelete?: () => void;
   title: string;
   count: number;
-  time: string;
+  time: number;
   selected: boolean;
   id: number;
   index: number;
@@ -73,7 +72,10 @@ export function ChatItem(props: {
                   {Locale.ChatItem.ChatItemCount(props.count)}
                 </div>
                 <div className={styles["chat-item-date"]}>
-                  {new Date(props.time).toLocaleString()}
+                  {new Date(props.time).toLocaleString(navigator.language, {
+                    dateStyle: "short",
+                    timeStyle: "medium",
+                  })}
                 </div>
               </div>
             </>
@@ -131,7 +133,7 @@ export function ChatList(props: { narrow?: boolean }) {
             {sessions.map((item, i) => (
               <ChatItem
                 title={item.topic}
-                time={new Date(item.lastUpdate).toLocaleString()}
+                time={item.lastUpdate}
                 count={item.messages.length}
                 key={item.id}
                 id={item.id}

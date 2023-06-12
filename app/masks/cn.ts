@@ -1,5 +1,9 @@
 import { BuiltinMask } from "./typing";
+import { projectContext } from "@/app/utils";
 
+const useProjectContext = () => {
+  return projectContext();
+};
 export const CN_MASKS: BuiltinMask[] = [
   {
     avatar: "gpt-bot",
@@ -7,15 +11,8 @@ export const CN_MASKS: BuiltinMask[] = [
     context: [
       {
         role: "system",
-        content:
-          "在单个代码块中输出代码。\n" +
-          "保持你的回答简短和客观。\n" +
-          "在你的回答中使用 Markdown 格式。\n" +
-          "确保在 Markdown 代码块的开头包含编程语言名称。\n" +
-          "避免用三个反引号包装整个回答。 \n" +
-          "你每次只能给出一个回复。\n" +
-          "你应该始终生成与对话相关且不冒犯的下一个用户回合的简短建议。" +
-          "以下是我项目的配置或代码片段，你需要以此作为每个回答的参考依据:",
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        content: useProjectContext(),
         date: "",
       },
       {
