@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { StoreKey } from "../constant";
+import { isIdeaPlugin } from "@/app/utils";
 
 export enum SubmitKey {
   Enter = "Enter",
@@ -30,9 +31,9 @@ export const DEFAULT_CONFIG = {
   dontShowMaskSplashScreen: true, // dont show splash screen when create chat
 
   modelConfig: {
-    model: "gpt-3.5-turbo" as ModelType,
+    model: "gpt-3.5-turbo-16k" as ModelType,
     temperature: 0.5,
-    max_tokens: 2000,
+    max_tokens: 16000,
     presence_penalty: 0,
     sendMemory: true,
     historyMessageCount: 4,
@@ -57,7 +58,7 @@ export const ALL_MODELS = [
     available: ENABLE_GPT4,
   },
   {
-    name: "gpt-4-0314",
+    name: "gpt-4-0613",
     available: ENABLE_GPT4,
   },
   {
@@ -65,7 +66,7 @@ export const ALL_MODELS = [
     available: ENABLE_GPT4,
   },
   {
-    name: "gpt-4-32k-0314",
+    name: "gpt-4-32k-0613",
     available: ENABLE_GPT4,
   },
   {
@@ -73,7 +74,15 @@ export const ALL_MODELS = [
     available: true,
   },
   {
-    name: "gpt-3.5-turbo-0301",
+    name: "gpt-3.5-turbo-16k",
+    available: true,
+  },
+  {
+    name: "gpt-3.5-turbo-0613",
+    available: true,
+  },
+  {
+    name: "gpt-3.5-turbo-16k-0613",
     available: true,
   },
   {
@@ -120,7 +129,7 @@ export function limitNumber(
 export function limitModel(name: string) {
   return ALL_MODELS.some((m) => m.name === name && m.available)
     ? name
-    : ALL_MODELS[4].name;
+    : ALL_MODELS[5].name;
 }
 
 export const ModalConfigValidator = {
@@ -128,7 +137,7 @@ export const ModalConfigValidator = {
     return limitModel(x) as ModelType;
   },
   max_tokens(x: number) {
-    return limitNumber(x, 0, 32000, 2000);
+    return limitNumber(x, 0, 32000, 16000);
   },
   presence_penalty(x: number) {
     return limitNumber(x, -2, 2, 0);

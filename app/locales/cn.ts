@@ -42,6 +42,19 @@ const cn = {
       Replace: "替换选中",
       Merge: "代码合并",
     },
+    InputActions: {
+      Stop: "停止响应",
+      ToBottom: "滚到最新",
+      Theme: {
+        auto: "自动主题",
+        light: "亮色模式",
+        dark: "深色模式",
+      },
+      Prompt: "快捷指令",
+      Masks: "所有面具",
+      Clear: "清除聊天",
+      Settings: "对话设置",
+    },
     Rename: "重命名对话",
     Typing: "正在输入…",
     Input: (submitKey: string) => {
@@ -133,6 +146,7 @@ const cn = {
     SendKey: "发送键",
     Theme: "主题",
     ApiServerAddress: "服务地址",
+    ApiServerSubTitle: "",
     TightBorder: "无边框模式",
     SendPreviewBubble: {
       Title: "预览气泡",
@@ -187,6 +201,10 @@ const cn = {
       Title: "访问密码",
       SubTitle: "管理员已开启加密访问",
       Placeholder: "请输入访问密码",
+    },
+    Endpoint: {
+      Title: "接口地址",
+      SubTitle: "除默认地址外，必须包含 http(s)://",
     },
     Model: "模型 (model)",
     Temperature: {

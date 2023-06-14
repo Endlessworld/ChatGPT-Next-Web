@@ -10,6 +10,7 @@ import ClearIcon from "../icons/clear.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import EditIcon from "../icons/edit.svg";
 import EyeIcon from "../icons/eye.svg";
+import UserIcon from "../icons/user.svg";
 import {
   Input,
   List,
@@ -46,7 +47,6 @@ import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarPicker } from "./emoji";
-import UserIcon from "@/app/icons/user.svg";
 
 function EditPromptModal(props: { id: number; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -515,23 +515,6 @@ export function Settings() {
         </List>
 
         <List>
-          <ListItem title={Locale.Settings.ApiServerAddress}>
-            <Select
-              value={accessStore.openaiUrl}
-              onChange={(e) => {
-                updateOpenaiUrl(e.target.value as string);
-              }}
-            >
-              {Object.values(accessStore.workers).map((worker, index) => {
-                console.log(worker, index);
-                return (
-                  <option value={worker.api} key={worker.api}>
-                    {worker.title}
-                  </option>
-                );
-              })}
-            </Select>
-          </ListItem>
           {enabledAccessControl ? (
             <ListItem
               title={Locale.Settings.AccessCode.Title}
@@ -589,6 +572,50 @@ export function Settings() {
               />
             )}
           </ListItem>
+          <ListItem
+            title={Locale.Settings.ApiServerAddress}
+            subTitle={
+              accessStore.workers.filter((e) => e.checked)[0].description
+            }
+          >
+            <Select
+              value={accessStore.openaiUrl}
+              onChange={(e) => {
+                console.log(e);
+                const url = e.target.value as string;
+                accessStore.updateWorkers(
+                  accessStore.workers.map((e) => {
+                    e.checked = e.api == url;
+                    return e;
+                  }),
+                );
+                updateOpenaiUrl(url);
+              }}
+            >
+              {Object.values(accessStore.workers).map((worker, index) => {
+                // console.log(worker, index);
+                return (
+                  <option value={worker.api} key={worker.api}>
+                    {worker.title}
+                  </option>
+                );
+              })}
+            </Select>
+          </ListItem>
+          {/*{!accessStore.hideUserApiKey ? (*/}
+          {/*  <ListItem*/}
+          {/*    title={Locale.Settings.Endpoint.Title}*/}
+          {/*    subTitle={Locale.Settings.Endpoint.SubTitle}*/}
+          {/*  >*/}
+          {/*    <input*/}
+          {/*      type="text"*/}
+          {/*      value={accessStore.openaiUrl}*/}
+          {/*      onChange={(e) =>*/}
+          {/*        accessStore.updateOpenAiUrl(e.currentTarget.value)*/}
+          {/*      }*/}
+          {/*    ></input>*/}
+          {/*  </ListItem>*/}
+          {/*) : null}*/}
         </List>
 
         <List>

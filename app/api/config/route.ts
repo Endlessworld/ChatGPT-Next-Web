@@ -11,11 +11,36 @@ const DANGER_CONFIG = {
   hideUserApiKey: serverConfig.hideUserApiKey,
   enableGPT4: serverConfig.enableGPT4,
   workers: [
-    { title: "免费通道", api: "/api/openai/" },
-    { title: "官方直连", api: "https://api.openai.com/" },
-    { title: "cloudflare_workers1", api: "https://workers1.xr21.me" },
-    { title: "cloudflare_workers2", api: "https://workers2.xr21.me" },
-    { title: "cloudflare_workers3", api: "https://workers3.xr21.me" },
+    {
+      title: "免费通道",
+      api: "/api/openai/",
+      description: "需要填写访问密码，关注公众号或注册社区账号即可获取访问密码",
+      checked: true,
+    },
+    {
+      title: "官方直连",
+      api: "https://api.openai.com/",
+      description: "需要填写访问apiKey、受地域限制",
+      checked: false,
+    },
+    {
+      title: "cloudflare_workers1",
+      api: "https://workers1.xr21.me",
+      description: "需要填写访问apiKey、无地域限制",
+      checked: false,
+    },
+    {
+      title: "cloudflare_workers2",
+      api: "https://workers2.xr21.me",
+      description: "需要填写访问apiKey、无地域限制",
+      checked: false,
+    },
+    {
+      title: "cloudflare_workers3",
+      api: "https://workers3.xr21.me",
+      description: "需要填写访问apiKey、无地域限制",
+      checked: false,
+    },
   ],
 };
 
