@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { StoreKey } from "../constant";
-import { isIdeaPlugin } from "@/app/utils";
 
 export enum SubmitKey {
   Enter = "Enter",
@@ -25,15 +24,12 @@ export const DEFAULT_CONFIG = {
   tightBorder: false,
   sendPreviewBubble: true,
   sidebarWidth: 300,
-
-  disablePromptHint: true,
-
-  dontShowMaskSplashScreen: true, // dont show splash screen when create chat
-
+  disablePromptHint: false,
+  dontShowMaskSplashScreen: true, // 创建聊天时不显示初始屏幕
   modelConfig: {
-    model: "gpt-3.5-turbo-16k" as ModelType,
+    model: "gpt-3.5-turbo" as ModelType,
     temperature: 0.5,
-    max_tokens: 16000,
+    max_tokens: 4096,
     presence_penalty: 0,
     sendMemory: true,
     historyMessageCount: 4,
@@ -136,8 +132,14 @@ export const ModalConfigValidator = {
   model(x: string) {
     return limitModel(x) as ModelType;
   },
-  max_tokens(x: number) {
-    return limitNumber(x, 0, 32000, 16000);
+  max_tokens(x: number, model?: ModelType) {
+    if (model == ALL_MODELS[4].name) {
+      return limitNumber(x, 0, 4096, 2000);
+    }
+    if (model == ALL_MODELS[5].name || model == ALL_MODELS[6].name) {
+      return limitNumber(x, 0, 16000, 4096);
+    }
+    return limitNumber(x, 0, 32000, 4096);
   },
   presence_penalty(x: number) {
     return limitNumber(x, -2, 2, 0);

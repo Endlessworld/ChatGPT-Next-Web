@@ -2,7 +2,7 @@ import { ALL_MODELS, ModalConfigValidator, ModelConfig } from "../store";
 
 import Locale from "../locales";
 import { InputRange } from "./input-range";
-import { List, ListItem, Select } from "./ui-lib";
+import { ListItem, Select } from "./ui-lib";
 
 export function ModelConfigList(props: {
   modelConfig: ModelConfig;
@@ -14,12 +14,19 @@ export function ModelConfigList(props: {
         <Select
           value={props.modelConfig.model}
           onChange={(e) => {
-            props.updateConfig(
-              (config) =>
-                (config.model = ModalConfigValidator.model(
-                  e.currentTarget.value,
-                )),
+            let selectedModel = ModalConfigValidator.model(
+              e.currentTarget.value,
             );
+            props.updateConfig((config) => {
+              config.model = selectedModel;
+              config.max_tokens = 4096;
+              if (selectedModel.includes("16k")) {
+                config.max_tokens = 16 * 1024;
+              }
+              if (selectedModel.includes("32k")) {
+                config.max_tokens = 32 * 1024;
+              }
+            });
           }}
         >
           {ALL_MODELS.map((v) => (
@@ -62,6 +69,7 @@ export function ModelConfigList(props: {
               (config) =>
                 (config.max_tokens = ModalConfigValidator.max_tokens(
                   e.currentTarget.valueAsNumber,
+                  config.model,
                 )),
             )
           }

@@ -7,7 +7,6 @@ import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import CopyIcon from "../icons/copy.svg";
 import ClearIcon from "../icons/clear.svg";
-import LoadingIcon from "../icons/three-dots.svg";
 import EditIcon from "../icons/edit.svg";
 import EyeIcon from "../icons/eye.svg";
 import UserIcon from "../icons/user.svg";
@@ -30,18 +29,16 @@ import {
   useAppConfig,
   useChatStore,
   useUpdateStore,
-  useNoticeStore,
 } from "../store";
 
 import Locale, {
-  AllLangs,
   ALL_LANG_OPTIONS,
+  AllLangs,
   changeLang,
   getLang,
 } from "../locales";
 import { copyToClipboard, useUserInfo } from "../utils";
-import Link from "next/link";
-import { Path, UPDATE_URL } from "../constant";
+import { Path } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
@@ -575,7 +572,7 @@ export function Settings() {
           <ListItem
             title={Locale.Settings.ApiServerAddress}
             subTitle={
-              accessStore.workers.filter((e) => e.checked)[0].description
+              accessStore.workers.filter((e) => e.checked)[0]?.description
             }
           >
             <Select
