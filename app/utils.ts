@@ -69,10 +69,22 @@ export function projectContext() {
     if (projectContext) {
       let enableContext = JSON.parse(projectContext).enableContext;
       let projectContent = JSON.parse(projectContext).content;
+      let contexts =
+        "以下是我项目的配置或代码片段，你需要以此作为每个回答的参考依据:\n";
       if (enableContext && projectContent) {
-        return content.concat(`
-          以下是我项目的配置或代码片段，你需要以此作为每个回答的参考依据:
-          ${projectContent}`);
+        contexts += `|Option   |Content   |
+|----   |----|`;
+        contexts += "\r\n";
+        console.log(contexts);
+        for (const contextsKey in projectContent) {
+          contexts += `|${contextsKey}|${projectContent[contextsKey].replaceAll(
+            "|",
+            "\\|",
+          )}|`;
+          contexts += "\r\n";
+        }
+        console.log(contexts);
+        return content.concat(contexts);
       }
     }
   }
