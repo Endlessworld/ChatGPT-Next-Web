@@ -28,7 +28,7 @@ export const DEFAULT_CONFIG = {
   disablePromptHint: false,
   dontShowMaskSplashScreen: true, // 创建聊天时不显示初始屏幕
   modelConfig: {
-    model: "gpt-3.5-turbo" as ModelType,
+    model: "gpt-3.5-turbo-0613" as ModelType,
     temperature: 0.5,
     max_tokens: 4096,
     presence_penalty: 0,
@@ -76,10 +76,6 @@ export const ALL_MODELS = [
   },
   {
     name: "gpt-3.5-turbo-0613",
-    available: true,
-  },
-  {
-    name: "gpt-3.5-turbo-16k-0613",
     available: true,
   },
   {
@@ -141,7 +137,11 @@ export const ModalConfigValidator = {
     if (model == ALL_MODELS[4].name) {
       return limitNumber(x, 0, 4096, 2000);
     }
-    if (model == ALL_MODELS[5].name || model == ALL_MODELS[6].name) {
+    if (
+      model == ALL_MODELS[5].name ||
+      model == ALL_MODELS[6].name ||
+      model == ALL_MODELS[7].name
+    ) {
       return limitNumber(x, 0, 16000, 4096);
     }
     return limitNumber(x, 0, 32000, 4096);
