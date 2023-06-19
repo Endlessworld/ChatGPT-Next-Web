@@ -1,7 +1,7 @@
 import { SubmitKey } from "../store/config";
-import type { LocaleType } from "./index";
+import type { PartialLocaleType } from "./index";
 
-const ru: LocaleType = {
+const ru: PartialLocaleType = {
   WIP: "Скоро...",
   Error: {
     Unauthorized: ` Пароль доступа неверен или пуст. Перейдите на страницу [设置](/#/settings) и введите правильный пароль доступа. 
@@ -177,6 +177,11 @@ const ru: LocaleType = {
       Title: "Штраф за повторения",
       SubTitle:
         "Чем выше значение, тем больше вероятность общения на новые темы",
+    },
+    FrequencyPenalty: {
+      Title: "Штраф за частоту",
+      SubTitle:
+        "Большее значение снижает вероятность повторения одной и той же строки",
     },
   },
   Store: {

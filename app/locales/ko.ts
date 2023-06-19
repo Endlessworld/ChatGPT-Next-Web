@@ -1,8 +1,8 @@
 import { SubmitKey } from "../store/config";
 
-import type { LocaleType } from "./index";
+import type { PartialLocaleType } from "./index";
 
-const ko: LocaleType = {
+const ko: PartialLocaleType = {
   WIP: "곧 출시 예정...",
   Error: {
     Unauthorized: `액세스 비밀번호가 잘못되었거나 비어 있습니다. [设置](/#/settings) 페이지로 이동하여 올바른 액세스 비밀번호를 입력하십시오. 
@@ -174,6 +174,10 @@ const ko: LocaleType = {
     PresencePenalty: {
       Title: "존재 페널티 (presence_penalty)",
       SubTitle: "값이 클수록 새로운 주제에 대해 대화할 가능성이 높아집니다.",
+    },
+    FrequencyPenalty: {
+      Title: "빈도 페널티(frequency penalty)",
+      SubTitle: "값이 클수록 같은 줄이 반복될 가능성이 줄어듭니다.",
     },
   },
   Store: {

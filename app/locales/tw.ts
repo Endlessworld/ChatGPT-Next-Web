@@ -1,7 +1,7 @@
 import { SubmitKey } from "../store/config";
-import type { LocaleType } from "./index";
+import type { PartialLocaleType } from "./index";
 
-const tw: LocaleType = {
+const tw: PartialLocaleType = {
   WIP: "該功能仍在開發中……",
   Error: {
     Unauthorized: `存取密碼不正確或為空。請前往 [设置](/#/settings) 頁面輸入正確的存取密碼。
@@ -173,6 +173,10 @@ const tw: LocaleType = {
       SubTitle: "值越大，越有可能擴展到新話題",
     },
     Voice: "語音",
+    FrequencyPenalty: {
+      Title: "頻率懲罰度 (frequency_penalty)",
+      SubTitle: "值越大，越有可能降低重複字詞",
+    },
   },
   Store: {
     DefaultTopic: "新的對話",

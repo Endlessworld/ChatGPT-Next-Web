@@ -1,7 +1,7 @@
 import { SubmitKey } from "../store/config";
-import type { LocaleType } from "./index";
+import type { PartialLocaleType } from "./index";
 
-const tr: LocaleType = {
+const tr: PartialLocaleType = {
   WIP: "Çalışma devam ediyor...",
   Error: {
     Unauthorized: `Erişim şifresi yanlış veya boş. Doğru erişim şifresini girmek için [设置](/#/settings) sayfasına gidin. 
@@ -180,6 +180,11 @@ const tr: LocaleType = {
         "Daha büyük bir değer, yeni konular hakkında konuşma olasılığını artırır",
     },
     Voice: "Ses",
+    FrequencyPenalty: {
+      Title: "Frekans Cezası",
+      SubTitle:
+        "Aynı satırı tekrar etme olasılığını azaltan daha büyük bir değer",
+    },
   },
   Store: {
     DefaultTopic: "Yeni Konuşma",

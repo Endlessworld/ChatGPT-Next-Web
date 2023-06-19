@@ -1,7 +1,7 @@
 import { SubmitKey } from "../store/config";
-import type { LocaleType } from "./index";
+import type { PartialLocaleType } from "./index";
 
-const cs: LocaleType = {
+const cs: PartialLocaleType = {
   WIP: "V přípravě...",
   Error: {
     Unauthorized: `Přístupové heslo není správné nebo není zadáno. Přejděte na stránku [设置](/#/settings) a zadejte správné přístupové heslo. 
@@ -174,6 +174,11 @@ const cs: LocaleType = {
     PresencePenalty: {
       Title: "Přítomnostní korekce",
       SubTitle: "Větší hodnota zvyšuje pravděpodobnost nových témat.",
+    },
+    FrequencyPenalty: {
+      Title: "Frekvenční penalizace",
+      SubTitle:
+        "Větší hodnota snižující pravděpodobnost opakování stejného řádku",
     },
   },
   Store: {

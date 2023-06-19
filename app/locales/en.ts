@@ -1,7 +1,7 @@
 import { SubmitKey } from "../store/config";
-import { RequiredLocaleType } from "./index";
+import { LocaleType } from "./index";
 
-const en: RequiredLocaleType = {
+const en: LocaleType = {
   WIP: "Coming Soon...",
   Error: {
     Unauthorized: `The access password is incorrect or empty. Please go to page [settings](/#/settings) and enter the correct access password. 
@@ -221,6 +221,11 @@ const en: RequiredLocaleType = {
         "A larger value increases the likelihood to talk about new topics",
     },
     Voice: "Voice",
+    FrequencyPenalty: {
+      Title: "Frequency Penalty",
+      SubTitle:
+        "A larger value decreasing the likelihood to repeat the same line",
+    },
   },
   Store: {
     DefaultTopic: "New Conversation",

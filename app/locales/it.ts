@@ -1,7 +1,7 @@
 import { SubmitKey } from "../store/config";
-import type { LocaleType } from "./index";
+import type { PartialLocaleType } from "./index";
 
-const it: LocaleType = {
+const it: PartialLocaleType = {
   WIP: "Work in progress...",
   Error: {
     Unauthorized: ` La password di accesso non è corretta o vuota. Si prega di andare alla pagina [设置](/#/settings) e inserire la password di accesso corretta.
@@ -179,6 +179,11 @@ const it: LocaleType = {
         "Un valore maggiore aumenta la probabilità di parlare di nuovi argomenti",
     },
     Voice: "La voce",
+    FrequencyPenalty: {
+      Title: "Penalità di frequenza",
+      SubTitle:
+        "Un valore maggiore che diminuisce la probabilità di ripetere la stessa riga",
+    },
   },
   Store: {
     DefaultTopic: "Nuova conversazione",

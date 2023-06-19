@@ -1,8 +1,8 @@
 import { SubmitKey } from "../store/config";
-import type { LocaleType } from "./index";
+import type { PartialLocaleType } from "./index";
 
-const jp: LocaleType = {
-  WIP: "この機能は開発中です……",
+const jp: PartialLocaleType = {
+  WIP: "この機能は開発中です",
   Error: {
     Unauthorized: `アクセスパスワードが正しくないか、空白です。ページ [设置](/#/settings) にアクセスして、正しいアクセスパスワードを入力してください。
     初めて使う場合は、パブリックアカウント 【[微聊小助手]()】 に移動して "密码" を送信 または訪問 [forum.xr21.me](https://forum.xr21.me)してアクセスパスワードを取得できます。
@@ -29,7 +29,7 @@ const jp: LocaleType = {
       Copy: "コピー",
       Stop: "停止",
       Retry: "リトライ",
-      Delete: "Delete",
+      Delete: "削除",
       Replace: "選択されたものを置換する",
       Merge: "コードをマージする",
       Speak: "話す",
@@ -45,7 +45,7 @@ const jp: LocaleType = {
     },
     Send: "送信",
     Config: {
-      Reset: "重置默认",
+      Reset: "リセット",
       SaveAs: "另存为面具",
     },
   },
@@ -83,7 +83,7 @@ const jp: LocaleType = {
     },
     Lang: {
       Name: "Language", // ATTENTION: if you wanna add a new translation, please do not translate this value, leave it as `Language`
-      All: "所有语言",
+      All: "全ての言語",
     },
     Avatar: "アバター",
     FontSize: {
@@ -110,11 +110,11 @@ const jp: LocaleType = {
     TightBorder: "ボーダーレスモード",
     SendPreviewBubble: {
       Title: "プレビューバブルの送信",
-      SubTitle: "在预览气泡中预览 Markdown 内容",
+      SubTitle: "プレビューバブルでマークダウンコンテンツをプレビュー",
     },
     Mask: {
-      Title: "面具启动页",
-      SubTitle: "新建聊天时，展示面具启动页",
+      Title: "キャラクターページ",
+      SubTitle: "新規チャット作成時にキャラクターページを表示する",
     },
     Prompt: {
       Disable: {
@@ -132,7 +132,7 @@ const jp: LocaleType = {
         Search: "プロンプトワード検索",
       },
       EditModal: {
-        Title: "编辑提示词",
+        Title: "編集",
       },
     },
     HistoryCount: {
@@ -178,6 +178,10 @@ const jp: LocaleType = {
       SubTitle: "値が大きいほど、新しいトピックへの展開が可能になります。",
     },
     Voice: "音声",
+    FrequencyPenalty: {
+      Title: "話題の頻度 (frequency_penalty)",
+      SubTitle: "値が大きいほど、重複語を低減する可能性が高くなります",
+    },
   },
   Store: {
     DefaultTopic: "新しいチャット",
@@ -206,62 +210,72 @@ const jp: LocaleType = {
     Failed: "コピーに失敗しました。クリップボード許可を与えてください。",
   },
   Context: {
-    Toast: (x: any) => `前置コンテキストが ${x} 件設定されました`,
-    Edit: "前置コンテキストと履歴メモリ",
-    Add: "新規追加",
+    Toast: (x: any) => `キャラクターが ${x} 件設定されました`,
+    Edit: "キャラクタープリセットとモデル設定",
+    Add: "追加",
   },
   Voice: {
     Edit: "音声設定",
   },
   Plugin: {
-    Name: "插件",
+    Name: "プラグイン",
   },
   Shopping: {
     Name: "ショッピング",
   },
   Mask: {
-    Name: "面具",
+    Name: "キャラクタープリセット",
     Page: {
-      Title: "预设角色面具",
-      SubTitle: (count: number) => `${count} 个预设角色定义`,
-      Search: "搜索角色面具",
-      Create: "新建",
+      Title: "キャラクタープリセット",
+      SubTitle: (count: number) => `${count} 件見つかりました。`,
+      Search: "検索",
+      Create: "新規",
     },
     Item: {
       Info: (count: number) => `包含 ${count} 条预设对话`,
-      Chat: "对话",
-      View: "查看",
-      Edit: "编辑",
-      Delete: "删除",
-      DeleteConfirm: "确认删除？",
+      Chat: "会話",
+      View: "詳細",
+      Edit: "編集",
+      Delete: "削除",
+      DeleteConfirm: "本当に削除しますか？",
     },
     EditModal: {
       Title: (readonly: boolean) =>
-        `编辑预设面具 ${readonly ? "（只读）" : ""}`,
-      Download: "下载预设",
-      Clone: "克隆预设",
+        `キャラクタープリセットを編集 ${readonly ? "（読み取り専用）" : ""}`,
+      Download: "ダウンロード",
+      Clone: "複製",
     },
     Config: {
-      Avatar: "角色头像",
-      Name: "角色名称",
+      Avatar: "キャラクターのアイコン",
+      Name: "キャラクターの名前",
+      Sync: {
+        Title: "グローバル設定を利用する",
+        SubTitle: "このチャットでグローバル設定を利用します。",
+        Confirm:
+          "カスタム設定を上書きしてグローバル設定を使用します、よろしいですか？",
+      },
+      HideContext: {
+        Title: "キャラクター設定を表示しない",
+        SubTitle: "チャット画面でのキャラクター設定を非表示にします。",
+      },
     },
   },
   NewChat: {
-    Return: "返回",
-    Skip: "跳过",
-    Title: "挑选一个面具",
-    SubTitle: "现在开始，与面具背后的灵魂思维碰撞",
-    More: "搜索更多",
-    NotShow: "不再展示",
-    ConfirmNoShow: "确认禁用？禁用后可以随时在设置中重新启用。",
+    Return: "戻る",
+    Skip: "スキップ",
+    Title: "キャラクター",
+    SubTitle: "さあ、AIにキャラクターを設定して会話を始めてみましょう",
+    More: "もっと探す",
+    NotShow: "今後は表示しない",
+    ConfirmNoShow: "いつでも設定から有効化できます。",
   },
 
   UI: {
-    Confirm: "确认",
-    Cancel: "取消",
-    Close: "关闭",
-    Create: "新建",
-    Edit: "编辑",
+    Confirm: "確認",
+    Cancel: "キャンセル",
+    Close: "閉じる",
+    Create: "新規",
+    Edit: "編集",
   },
 };
 

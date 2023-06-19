@@ -1,7 +1,7 @@
 import { SubmitKey } from "../store/config";
-import type { LocaleType } from "./index";
+import type { PartialLocaleType } from "./index";
 
-const vi: LocaleType = {
+const vi: PartialLocaleType = {
   WIP: "Sắp ra mắt...",
   Error: {
     Unauthorized: `Mật khẩu truy cập không chính xác hoặc bị trống. Vui lòng đi tới trang [设置](/#/settings) và nhập mật khẩu truy cập chính xác. 
@@ -174,6 +174,10 @@ const vi: LocaleType = {
     PresencePenalty: {
       Title: "Chủ đề mới (presence_penalty)",
       SubTitle: "Giá trị càng lớn tăng khả năng mở rộng sang các chủ đề mới",
+    },
+    FrequencyPenalty: {
+      Title: "Hình phạt tần suất",
+      SubTitle: "Giá trị lớn hơn làm giảm khả năng lặp lại cùng một dòng",
     },
   },
   Store: {
