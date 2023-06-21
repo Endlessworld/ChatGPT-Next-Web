@@ -2,6 +2,7 @@ import { getClientConfig } from "../config/client";
 import { ACCESS_CODE_PREFIX } from "../constant";
 import { ChatMessage, ModelType, useAccessStore } from "../store";
 import { ChatGPTApi } from "./platforms/openai";
+import { getCookie, useUserInfo } from "@/app/utils";
 
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
@@ -120,10 +121,12 @@ export class ClientApi {
 export const api = new ClientApi();
 
 export function getHeaders() {
+  let userInfo = getCookie("user_info");
   const accessStore = useAccessStore.getState();
   let headers: Record<string, string> = {
     "Content-Type": "application/json",
     "x-requested-with": "XMLHttpRequest",
+    "x-user-info": userInfo,
   };
 
   const makeBearer = (token: string) => `Bearer ${token.trim()}`;

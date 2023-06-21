@@ -41,6 +41,12 @@ const DANGER_CONFIG = {
       description: "需要填写访问apiKey、无地域限制",
       checked: false,
     },
+    {
+      title: "go-proxy",
+      api: "http://localhost:8080/api/proxy/",
+      description: "需要填写访问apiKey、无地域限制",
+      checked: false,
+    },
   ],
 };
 
