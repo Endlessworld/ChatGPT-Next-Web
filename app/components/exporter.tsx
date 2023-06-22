@@ -23,7 +23,7 @@ import { Avatar } from "./emoji";
 import dynamic from "next/dynamic";
 import NextImage from "next/image";
 
-import { toBlob, toJpeg, toPng } from "html-to-image";
+import { toBlob, toPng } from "html-to-image";
 import { DEFAULT_MASK_AVATAR } from "../store/mask";
 import { api } from "../client/api";
 import { prettyObject } from "../utils/format";
@@ -467,7 +467,7 @@ export function ImagePreviewer(props: {
             <div className={styles["chat-info-item"]}>
               {Locale.Exporter.Time}:{" "}
               {new Date(
-                props.messages.at(-1)?.date ?? Date.now(),
+                props.messages.at(-1)?.id ?? Date.now(),
               ).toLocaleString()}
             </div>
           </div>
