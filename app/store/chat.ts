@@ -1,7 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { ideaMessage, trimTopic } from "../utils";
+import {
+  getProjectContextAwareness,
+  ideaMessage,
+  isIdeaPlugin,
+  trimTopic,
+} from "../utils";
 
 import Locale from "../locales";
 import { showToast } from "../components/ui-lib";
@@ -170,6 +175,22 @@ export const useChatStore = create<ChatStore>()(
           currentSessionIndex: 0,
           sessions: [session].concat(state.sessions),
         }));
+        if (isIdeaPlugin()) {
+          session.mask.context = session.mask.context.filter(
+            (message) => !message.content.startsWith("\u200D\u200D"),
+          );
+          const projectContext = localStorage.getItem("project-context");
+          if (projectContext) {
+            if (JSON.parse(projectContext).enableContext) {
+              const contextAwareness = getProjectContextAwareness();
+              const awareMessage = createMessage({
+                role: "system",
+                content: contextAwareness,
+              });
+              session.mask.context.unshift(awareMessage);
+            }
+          }
+        }
       },
 
       deleteSession(index) {
