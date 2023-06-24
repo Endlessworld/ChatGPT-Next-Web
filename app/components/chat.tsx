@@ -914,12 +914,12 @@ export function Chat() {
     if (isIdeaPlugin()) {
       config.update((settings) => (settings.tightBorder = true));
       (window as any).doSubmit = doSubmit;
+      (window as any).clearSessions = () => chatStore.clearSessions();
       (window as any).syncThemes = (isDark: boolean) => {
         config.update(
           (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
         );
       };
-      (window as any).clearSessions = chatStore.clearSessions;
     }
   }, []);
 
