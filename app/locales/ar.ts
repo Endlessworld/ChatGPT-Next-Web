@@ -6,6 +6,7 @@ const ar: LocaleType = {
   Error: {
     Unauthorized:
       "غير مصرح بالوصول، يرجى إدخال رمز الوصول [auth](/#/auth) في صفحة المصادقة.",
+    HelloMessage: "",
   },
   Auth: {
     Title: "تحتاج إلى رمز الوصول",
@@ -27,6 +28,9 @@ const ar: LocaleType = {
       Stop: "توقف",
       Retry: "إعادة المحاولة",
       Delete: "حذف",
+      Speak: "صوت AI",
+      Replace: "استبدال المحدد",
+      Merge: "دمج التعليمات البرمجية",
     },
     InputActions: {
       Stop: "توقف",
@@ -116,6 +120,12 @@ const ar: LocaleType = {
       Title: "حجم الخط",
       SubTitle: "ضبط حجم الخط لمحتوى الدردشة",
     },
+    User: {
+      Title: "用户名",
+      SubTitle: "登录后可同步用户信息",
+      PointsTitle: "用户积分",
+      PointsSubTitle: "社区用户积分可兑换使用次数",
+    },
     InputTemplate: {
       Title: "نموذج الإدخال",
       SubTitle: "سيتم ملء أحدث رسالة في هذا النموذج",
@@ -130,6 +140,8 @@ const ar: LocaleType = {
     },
     SendKey: "مفتاح الإرسال",
     Theme: "السمة",
+    ApiServerAddress: "服务地址",
+    ApiServerSubTitle: "",
     TightBorder: "حدود ضيقة",
     SendPreviewBubble: {
       Title: "عرض معاينة الـ Send",
@@ -201,6 +213,7 @@ ${builtin} مدمجة، ${custom} تم تعريفها من قبل المستخد
       Title: "تأثير الوجود",
       SubTitle: "قيمة أكبر تزيد من احتمالية التحدث عن مواضيع جديدة",
     },
+    Voice: "语音类型",
     FrequencyPenalty: {
       Title: "تأثير التكرار",
       SubTitle: "قيمة أكبر تقلل من احتمالية تكرار نفس السطر",
@@ -218,6 +231,14 @@ ${builtin} مدمجة، ${custom} تم تعريفها من قبل المستخد
         "قم بتلخيص النقاش بشكل موجز في 200 كلمة أو أقل لاستخدامه كاقتراح للسياق في المستقبل.",
     },
   },
+  Replace: {
+    Success: "已将代码块替换/插入至编辑器",
+    Failed: "复制失败，请赋予剪切板权限",
+  },
+  Merge: {
+    Success: "已打开代码合并窗口",
+    Failed: "代码合并窗口打开失败",
+  },
   Copy: {
     Success: "تم النسخ إلى الحافظة",
     Failed: "فشلت عملية النسخ، يرجى منح الإذن للوصول إلى الحافظة",
@@ -229,8 +250,14 @@ ${builtin} مدمجة، ${custom} تم تعريفها من قبل المستخد
     Clear: "مسح السياق",
     Revert: "التراجع",
   },
+  Voice: {
+    Edit: "语音设置",
+  },
   Plugin: {
     Name: "المكوّن الإضافي",
+  },
+  Shopping: {
+    Name: "商店",
   },
   Mask: {
     Name: "الأقنعة",
