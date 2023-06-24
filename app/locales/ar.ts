@@ -121,10 +121,10 @@ const ar: LocaleType = {
       SubTitle: "ضبط حجم الخط لمحتوى الدردشة",
     },
     User: {
-      Title: "用户名",
-      SubTitle: "登录后可同步用户信息",
-      PointsTitle: "用户积分",
-      PointsSubTitle: "社区用户积分可兑换使用次数",
+      Title: "اسم المستخدم",
+      SubTitle: "يمكن مزامنة معلومات المستخدم بعد تسجيل الدخول",
+      PointsTitle: "اعتمادات المستخدم",
+      PointsSubTitle: "يمكن استبدال نقاط مستخدم المجتمع بعدد الاستخدامات",
     },
     InputTemplate: {
       Title: "نموذج الإدخال",
@@ -140,7 +140,7 @@ const ar: LocaleType = {
     },
     SendKey: "مفتاح الإرسال",
     Theme: "السمة",
-    ApiServerAddress: "服务地址",
+    ApiServerAddress: "العنوان الجغرافي",
     ApiServerSubTitle: "",
     TightBorder: "حدود ضيقة",
     SendPreviewBubble: {
@@ -213,7 +213,7 @@ ${builtin} مدمجة، ${custom} تم تعريفها من قبل المستخد
       Title: "تأثير الوجود",
       SubTitle: "قيمة أكبر تزيد من احتمالية التحدث عن مواضيع جديدة",
     },
-    Voice: "语音类型",
+    Voice: "نوع الصوت",
     FrequencyPenalty: {
       Title: "تأثير التكرار",
       SubTitle: "قيمة أكبر تقلل من احتمالية تكرار نفس السطر",
@@ -232,12 +232,12 @@ ${builtin} مدمجة، ${custom} تم تعريفها من قبل المستخد
     },
   },
   Replace: {
-    Success: "已将代码块替换/插入至编辑器",
-    Failed: "复制失败，请赋予剪切板权限",
+    Success: "كتل التعليمات البرمجية المستبدلة / المدرجة في المحرر",
+    Failed: "فشل النسخ ، يرجى منح أذونات الحافظة",
   },
   Merge: {
-    Success: "已打开代码合并窗口",
-    Failed: "代码合并窗口打开失败",
+    Success: "نافذة دمج التعليمات البرمجية مفتوحة",
+    Failed: "فشل فتح نافذة دمج التعليمات البرمجية",
   },
   Copy: {
     Success: "تم النسخ إلى الحافظة",
@@ -251,13 +251,13 @@ ${builtin} مدمجة، ${custom} تم تعريفها من قبل المستخد
     Revert: "التراجع",
   },
   Voice: {
-    Edit: "语音设置",
+    Edit: "إعدادات الصوت",
   },
   Plugin: {
     Name: "المكوّن الإضافي",
   },
   Shopping: {
-    Name: "商店",
+    Name: "دكان",
   },
   Mask: {
     Name: "الأقنعة",
