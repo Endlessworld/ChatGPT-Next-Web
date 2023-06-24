@@ -1,7 +1,7 @@
 {
   "name": "chatgpt-next-web",
   "private": false,
-  "license": "mit",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
