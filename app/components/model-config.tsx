@@ -118,6 +118,21 @@ export function ModelConfigList(props: {
       </ListItem>
 
       <ListItem
+        title={Locale.Settings.InputTemplate.Title}
+        subTitle={Locale.Settings.InputTemplate.SubTitle}
+      >
+        <input
+          type="text"
+          value={props.modelConfig.template}
+          onChange={(e) =>
+            props.updateConfig(
+              (config) => (config.template = e.currentTarget.value),
+            )
+          }
+        ></input>
+      </ListItem>
+
+      <ListItem
         title={Locale.Settings.HistoryCount.Title}
         subTitle={Locale.Settings.HistoryCount.SubTitle}
       >
