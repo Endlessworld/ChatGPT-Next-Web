@@ -1,9 +1,6 @@
 import { BuiltinMask } from "./typing";
-import { projectContext } from "@/app/utils";
+import { isIdeaPlugin, projectContext } from "@/app/utils";
 
-const useProjectContext = () => {
-  return projectContext();
-};
 export const CN_MASKS: BuiltinMask[] = [
   {
     avatar: "gpt-bot",
@@ -11,8 +8,7 @@ export const CN_MASKS: BuiltinMask[] = [
     context: [
       {
         role: "system",
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        content: useProjectContext(),
+        content: projectContext(),
         date: "",
       },
       {
@@ -22,7 +18,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: isIdeaPlugin() ? "gpt-3.5-turbo-16k-0613" : "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 4097,
       presence_penalty: 0,
@@ -58,7 +54,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 2000,
       presence_penalty: 0,
@@ -82,7 +78,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 2000,
       presence_penalty: 0,
@@ -106,7 +102,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 2000,
       presence_penalty: 0,
@@ -130,7 +126,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 2000,
       presence_penalty: 0,
@@ -154,7 +150,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 2000,
       presence_penalty: 0,
@@ -178,7 +174,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 2000,
       presence_penalty: 0,
@@ -202,7 +198,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 2000,
       presence_penalty: 0,
@@ -226,7 +222,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 2000,
       presence_penalty: 0,
@@ -255,7 +251,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0613",
       temperature: 0.5,
       max_tokens: 2000,
       presence_penalty: 0,
@@ -279,7 +275,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 2000,
       presence_penalty: 0,
@@ -309,7 +305,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 2000,
       presence_penalty: 0,
@@ -339,7 +335,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 2000,
       presence_penalty: 0,
@@ -390,7 +386,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 2000,
       presence_penalty: 0,
