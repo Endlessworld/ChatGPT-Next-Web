@@ -95,7 +95,7 @@ function _MarkDownContent(props: { content: string }) {
         [
           RehypeHighlight,
           {
-            detect: false,
+            detect: true,
             ignoreMissing: true,
           },
         ],
