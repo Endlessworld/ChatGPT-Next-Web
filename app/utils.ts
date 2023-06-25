@@ -63,7 +63,11 @@ export function projectContext() {
             避免用三个反引号包装整个回答。 
             你每次只能给出一个回复。
             你应该始终生成与对话相关且不冒犯的下一个用户回合的简短建议。`;
+  return content;
+}
 
+export function getProjectContextAwareness() {
+  let content = `\u200D\u200D`;
   if (isIdeaPlugin()) {
     const projectContext = localStorage.getItem("project-context");
     if (projectContext) {
@@ -75,7 +79,7 @@ export function projectContext() {
         contexts += `|Option   |Content   |
 |----   |----|`;
         contexts += "\r\n";
-        console.log(contexts);
+        // console.log(contexts);
         for (const contextsKey in projectContent) {
           contexts += `|${contextsKey}|${projectContent[contextsKey].replaceAll(
             "|",
@@ -184,7 +188,12 @@ export function useMobileScreen() {
 
 export async function clearCache() {
   let clearCache = async function () {
-    // del storage
+    // for (let key in localStorage) {
+    //   console.log(key,);
+    //   if (localStorage.getItem(key) != null && key != 'app-config') {
+    //     localStorage.removeItem(key)
+    //   }
+    // }
     localStorage.clear();
     sessionStorage.clear();
     // del sw cache
@@ -278,6 +287,7 @@ export function autoGrowTextArea(dom: HTMLTextAreaElement) {
   const width = getDomContentWidth(dom);
   measureDom.style.width = width + "px";
   measureDom.innerText = dom.value !== "" ? dom.value : "1";
+  measureDom.style.fontSize = dom.style.fontSize;
   const endWithEmptyLine = dom.value.endsWith("\n");
   const height = parseFloat(window.getComputedStyle(measureDom).height);
   const singleLineHeight = parseFloat(
@@ -292,4 +302,17 @@ export function autoGrowTextArea(dom: HTMLTextAreaElement) {
 
 export function getCSSVar(varName: string) {
   return getComputedStyle(document.body).getPropertyValue(varName).trim();
+}
+
+export default function dispatchEventStorage() {
+  const signSetItem = localStorage.setItem;
+  localStorage.setItem = function (key, val) {
+    signSetItem.apply(this, [key, val]);
+    if (isIdeaPlugin()) {
+      let setEvent: any = new Event("storageSetEvent");
+      setEvent.key = key;
+      setEvent.newValue = val;
+      window.dispatchEvent(setEvent);
+    }
+  };
 }

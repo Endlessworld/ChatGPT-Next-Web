@@ -1,10 +1,10 @@
 import { useDebouncedCallback } from "use-debounce";
 import React, {
-  useState,
-  useRef,
   useEffect,
   useLayoutEffect,
   useMemo,
+  useRef,
+  useState,
 } from "react";
 
 import SendWhiteIcon from "../icons/send-white.svg";
@@ -32,21 +32,21 @@ import SoundOnIcon from "../icons/sound-on.svg";
 import SoundOffIcon from "../icons/sound-off.svg";
 
 import {
-  ChatMessage,
-  SubmitKey,
-  useChatStore,
   BOT_HELLO,
+  ChatMessage,
   createMessage,
-  useAccessStore,
-  Theme,
-  useAppConfig,
   DEFAULT_TOPIC,
+  SubmitKey,
+  Theme,
+  useAccessStore,
+  useAppConfig,
+  useChatStore,
 } from "../store";
 
-import {
+import dispatchEventStorage, {
   autoGrowTextArea,
   copyToClipboard,
-  downloadAs,
+  getProjectContextAwareness,
   isIdeaPlugin,
   Merge,
   Replace,
@@ -66,7 +66,7 @@ import { IconButton } from "./button";
 import styles from "./home.module.scss";
 import chatStyle from "./chat.module.scss";
 
-import { List, ListItem, Modal, showModal } from "./ui-lib";
+import { List, ListItem, Modal } from "./ui-lib";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LAST_INPUT_KEY, Path, REQUEST_TIMEOUT_MS } from "../constant";
 import { Avatar } from "./emoji";
@@ -599,7 +599,7 @@ export function Chat() {
   const navigate = useNavigate();
   const userInfo = useUserInfo();
   const onChatBodyScroll = (e: HTMLElement) => {
-    const isTouchBottom = e.scrollTop + e.clientHeight >= e.scrollHeight - 100;
+    const isTouchBottom = e.scrollTop + e.clientHeight >= e.scrollHeight - 10;
     setHitBottom(isTouchBottom);
   };
 
@@ -874,10 +874,47 @@ export function Chat() {
   const autoFocus = !isMobileScreen || isChat; // only focus in chat page
   const showMaxIcon = !isMobileScreen && !clientConfig?.isApp;
 
+  const contextAwarenessHandler = () => {
+    chatStore.updateCurrentSession((session) => {
+      session.mask.context = session.mask.context.filter(
+        (message) => !message.content.startsWith("\u200D\u200D"),
+      );
+    });
+    const projectContext = localStorage.getItem("project-context");
+    if (projectContext) {
+      if (JSON.parse(projectContext).enableContext) {
+        const contextAwareness = getProjectContextAwareness();
+        chatStore.updateCurrentSession((session) => {
+          const awareMessage = createMessage({
+            role: "system",
+            content: contextAwareness,
+          });
+          session.mask.context.unshift(awareMessage);
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    dispatchEventStorage();
+    const handleStorageChange = (event: Event) => {
+      // @ts-ignore
+      if (event.key === "project-context") {
+        // @ts-ignore
+        contextAwarenessHandler();
+      }
+    };
+    window.addEventListener("storageSetEvent", handleStorageChange);
+    return () => {
+      window.removeEventListener("storageSetEvent", handleStorageChange);
+    };
+  }, []);
+
   useEffect(() => {
     if (isIdeaPlugin()) {
       config.update((settings) => (settings.tightBorder = true));
       (window as any).doSubmit = doSubmit;
+      (window as any).clearSessions = () => chatStore.clearSessions();
       (window as any).syncThemes = (isDark: boolean) => {
         config.update(
           (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
@@ -1222,6 +1259,9 @@ export function Chat() {
             onBlur={() => setAutoScroll(false)}
             rows={inputRows}
             autoFocus={autoFocus}
+            style={{
+              fontSize: config.fontSize,
+            }}
           />
           <IconButton
             icon={<SendWhiteIcon />}

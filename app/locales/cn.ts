@@ -135,6 +135,10 @@ const cn = {
       PointsTitle: "用户积分",
       PointsSubTitle: "社区用户积分可兑换使用次数",
     },
+    InputTemplate: {
+      Title: "用户输入预处理",
+      SubTitle: "用户最新的一条消息会填充到此模板",
+    },
     Update: {
       Version: (x: string) => `当前版本：${x}`,
       IsLatest: "已是最新版本",
@@ -317,6 +321,12 @@ const cn = {
     Close: "关闭",
     Create: "新建",
     Edit: "编辑",
+  },
+  Exporter: {
+    Model: "模型",
+    Messages: "消息",
+    Topic: "主题",
+    Time: "时间",
   },
 };
 
