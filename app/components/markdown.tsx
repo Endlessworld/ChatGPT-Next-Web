@@ -1,31 +1,45 @@
 import ReactMarkdown from "react-markdown";
 import "katex/dist/katex.min.css";
+import styles from "./markdown.module.scss";
 import RemarkMath from "remark-math";
 import RemarkBreaks from "remark-breaks";
 import RehypeKatex from "rehype-katex";
 import RemarkGfm from "remark-gfm";
 import RehypeHighlight from "rehype-highlight";
-import { useRef, useState, RefObject, useEffect } from "react";
+import hljs from "highlight.js";
+import {
+  useRef,
+  useState,
+  RefObject,
+  useEffect,
+  ClassAttributes,
+  LegacyRef,
+} from "react";
 import { copyToClipboard } from "../utils";
 import mermaid from "mermaid";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import {
+  dark,
+  vscDarkPlus,
+} from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import LoadingIcon from "../icons/three-dots.svg";
 import React from "react";
-import { useDebouncedCallback, useThrottledCallback } from "use-debounce";
+import { useThrottledCallback } from "use-debounce";
+import { CodeProps } from "react-markdown/lib/ast-to-react";
+import { Content } from "next/dist/compiled/@next/font/dist/google";
 
-export function Mermaid(props: { code: string }) {
+export function Mermaid(props: { code: string; onError: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     if (props.code && ref.current) {
       mermaid
         .run({
           nodes: [ref.current],
-          suppressErrors: true,
         })
         .catch((e) => {
-          setHasError(true);
+          props.onError();
           console.error("[Mermaid] ", e.message);
         });
     }
@@ -44,17 +58,10 @@ export function Mermaid(props: { code: string }) {
     }
   }
 
-  if (hasError) {
-    return null;
-  }
-
   return (
     <div
-      className="no-dark mermaid"
-      style={{
-        cursor: "pointer",
-        overflow: "auto",
-      }}
+      className="no-dark"
+      style={{ cursor: "pointer", overflow: "auto" }}
       ref={ref}
       onClick={() => viewSvgInNewWindow()}
     >
@@ -65,59 +72,112 @@ export function Mermaid(props: { code: string }) {
 
 export function PreCode(props: { children: any }) {
   const ref = useRef<HTMLPreElement>(null);
-  const refText = ref.current?.innerText;
   const [mermaidCode, setMermaidCode] = useState("");
 
-  const renderMermaid = useDebouncedCallback(() => {
+  useEffect(() => {
     if (!ref.current) return;
     const mermaidDom = ref.current.querySelector("code.language-mermaid");
     if (mermaidDom) {
       setMermaidCode((mermaidDom as HTMLElement).innerText);
     }
-  }, 600);
+  }, [props.children]);
 
-  useEffect(() => {
-    setTimeout(renderMermaid, 1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refText]);
+  if (mermaidCode) {
+    return <Mermaid code={mermaidCode} onError={() => setMermaidCode("")} />;
+  }
 
   return (
-    <>
-      {mermaidCode.length > 0 && (
-        <Mermaid code={mermaidCode} key={mermaidCode} />
-      )}
-      <pre ref={ref}>
-        <span
-          className="copy-code-button"
-          onClick={() => {
-            if (ref.current) {
-              const code = ref.current.innerText;
-              copyToClipboard(code);
-            }
-          }}
-        ></span>
-        {props.children}
-      </pre>
-    </>
+    <pre ref={ref}>
+      <span
+        className="copy-code-button"
+        onClick={() => {
+          if (ref.current) {
+            const code = ref.current.innerText;
+            copyToClipboard(code);
+          }
+        }}
+      ></span>
+      {props.children}
+    </pre>
   );
 }
 
 function _MarkDownContent(props: { content: string }) {
+  React.useEffect(() => {
+    hljs.highlightAll();
+  }, []);
   return (
     <ReactMarkdown
       remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}
       rehypePlugins={[
         RehypeKatex,
-        [
-          RehypeHighlight,
-          {
-            detect: true,
-            ignoreMissing: true,
-          },
-        ],
+        // [
+        //   RehypeHighlight,
+        //   {
+        //     detect: true,
+        //     ignoreMissing: true,
+        //   },
+        // ],
       ]}
       components={{
-        pre: PreCode,
+        code: (codeProps: CodeProps) => {
+          // console.log(codeProps)
+          const codeBlock = (codeProps as any)?.children[0];
+          if (!codeBlock) {
+            return (
+              <code
+                className={styles["code-font"]}
+                style={{ backgroundColor: "#f9f2f4" }}
+              >
+                {" "}
+              </code>
+            );
+          }
+          const result = hljs.highlightAuto(codeBlock);
+          if (codeProps.inline) {
+            return (
+              <code
+                className={styles["code-font"]}
+                style={{ backgroundColor: "#f9f2f4" }}
+              >
+                {(codeProps as any).children}
+              </code>
+            );
+          }
+          let language = codeProps?.className?.replace("language-", "");
+          if (!language) {
+            language = hljs.highlightAuto(codeBlock ? codeBlock : "").language;
+            console.log("highlightAuto", language);
+          }
+          return (
+            <SyntaxHighlighter
+              style={vscDarkPlus}
+              language={language}
+              wrapLongLines={true}
+              wrapLines={true}
+              showLineNumbers={true}
+              startingLineNumber={1}
+              showInlineLineNumbers={true}
+              lineNumberContainerStyle={{
+                backgroundColor: "#fff7f2",
+                color: "#fa0000",
+                borderRight: "1px solid #ddd",
+                padding: "10px",
+                borderRadius: "4px",
+                textAlign: "right",
+                userSelect: "none",
+              }}
+              customStyle={{
+                border: "0px solid #f1f1f1",
+                margin: "0px",
+                padding: "0px",
+                borderRadius: "3px",
+              }}
+            >
+              {(codeProps as any).children}
+            </SyntaxHighlighter>
+          );
+        },
         a: (aProps) => {
           const href = aProps.href || "";
           const isInternal = /^\/#/i.test(href);
@@ -195,7 +255,6 @@ export function Markdown(
         fontSize: `${props.fontSize ?? 14}px`,
         height: getSize(renderedHeight.current),
         width: getSize(renderedWidth.current),
-        direction: /[\u0600-\u06FF]/.test(props.content) ? "rtl" : "ltr",
       }}
       ref={mdRef}
       onContextMenu={props.onContextMenu}
