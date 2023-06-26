@@ -21,6 +21,7 @@ export interface AccessControlStore {
   workers: worker[];
   updateWorkers: (_: worker[]) => void;
   updateOpenaiUrl: (_: string) => void;
+  hideBalanceQuery: boolean;
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
   updateOpenAiUrl: (_: string) => void;
@@ -44,6 +45,8 @@ export const useAccessStore = create<AccessControlStore>()(
       hideUserApiKey: false,
       openaiUrl: DEFAULT_OPENAI_URL,
       workers: [],
+      hideBalanceQuery: false,
+
       enabledAccessControl() {
         get().fetch();
 
