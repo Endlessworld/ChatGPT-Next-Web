@@ -996,8 +996,9 @@ export function Chat() {
       const setVoiceAndSpeak = (voices: SpeechSynthesisVoice[], index = 0) => {
         if (index >= filteredTextChunks.length) return;
 
-        const selectedVoice = voices.find((voice) => voice.name === voiceName);
-
+        let selectedVoice =
+          voices.find((voice) => voice.name === voiceName) ||
+          voices.find((voice) => voice.default);
         if (selectedVoice?.name) {
           const utterance = new SpeechSynthesisUtterance(
             filteredTextChunks[index],
