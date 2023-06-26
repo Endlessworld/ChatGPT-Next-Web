@@ -5,29 +5,42 @@ import RemarkMath from "remark-math";
 import RemarkBreaks from "remark-breaks";
 import RehypeKatex from "rehype-katex";
 import RemarkGfm from "remark-gfm";
-import RehypeHighlight from "rehype-highlight";
 import hljs from "highlight.js";
-import {
-  useRef,
-  useState,
-  RefObject,
-  useEffect,
-  ClassAttributes,
-  LegacyRef,
-} from "react";
-import { copyToClipboard } from "../utils";
+import { useRef, useState, RefObject, useEffect } from "react";
+import { copyToClipboard, Replace } from "../utils";
 import mermaid from "mermaid";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import {
-  dark,
+  prism,
   vscDarkPlus,
+  xonokai,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import LoadingIcon from "../icons/three-dots.svg";
 import React from "react";
 import { useThrottledCallback } from "use-debounce";
 import { CodeProps } from "react-markdown/lib/ast-to-react";
-import { Content } from "next/dist/compiled/@next/font/dist/google";
+import {
+  github,
+  githubGist,
+  gml,
+  googlecode,
+  hybrid,
+  idea,
+  kimbieLight,
+  paraisoLight,
+  qtcreatorLight,
+  stackoverflowLight,
+  tomorrowNight,
+  vs2015,
+  xt256,
+} from "react-syntax-highlighter/dist/esm/styles/hljs";
+import {
+  dark,
+  materialDark,
+  materialLight,
+} from "react-syntax-highlighter/dist/cjs/styles/prism";
+import Locale from "@/app/locales";
 
 export function Mermaid(props: { code: string; onError: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -61,7 +74,11 @@ export function Mermaid(props: { code: string; onError: () => void }) {
   return (
     <div
       className="no-dark"
-      style={{ cursor: "pointer", overflow: "auto" }}
+      style={{
+        cursor: "pointer",
+        overflow: "auto",
+        backgroundColor: "#fff7f2",
+      }}
       ref={ref}
       onClick={() => viewSvgInNewWindow()}
     >
@@ -70,37 +87,37 @@ export function Mermaid(props: { code: string; onError: () => void }) {
   );
 }
 
-export function PreCode(props: { children: any }) {
-  const ref = useRef<HTMLPreElement>(null);
-  const [mermaidCode, setMermaidCode] = useState("");
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const mermaidDom = ref.current.querySelector("code.language-mermaid");
-    if (mermaidDom) {
-      setMermaidCode((mermaidDom as HTMLElement).innerText);
-    }
-  }, [props.children]);
-
-  if (mermaidCode) {
-    return <Mermaid code={mermaidCode} onError={() => setMermaidCode("")} />;
-  }
-
-  return (
-    <pre ref={ref}>
-      <span
-        className="copy-code-button"
-        onClick={() => {
-          if (ref.current) {
-            const code = ref.current.innerText;
-            copyToClipboard(code);
-          }
-        }}
-      ></span>
-      {props.children}
-    </pre>
-  );
-}
+// export function PreCode(props: { children: any }) {
+//   const ref = useRef<HTMLPreElement>(null);
+//   const [mermaidCode, setMermaidCode] = useState("");
+//
+//   useEffect(() => {
+//     if (!ref.current) return;
+//     const mermaidDom = ref.current.querySelector("code.language-mermaid");
+//     if (mermaidDom) {
+//       setMermaidCode((mermaidDom as HTMLElement).innerText);
+//     }
+//   }, [props.children]);
+//
+//   if (mermaidCode) {
+//     return <Mermaid code={mermaidCode} onError={() => setMermaidCode("")} />;
+//   }
+//
+//   return (
+//     <pre ref={ref}>
+//       <span
+//         className="copy-code-button"
+//         onClick={() => {
+//           if (ref.current) {
+//             const code = ref.current.innerText;
+//             copyToClipboard(code);
+//           }
+//         }}
+//       ></span>
+//       {props.children}
+//     </pre>
+//   );
+// }
 
 function _MarkDownContent(props: { content: string }) {
   React.useEffect(() => {
@@ -109,16 +126,7 @@ function _MarkDownContent(props: { content: string }) {
   return (
     <ReactMarkdown
       remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}
-      rehypePlugins={[
-        RehypeKatex,
-        // [
-        //   RehypeHighlight,
-        //   {
-        //     detect: true,
-        //     ignoreMissing: true,
-        //   },
-        // ],
-      ]}
+      rehypePlugins={[RehypeKatex]}
       components={{
         code: (codeProps: CodeProps) => {
           // console.log(codeProps)
@@ -145,37 +153,51 @@ function _MarkDownContent(props: { content: string }) {
             );
           }
           let language = codeProps?.className?.replace("language-", "");
-          if (!language) {
-            language = hljs.highlightAuto(codeBlock ? codeBlock : "").language;
-            console.log("highlightAuto", language);
-          }
-          return (
-            <SyntaxHighlighter
-              style={vscDarkPlus}
-              language={language}
-              wrapLongLines={true}
-              wrapLines={true}
-              showLineNumbers={true}
-              startingLineNumber={1}
-              showInlineLineNumbers={true}
-              lineNumberContainerStyle={{
-                backgroundColor: "#fff7f2",
-                color: "#fa0000",
-                borderRight: "1px solid #ddd",
-                padding: "10px",
-                borderRadius: "4px",
-                textAlign: "right",
-                userSelect: "none",
-              }}
-              customStyle={{
-                border: "0px solid #f1f1f1",
-                margin: "0px",
-                padding: "0px",
-                borderRadius: "3px",
-              }}
-            >
-              {(codeProps as any).children}
-            </SyntaxHighlighter>
+          language = !language
+            ? hljs.highlightAuto(codeBlock ? codeBlock : "").language
+            : language;
+          // console.log("language >>> ", language);
+          return language === "mermaid" ? (
+            <Mermaid code={codeBlock} onError={() => ""} />
+          ) : (
+            <div>
+              <SyntaxHighlighter
+                style={vscDarkPlus}
+                language={language}
+                // wrapLongLines={true}
+                // wrapLines={true}
+                showLineNumbers={true}
+                startingLineNumber={1}
+                showInlineLineNumbers={true}
+                lineNumberContainerStyle={{
+                  backgroundColor: "#fff7f2",
+                  color: "#fa0000",
+                  borderRight: "1px solid #ddd",
+                  padding: "10px",
+                  borderRadius: "4px",
+                  textAlign: "right",
+                  userSelect: "none",
+                }}
+                customStyle={{
+                  border: "0px solid #f1f1f1",
+                  margin: "0px",
+                  padding: "0px",
+                  borderRadius: "3px",
+                }}
+              >
+                {(codeProps as any).children}
+              </SyntaxHighlighter>
+              <span
+                className="copy-code-button"
+                onClick={() => {
+                  if (codeBlock) {
+                    copyToClipboard(codeBlock);
+                  }
+                }}
+              >
+                {" "}
+              </span>
+            </div>
           );
         },
         a: (aProps) => {
