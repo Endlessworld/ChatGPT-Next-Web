@@ -1,0 +1,7 @@
+<svg class="icon" style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
+     viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M668.506 478.509l-42.425 42.425L697.146 592H449.573v60H842l-60-60zM449.573 688.509l60 60L623.067 862l42.425-42.426-71.065-71.065H842v-60H534.427z"
+          fill="#7F8080"></path>
+    <path d="M182 162v700h200v-60H242V222h540v250h60V162z" fill="#7F8080"></path>
+    <path d="M322 302h380v60H322zM322 422h260v60H322z" fill="#7F8080"></path>
+</svg>

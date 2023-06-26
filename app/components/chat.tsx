@@ -23,6 +23,7 @@ import BreakIcon from "../icons/break.svg";
 import SettingsIcon from "../icons/chat-settings.svg";
 import DeleteIcon from "../icons/clear.svg";
 import PinIcon from "../icons/pin.svg";
+import ReplaceIcon from "../icons/replace.svg";
 
 import LightIcon from "../icons/light.svg";
 import DarkIcon from "../icons/dark.svg";
@@ -1318,6 +1319,17 @@ export function Chat() {
                                 icon={<PinIcon />}
                                 onClick={() => onPinMessage(message)}
                               />
+                              <ChatAction
+                                text={Locale.Chat.Actions.Speak}
+                                icon={<MicrophoneIcon />}
+                                onClick={() =>
+                                  soundOn &&
+                                  speak(
+                                    message.content,
+                                    session.ttsConfig?.voice,
+                                  )
+                                }
+                              />
                             </>
                           )}
                           <ChatAction
@@ -1325,6 +1337,22 @@ export function Chat() {
                             icon={<CopyIcon />}
                             onClick={() => copyToClipboard(message.content)}
                           />
+                          {!isIdeaPlugin() ? (
+                            <>
+                              <ChatAction
+                                text={Locale.Chat.Actions.Replace}
+                                icon={<ReplaceIcon />}
+                                onClick={() => Replace(message.content)}
+                              />
+                              <ChatAction
+                                text={Locale.Chat.Actions.Merge}
+                                icon={<PinIcon />}
+                                onClick={() => Merge(message.content)}
+                              />
+                            </>
+                          ) : (
+                            <></>
+                          )}
                         </div>
 
                         <div className={styles["chat-message-action-date"]}>
