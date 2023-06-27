@@ -412,7 +412,7 @@ function ChatAction(props: {
   }
 
   useEffect(() => {
-    updateWidth();
+    setTimeout(updateWidth, 100);
   }, []);
 
   return (
@@ -1254,9 +1254,31 @@ export function Chat() {
                               />
 
                               <ChatAction
+                                text={Locale.Chat.Actions.Delete}
+                                icon={<DeleteIcon />}
+                                onClick={() => onDelete(message.id ?? i)}
+                              />
+
+                              <ChatAction
                                 text={Locale.Chat.Actions.Pin}
                                 icon={<PinIcon />}
                                 onClick={() => onPinMessage(message)}
+                              />
+                              <ChatAction
+                                text={Locale.Chat.Actions.Copy}
+                                icon={<CopyIcon />}
+                                onClick={() => copyToClipboard(message.content)}
+                              />
+                              <ChatAction
+                                text={Locale.Chat.Actions.Speak}
+                                icon={<MicrophoneIcon />}
+                                onClick={() =>
+                                  soundOn &&
+                                  speak(
+                                    message.content,
+                                    session.ttsConfig?.voice,
+                                  )
+                                }
                               />
                               {isIdeaPlugin() ? (
                                 <>
@@ -1274,24 +1296,8 @@ export function Chat() {
                               ) : (
                                 <></>
                               )}
-                              <ChatAction
-                                text={Locale.Chat.Actions.Speak}
-                                icon={<MicrophoneIcon />}
-                                onClick={() =>
-                                  soundOn &&
-                                  speak(
-                                    message.content,
-                                    session.ttsConfig?.voice,
-                                  )
-                                }
-                              />
                             </>
                           )}
-                          <ChatAction
-                            text={Locale.Chat.Actions.Copy}
-                            icon={<CopyIcon />}
-                            onClick={() => copyToClipboard(message.content)}
-                          />
                         </div>
                         <div className={styles["chat-message-action-date"]}>
                           {message.date}
