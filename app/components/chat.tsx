@@ -24,6 +24,7 @@ import SettingsIcon from "../icons/chat-settings.svg";
 import DeleteIcon from "../icons/clear.svg";
 import PinIcon from "../icons/pin.svg";
 import ReplaceIcon from "../icons/replace.svg";
+import MergeIcon from "../icons/merge.svg";
 
 import LightIcon from "../icons/light.svg";
 import DarkIcon from "../icons/dark.svg";
@@ -52,6 +53,7 @@ import dispatchEventStorage, {
   autoGrowTextArea,
   copyToClipboard,
   getProjectContextAwareness,
+  getVoices,
   isIdeaPlugin,
   Merge,
   Replace,
@@ -575,11 +577,11 @@ export function ChatActions(props: {
         }}
       />
 
-      <ChatAction
-        onClick={props.showTTSModal}
-        text=""
-        icon={<MicrophoneIcon />}
-      />
+      {/*<ChatAction*/}
+      {/*  onClick={props.showTTSModal}*/}
+      {/*  text=""*/}
+      {/*  icon={<MicrophoneIcon />}*/}
+      {/*/>*/}
       <ChatAction
         onClick={toggleAssistantVoice}
         text=""
@@ -614,7 +616,7 @@ export function Chat() {
   const { submitKey, shouldSubmit } = useSubmitHandler();
   const { scrollRef, setAutoScroll, scrollToBottom } = useScrollToBottom();
   const [hitBottom, setHitBottom] = useState(true);
-  const [soundOn, setSoundOn] = useState(true);
+  const [soundOn, setSoundOn] = useState(false);
   const isMobileScreen = useMobileScreen();
   const navigate = useNavigate();
   const userInfo = useUserInfo();
@@ -997,20 +999,6 @@ export function Chat() {
     },
   });
 
-  const getVoices = (): Promise<SpeechSynthesisVoice[]> => {
-    return new Promise((resolve) => {
-      let voices = speechSynthesis.getVoices();
-      if (voices.length) {
-        resolve(voices);
-        return;
-      }
-      speechSynthesis.onvoiceschanged = () => {
-        voices = speechSynthesis.getVoices();
-        resolve(voices);
-      };
-    });
-  };
-
   const isChinese = (text: string): boolean => {
     const chineseRegex = /[\u4e00-\u9fff]/;
     return chineseRegex.test(text);
@@ -1071,8 +1059,8 @@ export function Chat() {
             filteredTextChunks[index],
           );
           utterance.voice = selectedVoice;
-          utterance.rate = 0.9; // Lower rate for a more natural sound
-          utterance.pitch = 1; // Default pitch
+          utterance.rate = 1.8; // Lower rate for a more natural sound
+          utterance.pitch = 1.5; // Default pitch
           utterance.volume = 1; // Default volume
 
           utterance.onend = () => {
@@ -1206,66 +1194,6 @@ export function Chat() {
                     </div>
                   )}
                   <div className={styles["chat-message-item"]}>
-                    {showActions && (
-                      <div className={styles["chat-message-top-actions"]}>
-                        {message.streaming ? (
-                          <div
-                            className={styles["chat-message-top-action"]}
-                            onClick={() => onUserStop(message.id ?? i)}
-                          >
-                            {Locale.Chat.Actions.Stop}
-                          </div>
-                        ) : (
-                          <>
-                            <div
-                              className={styles["chat-message-top-action"]}
-                              onClick={() => onDelete(message.id ?? i)}
-                            >
-                              {Locale.Chat.Actions.Delete}
-                            </div>
-                            <div
-                              className={styles["chat-message-top-action"]}
-                              onClick={() => onResend(message.id ?? i)}
-                            >
-                              {Locale.Chat.Actions.Retry}
-                            </div>
-                          </>
-                        )}
-                        {isIdeaPlugin() ? (
-                          <>
-                            <div
-                              className={styles["chat-message-top-action"]}
-                              onClick={() => Replace(message.content)}
-                            >
-                              {Locale.Chat.Actions.Replace}
-                            </div>
-                            <div
-                              className={styles["chat-message-top-action"]}
-                              onClick={() => Merge(message.content)}
-                            >
-                              {Locale.Chat.Actions.Merge}
-                            </div>
-                          </>
-                        ) : (
-                          <></>
-                        )}
-                        <div
-                          className={styles["chat-message-top-action"]}
-                          onClick={() => copyToClipboard(message.content)}
-                        >
-                          {Locale.Chat.Actions.Copy}
-                        </div>
-                        <div
-                          className={styles["chat-message-top-action"]}
-                          onClick={() =>
-                            soundOn &&
-                            speak(message.content, session.ttsConfig?.voice)
-                          }
-                        >
-                          {Locale.Chat.Actions.Speak}
-                        </div>
-                      </div>
-                    )}
                     <Markdown
                       content={message.content}
                       loading={
@@ -1307,7 +1235,6 @@ export function Chat() {
                                 icon={<DeleteIcon />}
                                 onClick={() => onDelete(message.id ?? i)}
                               />
-
                               <ChatAction
                                 text={Locale.Chat.Actions.Retry}
                                 icon={<ResetIcon />}
@@ -1319,6 +1246,22 @@ export function Chat() {
                                 icon={<PinIcon />}
                                 onClick={() => onPinMessage(message)}
                               />
+                              {isIdeaPlugin() ? (
+                                <>
+                                  <ChatAction
+                                    text={Locale.Chat.Actions.Replace}
+                                    icon={<ReplaceIcon />}
+                                    onClick={() => Replace(message.content)}
+                                  />
+                                  <ChatAction
+                                    text={Locale.Chat.Actions.Merge}
+                                    icon={<MergeIcon />}
+                                    onClick={() => Merge(message.content)}
+                                  />
+                                </>
+                              ) : (
+                                <></>
+                              )}
                               <ChatAction
                                 text={Locale.Chat.Actions.Speak}
                                 icon={<MicrophoneIcon />}
@@ -1337,22 +1280,6 @@ export function Chat() {
                             icon={<CopyIcon />}
                             onClick={() => copyToClipboard(message.content)}
                           />
-                          {!isIdeaPlugin() ? (
-                            <>
-                              <ChatAction
-                                text={Locale.Chat.Actions.Replace}
-                                icon={<ReplaceIcon />}
-                                onClick={() => Replace(message.content)}
-                              />
-                              <ChatAction
-                                text={Locale.Chat.Actions.Merge}
-                                icon={<PinIcon />}
-                                onClick={() => Merge(message.content)}
-                              />
-                            </>
-                          ) : (
-                            <></>
-                          )}
                         </div>
 
                         <div className={styles["chat-message-action-date"]}>

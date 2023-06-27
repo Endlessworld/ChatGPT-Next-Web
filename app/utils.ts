@@ -11,6 +11,19 @@ export function isIdeaPlugin() {
   }
   return (window as any).cefQuery;
 }
+export async function getVoices(): Promise<SpeechSynthesisVoice[]> {
+  return new Promise((resolve) => {
+    let voices = speechSynthesis.getVoices();
+    if (voices.length) {
+      resolve(voices);
+      return;
+    }
+    speechSynthesis.onvoiceschanged = () => {
+      voices = speechSynthesis.getVoices();
+      resolve(voices);
+    };
+  });
+}
 export async function ideaMessage(
   message: Record<string, unknown> = { event: "replace", message: "" },
 ) {

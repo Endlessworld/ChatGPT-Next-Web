@@ -139,11 +139,7 @@ export const ModalConfigValidator = {
     if (model == ALL_MODELS[4].name) {
       return limitNumber(x, 0, 4096, 2000);
     }
-    if (
-      model == ALL_MODELS[5].name ||
-      model == ALL_MODELS[6].name ||
-      model == ALL_MODELS[7].name
-    ) {
+    if (model == ALL_MODELS[5].name || model == ALL_MODELS[7].name) {
       return limitNumber(x, 0, 16000, 4096);
     }
     return limitNumber(x, 0, 32000, 4096);
