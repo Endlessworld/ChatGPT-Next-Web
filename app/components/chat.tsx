@@ -1252,13 +1252,6 @@ export function Chat() {
                                 icon={<ResetIcon />}
                                 onClick={() => onResend(message.id ?? i)}
                               />
-
-                              <ChatAction
-                                text={Locale.Chat.Actions.Delete}
-                                icon={<DeleteIcon />}
-                                onClick={() => onDelete(message.id ?? i)}
-                              />
-
                               <ChatAction
                                 text={Locale.Chat.Actions.Pin}
                                 icon={<PinIcon />}

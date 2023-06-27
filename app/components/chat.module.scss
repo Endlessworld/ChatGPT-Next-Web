@@ -284,9 +284,6 @@
 
   &:hover {
     min-width: 330px;
-    @media (max-width: 330px) {
-      min-height: calc(30px + 100%); // 根据实际情况调整高度
-    }
     .chat-message-actions {
       opacity: 1;
       transform: translateY(0px);
