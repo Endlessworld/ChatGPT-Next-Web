@@ -123,9 +123,11 @@ export class ChatGPTApi implements LLMApi {
             if (msg.data === "[DONE]" || finished) {
               return finish();
             }
+            console.log(msg);
             const text = msg.data;
             try {
               const json = JSON.parse(text);
+
               const delta = json.choices[0].delta.content;
               if (delta) {
                 responseText += delta;

@@ -333,7 +333,7 @@ export function PromptHints(props: {
     window.addEventListener("keydown", onKeyDown);
     (window as any).XAction = function (query: string) {
       const textarea = document.querySelector(
-        ".home_chat-input__qM_hd",
+        ".input-textarea",
       ) as HTMLTextAreaElement;
       textarea.value = query;
       console.log(textarea);
@@ -1193,6 +1193,7 @@ export function Chat() {
                       {Locale.Chat.Typing}
                     </div>
                   )}
+
                   <div className={styles["chat-message-item"]}>
                     <Markdown
                       content={message.content}
@@ -1212,7 +1213,6 @@ export function Chat() {
                       parentRef={scrollRef}
                       defaultShow={i >= messages.length - 10}
                     />
-
                     {showActions && (
                       <div className={styles["chat-message-actions"]}>
                         <div
@@ -1281,9 +1281,8 @@ export function Chat() {
                             onClick={() => copyToClipboard(message.content)}
                           />
                         </div>
-
                         <div className={styles["chat-message-action-date"]}>
-                          {message.date.toLocaleString()}
+                          {message.date}
                         </div>
                       </div>
                     )}
@@ -1321,7 +1320,7 @@ export function Chat() {
         <div className={styles["chat-input-panel-inner"]}>
           <textarea
             ref={inputRef}
-            className={styles["chat-input"]}
+            className={"input-textarea ".concat(styles["chat-input"])}
             placeholder={Locale.Chat.Input(submitKey)}
             onInput={(e) => onInput(e.currentTarget.value)}
             value={userInput}
