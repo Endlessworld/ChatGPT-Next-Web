@@ -84,10 +84,10 @@ export class ChatGPTApi implements LLMApi {
           async onopen(res) {
             clearTimeout(requestTimeoutId);
             const contentType = res.headers.get("content-type");
-            console.log(
-              "[OpenAI] request response content type: ",
-              contentType,
-            );
+            // console.log(
+            //   "[OpenAI] request response content type: ",
+            //   contentType,
+            // );
 
             if (contentType?.startsWith("text/plain")) {
               responseText = await res.clone().text();
@@ -123,11 +123,9 @@ export class ChatGPTApi implements LLMApi {
             if (msg.data === "[DONE]" || finished) {
               return finish();
             }
-            console.log(msg);
             const text = msg.data;
             try {
               const json = JSON.parse(text);
-
               const delta = json.choices[0].delta.content;
               if (delta) {
                 responseText += delta;

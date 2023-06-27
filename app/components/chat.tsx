@@ -1,10 +1,10 @@
 import { useDebouncedCallback } from "use-debounce";
 import React, {
+  useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
-  useCallback,
 } from "react";
 
 import SendWhiteIcon from "../icons/send-white.svg";
@@ -37,15 +37,15 @@ import SoundOffIcon from "../icons/sound-off.svg";
 import RobotIcon from "../icons/robot.svg";
 
 import {
+  ALL_MODELS,
   BOT_HELLO,
   ChatMessage,
   createMessage,
+  DEFAULT_TOPIC,
   SubmitKey,
   Theme,
   useAccessStore,
   useAppConfig,
-  DEFAULT_TOPIC,
-  ALL_MODELS,
   useChatStore,
 } from "../store";
 
@@ -336,7 +336,7 @@ export function PromptHints(props: {
         ".input-textarea",
       ) as HTMLTextAreaElement;
       textarea.value = query;
-      console.log(textarea);
+      // console.log(textarea);
       textarea.dispatchEvent(new Event("input", { bubbles: true }));
       (window as any).doSubmit(textarea.value);
       textarea.focus();
@@ -862,6 +862,7 @@ export function Chat() {
 
   const toggleSound = () => {
     setSoundOn(!soundOn);
+    localStorage.setItem("soundOn", String(!soundOn));
   };
 
   const initialRender = useRef(true);
@@ -1004,8 +1005,11 @@ export function Chat() {
     return chineseRegex.test(text);
   };
 
-  const speak = async (text: string, voiceName: string) => {
+  const speak = (text: string, voiceName: string) => {
     if ("speechSynthesis" in window) {
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+      }
       const maxWordsPerChunk = 20; // Adjust this value based on your testing
       const maxCharsPerChunk = 40; // Adjust this value based on your testing
       const textChunks: string[] = [];
@@ -1050,7 +1054,8 @@ export function Chat() {
 
       const setVoiceAndSpeak = (voices: SpeechSynthesisVoice[], index = 0) => {
         if (index >= filteredTextChunks.length) return;
-
+        let soundOnNext = localStorage.getItem("soundOn");
+        if (soundOnNext == "false") return;
         let selectedVoice =
           voices.find((voice) => voice.name === voiceName) ||
           voices.find((voice) => voice.default);
@@ -1059,22 +1064,29 @@ export function Chat() {
             filteredTextChunks[index],
           );
           utterance.voice = selectedVoice;
-          utterance.rate = 1.8; // Lower rate for a more natural sound
+          utterance.rate = 2; // Lower rate for a more natural sound
           utterance.pitch = 1.5; // Default pitch
           utterance.volume = 1; // Default volume
 
           utterance.onend = () => {
             setVoiceAndSpeak(voices, index + 1);
           };
-
+          utterance.onstart = () => {
+            if (!soundOn) return;
+          };
           window.speechSynthesis.speak(utterance);
         } else {
           console.error("Selected voice is not found in this browser.");
         }
       };
 
-      const voices = await getVoices();
-      setVoiceAndSpeak(voices);
+      getVoices((voices) => {
+        // 在回调函数中处理语音列表
+        // console.log(voices);
+        setVoiceAndSpeak(voices);
+      });
+      // const voices =  getVoices();
+      // setVoiceAndSpeak(voices);
     } else {
       console.error("Web Speech API not supported in this browser.");
     }

@@ -11,23 +11,37 @@ export function isIdeaPlugin() {
   }
   return (window as any).cefQuery;
 }
-export async function getVoices(): Promise<SpeechSynthesisVoice[]> {
-  return new Promise((resolve) => {
-    let voices = speechSynthesis.getVoices();
-    if (voices.length) {
-      resolve(voices);
-      return;
-    }
-    speechSynthesis.onvoiceschanged = () => {
-      voices = speechSynthesis.getVoices();
-      resolve(voices);
-    };
-  });
+
+export function getVoices(
+  callback: (voices: SpeechSynthesisVoice[]) => void,
+): void {
+  let voices = speechSynthesis.getVoices();
+  if (voices.length) {
+    callback(voices);
+    return;
+  }
+  speechSynthesis.onvoiceschanged = () => {
+    voices = speechSynthesis.getVoices();
+    callback(voices);
+  };
 }
+// export async function getVoices(): Promise<SpeechSynthesisVoice[]> {
+//   return new Promise((resolve) => {
+//     let voices = speechSynthesis.getVoices();
+//     if (voices.length) {
+//       resolve(voices);
+//       return;
+//     }
+//     speechSynthesis.onvoiceschanged = () => {
+//       voices = speechSynthesis.getVoices();
+//       resolve(voices);
+//     };
+//   });
+// }
 export async function ideaMessage(
   message: Record<string, unknown> = { event: "replace", message: "" },
 ) {
-  console.log((window as any).cefQuery);
+  // console.log((window as any).cefQuery);
   try {
     if ((window as any).cefQuery) {
       console.log("cefQuery", message);
@@ -100,7 +114,7 @@ export function getProjectContextAwareness() {
           )}|`;
           contexts += "\r\n";
         }
-        console.log(contexts);
+        // console.log(contexts);
         return content.concat(contexts);
       }
     }
@@ -258,7 +272,7 @@ export function selectOrCopy(el: HTMLElement, content: string) {
   if (currentSelection?.type === "Range") {
     return false;
   }
-  console.log(content);
+  // console.log(content);
   copyToClipboard(content);
 
   return true;

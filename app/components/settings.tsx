@@ -600,7 +600,7 @@ export function Settings() {
             <Select
               value={accessStore.openaiUrl}
               onChange={(e) => {
-                console.log(e);
+                // console.log(e);
                 const url = e.target.value as string;
                 accessStore.updateWorkers(
                   accessStore.workers.map((e) => {

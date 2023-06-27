@@ -8,13 +8,11 @@ import ChatGptIcon from "../icons/chatgpt.svg";
 import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import MaskIcon from "../icons/mask.svg";
-import PluginIcon from "../icons/plugin.svg";
 import AnnouncementIcon from "../icons/announcement.svg";
 import UserIcon from "../icons/user.svg";
-import ShoppingIcon from "../icons/shopping.svg";
 
-import Locale, { getLang } from "../locales";
-import { useAppConfig, useNoticeStore, useChatStore } from "../store";
+import Locale from "../locales";
+import { useAppConfig, useChatStore, useNoticeStore } from "../store";
 
 import {
   MAX_SIDEBAR_WIDTH,
@@ -26,7 +24,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { isIdeaPlugin, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
-import { showModal, showToast } from "./ui-lib";
+import { showModal } from "./ui-lib";
 import { Markdown } from "@/app/components/markdown";
 import { useMaskStore } from "@/app/store/mask";
 
@@ -181,7 +179,7 @@ export function SideBar(props: { className?: string }) {
             <IconButton
               icon={<AnnouncementIcon />}
               onClick={() => {
-                console.log(notice);
+                // console.log(notice);
                 showModal({
                   title: "公告",
                   children: (
