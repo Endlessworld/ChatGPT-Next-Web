@@ -43,6 +43,7 @@ const en: LocaleType = {
       Replace: "Replace",
       Merge: "Merge",
       Speak: "Speak",
+      Edit: "Edit",
     },
     Commands: {
       new: "Start a new chat",
@@ -124,12 +125,19 @@ const en: LocaleType = {
   Settings: {
     Title: "Settings",
     SubTitle: "All Settings",
-    Actions: {
-      ClearAll: "Clear All Data",
-      ResetAll: "Reset All Settings",
-      Close: "Close",
-      ConfirmResetAll: "Are you sure you want to reset all configurations?",
-      ConfirmClearAll: "Are you sure you want to reset all data?",
+    Danger: {
+      Reset: {
+        Title: "Reset All Settings",
+        SubTitle: "Reset all setting items to default",
+        Action: "Reset",
+        Confirm: "Confirm to reset all settings to default?",
+      },
+      Clear: {
+        Title: "Clear All Data",
+        SubTitle: "Clear all messages and settings",
+        Action: "Clear",
+        Confirm: "Confirm to clear all messages and settings?",
+      },
     },
     Lang: {
       Name: "Language", // ATTENTION: if you wanna add a new translation, please do not translate this value, leave it as `Language`

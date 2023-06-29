@@ -15,7 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { Path } from "../constant";
 import { MaskAvatar } from "./mask";
 import { Mask } from "../store/mask";
-import { useEffect, useRef } from "react";
+import { useRef, useEffect } from "react";
+import { showConfirm } from "./ui-lib";
 
 export function ChatItem(props: {
   onClick?: () => void;
@@ -143,8 +144,11 @@ export function ChatList(props: { narrow?: boolean }) {
                   navigate(Path.Chat);
                   selectSession(i);
                 }}
-                onDelete={() => {
-                  if (!props.narrow || confirm(Locale.Home.DeleteChat)) {
+                onDelete={async () => {
+                  if (
+                    !props.narrow ||
+                    (await showConfirm(Locale.Home.DeleteChat))
+                  ) {
                     chatStore.deleteSession(i);
                   }
                 }}

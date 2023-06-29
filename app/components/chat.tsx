@@ -25,6 +25,7 @@ import DeleteIcon from "../icons/clear.svg";
 import PinIcon from "../icons/pin.svg";
 import ReplaceIcon from "../icons/replace.svg";
 import MergeIcon from "../icons/merge.svg";
+import EditIcon from "../icons/rename.svg";
 
 import LightIcon from "../icons/light.svg";
 import DarkIcon from "../icons/dark.svg";
@@ -72,7 +73,14 @@ import Locale from "../locales";
 import { IconButton } from "./button";
 import styles from "./chat.module.scss";
 
-import { List, ListItem, Modal, showToast } from "./ui-lib";
+import {
+  ListItem,
+  Modal,
+  showConfirm,
+  showPrompt,
+  List,
+  showToast,
+} from "./ui-lib";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LAST_INPUT_KEY, Path, REQUEST_TIMEOUT_MS } from "../constant";
 import { Avatar } from "./emoji";
@@ -104,8 +112,8 @@ export function SessionConfigModel(props: { onClose: () => void }) {
             icon={<ResetIcon />}
             bordered
             text={Locale.Chat.Config.Reset}
-            onClick={() => {
-              if (confirm(Locale.Memory.ResetConfirm)) {
+            onClick={async () => {
+              if (await showConfirm(Locale.Memory.ResetConfirm)) {
                 chatStore.updateCurrentSession(
                   (session) => (session.memoryPrompt = ""),
                 );
@@ -937,10 +945,13 @@ export function Chat() {
   const [showTTSModal, setShowTTSModal] = useState(false);
 
   const renameSession = () => {
-    const newTopic = prompt(Locale.Chat.Rename, session.topic);
-    if (newTopic && newTopic !== session.topic) {
-      chatStore.updateCurrentSession((session) => (session.topic = newTopic!));
-    }
+    showPrompt(Locale.Chat.Rename, session.topic).then((newTopic) => {
+      if (newTopic && newTopic !== session.topic) {
+        chatStore.updateCurrentSession(
+          (session) => (session.topic = newTopic!),
+        );
+      }
+    });
   };
 
   const clientConfig = useMemo(() => getClientConfig(), []);
@@ -1201,6 +1212,25 @@ export function Chat() {
               >
                 <div className={styles["chat-message-container"]}>
                   <div className={styles["chat-message-avatar"]}>
+                    <div className={styles["chat-message-edit"]}>
+                      <IconButton
+                        icon={<EditIcon />}
+                        onClick={async () => {
+                          const newMessage = await showPrompt(
+                            Locale.Chat.Actions.Edit,
+                            message.content,
+                          );
+                          chatStore.updateCurrentSession((session) => {
+                            const m = session.messages.find(
+                              (m) => m.id === message.id,
+                            );
+                            if (m) {
+                              m.content = newMessage;
+                            }
+                          });
+                        }}
+                      ></IconButton>
+                    </div>
                     {message.role === "user" ? (
                       <Avatar avatar={config.avatar} isChatAvatar={true} />
                     ) : (
