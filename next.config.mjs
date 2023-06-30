@@ -1,5 +1,3 @@
-import webpack from "webpack";
-
 const mode = process.env.BUILD_MODE ?? "standalone";
 console.log("[Next] build mode", mode);
 
@@ -15,9 +13,9 @@ const nextConfig = {
     });
 
     // if (disableChunk) {
-    config.plugins.push(
-        new webpack.optimize.LimitChunkCountPlugin({maxChunks: 99})
-    );
+    // config.plugins.push(
+    //     new webpack.optimize.LimitChunkCountPlugin({maxChunks: 99})
+    // );
     // }
     // config.optimization.minimize = true
     // config.optimization.removeEmptyChunks = true
