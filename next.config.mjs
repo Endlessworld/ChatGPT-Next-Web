@@ -14,12 +14,23 @@ const nextConfig = {
       use: ["@svgr/webpack"],
     });
 
-    if (disableChunk) {
-      config.plugins.push(
-        new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
-      );
-    }
-
+    // if (disableChunk) {
+    config.plugins.push(
+        new webpack.optimize.LimitChunkCountPlugin({maxChunks: 99})
+    );
+    // }
+    config.optimization.minimize = true
+    config.optimization.removeEmptyChunks = true
+    config.optimization.mergeDuplicateChunks = true
+    config.optimization.mangleWasmImports = true
+    config.optimization.mangleExports = true
+    config.optimization.concatenateModules = true
+    config.optimization.chunkIds = 'size'
+    // config.optimization.splitChunks = {
+    //     minChunks: 1,
+    //     minSize: 10,
+    //     maxSize:100000
+    // }
     return config;
   },
   output: mode,
