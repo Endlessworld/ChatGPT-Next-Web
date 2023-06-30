@@ -39,7 +39,8 @@ import Locale, {
   getLang,
 } from "../locales";
 import { copyToClipboard, useUserInfo } from "../utils";
-import { Path } from "../constant";
+import Link from "next/link";
+import { Path, RELEASE_URL, UPDATE_URL } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
@@ -309,19 +310,6 @@ function SyncItems() {
   );
 }
 
-function formatVersionDate(t: string) {
-  const d = new Date(+t);
-  const year = d.getUTCFullYear();
-  const month = d.getUTCMonth() + 1;
-  const day = d.getUTCDate();
-
-  return [
-    year.toString(),
-    month.toString().padStart(2, "0"),
-    day.toString().padStart(2, "0"),
-  ].join("");
-}
-
 export function Settings() {
   const navigate = useNavigate();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -330,24 +318,20 @@ export function Settings() {
   const chatStore = useChatStore();
   const updateStore = useUpdateStore();
   const [checkingUpdate, setCheckingUpdate] = useState(false);
-  const currentVersion = formatVersionDate(updateStore.version);
-  const remoteId = formatVersionDate(updateStore.remoteVersion);
+  const currentVersion = updateStore.formatVersion(updateStore.version);
+  const remoteId = updateStore.formatVersion(updateStore.remoteVersion);
   const hasNewVersion = currentVersion !== remoteId;
   const userInfo = useUserInfo();
+  const updateUrl = getClientConfig()?.isApp ? RELEASE_URL : UPDATE_URL;
+
   function checkUpdate(force = false) {
     setCheckingUpdate(true);
     updateStore.getLatestVersion(force).then(() => {
       setCheckingUpdate(false);
     });
 
-    console.log(
-      "[Update] local version ",
-      new Date(+updateStore.version).toLocaleString(),
-    );
-    console.log(
-      "[Update] remote version ",
-      new Date(+updateStore.remoteVersion).toLocaleString(),
-    );
+    console.log("[Update] local version ", updateStore.version);
+    console.log("[Update] remote version ", updateStore.remoteVersion);
   }
 
   const usage = {
@@ -488,7 +472,7 @@ export function Settings() {
           {/*  {checkingUpdate ? (*/}
           {/*    <LoadingIcon />*/}
           {/*  ) : hasNewVersion ? (*/}
-          {/*    <Link href={UPDATE_URL} target="_blank" className="link">*/}
+          {/*    <Link href={updateUrl} target="_blank" className="link">*/}
           {/*      {Locale.Settings.Update.GoToUpdate}*/}
           {/*    </Link>*/}
           {/*  ) : (*/}

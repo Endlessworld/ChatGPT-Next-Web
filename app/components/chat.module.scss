@@ -239,6 +239,19 @@
   &:last-child {
     animation: slide-in ease 0.3s;
   }
+
+  &:hover {
+    .chat-message-actions {
+      opacity: 1;
+      transform: translateY(0px);
+      max-width: 100%;
+      height: 40px;
+    }
+
+    .chat-message-action-date {
+      opacity: 0.2;
+    }
+  }
 }
 
 .chat-message-user {
@@ -306,16 +319,15 @@
   transition: all ease 0.3s;
 
   &:hover {
-    min-width: 330px;
     .chat-message-actions {
       opacity: 1;
       transform: translateY(0px);
       max-width: 100%;
       height: 40px;
-    }
 
-    .chat-message-action-date {
-      opacity: 0.3;
+      .chat-message-action-date {
+        opacity: 0.3;
+      }
     }
   }
 
