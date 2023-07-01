@@ -1231,7 +1231,7 @@ export function Chat() {
                         }}
                       ></IconButton>
                     </div>
-                    {message.role === "user" ? (
+                    {isUser ? (
                       <Avatar avatar={config.avatar} isChatAvatar={true} />
                     ) : (
                       <MaskAvatar mask={session.mask} />
