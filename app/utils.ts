@@ -102,7 +102,7 @@ export function getProjectContextAwareness() {
       let projectContent = JSON.parse(projectContext).content;
       let contexts =
         "以下是我项目的配置或代码片段，你需要以此作为每个回答的参考依据:\n";
-      if (enableContext && projectContent) {
+      if (enableContext && projectContent && projectContent.length > 0) {
         contexts += `|Option   |Content   |
 |----   |----|`;
         contexts += "\r\n";
