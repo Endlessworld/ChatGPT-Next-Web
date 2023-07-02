@@ -1,5 +1,5 @@
 import { SubmitKey } from "../store/config";
-import type { PartialLocaleType } from "./index";
+import type { PartialLocaleType } from "../locales";
 
 const tw: PartialLocaleType = {
   WIP: "該功能仍在開發中……",
