@@ -612,19 +612,19 @@ export function Settings() {
 
           {!accessStore.hideUserApiKey ? (
             <>
-              <ListItem
-                title={Locale.Settings.Endpoint.Title}
-                subTitle={Locale.Settings.Endpoint.SubTitle}
-              >
-                <input
-                  type="text"
-                  value={accessStore.openaiUrl}
-                  placeholder="https://api.openai.com/"
-                  onChange={(e) =>
-                    accessStore.updateOpenAiUrl(e.currentTarget.value)
-                  }
-                ></input>
-              </ListItem>
+              {/*<ListItem*/}
+              {/*  title={Locale.Settings.Endpoint.Title}*/}
+              {/*  subTitle={Locale.Settings.Endpoint.SubTitle}*/}
+              {/*>*/}
+              {/*  <input*/}
+              {/*    type="text"*/}
+              {/*    value={accessStore.openaiUrl}*/}
+              {/*    placeholder="https://api.openai.com/"*/}
+              {/*    onChange={(e) =>*/}
+              {/*      accessStore.updateOpenAiUrl(e.currentTarget.value)*/}
+              {/*    }*/}
+              {/*  ></input>*/}
+              {/*</ListItem>*/}
               <ListItem
                 title={Locale.Settings.Token.Title}
                 subTitle={Locale.Settings.Token.SubTitle}
@@ -667,21 +667,6 @@ export function Settings() {
             </ListItem>
           ) : null}
 
-          {/*{!accessStore.hideUserApiKey ? (*/}
-          {/*  <ListItem*/}
-          {/*    title={Locale.Settings.Endpoint.Title}*/}
-          {/*    subTitle={Locale.Settings.Endpoint.SubTitle}*/}
-          {/*  >*/}
-          {/*    <input*/}
-          {/*      type="text"*/}
-          {/*      value={accessStore.openaiUrl}*/}
-          {/*      onChange={(e) =>*/}
-          {/*        accessStore.updateOpenAiUrl(e.currentTarget.value)*/}
-          {/*      }*/}
-          {/*    ></input>*/}
-          {/*  </ListItem>*/}
-          {/*) : null}*/}
-
           <ListItem
             title={Locale.Settings.ApiServerAddress}
             subTitle={
@@ -712,20 +697,6 @@ export function Settings() {
               })}
             </Select>
           </ListItem>
-          {/*{!accessStore.hideUserApiKey ? (*/}
-          {/*  <ListItem*/}
-          {/*    title={Locale.Settings.Endpoint.Title}*/}
-          {/*    subTitle={Locale.Settings.Endpoint.SubTitle}*/}
-          {/*  >*/}
-          {/*    <input*/}
-          {/*      type="text"*/}
-          {/*      value={accessStore.openaiUrl}*/}
-          {/*      onChange={(e) =>*/}
-          {/*        accessStore.updateOpenAiUrl(e.currentTarget.value)*/}
-          {/*      }*/}
-          {/*    ></input>*/}
-          {/*  </ListItem>*/}
-          {/*) : null}*/}
         </List>
 
         <List>

@@ -1,13 +1,14 @@
+import webpack from "webpack";
+
 const mode = process.env.BUILD_MODE ?? "standalone";
 console.log("[Next] build mode", mode);
 
 const disableChunk = !!process.env.DISABLE_CHUNK || mode === "export";
-console.log("[Next] build disable chunk: ", disableChunk);
+console.log("[Next] build with chunk: ", !disableChunk);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack(config) {
-
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],
@@ -15,21 +16,10 @@ const nextConfig = {
 
     if (disableChunk) {
       config.plugins.push(
-          new webpack.optimize.LimitChunkCountPlugin({maxChunks: 99})
+        new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
       );
     }
-    // config.optimization.minimize = true
-    // config.optimization.removeEmptyChunks = true
-    // config.optimization.mergeDuplicateChunks = true
-    // config.optimization.mangleWasmImports = true
-    // config.optimization.mangleExports = true
-    // config.optimization.concatenateModules = true
-    // config.optimization.chunkIds = 'size'
-    // config.optimization.splitChunks = {
-    //     minChunks: 1,
-    //     minSize: 10,
-    //     maxSize:100000
-    // }
+
     return config;
   },
   output: mode,
