@@ -30,6 +30,7 @@ export const DEFAULT_CONFIG = {
   sidebarWidth: 300,
   disablePromptHint: false,
   dontShowMaskSplashScreen: true, // 创建聊天时不显示初始屏幕
+  hideBuiltinMasks: false, // dont add builtin masks
 
   models: DEFAULT_MODELS as any as LLMModel[],
 
@@ -145,9 +146,9 @@ export const useAppConfig = create<ChatConfigStore>()(
     }),
     {
       name: StoreKey.Config,
-      version: 3.3,
+      version: 3.4,
       migrate(persistedState, version) {
-        if (version === 3.3) return persistedState as any;
+        if (version === 3.4) return persistedState as any;
 
         const state = persistedState as ChatConfig;
         state.modelConfig.sendMemory = true;
@@ -157,6 +158,7 @@ export const useAppConfig = create<ChatConfigStore>()(
         state.modelConfig.top_p = 1;
         state.modelConfig.template = DEFAULT_INPUT_TEMPLATE;
         state.dontShowMaskSplashScreen = false;
+        state.hideBuiltinMasks = false;
 
         return state;
       },
