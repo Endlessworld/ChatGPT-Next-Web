@@ -1,5 +1,6 @@
 import { SubmitKey } from "../store/config";
 import type { PartialLocaleType } from "./index";
+import { REQUEST_LIMIT, REQUEST_MAX_LIMIT } from "@/app/constant";
 
 const jp: PartialLocaleType = {
   WIP: "この機能は開発中です",
@@ -9,8 +10,8 @@ const jp: PartialLocaleType = {
     また、独自の OpenAI API Key を入力して、この制限を解除することもできます。
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
     HelloMessage: `「X-ChatGPT」へようこそ
-      時間あたり/ IPあたり15回の無料トライアルアクセスを提供する無料のチャンネルがあります。
-      アクセスパスワードを使用して、時間あたり/ IPあたり最大50回の無料アクセスをアンロックできます。
+      時間あたり/ IPあたり${REQUEST_LIMIT}回の無料トライアルアクセスを提供する無料のチャンネルがあります。
+      アクセスパスワードを使用して、時間あたり/ IPあたり最大${REQUEST_MAX_LIMIT}回の無料アクセスをアンロックできます。
       次のQRコードをスキャンして、WeChatアカウント「微聊小助手」を購読し、「password」と送信してアクセスパスワードを無料で取得することができます。
       代わりに、独自のOpenAI APIキーを入力して、この制限を解除することもできます。
       詳細については、[ChatGPT forum](https://forum.xr21.me)をご覧ください 

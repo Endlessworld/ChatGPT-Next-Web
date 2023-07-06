@@ -1,5 +1,6 @@
 import { SubmitKey } from "../store/config";
 import type { PartialLocaleType } from "./index";
+import { REQUEST_LIMIT, REQUEST_MAX_LIMIT } from "@/app/constant";
 
 const tw: PartialLocaleType = {
   WIP: "該功能仍在開發中……",
@@ -9,7 +10,7 @@ const tw: PartialLocaleType = {
     或者，您可以填寫自己的 "OpenAI API Key" 以解除此限制。
     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
     HelloMessage: `歡迎使用X-ChatGPT
-      提供每小時/IP 15 次免費試用，可使用存取密碼解鎖至每小時/IP 50 次免費試用。
+      提供每小時/IP ${REQUEST_LIMIT} 次免費試用，可使用存取密碼解鎖至每小時/IP ${REQUEST_MAX_LIMIT} 次免費試用。
       您可以掃描以下 QR 碼訂閱 WeChat 公眾號 "微聊小助手"，並發送 "密碼" 以免費獲取存取密碼。
       或者您可以輸入自己的 OpenAI API 金鑰以解除此限制。
       更多信息請訪問[ChatGPT forum](https://forum.xr21.me)

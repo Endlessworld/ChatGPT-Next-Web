@@ -1,10 +1,12 @@
 import { NextRequest } from "next/server";
 import { getServerSideConfig } from "../config/server";
 import md5 from "spark-md5";
-import { ACCESS_CODE_PREFIX } from "../constant";
+import {
+  ACCESS_CODE_PREFIX,
+  REQUEST_LIMIT,
+  REQUEST_MAX_LIMIT,
+} from "../constant";
 
-const REQUEST_LIMIT = 15;
-const REQUEST_MAX_LIMIT = 50;
 const REQUEST_LIMIT_TIME = 60 * 60 * 1000; // 将时间转换为毫秒
 const ipRequests = new Map<string, { count: number; lastTimestamp: number }>();
 

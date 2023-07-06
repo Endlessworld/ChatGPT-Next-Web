@@ -1,5 +1,6 @@
 import { SubmitKey } from "../store/config";
 import type { PartialLocaleType } from "./index";
+import { REQUEST_LIMIT, REQUEST_MAX_LIMIT } from "@/app/constant";
 
 const fr: PartialLocaleType = {
   WIP: "Prochainement...",
@@ -9,8 +10,8 @@ const fr: PartialLocaleType = {
     Vous pouvez également saisir votre propre "OpenAI API Key" pour supprimer cette limitation.
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
     HelloMessage: `Bienvenue sur "X-ChatGPT"
-      Un canal gratuit est disponible qui vous fournit 15 accès d'essai gratuits par heure / IP.
-      Vous pouvez utiliser un mot de passe d'accès pour débloquer jusqu'à 50 accès gratuits par heure / IP.
+      Un canal gratuit est disponible qui vous fournit ${REQUEST_LIMIT} accès d'essai gratuits par heure / IP.
+      Vous pouvez utiliser un mot de passe d'accès pour débloquer jusqu'à ${REQUEST_MAX_LIMIT} accès gratuits par heure / IP.
       Vous pouvez scanner le code QR suivant et vous abonner au compte WeChat "微聊小助手" pour obtenir le mot de passe d'accès gratuitement en envoyant "password".
       Vous pouvez également entrer votre propre clé API OpenAI pour supprimer cette limitation.
       Pour plus d'informations, veuillez visiter  [ChatGPT forum](https://forum.xr21.me)

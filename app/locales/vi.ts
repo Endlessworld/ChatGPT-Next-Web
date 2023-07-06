@@ -1,5 +1,6 @@
 import { SubmitKey } from "../store/config";
 import type { PartialLocaleType } from "./index";
+import { REQUEST_LIMIT, REQUEST_MAX_LIMIT } from "@/app/constant";
 
 const vi: PartialLocaleType = {
   WIP: "Sắp ra mắt...",
@@ -10,8 +11,8 @@ const vi: PartialLocaleType = {
     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)
      `,
     HelloMessage: `Chào mừng đến với X-ChatGPT
-      Có một kênh miễn phí cung cấp cho bạn 15 lượt truy cập thử nghiệm miễn phí mỗi giờ / IP.
-      Bạn có thể sử dụng mật khẩu truy cập để mở khóa tối đa 30 lượt truy cập miễn phí mỗi giờ / IP.
+      Có một kênh miễn phí cung cấp cho bạn ${REQUEST_LIMIT} lượt truy cập thử nghiệm miễn phí mỗi giờ / IP.
+      Bạn có thể sử dụng mật khẩu truy cập để mở khóa tối đa ${REQUEST_MAX_LIMIT} lượt truy cập miễn phí mỗi giờ / IP.
       Bạn có thể quét mã QR sau và đăng ký tài khoản WeChat "微聊小助手" để nhận mật khẩu truy cập miễn phí bằng cách gửi "mật khẩu".
       Hoặc bạn có thể nhập khóa API OpenAI của riêng mình để loại bỏ giới hạn này.
       Để biết thêm thông tin, vui lòng truy cập [ChatGPT forum](https://forum.xr21.me).

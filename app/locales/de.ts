@@ -1,5 +1,6 @@
 import { SubmitKey } from "../store/config";
 import type { PartialLocaleType } from "./index";
+import { REQUEST_LIMIT, REQUEST_MAX_LIMIT } from "@/app/constant";
 
 const de: PartialLocaleType = {
   WIP: "In Bearbeitung...",
@@ -10,8 +11,8 @@ const de: PartialLocaleType = {
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)
     `,
     HelloMessage: `Willkommen bei "X-ChatGPT"
-      Es steht ein kostenloser Kanal zur Verfügung, der Ihnen 15 kostenlose Testzugriffe pro Stunde / IP bietet.
-      Sie können ein Zugriffspasswort verwenden, um bis zu 50 kostenlose Zugriffe pro Stunde / IP freizuschalten.
+      Es steht ein kostenloser Kanal zur Verfügung, der Ihnen ${REQUEST_LIMIT} kostenlose Testzugriffe pro Stunde / IP bietet.
+      Sie können ein Zugriffspasswort verwenden, um bis zu ${REQUEST_MAX_LIMIT} kostenlose Zugriffe pro Stunde / IP freizuschalten.
       Sie können den folgenden QR-Code scannen und das WeChat-Konto "微聊小助手" abonnieren, um das Zugriffspasswort kostenlos zu erhalten, indem Sie "password" senden.
       Alternativ können Sie Ihren eigenen OpenAI-API-Schlüssel eingeben, um diese Einschränkung aufzuheben.
       Weitere Informationen finden Sie auf [ChatGPT论坛](https://forum.xr21.me)

@@ -1,4 +1,5 @@
 import { SubmitKey } from "../store/config";
+import { REQUEST_LIMIT, REQUEST_MAX_LIMIT } from "@/app/constant";
 
 const cn = {
   WIP: "该功能仍在开发中……",
@@ -10,8 +11,8 @@ const cn = {
 ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)
 `,
     HelloMessage: `欢迎使用X-ChatGPT
-    免费通道，暂时提供每小时15次/ip免费体验次数。
-    您可以使用访问密码解锁至每小时50次/ip。
+    免费通道，暂时提供每小时${REQUEST_LIMIT}次/ip免费体验次数。
+    您可以使用访问密码解锁至每小时${REQUEST_MAX_LIMIT}次/ip。
     您可以扫描以下二维码关注公众号【微聊小助手】以免费获取访问密码 。
     或者您可以填入自己的 OpenAI API Key 以解除这个限制。
     更多信息请访问[ChatGPT论坛](https://forum.xr21.me)
