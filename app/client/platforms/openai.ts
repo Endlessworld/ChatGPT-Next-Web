@@ -38,7 +38,9 @@ export class ChatGPTApi implements LLMApi {
   }
 
   extractMessage(res: any) {
-    return res.choices?.at(0)?.message?.content ?? "";
+    return Array.isArray(res)
+      ? res[0].choices[0]?.message?.content
+      : res.choices[0].message.content ?? "";
   }
 
   async chat(options: ChatOptions) {
@@ -146,20 +148,26 @@ export class ChatGPTApi implements LLMApi {
             const text = msg.data;
             try {
               const json = JSON.parse(text);
-              const delta = json.choices[0].delta.content;
+              if (json.choices[0].finish_reason) {
+                return finish();
+              }
+              const delta =
+                json.choices[0]?.delta?.content ||
+                json.choices[0]?.message?.content;
               if (delta) {
                 responseText += delta;
                 options.onUpdate?.(responseText, delta);
               }
             } catch (e) {
-              console.error("[Request] parse error", text, msg);
+              console.error(e, "[Request] parse error", text, msg);
             }
           },
           onclose() {
             finish();
           },
           onerror(e) {
-            options.onError?.(e);
+            // options.onError?.(e);
+            finish();
             throw e;
           },
           openWhenHidden: true,

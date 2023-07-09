@@ -42,6 +42,12 @@ const DANGER_CONFIG = {
       description: "需要填写访问apiKey、无地域限制",
       checked: false,
     },
+    {
+      title: "本地代理8080",
+      api: "http://127.0.0.1:8080",
+      description: "本地代理",
+      checked: false,
+    },
   ],
 };
 
