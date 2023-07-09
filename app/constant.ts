@@ -37,7 +37,7 @@ export enum StoreKey {
   Sync = "sync",
 }
 export const REQUEST_LIMIT = 10;
-export const REQUEST_MAX_LIMIT = 35;
+export const REQUEST_MAX_LIMIT = 100;
 export const MAX_SIDEBAR_WIDTH = 500;
 export const MIN_SIDEBAR_WIDTH = 230;
 export const NARROW_SIDEBAR_WIDTH = 100;
