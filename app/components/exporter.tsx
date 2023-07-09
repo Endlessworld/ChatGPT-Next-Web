@@ -1,13 +1,21 @@
+/* eslint-disable @next/next/no-img-element */
 import { ChatMessage, useAppConfig, useChatStore } from "../store";
 import Locale from "../locales";
 import styles from "./exporter.module.scss";
-import { List, ListItem, Modal, Select, showToast } from "./ui-lib";
+import {
+  List,
+  ListItem,
+  Modal,
+  Select,
+  showImageModal,
+  showToast,
+} from "./ui-lib";
 import { IconButton } from "./button";
 import {
   copyToClipboard,
   downloadAs,
-  isIdeaPlugin,
   useMobileScreen,
+  isIdeaPlugin,
 } from "../utils";
 
 import CopyIcon from "../icons/copy.svg";
@@ -28,6 +36,7 @@ import { DEFAULT_MASK_AVATAR } from "../store/mask";
 import { api } from "../client/api";
 import { prettyObject } from "../utils/format";
 import { EXPORT_MESSAGE_CLASS_NAME } from "../constant";
+import { getClientConfig } from "../config/client";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -144,7 +153,7 @@ export function MessageExporter() {
     if (exportConfig.includeContext) {
       ret.push(...session.mask.context);
     }
-    ret.push(...session.messages.filter((m, i) => selection.has(m.id ?? i)));
+    ret.push(...session.messages.filter((m, i) => selection.has(m.id)));
     return ret;
   }, [
     exportConfig.includeContext,
@@ -239,9 +248,10 @@ export function RenderExport(props: {
       return;
     }
 
-    const renderMsgs = messages.map((v) => {
+    const renderMsgs = messages.map((v, i) => {
       const [_, role] = v.id.split(":");
       return {
+        id: i.toString(),
         role: role as any,
         content: v.innerHTML,
         date: "",
@@ -376,6 +386,7 @@ export function ImagePreviewer(props: {
   const previewRef = useRef<HTMLDivElement>(null);
 
   const copy = () => {
+    showToast(Locale.Export.Image.Toast);
     const dom = previewRef.current;
     if (!dom) return;
     toBlob(dom).then((blob) => {
@@ -400,17 +411,14 @@ export function ImagePreviewer(props: {
   const isMobile = useMobileScreen();
 
   const download = () => {
+    showToast(Locale.Export.Image.Toast);
     const dom = previewRef.current;
     if (!dom) return;
     toPng(dom)
       .then((blob) => {
         if (!blob) return;
-
-        if (isMobile && !isIdeaPlugin()) {
-          const image = new Image();
-          image.src = blob;
-          const win = window.open("");
-          win?.document.write(image.outerHTML);
+        if ((isMobile && !isIdeaPlugin()) || getClientConfig()?.isApp) {
+          showImageModal(blob);
         } else {
           const link = document.createElement("a");
           link.download = `${props.topic}.png`;

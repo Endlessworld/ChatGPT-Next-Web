@@ -25,7 +25,7 @@ export function ChatItem(props: {
   count: number;
   time: number;
   selected: boolean;
-  id: number;
+  id: string;
   index: number;
   narrow?: boolean;
   mask: Mask;

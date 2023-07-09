@@ -18,6 +18,7 @@ import {
 
 import LoadingIcon from "../icons/three-dots.svg";
 import React from "react";
+import { showImageModal } from "./ui-lib";
 import { useThrottledCallback } from "use-debounce";
 import { CodeProps } from "react-markdown/lib/ast-to-react";
 import {
@@ -64,11 +65,13 @@ export function Mermaid(props: { code: string; onError: () => void }) {
     if (!svg) return;
     const text = new XMLSerializer().serializeToString(svg);
     const blob = new Blob([text], { type: "image/svg+xml" });
-    const url = URL.createObjectURL(blob);
-    const win = window.open(url);
-    if (win) {
-      win.onload = () => URL.revokeObjectURL(url);
-    }
+    console.log(blob);
+    // const url = URL.createObjectURL(blob);
+    // const win = window.open(url);
+    // if (win) {
+    //   win.onload = () => URL.revokeObjectURL(url);
+    // }
+    showImageModal(URL.createObjectURL(blob));
   }
 
   return (
@@ -277,6 +280,7 @@ export function Markdown(
         fontSize: `${props.fontSize ?? 14}px`,
         height: getSize(renderedHeight.current),
         width: getSize(renderedWidth.current),
+        direction: /[\u0600-\u06FF]/.test(props.content) ? "rtl" : "ltr",
       }}
       ref={mdRef}
       onContextMenu={props.onContextMenu}
