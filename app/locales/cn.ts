@@ -12,11 +12,9 @@ const cn = {
 `,
     HelloMessage: `欢迎使用X-ChatGPT
     免费通道，暂时提供每小时${REQUEST_LIMIT}次/ip免费体验次数。
-    您可以使用访问密码解锁至每小时${REQUEST_MAX_LIMIT}次/ip。
-    您可以扫描以下二维码关注公众号【微聊小助手】以免费获取访问密码 。
-    或者您可以填入自己的 OpenAI API Key 以解除这个限制。
-    更多信息请访问[ChatGPT论坛](https://forum.xr21.me)
-    ![weixin](/weixin-logo.png)
+    请点此[获取访问密码](https://forum.xr21.me/forum-post/64.html)以免费解锁至每小时${REQUEST_MAX_LIMIT}次/ip。
+    或者前往[设置](/#/settings)页输入自己的API Key 以解除这个限制。
+    [更新日志](https://forum.xr21.me)|[问题反馈](https://forum.xr21.me/forum/36.html/)|[功能建议](https://forum.xr21.me/forum/38.html/)|[聊天灌水](https://forum.xr21.me/forum/95.html/?index=1)|[捐赠入口](https://forum.xr21.me/forum-post/253.html/)
     `,
   },
   Auth: {
