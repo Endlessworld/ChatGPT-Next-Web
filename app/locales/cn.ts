@@ -269,7 +269,8 @@ const cn = {
   },
   Store: {
     DefaultTopic: "新的聊天",
-    BotHello: "欢迎回来，请问有什么可以帮你的吗",
+    BotHello:
+      "欢迎回来，请问有什么可以帮你的吗\r\n[更新日志](https://forum.xr21.me)|[问题反馈](https://forum.xr21.me/forum/36.html/)|[功能建议](https://forum.xr21.me/forum/38.html/)|[聊天灌水](https://forum.xr21.me/forum/95.html/?index=1)|[捐赠入口](https://forum.xr21.me/forum-post/253.html/)",
     Error: "出错了，稍后重试吧",
     Prompt: {
       History: (content: string) => "这是历史聊天总结作为前情提要：" + content,
