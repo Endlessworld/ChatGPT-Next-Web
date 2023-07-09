@@ -7,11 +7,13 @@ export const CN_MASKS: BuiltinMask[] = [
     name: "X-ChatGPT",
     context: [
       {
+        id: "x-chatgpt-to-pic-0",
         role: "system",
         content: projectContext(),
         date: "",
       },
       {
+        id: "x-chatgpt-to-pic-1",
         role: "assistant",
         content: "你好呀，我是你的编程助手 X-ChatGPT，请问有什么需要帮忙的嘛",
         date: "",
@@ -29,6 +31,7 @@ export const CN_MASKS: BuiltinMask[] = [
     },
     lang: "cn",
     builtin: true,
+    createdAt: 1688911477000,
   },
   {
     avatar: "1f5bc-fe0f",
