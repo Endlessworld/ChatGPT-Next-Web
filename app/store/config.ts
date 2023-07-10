@@ -55,6 +55,7 @@ export type ChatConfigStore = ChatConfig & {
   reset: () => void;
   update: (updater: (config: ChatConfig) => void) => void;
   mergeModels: (newModels: LLMModel[]) => void;
+  allModels: () => LLMModel[];
 };
 
 export type ModelConfig = ChatConfig["modelConfig"];
@@ -86,7 +87,7 @@ export function limitModel(name: string) {
 
 export const ModalConfigValidator = {
   model(x: string) {
-    return limitModel(x) as ModelType;
+    return x as ModelType;
   },
   max_tokens(x: number, model?: ModelType) {
     if (model == "gpt-3.5-turbo") {
@@ -147,6 +148,16 @@ export const useAppConfig = create<ChatConfigStore>()(
         set(() => ({
           models: Object.values(modelMap),
         }));
+      },
+
+      allModels() {
+        const customModels = get()
+          .customModels.split(",")
+          .filter((v) => !!v && v.length > 0)
+          .map((m) => ({ name: m, available: true }));
+
+        const models = get().models.concat(customModels);
+        return models;
       },
     }),
     {
