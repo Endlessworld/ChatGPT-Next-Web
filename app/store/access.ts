@@ -23,8 +23,6 @@ export interface AccessControlStore {
   hideBalanceQuery: boolean;
   disableGPT4: boolean;
 
-  openaiUrl: string;
-
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
   updateOpenAiUrl: (_: string) => void;
