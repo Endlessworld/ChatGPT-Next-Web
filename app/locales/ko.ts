@@ -92,6 +92,11 @@ const ko: PartialLocaleType = {
       PointsSubTitle:
         "커뮤니티 사용자 포인트는 사용 권한으로 교환할 수 있습니다",
     },
+    InjectSystemPrompts: {
+      Title: "시스템 프롬프트 주입",
+      SubTitle:
+        "각 요청의 메시지 목록의 시작에 ChatGPT 시스템 프롬프트를 강제로 추가합니다",
+    },
     Update: {
       Version: (x: string) => `버전: ${x}`,
       IsLatest: "최신 버전",

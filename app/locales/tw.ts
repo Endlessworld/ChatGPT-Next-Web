@@ -89,6 +89,10 @@ const tw: PartialLocaleType = {
       PointsTitle: "使用者積分",
       PointsSubTitle: "社群使用者積分可用於兌換使用次數",
     },
+    InjectSystemPrompts: {
+      Title: "注入系統提示",
+      SubTitle: "強制在每個請求的訊息列表開頭添加一個模擬 ChatGPT 的系統提示",
+    },
     Update: {
       Version: (x: string) => `當前版本：${x}`,
       IsLatest: "已是最新版本",

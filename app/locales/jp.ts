@@ -104,6 +104,11 @@ const jp: PartialLocaleType = {
       PointsTitle: "ユーザーポイント",
       PointsSubTitle: "コミュニティユーザーポイントは使用に交換できます",
     },
+    InjectSystemPrompts: {
+      Title: "システムプロンプトの挿入",
+      SubTitle:
+        "各リクエストのメッセージリストの先頭に、ChatGPTのシステムプロンプトを強制的に追加します",
+    },
     InputTemplate: {
       Title: "入力の前処理",
       SubTitle: "新規入力がこのテンプレートに埋め込まれます",

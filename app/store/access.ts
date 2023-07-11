@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { DEFAULT_API_HOST, StoreKey } from "../constant";
+import { DEFAULT_API_HOST, DEFAULT_MODELS, StoreKey } from "../constant";
 import { getHeaders } from "../client/api";
 import { BOT_HELLO } from "./chat";
 import { getClientConfig } from "../config/client";
@@ -21,6 +21,8 @@ export interface AccessControlStore {
   updateWorkers: (_: worker[]) => void;
   updateOpenaiUrl: (_: string) => void;
   hideBalanceQuery: boolean;
+  disableGPT4: boolean;
+
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
   updateOpenAiUrl: (_: string) => void;
@@ -45,6 +47,7 @@ export const useAccessStore = create<AccessControlStore>()(
       openaiUrl: DEFAULT_OPENAI_URL,
       workers: [],
       hideBalanceQuery: false,
+      disableGPT4: false,
 
       enabledAccessControl() {
         get().fetch();
@@ -89,8 +92,10 @@ export const useAccessStore = create<AccessControlStore>()(
             console.log("[Config] got config from server", res);
             set(() => ({ ...res }));
 
-            if ((res as any).botHello) {
-              BOT_HELLO.content = (res as any).botHello;
+            if (res.disableGPT4) {
+              DEFAULT_MODELS.forEach(
+                (m: any) => (m.available = !m.name.startsWith("gpt-4")),
+              );
             }
           })
           .catch(() => {

@@ -92,6 +92,11 @@ const vi: PartialLocaleType = {
       PointsSubTitle:
         "Điểm người dùng của cộng đồng có thể đổi lấy quyền sử dụng",
     },
+    InjectSystemPrompts: {
+      Title: "Tiêm Prompt Hệ thống",
+      SubTitle:
+        "Bắt buộc thêm một prompt hệ thống giả lập ChatGPT ở đầu danh sách tin nhắn cho mỗi yêu cầu",
+    },
     Update: {
       Version: (x: string) => `Phiên bản: ${x}`,
       IsLatest: "Phiên bản mới nhất",
