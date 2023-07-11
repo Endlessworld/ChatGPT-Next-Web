@@ -120,6 +120,11 @@ const ar: PartialLocaleType = {
       PointsTitle: "اعتمادات المستخدم",
       PointsSubTitle: "يمكن استبدال نقاط مستخدم المجتمع بعدد الاستخدامات",
     },
+    InjectSystemPrompts: {
+      Title: "حقن تلميحات النظام",
+      SubTitle:
+        "قم بإضافة تلميحة نظام محاكاة ChatGPT إلى بداية قائمة الرسائل المُطلَبة في كل طلب",
+    },
     InputTemplate: {
       Title: "نموذج الإدخال",
       SubTitle: "سيتم ملء أحدث رسالة في هذا النموذج",

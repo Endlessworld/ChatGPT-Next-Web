@@ -132,6 +132,11 @@ const fr: PartialLocaleType = {
       PointsSubTitle:
         "Les points d'utilisateur de la communauté peuvent être échangés contre une utilisation",
     },
+    InjectSystemPrompts: {
+      Title: "Injecter des invites système",
+      SubTitle:
+        "Ajoute de force une invite système simulée de ChatGPT au début de la liste des messages pour chaque demande",
+    },
     InputTemplate: {
       Title: "Template",
       SubTitle: "Le message le plus récent sera ajouté à ce template.",

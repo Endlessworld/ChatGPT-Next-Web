@@ -91,6 +91,11 @@ const cs: PartialLocaleType = {
       PointsTitle: "Uživatelské body",
       PointsSubTitle: "Body uživatele komunity lze vyměnit za použití",
     },
+    InjectSystemPrompts: {
+      Title: "Vložit systémové prompty",
+      SubTitle:
+        "Vynutit přidání simulovaného systémového promptu ChatGPT na začátek seznamu zpráv každého požadavku",
+    },
     Update: {
       Version: (x: string) => `Verze: ${x}`,
       IsLatest: "Aktuální verze",

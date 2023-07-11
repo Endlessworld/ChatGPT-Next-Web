@@ -161,6 +161,10 @@ const en: LocaleType = {
       PointsTitle: "User Points",
       PointsSubTitle: "Community user points can be exchanged for usage",
     },
+    InjectSystemPrompts: {
+      Title: "Inject System Prompts",
+      SubTitle: "Inject a global system prompt for every request",
+    },
     InputTemplate: {
       Title: "Input Template",
       SubTitle: "Newest message will be filled to this template",

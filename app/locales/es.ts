@@ -92,6 +92,11 @@ const es: PartialLocaleType = {
       PointsSubTitle:
         "Los puntos de usuario de la comunidad se pueden intercambiar por el uso",
     },
+    InjectSystemPrompts: {
+      Title: "Inyectar Prompts del Sistema",
+      SubTitle:
+        "Agregar forzosamente un prompt de sistema simulado de ChatGPT al comienzo de la lista de mensajes en cada solicitud",
+    },
     Update: {
       Version: (x: string) => `Versión: ${x}`,
       IsLatest: "Última versión",
