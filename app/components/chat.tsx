@@ -973,15 +973,14 @@ export function Chat() {
       !latestMessage.isError &&
       !latestMessage.streaming
     ) {
-      const ttsConfig = session.ttsConfig || {
-        voice: "Google US English",
-        lang: "en-US",
-      };
       soundOn &&
         speak(messages[messages.length - 1].content, session.ttsConfig?.voice);
     }
   }, [
     isLoading,
+    session.messages,
+    session.ttsConfig,
+    soundOn,
     session.messages[session.messages.length - 1]?.content,
     session.messages[session.messages.length - 1]?.streaming,
   ]);
@@ -1037,7 +1036,7 @@ export function Chat() {
   const autoFocus = !isMobileScreen || isChat; // only focus in chat page
   const showMaxIcon = !isMobileScreen && !clientConfig?.isApp;
 
-  const contextAwarenessHandler = () => {
+  const contextAwarenessHandler = useCallback(() => {
     chatStore.updateCurrentSession((session) => {
       session.mask.context = session.mask.context.filter(
         (message) => !message.content.startsWith("\u200D\u200D"),
@@ -1056,7 +1055,7 @@ export function Chat() {
         });
       }
     }
-  };
+  }, [chatStore]);
 
   useEffect(() => {
     dispatchEventStorage();
@@ -1071,7 +1070,7 @@ export function Chat() {
     return () => {
       window.removeEventListener("storageSetEvent", handleStorageChange);
     };
-  }, []);
+  }, [contextAwarenessHandler]);
 
   useEffect(() => {
     if (isIdeaPlugin()) {
@@ -1084,7 +1083,7 @@ export function Chat() {
         );
       };
     }
-  }, []);
+  }, [chatStore, doSubmit, config]);
 
   useCommand({
     fill: setUserInput,
