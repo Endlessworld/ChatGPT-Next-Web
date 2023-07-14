@@ -39,7 +39,7 @@ import Locale, {
   getLang,
 } from "../locales";
 import { copyToClipboard, useUserInfo } from "../utils";
-import { Path, RELEASE_URL, UPDATE_URL } from "../constant";
+import { LOGIN_HOST, Path, RELEASE_URL, UPDATE_URL } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
@@ -419,10 +419,7 @@ export function Settings() {
             subTitle={Locale.Settings.User.SubTitle}
           >
             <div className={styles["sidebar-action"]}>
-              <a
-                href="https://forum.xr21.me/user-sign/?tab=signin&redirect_to=https%3A%2F%2Fforum.xr21.me%2Fchatgpt-login-callback%2F"
-                target="_self"
-              >
+              <a href={LOGIN_HOST} target="_self">
                 <IconButton
                   text={
                     userInfo.display_name ? userInfo.display_name : "未登录"

@@ -14,7 +14,7 @@ const cn = {
     免费通道，暂时提供每小时${REQUEST_LIMIT}次/ip免费体验次数。
     请点此[获取访问密码](https://forum.xr21.me/forum-post/64.html)以免费解锁至每小时${REQUEST_MAX_LIMIT}次/ip。
     或者前往[设置](/#/settings)页输入自己的API Key 以解除这个限制。
-    [更新日志](https://forum.xr21.me)|[问题反馈](https://forum.xr21.me/forum/36.html/)|[功能建议](https://forum.xr21.me/forum/38.html/)|[聊天灌水](https://forum.xr21.me/forum/95.html/?index=1)|[捐赠入口](https://forum.xr21.me/forum-post/253.html/)
+    [更新日志](https://forum.xr21.me)|[反馈建议](https://forum.xr21.me/forum/36.html/)|[聊天吐槽](https://forum.xr21.me/forum/95.html/?index=1)|[捐赠入口](https://forum.xr21.me/forum-post/253.html/)
     `,
   },
   Auth: {
