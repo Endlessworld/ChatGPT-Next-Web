@@ -1,10 +1,11 @@
 import { useDebouncedCallback } from "use-debounce";
 import React, {
-  useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
+  useCallback,
+  Fragment,
 } from "react";
 
 import SendWhiteIcon from "../icons/send-white.svg";
@@ -67,7 +68,7 @@ import dynamic from "next/dynamic";
 
 import { ChatControllerPool } from "../client/controller";
 import { Prompt, usePromptStore } from "../store/prompt";
-import { VoiceConfig } from "../store/config";
+import { VoiceConfig } from "@/app/store";
 import Locale from "../locales";
 
 import { IconButton } from "./button";
@@ -1278,9 +1279,8 @@ export function Chat() {
           const shouldShowClearContextDivider = i === clearContextIndex - 1;
 
           return (
-            <>
+            <Fragment key={i}>
               <div
-                key={i}
                 className={
                   isUser ? styles["chat-message-user"] : styles["chat-message"]
                 }
@@ -1412,7 +1412,7 @@ export function Chat() {
                 </div>
               </div>
               {shouldShowClearContextDivider && <ClearContextDivider />}
-            </>
+            </Fragment>
           );
         })}
       </div>
