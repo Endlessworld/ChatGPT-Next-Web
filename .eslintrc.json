@@ -2,6 +2,6 @@
   "extends": "next/core-web-vitals",
   "plugins": ["prettier"],
   "rules": {
-    "off": "all"
+    "off": 0
   }
 }
