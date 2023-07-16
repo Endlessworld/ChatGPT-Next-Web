@@ -667,9 +667,9 @@ export function Settings() {
 
           <ListItem
             title={Locale.Settings.ApiServerAddress}
-            subTitle={
-              accessStore.workers.filter((e) => e.checked)[0]?.description
-            }
+            subTitle={Locale.Settings.ApiServerSubTitle(
+              accessStore.workers.filter((e) => e.checked)[0].api,
+            )}
           >
             <Select
               value={accessStore.openaiUrl}
@@ -759,13 +759,13 @@ export function Settings() {
         <List>
           <ListItem
             title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}
-            subTitle={
-              checkingUpdate
-                ? Locale.Settings.Update.IsChecking
-                : hasNewVersion
-                ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")
-                : Locale.Settings.Update.IsLatest
-            }
+            // subTitle={
+            //   checkingUpdate
+            //     ? Locale.Settings.Update.IsChecking
+            //     : hasNewVersion
+            //     ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")
+            //     : Locale.Settings.Update.IsLatest
+            // }
           >
             {/*{checkingUpdate ? (*/}
             {/*  <LoadingIcon />*/}

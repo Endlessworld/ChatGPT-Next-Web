@@ -178,7 +178,10 @@ const en: LocaleType = {
     SendKey: "Send Key",
     Theme: "Theme",
     ApiServerAddress: "Service address",
-    ApiServerSubTitle: "",
+    ApiServerSubTitle: (x: string): string =>
+      x.endsWith("me")
+        ? `You need to log in or fill in the access password`
+        : `You need to enter an API key, which is restricted by region`,
     TightBorder: "Tight Border",
     SendPreviewBubble: {
       Title: "Send Preview Bubble",

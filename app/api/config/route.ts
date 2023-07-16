@@ -13,39 +13,38 @@ const DANGER_CONFIG = {
   hideBalanceQuery: serverConfig.hideBalanceQuery,
   workers: [
     {
-      title: "免费通道",
-      api: "/api/openai/",
-      description: "需要填写访问密码，关注公众号或注册社区账号即可获取访问密码",
+      title: "订阅通道-亚洲",
+      api: "https://api.asia.xr21.me",
       checked: true,
+    },
+    {
+      title: "订阅通道-欧洲",
+      api: "https://api.eu.xr21.me",
+      checked: false,
+    },
+    {
+      title: "订阅通道-非洲",
+      api: "https://api.africa.xr21.me",
+      checked: false,
+    },
+    {
+      title: "订阅通道-北美",
+      api: "https://api.na.xr21.me",
+      checked: false,
+    },
+    {
+      title: "订阅通道-南美",
+      api: "https://api.sa.xr21.me",
+      checked: false,
+    },
+    {
+      title: "订阅通道-大洋洲",
+      api: "https://api.oc.xr21.me",
+      checked: false,
     },
     {
       title: "官方直连",
       api: "https://api.openai.com/",
-      description: "需要填写访问apiKey、受地域限制",
-      checked: false,
-    },
-    {
-      title: "cloudflare_workers1",
-      api: "https://workers1.xr21.me",
-      description: "需要填写访问apiKey、无地域限制",
-      checked: false,
-    },
-    {
-      title: "cloudflare_workers2",
-      api: "https://workers2.xr21.me",
-      description: "需要填写访问apiKey、无地域限制",
-      checked: false,
-    },
-    {
-      title: "cloudflare_workers3",
-      api: "https://workers3.xr21.me",
-      description: "需要填写访问apiKey、无地域限制",
-      checked: false,
-    },
-    {
-      title: "本地代理8080",
-      api: "http://127.0.0.1:8080",
-      description: "本地代理",
       checked: false,
     },
   ],
