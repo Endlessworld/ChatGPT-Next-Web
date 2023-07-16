@@ -1,6 +1,5 @@
 import { SubmitKey } from "../store/config";
 import type { PartialLocaleType } from "./index";
-import { REQUEST_LIMIT, REQUEST_MAX_LIMIT } from "@/app/constant";
 
 const ru: PartialLocaleType = {
   WIP: "Скоро...",
@@ -9,14 +8,6 @@ const ru: PartialLocaleType = {
     Если вы используете его впервые, перейдите в общедоступный аккаунт 【[微聊小助手]()】 и отправьте "密码" или посетить [forum.xr21.me](https://forum.xr21.me), чтобы получить пароль доступа. 
     В качестве альтернативы, вы можете ввести свой собственный ключ "OpenAI API", чтобы убрать ограничение.
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
-    HelloMessage: `Добро пожаловать в X-ChatGPT
-      Доступен бесплатный канал, который предоставляет вам ${REQUEST_LIMIT} бесплатных пробных доступов в час / IP.
-      Вы можете использовать пароль доступа, чтобы разблокировать до ${REQUEST_MAX_LIMIT} бесплатных доступов в час / IP.
-      Вы можете сканировать следующий QR-код и подписаться на учетную запись WeChat "微聊小助手", чтобы получить пароль доступа бесплатно, отправив "password".
-      В качестве альтернативы вы можете ввести свой собственный ключ API OpenAI, чтобы убрать это ограничение.
-      Для получения дополнительной информации, пожалуйста, посетите [ChatGPT forum](https://forum.xr21.me)
-      ![weixin](/weixin-logo.png) ![tme](/t-logo.jpg)
-     `,
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} сообщений`,

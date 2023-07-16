@@ -10,14 +10,12 @@ const en: LocaleType = {
     If you are using it for the first time, go to public account 【[微聊小助手]()】 and send "密码" Or visit [forum.xr21.me](https://forum.xr21.me)" to get the access password. 
     Alternatively, you can input your own "OpenAI API Key" to remove this limitation.
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
-    HelloMessage: `Welcome to "X-ChatGPT"
-      A free channel is available that provides you with ${REQUEST_LIMIT} free trial accesses per hour / IP.
-      You can use an access password to unlock up to ${REQUEST_MAX_LIMIT} free accesses per hour / IP.
-      You can scan the following QR code and subscribe to the WeChat account "微聊小助手" to get the access password for free by sending "password".
-      Alternatively, you can enter your own OpenAI API key to remove this limitation.
-      For more information, please visit [ChatGPT forum](https://forum.xr21.me)
-      ![weixin](/weixin-logo.png) ![tme](/t-logo.jpg)
-     `,
+    HelloMessage: `Welcome to X-ChatGPT!
+      The free channel currently provides ${REQUEST_LIMIT} requests per hour per IP for free trial.
+      Please click [here](https://forum.xr21.me/forum-post/64.html) to obtain the access password and unlock it to ${REQUEST_MAX_LIMIT} requests per hour per IP for free.
+      Alternatively, you can go to the [Settings](/#/settings) page and enter your own API Key to remove this limitation.
+      [Feedback Hub](https://forum.xr21.me/forum/36.html/)|[Interactive Forum](https://forum.xr21.me/forum/95.html/?index=1)|[Donation Center](https://forum.xr21.me/forum-post/253.html/)
+    `,
   },
   Auth: {
     Title: "Need Access Code",

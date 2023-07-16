@@ -6,7 +6,6 @@ const ar: PartialLocaleType = {
   Error: {
     Unauthorized:
       "غير مصرح بالوصول، يرجى إدخال رمز الوصول [auth](/#/auth) في صفحة المصادقة.",
-    HelloMessage: "",
   },
   Auth: {
     Title: "تحتاج إلى رمز الوصول",

@@ -1,6 +1,5 @@
 import { SubmitKey } from "../store/config";
 import type { PartialLocaleType } from "./index";
-import { REQUEST_LIMIT, REQUEST_MAX_LIMIT } from "@/app/constant";
 
 const tr: PartialLocaleType = {
   WIP: "Çalışma devam ediyor...",
@@ -9,14 +8,6 @@ const tr: PartialLocaleType = {
     İlk kez kullanıyorsanız, halka açık 【[微聊小助手]()】 hesabına gidin ve erişim şifresini almak için "密码" gönderin. veya ziyaret edin [forum.xr21.me](https://forum.xr21.me)
      Ayrıca, bu sınırlamayı kaldırmak için kendi "OpenAI API Key" inizi girin.
     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
-    HelloMessage: `X-ChatGPT e hoş geldiniz
-      Saat başına / IP başına ${REQUEST_LIMIT} ücretsiz deneme erişimi sağlayan ücretsiz bir kanal mevcuttur.
-      Saat başına / IP başına en fazla ${REQUEST_MAX_LIMIT} ücretsiz erişimi açmak için bir erişim şifresi kullanabilirsiniz.
-      Aşağıdaki QR kodunu tarayabilir ve "password" göndererek erişim şifresini ücretsiz olarak almak için WeChat hesabına "微聊小助手" abone olabilirsiniz.
-      Alternatif olarak, bu sınırlamayı kaldırmak için kendi OpenAI API anahtarınızı girebilirsiniz.
-      Daha fazla bilgi için [ChatGPT forum](https://forum.xr21.me) yi ziyaret edin. 
-      ![weixin](/weixin-logo.png) ![tme](/t-logo.jpg)
-     `,
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} mesaj`,
