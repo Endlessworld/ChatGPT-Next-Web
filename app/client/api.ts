@@ -2,6 +2,7 @@ import { getClientConfig } from "../config/client";
 import { ACCESS_CODE_PREFIX } from "../constant";
 import { ChatMessage, ModelType, useAccessStore } from "../store";
 import { ChatGPTApi } from "./platforms/openai";
+import { getCookie } from "@/app/utils";
 
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
@@ -146,6 +147,9 @@ export function getHeaders() {
       ACCESS_CODE_PREFIX + accessStore.accessCode,
     );
   }
-
+  const json = getCookie("user_info");
+  const userInfo = JSON.parse(json);
+  headers["x-id"] = userInfo.user_id || "";
+  headers["x-session"] = userInfo.session_token || "";
   return headers;
 }
