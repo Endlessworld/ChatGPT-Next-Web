@@ -2,13 +2,11 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { DEFAULT_API_HOST, DEFAULT_MODELS, StoreKey } from "../constant";
 import { getHeaders } from "../client/api";
-import { BOT_HELLO } from "./chat";
 import { getClientConfig } from "../config/client";
 
 export interface worker {
   title: string;
   api: string;
-  description: string;
   checked: boolean;
 }
 export interface AccessControlStore {
