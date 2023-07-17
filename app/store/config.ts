@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import { LLMModel } from "../client/api";
 import { getClientConfig } from "../config/client";
 import { DEFAULT_INPUT_TEMPLATE, DEFAULT_MODELS, StoreKey } from "../constant";
+import { isIdeaPlugin } from "@/app/utils";
 
 export type ModelType = (typeof DEFAULT_MODELS)[number]["name"];
 
@@ -25,7 +26,7 @@ export const DEFAULT_CONFIG = {
   avatar: "1f603",
   fontSize: 14,
   theme: Theme.Auto as Theme,
-  tightBorder: !!getClientConfig()?.isApp,
+  tightBorder: isIdeaPlugin() || !!getClientConfig()?.isApp,
   sendPreviewBubble: true,
   sidebarWidth: 300,
   disablePromptHint: false,
