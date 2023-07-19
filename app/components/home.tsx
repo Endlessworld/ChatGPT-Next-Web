@@ -66,7 +66,7 @@ const useCefFunctionInit = function () {
       );
     };
     // }
-  }, [config]);
+  }, []);
 };
 export function useSwitchTheme() {
   const config = useAppConfig();

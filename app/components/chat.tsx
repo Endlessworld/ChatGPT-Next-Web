@@ -532,7 +532,7 @@ export function ChatActions(props: {
         .allModels()
         .filter((m) => m.available)
         .map((m) => m.name),
-    [config],
+    [],
   );
   const [showModelSelector, setShowModelSelector] = useState(false);
 
@@ -1084,7 +1084,7 @@ export function Chat() {
         );
       };
     }
-  }, [chatStore, doSubmit, config]);
+  }, []);
 
   useCommand({
     fill: setUserInput,

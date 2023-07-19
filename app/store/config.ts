@@ -126,7 +126,7 @@ export const useAppConfig = create<ChatConfigStore>()(
       update(updater) {
         const config = { ...get() };
         updater(config);
-        // set(() => config);
+        set(() => config);
       },
 
       mergeModels(newModels) {
