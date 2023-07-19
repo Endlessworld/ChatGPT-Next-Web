@@ -11,7 +11,7 @@ const cn = {
     HelloMessage: `欢迎使用X-ChatGPT
     请[登录](${LOGIN_HOST})或者点此[获取访问密码](https://forum.xr21.me/forum-post/64.html)以免费使用。
     或者前往[设置](/#/settings)页输入自己的OpenAI API Key 以解除这个限制。
-    [反馈建议](https://forum.xr21.me/forum/36.html/)|[聊天吐槽](https://forum.xr21.me/forum/95.html/?index=1)|[捐赠入口](https://forum.xr21.me/forum-post/253.html/)
+    [反馈建议](https://forum.xr21.me/forum/36.html/)
     `,
   },
   Auth: {
@@ -274,7 +274,7 @@ const cn = {
   Store: {
     DefaultTopic: "新的聊天",
     BotHello:
-      "欢迎回来，请问有什么可以帮你的吗\r\n[反馈建议](https://forum.xr21.me/forum/36.html/)|[聊天吐槽](https://forum.xr21.me/forum/95.html/?index=1)|[捐赠入口](https://forum.xr21.me/forum-post/253.html/)",
+      "欢迎回来，请问有什么可以帮你的吗\r\n[反馈建议](https://forum.xr21.me/forum/36.html/)",
     Error: "出错了，稍后重试吧",
     Prompt: {
       History: (content: string) => "这是历史聊天总结作为前情提要：" + content,
