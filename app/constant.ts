@@ -10,7 +10,7 @@ export const RUNTIME_CONFIG_DOM = "danger-runtime-config";
 export const DEFAULT_API_HOST = "https://api.asia.xr21.me";
 export const LOGIN_HOST =
   "https://forum.xr21.me/user-sign/?tab=signin&redirect_to=https%3A%2F%2Fforum.xr21.me%2Fchatgpt-login-callback%3Fself";
-export const SearxPath = "/api/searx";
+export const SearxPath = "https://duckduckgo-api-blue.vercel.app/";
 
 export enum Path {
   Home = "/",

@@ -1,16 +1,17 @@
 import { useDebouncedCallback } from "use-debounce";
 import React, {
+  Fragment,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
-  useCallback,
-  Fragment,
 } from "react";
 
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
 import RenameIcon from "../icons/rename.svg";
+import EditIcon from "../icons/rename.svg";
 import ExportIcon from "../icons/share.svg";
 import ReturnIcon from "../icons/return.svg";
 import CopyIcon from "../icons/copy.svg";
@@ -28,7 +29,6 @@ import DeleteIcon from "../icons/clear.svg";
 import PinIcon from "../icons/pin.svg";
 import ReplaceIcon from "../icons/replace.svg";
 import MergeIcon from "../icons/merge.svg";
-import EditIcon from "../icons/rename.svg";
 
 import LightIcon from "../icons/light.svg";
 import DarkIcon from "../icons/dark.svg";
@@ -44,13 +44,13 @@ import {
   BOT_HELLO,
   ChatMessage,
   createMessage,
+  DEFAULT_TOPIC,
+  ModelType,
   SubmitKey,
   Theme,
   useAccessStore,
   useAppConfig,
   useChatStore,
-  DEFAULT_TOPIC,
-  ModelType,
 } from "../store";
 
 import dispatchEventStorage, {
@@ -77,13 +77,13 @@ import { IconButton } from "./button";
 import styles from "./chat.module.scss";
 
 import {
+  List,
   ListItem,
   Modal,
   Selector,
   showConfirm,
   showPrompt,
   showToast,
-  List,
 } from "./ui-lib";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LAST_INPUT_KEY, Path, REQUEST_TIMEOUT_MS } from "../constant";
@@ -757,10 +757,28 @@ export function Chat() {
       return;
     }
     setIsLoading(true);
-    const webresults = await chatStore.onWebsearch(userInput);
-    chatStore
-      .onUserInput(webSearch ? `${webresults}:${userInput}` : userInput)
-      .then(() => setIsLoading(false));
+    if (webSearch) {
+      const currentSession = chatStore.currentSession();
+      chatStore.currentSession().messages.push({
+        content: "正在搜索。。。",
+        role: "system",
+        id: "",
+        model: "gpt-3.5-turbo",
+        date: new Date().toLocaleString(),
+      });
+      const webresults = await chatStore.onWebsearch(userInput);
+      for (let webresult of webresults) {
+        chatStore.currentSession().messages.push({
+          content: `[${webresult.title}](${webresult.href}/): ${webresult.body}`,
+          role: "system",
+          id: "",
+          model: "gpt-3.5-turbo",
+          date: new Date().toLocaleString(),
+        });
+      }
+    }
+
+    chatStore.onUserInput(userInput).then(() => setIsLoading(false));
     localStorage.setItem(LAST_INPUT_KEY, userInput);
     setUserInput("");
     setPromptHints([]);

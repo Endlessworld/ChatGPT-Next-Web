@@ -45,7 +45,7 @@ export interface LLMModel {
 }
 
 export abstract class LLMApi {
-  abstract websearch(query: String): Promise<string>;
+  abstract websearch(query: String): Promise<[]>;
   abstract chat(options: ChatOptions): Promise<void>;
   abstract usage(): Promise<LLMUsage>;
   abstract models(): Promise<LLMModel[]>;

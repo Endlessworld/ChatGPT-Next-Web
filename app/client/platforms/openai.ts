@@ -291,6 +291,7 @@ export class ChatGPTApi implements LLMApi {
       const results = await this.searxApi.searxSearch(query);
       return results;
     } catch (error) {
+      console.log(error);
       return "联网未搜索到相关信息,请直接回答";
     }
   }
