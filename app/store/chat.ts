@@ -93,6 +93,9 @@ function createEmptySession(): ChatSession {
 interface ChatStore {
   sessions: ChatSession[];
   currentSessionIndex: number;
+  globalId: number;
+  webSearch: boolean;
+  updateWebSearchStat: () => void;
   clearSessions: () => void;
   moveSession: (from: number, to: number) => void;
   selectSession: (index: number) => void;
@@ -102,6 +105,7 @@ interface ChatStore {
   nextSession: (delta: number) => void;
   onNewMessage: (message: ChatMessage) => void;
   onUserInput: (content: string) => Promise<void>;
+  onWebsearch: (content: string) => Promise<string>;
   summarizeSession: () => void;
   updateStat: (message: ChatMessage) => void;
   updateCurrentSession: (updater: (session: ChatSession) => void) => void;
@@ -149,6 +153,16 @@ export const useChatStore = create<ChatStore>()(
     (set, get) => ({
       sessions: [createEmptySession()],
       currentSessionIndex: 0,
+      globalId: 0,
+      webSearch: false,
+
+      updateWebSearchStat() {
+        set((state) => {
+          return {
+            webSearch: !state.webSearch,
+          };
+        });
+      },
 
       clearSessions() {
         set(() => ({
@@ -393,6 +407,16 @@ export const useChatStore = create<ChatStore>()(
             );
           },
         });
+      },
+
+      onWebsearch: async (content: string) => {
+        try {
+          const results = await api.llm.websearch(content);
+          return results;
+          // 在这里处理搜索结果，例如保存到状态中
+        } catch (error) {
+          return "联网未搜索到相关信息,请直接回答";
+        }
       },
 
       getMemoryPrompt() {

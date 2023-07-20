@@ -50,6 +50,20 @@ const fr: PartialLocaleType = {
       Clear: "Effacer le contexte",
       Settings: "Réglages",
     },
+    InputActions: {
+      Stop: "Arrêter",
+      ToBottom: "Aux plus récents",
+      Theme: {
+        auto: "Automatique",
+        light: "Thème Clair",
+        dark: "Thème Sombre",
+      },
+      Prompt: "Invitations",
+      Masks: "Masques",
+      Clear: "Effacer le Contexte",
+      Settings: "Paramètres",
+      Internet: "Recherche sur Internet",
+    },
     Rename: "Renommer la conversation",
     Typing: "En train d'écrire…",
     Input: (submitKey: string) => {

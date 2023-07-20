@@ -3,6 +3,7 @@ import {
   DEFAULT_MODELS,
   OpenaiPath,
   REQUEST_TIMEOUT_MS,
+  SearxPath,
 } from "@/app/constant";
 import { useAccessStore, useAppConfig, useChatStore } from "@/app/store";
 
@@ -13,6 +14,7 @@ import {
   fetchEventSource,
 } from "@fortaine/fetch-event-source";
 import { prettyObject } from "@/app/utils/format";
+import { SearxApi } from "../agents/searx";
 
 export interface OpenAIListModelResponse {
   object: string;
@@ -26,6 +28,11 @@ export interface OpenAIListModelResponse {
 export class ChatGPTApi implements LLMApi {
   private disableListModels = true;
 
+  searxApi: SearxApi;
+
+  constructor() {
+    this.searxApi = new SearxApi(SearxPath);
+  }
   path(path: string): string {
     let openaiUrl = useAccessStore.getState().openaiUrl;
     if (openaiUrl.length === 0) {
@@ -278,6 +285,14 @@ export class ChatGPTApi implements LLMApi {
       name: m.id,
       available: true,
     }));
+  }
+  async websearch(query: string) {
+    try {
+      const results = await this.searxApi.searxSearch(query);
+      return results;
+    } catch (error) {
+      return "联网未搜索到相关信息,请直接回答";
+    }
   }
 }
 export { OpenaiPath };
