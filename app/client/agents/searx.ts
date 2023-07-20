@@ -15,7 +15,7 @@ export class SearxApi {
     return [url, path].join("/");
   }
 
-  public async searxSearch(query: string, pageno: number = 3) {
+  public async searxSearch(query: string, pageno: number = 5) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => {
       controller.abort();

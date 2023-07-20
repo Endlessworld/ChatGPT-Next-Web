@@ -767,15 +767,19 @@ export function Chat() {
         date: new Date().toLocaleString(),
       });
       const webresults = await chatStore.onWebsearch(userInput);
-      for (let webresult of webresults) {
-        chatStore.currentSession().messages.push({
-          content: `[${webresult.title}](${webresult.href}/): ${webresult.body}`,
-          role: "system",
-          id: "",
-          model: "gpt-3.5-turbo",
-          date: new Date().toLocaleString(),
-        });
-      }
+      let contentBody = webresults
+        .map(
+          (webresult) =>
+            `[${webresult.title}](${webresult.href}/): ${webresult.body}`,
+        )
+        .join("\n");
+      chatStore.currentSession().messages.push({
+        content: contentBody,
+        role: "system",
+        id: "",
+        model: "gpt-3.5-turbo",
+        date: new Date().toLocaleString(),
+      });
     }
 
     chatStore.onUserInput(userInput).then(() => setIsLoading(false));
