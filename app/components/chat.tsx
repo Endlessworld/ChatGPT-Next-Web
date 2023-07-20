@@ -757,30 +757,6 @@ export function Chat() {
       return;
     }
     setIsLoading(true);
-    if (webSearch) {
-      const currentSession = chatStore.currentSession();
-      chatStore.currentSession().messages.push({
-        content: "正在搜索。。。",
-        role: "system",
-        id: "",
-        model: "gpt-3.5-turbo",
-        date: new Date().toLocaleString(),
-      });
-      const webresults = await chatStore.onWebsearch(userInput);
-      let contentBody = webresults
-        .map(
-          (webresult) =>
-            `[${webresult.title}](${webresult.href}/): ${webresult.body}`,
-        )
-        .join("\n");
-      chatStore.currentSession().messages.push({
-        content: contentBody,
-        role: "system",
-        id: "",
-        model: "gpt-3.5-turbo",
-        date: new Date().toLocaleString(),
-      });
-    }
 
     chatStore.onUserInput(userInput).then(() => setIsLoading(false));
     localStorage.setItem(LAST_INPUT_KEY, userInput);

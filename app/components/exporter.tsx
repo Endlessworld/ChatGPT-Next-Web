@@ -2,22 +2,9 @@
 import { ChatMessage, useAppConfig, useChatStore } from "../store";
 import Locale from "../locales";
 import styles from "./exporter.module.scss";
-import {
-  List,
-  ListItem,
-  Modal,
-  Select,
-  showImageModal,
-  showModal,
-  showToast,
-} from "./ui-lib";
+import { List, ListItem, Modal, Select, showModal, showToast } from "./ui-lib";
 import { IconButton } from "./button";
-import {
-  copyToClipboard,
-  downloadAs,
-  useMobileScreen,
-  isIdeaPlugin,
-} from "../utils";
+import { copyToClipboard, downloadAs, useMobileScreen } from "../utils";
 
 import CopyIcon from "../icons/copy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
@@ -37,7 +24,6 @@ import { DEFAULT_MASK_AVATAR } from "../store/mask";
 import { api } from "../client/api";
 import { prettyObject } from "../utils/format";
 import { EXPORT_MESSAGE_CLASS_NAME } from "../constant";
-import { getClientConfig } from "../config/client";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -441,14 +427,14 @@ export function ImagePreviewer(props: {
     toPng(dom)
       .then((blob) => {
         if (!blob) return;
-        if ((isMobile && !isIdeaPlugin()) || getClientConfig()?.isApp) {
-          showImageModal(blob);
-        } else {
-          const link = document.createElement("a");
-          link.download = `${props.topic}.png`;
-          link.href = blob;
-          link.click();
-        }
+        // if ((isMobile && !isIdeaPlugin()) || getClientConfig()?.isApp) {
+        //   showImageModal(blob);
+        // } else {
+        const link = document.createElement("a");
+        link.download = `${props.topic}.png`;
+        link.href = blob;
+        link.click();
+        // }
       })
       .catch((e) => console.log("[Export Image] ", e));
   };
@@ -498,9 +484,10 @@ export function ImagePreviewer(props: {
             </div>
             <div className={styles["chat-info-item"]}>
               {Locale.Exporter.Time}:{" "}
-              {new Date(
-                props.messages.at(-1)?.id ?? Date.now(),
-              ).toLocaleString()}
+              {new Date().toLocaleString(navigator.language, {
+                dateStyle: "short",
+                timeStyle: "medium",
+              })}
             </div>
           </div>
         </div>

@@ -10,7 +10,7 @@ import {
 
 import Locale, { getLang } from "../locales";
 import { showToast } from "../components/ui-lib";
-import { ModelConfig, ModelType, VoiceConfig, useAppConfig } from "./config";
+import { ModelConfig, ModelType, useAppConfig, VoiceConfig } from "./config";
 import { createEmptyMask, Mask } from "./mask";
 import {
   DEFAULT_INPUT_TEMPLATE,
@@ -115,7 +115,7 @@ interface ChatStore {
     updater: (message?: ChatMessage) => void,
   ) => void;
   resetSession: () => void;
-  getMessagesWithMemory: () => ChatMessage[];
+  getMessagesWithMemory: (content: string) => Promise<ChatMessage[]>;
   getMemoryPrompt: () => ChatMessage;
 
   clearAllData: () => void;
@@ -338,22 +338,24 @@ export const useChatStore = create<ChatStore>()(
           streaming: true,
           model: modelConfig.model,
         });
-
         // get recent messages
-        const recentMessages = get().getMessagesWithMemory();
+        const recentMessages = await get().getMessagesWithMemory(content);
         const sendMessages = recentMessages.concat(userMessage);
         const messageIndex = get().currentSession().messages.length + 1;
-
         // save user's and bot's message
         get().updateCurrentSession((session) => {
           const savedUserMessage = {
             ...userMessage,
             content,
           };
-          session.messages = session.messages.concat([
-            savedUserMessage,
-            botMessage,
-          ]);
+          session.messages.push(savedUserMessage);
+          session.messages.push(
+            createMessage({
+              role: "system",
+              content: "正在搜索。。。",
+            }),
+          );
+          session.messages.push(botMessage);
         });
 
         // make request
@@ -433,7 +435,7 @@ export const useChatStore = create<ChatStore>()(
         } as ChatMessage;
       },
 
-      getMessagesWithMemory() {
+      async getMessagesWithMemory(content: string) {
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;
         const clearContextIndex = session.clearContextIndex ?? 0;
@@ -461,6 +463,23 @@ export const useChatStore = create<ChatStore>()(
             "[Global System Prompt] ",
             systemPrompts.at(0)?.content ?? "empty",
           );
+          let webResults: any[] = [];
+          const onWebSearch = this.onWebsearch;
+          if (this.webSearch) {
+            webResults = await onWebSearch(content);
+            let contentBody = webResults
+              .map(
+                (webResult) =>
+                  `[${webResult.title}](${webResult.href}/): ${webResult.body}`,
+              )
+              .join("\n");
+            systemPrompts.push(
+              createMessage({
+                role: "system",
+                content: contentBody,
+              }),
+            );
+          }
         }
 
         // long term memory
