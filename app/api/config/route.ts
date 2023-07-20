@@ -38,7 +38,7 @@ const DANGER_CONFIG = {
       checked: false,
     },
     {
-      title: "订阅通道-大洋洲",
+      title: "订阅通道-澳洲",
       api: "https://api.oc.xr21.me",
       checked: false,
     },

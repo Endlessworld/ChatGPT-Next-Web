@@ -127,6 +127,10 @@ const en: LocaleType = {
     DeleteToast: "Chat Deleted",
     Revert: "Revert",
   },
+  Sidebar: {
+    Title: "X-ChatGPT",
+    SubTitle: "Your own AI assistant",
+  },
   Settings: {
     Title: "Settings",
     SubTitle: "All Settings",
