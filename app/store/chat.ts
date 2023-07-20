@@ -349,12 +349,14 @@ export const useChatStore = create<ChatStore>()(
             content,
           };
           session.messages.push(savedUserMessage);
-          session.messages.push(
-            createMessage({
-              role: "system",
-              content: "正在搜索。。。",
-            }),
-          );
+          if (this.webSearch) {
+            session.messages.push(
+              createMessage({
+                role: "system",
+                content: "正在搜索。。。",
+              }),
+            );
+          }
           session.messages.push(botMessage);
         });
 
