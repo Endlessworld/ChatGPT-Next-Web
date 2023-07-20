@@ -38,19 +38,6 @@ const fr: PartialLocaleType = {
       del: "Supprimer la Conversation",
     },
     InputActions: {
-      Stop: "Stop",
-      ToBottom: "Au dernier",
-      Theme: {
-        auto: "Auto",
-        light: "Thème clair",
-        dark: "Thème sombre",
-      },
-      Prompt: "Instructions",
-      Masks: "Assistants",
-      Clear: "Effacer le contexte",
-      Settings: "Réglages",
-    },
-    InputActions: {
       Stop: "Arrêter",
       ToBottom: "Aux plus récents",
       Theme: {
