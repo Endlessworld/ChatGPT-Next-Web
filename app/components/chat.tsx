@@ -1,16 +1,17 @@
 import { useDebouncedCallback } from "use-debounce";
 import React, {
+  Fragment,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
-  useCallback,
-  Fragment,
 } from "react";
 
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
 import RenameIcon from "../icons/rename.svg";
+import EditIcon from "../icons/rename.svg";
 import ExportIcon from "../icons/share.svg";
 import ReturnIcon from "../icons/return.svg";
 import CopyIcon from "../icons/copy.svg";
@@ -26,7 +27,6 @@ import DeleteIcon from "../icons/clear.svg";
 import PinIcon from "../icons/pin.svg";
 import ReplaceIcon from "../icons/replace.svg";
 import MergeIcon from "../icons/merge.svg";
-import EditIcon from "../icons/rename.svg";
 import ConfirmIcon from "../icons/confirm.svg";
 import CancelIcon from "../icons/cancel.svg";
 
@@ -44,13 +44,13 @@ import {
   BOT_HELLO,
   ChatMessage,
   createMessage,
+  DEFAULT_TOPIC,
+  ModelType,
   SubmitKey,
   Theme,
   useAccessStore,
   useAppConfig,
   useChatStore,
-  DEFAULT_TOPIC,
-  ModelType,
 } from "../store";
 
 import dispatchEventStorage, {
@@ -84,7 +84,6 @@ import {
   showConfirm,
   showPrompt,
   showToast,
-  List,
 } from "./ui-lib";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LAST_INPUT_KEY, Path, REQUEST_TIMEOUT_MS } from "../constant";
