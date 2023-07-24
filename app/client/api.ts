@@ -13,6 +13,14 @@ export type ChatModel = ModelType;
 export interface RequestMessage {
   role: MessageRole;
   content: string;
+  functions?: [
+    {
+      name?: string;
+      description?: string;
+      parameters?: {};
+    },
+  ];
+  function_call?: string;
 }
 
 export interface LLMConfig {

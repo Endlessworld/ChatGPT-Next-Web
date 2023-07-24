@@ -5,7 +5,12 @@ import {
   REQUEST_TIMEOUT_MS,
   SearxPath,
 } from "@/app/constant";
-import { useAccessStore, useAppConfig, useChatStore } from "@/app/store";
+import {
+  ChatMessage,
+  useAccessStore,
+  useAppConfig,
+  useChatStore,
+} from "@/app/store";
 
 import { ChatOptions, getHeaders, LLMApi, LLMModel, LLMUsage } from "../api";
 import Locale from "../../locales";
@@ -15,6 +20,7 @@ import {
 } from "@fortaine/fetch-event-source";
 import { prettyObject } from "@/app/utils/format";
 import { SearxApi } from "../agents/searx";
+import { functionCall } from "@/app/utils";
 
 export interface OpenAIListModelResponse {
   object: string;
@@ -66,20 +72,23 @@ export class ChatGPTApi implements LLMApi {
         model: options.config.model,
       },
     };
-
+    const functions = options.messages[messages.length - 1].functions;
     const requestPayload = {
       messages,
       stream: options.config.stream,
+      // stream: options.messages[messages.length - 1].functions ? false : options.config.stream,
       model: modelConfig.model,
       temperature: modelConfig.temperature,
       presence_penalty: modelConfig.presence_penalty,
       frequency_penalty: modelConfig.frequency_penalty,
       top_p: modelConfig.top_p,
+      functions: functions,
+      function_call: options.messages[messages.length - 1].function_call,
     };
 
     console.log("[Request] openai payload: ", requestPayload);
 
-    const shouldStream = !!options.config.stream;
+    const shouldStream = requestPayload.stream;
     const controller = new AbortController();
     options.onController?.(controller);
 
@@ -110,7 +119,8 @@ export class ChatGPTApi implements LLMApi {
         };
 
         controller.signal.onabort = finish;
-
+        let function_call_arguments_json = "";
+        let function_call_name = "";
         fetchEventSource(chatPath, {
           ...chatPayload,
           async onopen(res) {
@@ -123,6 +133,10 @@ export class ChatGPTApi implements LLMApi {
 
             if (contentType?.startsWith("text/plain")) {
               responseText = await res.clone().text();
+              console.log(
+                'contentType?.startsWith("text/plain")',
+                responseText,
+              );
               return finish();
             }
 
@@ -158,15 +172,42 @@ export class ChatGPTApi implements LLMApi {
             const text = msg.data;
             try {
               const json = JSON.parse(text);
+              console.log(json);
               if (json.choices[0].finish_reason) {
+                if (json.choices[0].finish_reason === "function_call") {
+                  console.log(
+                    "functionCall arguments_json",
+                    function_call_arguments_json,
+                  );
+                  functionCall(
+                    JSON.stringify({
+                      function_name: function_call_name,
+                      arguments: function_call_arguments_json,
+                    }),
+                  );
+                  const call_function =
+                    functions
+                      ?.filter((f) => f.name === function_call_name)
+                      .at(0) || {};
+                  responseText = ` ${call_function?.description} \nFunction Call ${call_function?.name}  \nArguments: \n\`\`\` json \n ${function_call_arguments_json} \n\`\`\` `;
+                }
                 return finish();
               }
-              const delta =
-                json.choices[0]?.delta?.content ||
-                json.choices[0]?.message?.content;
-              if (delta) {
-                responseText += delta;
-                options.onUpdate?.(responseText, delta);
+              if (json.choices[0]?.delta?.function_call) {
+                function_call_arguments_json +=
+                  json.choices[0]?.delta?.function_call?.arguments;
+                if (json.choices[0]?.delta?.function_call?.name) {
+                  function_call_name =
+                    json.choices[0]?.delta?.function_call?.name;
+                }
+              } else {
+                const delta =
+                  json.choices[0]?.delta?.content ||
+                  json.choices[0]?.message?.content;
+                if (delta) {
+                  responseText += delta;
+                  options.onUpdate?.(responseText, delta);
+                }
               }
             } catch (e) {
               console.error(e, "[Request] parse error", text, msg);
@@ -185,8 +226,8 @@ export class ChatGPTApi implements LLMApi {
       } else {
         const res = await fetch(chatPath, chatPayload);
         clearTimeout(requestTimeoutId);
-
         const resJson = await res.json();
+        console.log("resJson >>>>>>>", resJson);
         const message = this.extractMessage(resJson);
         options.onFinish(message);
       }

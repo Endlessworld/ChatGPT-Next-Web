@@ -22,6 +22,7 @@ import { ChatControllerPool } from "../client/controller";
 import { prettyObject } from "../utils/format";
 import { estimateTokenLength } from "../utils/token";
 import { nanoid } from "nanoid";
+import { errors } from "hast-util-from-html/lib/errors";
 
 export type ChatMessage = RequestMessage & {
   date: string;
@@ -331,8 +332,28 @@ export const useChatStore = create<ChatStore>()(
         const userMessage: ChatMessage = createMessage({
           role: "user",
           content: userContent,
+          function_call: "auto",
+          functions: [
+            {
+              description: "获取指定城市当前的天气",
+              name: "getCurrentWeather",
+              parameters: {
+                type: "object",
+                properties: {
+                  city: {
+                    description: "城市",
+                    type: "string",
+                  },
+                  forecast: {
+                    description: "是否预报接下来几天的天气",
+                    type: "boolean",
+                  },
+                },
+                required: ["city"],
+              },
+            },
+          ],
         });
-
         const botMessage: ChatMessage = createMessage({
           role: "assistant",
           streaming: true,
@@ -341,6 +362,7 @@ export const useChatStore = create<ChatStore>()(
         // get recent messages
         const recentMessages = await get().getMessagesWithMemory(content);
         const sendMessages = recentMessages.concat(userMessage);
+        console.log("sendMessages", JSON.stringify(userMessage));
         const messageIndex = get().currentSession().messages.length + 1;
         // save user's and bot's message
         get().updateCurrentSession((session) => {
