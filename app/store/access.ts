@@ -55,16 +55,16 @@ export const useAccessStore = create<AccessControlStore>()(
         set(() => ({ openaiUrl: openaiUrl }));
       },
       updateCode(code: string) {
-        set(() => ({ accessCode: code }));
+        set(() => ({ accessCode: code?.trim() }));
       },
       updateToken(token: string) {
-        set(() => ({ token }));
+        set(() => ({ token: token?.trim() }));
       },
       updateWorkers(workers: worker[]) {
         set(() => ({ workers }));
       },
       updateOpenAiUrl(url: string) {
-        set(() => ({ openaiUrl: url }));
+        set(() => ({ openaiUrl: url?.trim() }));
       },
       isAuthorized() {
         get().fetch();

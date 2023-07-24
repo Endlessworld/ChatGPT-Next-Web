@@ -1,16 +1,17 @@
 import { useDebouncedCallback } from "use-debounce";
 import React, {
+  Fragment,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
-  useCallback,
-  Fragment,
 } from "react";
 
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
 import RenameIcon from "../icons/rename.svg";
+import EditIcon from "../icons/rename.svg";
 import ExportIcon from "../icons/share.svg";
 import ReturnIcon from "../icons/return.svg";
 import CopyIcon from "../icons/copy.svg";
@@ -26,7 +27,8 @@ import DeleteIcon from "../icons/clear.svg";
 import PinIcon from "../icons/pin.svg";
 import ReplaceIcon from "../icons/replace.svg";
 import MergeIcon from "../icons/merge.svg";
-import EditIcon from "../icons/rename.svg";
+import ConfirmIcon from "../icons/confirm.svg";
+import CancelIcon from "../icons/cancel.svg";
 
 import LightIcon from "../icons/light.svg";
 import DarkIcon from "../icons/dark.svg";
@@ -42,13 +44,13 @@ import {
   BOT_HELLO,
   ChatMessage,
   createMessage,
+  DEFAULT_TOPIC,
+  ModelType,
   SubmitKey,
   Theme,
   useAccessStore,
   useAppConfig,
   useChatStore,
-  DEFAULT_TOPIC,
-  ModelType,
 } from "../store";
 
 import dispatchEventStorage, {
@@ -75,18 +77,18 @@ import { IconButton } from "./button";
 import styles from "./chat.module.scss";
 
 import {
+  List,
   ListItem,
   Modal,
   Selector,
   showConfirm,
   showPrompt,
   showToast,
-  List,
 } from "./ui-lib";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LAST_INPUT_KEY, Path, REQUEST_TIMEOUT_MS } from "../constant";
 import { Avatar } from "./emoji";
-import { MaskAvatar, MaskConfig } from "./mask";
+import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
 import { useMaskStore } from "../store/mask";
 import { ChatCommandPrefix, useChatCommand, useCommand } from "../command";
 import { prettyObject } from "../utils/format";
@@ -643,6 +645,68 @@ export function ChatActions(props: {
   );
 }
 
+export function EditMessageModal(props: { onClose: () => void }) {
+  const chatStore = useChatStore();
+  const session = chatStore.currentSession();
+  const [messages, setMessages] = useState(session.messages.slice());
+
+  return (
+    <div className="modal-mask">
+      <Modal
+        title={Locale.UI.Edit}
+        onClose={props.onClose}
+        actions={[
+          <IconButton
+            text={Locale.UI.Cancel}
+            icon={<CancelIcon />}
+            key="cancel"
+            onClick={() => {
+              props.onClose();
+            }}
+          />,
+          <IconButton
+            type="primary"
+            text={Locale.UI.Confirm}
+            icon={<ConfirmIcon />}
+            key="ok"
+            onClick={() => {
+              chatStore.updateCurrentSession(
+                (session) => (session.messages = messages),
+              );
+              props.onClose();
+            }}
+          />,
+        ]}
+      >
+        <List>
+          <ListItem
+            title={Locale.Chat.EditMessage.Topic.Title}
+            subTitle={Locale.Chat.EditMessage.Topic.SubTitle}
+          >
+            <input
+              type="text"
+              value={session.topic}
+              onInput={(e) =>
+                chatStore.updateCurrentSession(
+                  (session) => (session.topic = e.currentTarget.value),
+                )
+              }
+            ></input>
+          </ListItem>
+        </List>
+        <ContextPrompts
+          context={messages}
+          updateContext={(updater) => {
+            const newMessages = messages.slice();
+            updater(newMessages);
+            setMessages(newMessages);
+          }}
+        />
+      </Modal>
+    </div>
+  );
+}
+
 export function Chat() {
   type RenderMessage = ChatMessage & { preview?: boolean };
 
@@ -834,22 +898,6 @@ export function Chat() {
     }
   };
 
-  const findLastUserIndex = (messageId: string) => {
-    // find last user input message
-    let lastUserMessageIndex: number | null = null;
-    for (let i = 0; i < session.messages.length; i += 1) {
-      const message = session.messages[i];
-      if (message.role === "user") {
-        lastUserMessageIndex = i;
-      }
-      if (message.id === messageId) {
-        break;
-      }
-    }
-
-    return lastUserMessageIndex;
-  };
-
   const deleteMessage = (msgId?: string) => {
     chatStore.updateCurrentSession(
       (session) =>
@@ -1019,16 +1067,6 @@ export function Chat() {
   const [showPromptModal, setShowPromptModal] = useState(false);
   const [showTTSModal, setShowTTSModal] = useState(false);
 
-  const renameSession = () => {
-    showPrompt(Locale.Chat.Rename, session.topic).then((newTopic) => {
-      if (newTopic && newTopic !== session.topic) {
-        chatStore.updateCurrentSession(
-          (session) => (session.topic = newTopic!),
-        );
-      }
-    });
-  };
-
   const clientConfig = useMemo(() => getClientConfig(), []);
 
   const location = useLocation();
@@ -1091,7 +1129,45 @@ export function Chat() {
     submit: (text) => {
       doSubmit(text);
     },
+    code: (text) => {
+      console.log("[Command] got code from url: ", text);
+      showConfirm(Locale.URLCommand.Code + `code = ${text}`).then((res) => {
+        if (res) {
+          accessStore.updateCode(text);
+        }
+      });
+    },
+    settings: (text) => {
+      try {
+        const payload = JSON.parse(text) as {
+          key?: string;
+          url?: string;
+        };
+
+        console.log("[Command] got settings from url: ", payload);
+
+        if (payload.key || payload.url) {
+          showConfirm(
+            Locale.URLCommand.Settings +
+              `\n${JSON.stringify(payload, null, 4)}`,
+          ).then((res) => {
+            if (!res) return;
+            if (payload.key) {
+              accessStore.updateToken(payload.key);
+            }
+            if (payload.url) {
+              accessStore.updateOpenAiUrl(payload.url);
+            }
+          });
+        }
+      } catch {
+        console.error("[Command] failed to get settings from url: ", text);
+      }
+    },
   });
+
+  // edit / insert message modal
+  const [isEditingMessage, setIsEditingMessage] = useState(false);
 
   const isChinese = (text: string): boolean => {
     const chineseRegex = /[\u4e00-\u9fff]/;
@@ -1204,7 +1280,7 @@ export function Chat() {
         <div className={`window-header-title ${styles["chat-body-title"]}`}>
           <div
             className={`window-header-main-title ${styles["chat-body-main-title"]}`}
-            onClickCapture={renameSession}
+            onClickCapture={() => setIsEditingMessage(true)}
           >
             {!session.topic ? DEFAULT_TOPIC : session.topic}
           </div>
@@ -1218,7 +1294,7 @@ export function Chat() {
               <IconButton
                 icon={<RenameIcon />}
                 bordered
-                onClick={renameSession}
+                onClick={() => setIsEditingMessage(true)}
               />
             </div>
           )}
@@ -1467,6 +1543,14 @@ export function Chat() {
 
       {showExport && (
         <ExportMessageModal onClose={() => setShowExport(false)} />
+      )}
+
+      {isEditingMessage && (
+        <EditMessageModal
+          onClose={() => {
+            setIsEditingMessage(false);
+          }}
+        />
       )}
     </div>
   );
