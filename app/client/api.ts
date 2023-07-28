@@ -13,6 +13,9 @@ export type ChatModel = ModelType;
 export interface RequestMessage {
   role: MessageRole;
   content: string;
+  name?: string;
+  functions?: GPTFunction[];
+  function_call?: string;
 }
 
 export interface LLMConfig {

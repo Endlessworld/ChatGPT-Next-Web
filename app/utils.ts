@@ -57,6 +57,11 @@ export async function ideaMessage(
           if (message.event === "auto") {
             showToast("自动回写成功");
           }
+          if (message.event === "function_call") {
+            console.log(cefResponse);
+            localStorage.setItem("function-response", cefResponse);
+            showToast("function call success");
+          }
         },
         onFailure: function (error_code: any, error_message: any) {
           if (message.event === "replace") {
@@ -82,6 +87,11 @@ export async function Merge(messageText: string) {
 export async function Replace(messageText: string) {
   ideaMessage({ event: "replace", message: messageText });
 }
+
+export async function functionCall(messageText: string) {
+  ideaMessage({ event: "function_call", message: messageText });
+}
+
 export function projectContext() {
   let content = `在单个代码块中输出代码
             保持你的回答简短和客观。
