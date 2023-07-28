@@ -2,9 +2,11 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 import {
+  functionCall,
   getProjectContextAwareness,
   ideaMessage,
   isIdeaPlugin,
+  loadFunctions,
   trimTopic,
 } from "../utils";
 
@@ -17,7 +19,7 @@ import {
   DEFAULT_SYSTEM_TEMPLATE,
   StoreKey,
 } from "../constant";
-import { api, RequestMessage } from "../client/api";
+import { api, MessageRole, RequestMessage } from "../client/api";
 import { ChatControllerPool } from "../client/controller";
 import { prettyObject } from "../utils/format";
 import { estimateTokenLength } from "../utils/token";
@@ -101,7 +103,11 @@ interface ChatStore {
   currentSession: () => ChatSession;
   nextSession: (delta: number) => void;
   onNewMessage: (message: ChatMessage) => void;
-  onUserInput: (content: string) => Promise<void>;
+  onUserInput: (
+    content: string,
+    role?: MessageRole,
+    functionName?: string,
+  ) => Promise<void>;
   summarizeSession: () => void;
   updateStat: (message: ChatMessage) => void;
   updateCurrentSession: (updater: (session: ChatSession) => void) => void;
@@ -307,17 +313,27 @@ export const useChatStore = create<ChatStore>()(
         );
       },
 
-      async onUserInput(content) {
+      async onUserInput(content, role?: MessageRole, functionName?: string) {
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;
 
         const userContent = fillTemplateWith(content, modelConfig);
         console.log("[User Input] after template: ", userContent);
-
-        const userMessage: ChatMessage = createMessage({
-          role: "user",
-          content: userContent,
-        });
+        let userMessage: ChatMessage;
+        if (role === "function" && !!functionName) {
+          userMessage = createMessage({
+            role: "function",
+            content: content,
+            name: functionName,
+          });
+        } else {
+          userMessage = createMessage({
+            role: "user",
+            content: userContent,
+            function_call: "auto",
+            functions: loadFunctions(),
+          });
+        }
 
         const botMessage: ChatMessage = createMessage({
           role: "assistant",
@@ -363,6 +379,31 @@ export const useChatStore = create<ChatStore>()(
               get().onNewMessage(botMessage);
             }
             ChatControllerPool.remove(session.id, botMessage.id);
+          },
+          onFunction(message) {
+            botMessage.streaming = false;
+            botMessage.content = prettyObject(
+              JSON.stringify(
+                {
+                  function: message.function,
+                  arguments: message.arguments,
+                },
+                null,
+                2,
+              ),
+            );
+            get().updateCurrentSession((session) => {
+              session.messages = session.messages.concat();
+            });
+            get().onNewMessage(botMessage);
+            functionCall(
+              JSON.stringify({
+                function: message.function,
+                arguments: message.arguments,
+              }),
+            );
+
+            // ChatControllerPool.remove(session.id, botMessage.id);
           },
           onError(error) {
             const isAborted = error.message.includes("aborted");

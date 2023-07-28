@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { showToast } from "./components/ui-lib";
 import Locale from "./locales";
+import { RequestMessage } from "@/app/client/api";
+import { useChatStore } from "@/app/store";
 
 export function trimTopic(topic: string) {
   return topic.replace(/[，。！？”“"、,.!?]*$/, "");
@@ -10,6 +12,11 @@ export function isIdeaPlugin() {
     return false;
   }
   return (window as any).cefQuery;
+}
+
+export function loadFunctions(): [] {
+  let functionsJson: string = localStorage.getItem("functions") || "[]";
+  return JSON.parse(functionsJson);
 }
 
 export function getVoices(

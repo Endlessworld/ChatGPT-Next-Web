@@ -4,7 +4,7 @@ import { ChatMessage, ModelType, useAccessStore } from "../store";
 import { ChatGPTApi } from "./platforms/openai";
 import { getCookie } from "@/app/utils";
 
-export const ROLES = ["system", "user", "assistant"] as const;
+export const ROLES = ["system", "user", "assistant", "function"] as const;
 export type MessageRole = (typeof ROLES)[number];
 
 export const Models = ["gpt-3.5-turbo", "gpt-4"] as const;
@@ -17,7 +17,15 @@ export interface RequestMessage {
   functions?: GPTFunction[];
   function_call?: string;
 }
-
+export interface GPTFunction {
+  name?: string;
+  description?: string;
+  parameters?: {};
+}
+export interface FunctionCall {
+  function?: string;
+  arguments?: string;
+}
 export interface LLMConfig {
   model: string;
   temperature?: number;
@@ -33,6 +41,7 @@ export interface ChatOptions {
 
   onUpdate?: (message: string, chunk: string) => void;
   onFinish: (message: string) => void;
+  onFunction?: (message: FunctionCall) => void;
   onError?: (err: Error) => void;
   onController?: (controller: AbortController) => void;
 }

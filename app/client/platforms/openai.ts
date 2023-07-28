@@ -56,6 +56,7 @@ export class ChatGPTApi implements LLMApi {
     const messages = options.messages.map((v) => ({
       role: v.role,
       content: v.content,
+      name: v.name,
     }));
 
     const modelConfig = {
@@ -165,7 +166,7 @@ export class ChatGPTApi implements LLMApi {
             const text = msg.data;
             try {
               const json = JSON.parse(text);
-              console.log(json);
+              // console.log(json);
               if (json.choices[0].finish_reason) {
                 if (json.choices[0].finish_reason === "function_call") {
                   // console.log(
@@ -184,6 +185,7 @@ export class ChatGPTApi implements LLMApi {
                   //     .at(0) || {};
                   // responseText = ` ${call_function?.description} \nFunction Call ${call_function?.name}  \nArguments: \n\`\`\` json \n ${function_call_arguments_json} \n\`\`\` `;
                   if (options.onFunction) {
+                    finished = true;
                     return options.onFunction({
                       function: function_call_name,
                       arguments: function_call_arguments_json,
