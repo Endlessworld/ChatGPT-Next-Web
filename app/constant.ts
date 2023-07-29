@@ -162,3 +162,41 @@ export const DEFAULT_MODELS = [
     available: true,
   },
 ] as const;
+
+export const WORKERS_LIST = [
+  {
+    title: "订阅通道-亚洲",
+    api: "https://api.asia.xr21.me",
+    checked: true,
+  },
+  {
+    title: "订阅通道-欧洲",
+    api: "https://api.eu.xr21.me",
+    checked: false,
+  },
+  {
+    title: "订阅通道-非洲",
+    api: "https://api.africa.xr21.me",
+    checked: false,
+  },
+  {
+    title: "订阅通道-北美",
+    api: "https://api.na.xr21.me",
+    checked: false,
+  },
+  {
+    title: "订阅通道-南美",
+    api: "https://api.sa.xr21.me",
+    checked: false,
+  },
+  {
+    title: "订阅通道-澳洲",
+    api: "https://api.oc.xr21.me",
+    checked: false,
+  },
+  {
+    title: "官方直连",
+    api: "https://api.openai.com/",
+    checked: false,
+  },
+];

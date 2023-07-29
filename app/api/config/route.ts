@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getServerSideConfig } from "../../config/server";
+import { WORKERS_LIST } from "@/app/constant";
 
 const serverConfig = getServerSideConfig();
 
@@ -11,43 +12,7 @@ const DANGER_CONFIG = {
   hideUserApiKey: serverConfig.hideUserApiKey,
   disableGPT4: serverConfig.disableGPT4,
   hideBalanceQuery: serverConfig.hideBalanceQuery,
-  workers: [
-    {
-      title: "订阅通道-亚洲",
-      api: "https://api.asia.xr21.me",
-      checked: true,
-    },
-    {
-      title: "订阅通道-欧洲",
-      api: "https://api.eu.xr21.me",
-      checked: false,
-    },
-    {
-      title: "订阅通道-非洲",
-      api: "https://api.africa.xr21.me",
-      checked: false,
-    },
-    {
-      title: "订阅通道-北美",
-      api: "https://api.na.xr21.me",
-      checked: false,
-    },
-    {
-      title: "订阅通道-南美",
-      api: "https://api.sa.xr21.me",
-      checked: false,
-    },
-    {
-      title: "订阅通道-澳洲",
-      api: "https://api.oc.xr21.me",
-      checked: false,
-    },
-    {
-      title: "官方直连",
-      api: "https://api.openai.com/",
-      checked: false,
-    },
-  ],
+  workers: WORKERS_LIST,
 };
 
 declare global {

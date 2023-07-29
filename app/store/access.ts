@@ -1,6 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { DEFAULT_API_HOST, DEFAULT_MODELS, StoreKey } from "../constant";
+import {
+  DEFAULT_API_HOST,
+  DEFAULT_MODELS,
+  StoreKey,
+  WORKERS_LIST,
+} from "../constant";
 import { getHeaders } from "../client/api";
 import { getClientConfig } from "../config/client";
 
@@ -75,6 +80,10 @@ export const useAccessStore = create<AccessControlStore>()(
         );
       },
       fetch() {
+        if (getClientConfig()?.buildMode === "export") {
+          get().workers = WORKERS_LIST;
+          get().needCode = true;
+        }
         if (fetchState > 0 || getClientConfig()?.buildMode === "export") return;
         fetchState = 1;
         fetch("/api/config", {

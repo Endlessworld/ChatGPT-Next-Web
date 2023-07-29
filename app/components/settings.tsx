@@ -388,7 +388,8 @@ export function Settings() {
   }, []);
 
   const clientConfig = useMemo(() => getClientConfig(), []);
-  const showAccessCode = enabledAccessControl && !clientConfig?.isApp;
+  const showAccessCode = enabledAccessControl;
+  // && !clientConfig?.isApp;
 
   return (
     <ErrorBoundary>
@@ -669,7 +670,7 @@ export function Settings() {
           <ListItem
             title={Locale.Settings.ApiServerAddress}
             subTitle={Locale.Settings.ApiServerSubTitle(
-              accessStore.workers.filter((e) => e.checked)[0].api,
+              accessStore.workers.filter((e) => e.checked)[0]?.api,
             )}
           >
             <Select
@@ -679,7 +680,7 @@ export function Settings() {
                 const url = e.target.value as string;
                 accessStore.updateWorkers(
                   accessStore.workers.map((e) => {
-                    e.checked = e.api == url;
+                    e.checked = e?.api == url;
                     return e;
                   }),
                 );
@@ -689,7 +690,7 @@ export function Settings() {
               {Object.values(accessStore.workers).map((worker, index) => {
                 // console.log(worker, index);
                 return (
-                  <option value={worker.api} key={worker.api}>
+                  <option value={worker?.api} key={worker?.api}>
                     {worker.title}
                   </option>
                 );

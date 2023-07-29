@@ -186,7 +186,7 @@ const cn = {
     Theme: "主题",
     ApiServerAddress: "服务地址",
     ApiServerSubTitle: (x: string): string =>
-      x.endsWith("me")
+      x?.endsWith("me")
         ? `需要登录或填写访问密码`
         : `需要填写访问apiKey、受地域限制`,
     TightBorder: "无边框模式",
