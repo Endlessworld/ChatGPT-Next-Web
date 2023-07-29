@@ -15,8 +15,8 @@ import { IconButton } from "./button";
 import {
   copyToClipboard,
   downloadAs,
-  useMobileScreen,
   isIdeaPlugin,
+  useMobileScreen,
 } from "../utils";
 
 import CopyIcon from "../icons/copy.svg";
@@ -441,9 +441,13 @@ export function ImagePreviewer(props: {
     toPng(dom)
       .then((blob) => {
         if (!blob) return;
-        if ((isMobile && !isIdeaPlugin()) || getClientConfig()?.isApp) {
+        if ((isMobile || getClientConfig()?.isApp) && !isIdeaPlugin()) {
           showImageModal(blob);
         } else {
+          // const image = new Image();
+          // image.src = blob;
+          // const win = window.open("");
+          // win?.document.write(image.outerHTML);
           const link = document.createElement("a");
           link.download = `${props.topic}.png`;
           link.href = blob;
@@ -498,9 +502,7 @@ export function ImagePreviewer(props: {
             </div>
             <div className={styles["chat-info-item"]}>
               {Locale.Exporter.Time}:{" "}
-              {new Date(
-                props.messages.at(-1)?.id ?? Date.now(),
-              ).toLocaleString()}
+              {props.messages.filter((e) => !!e.date).at(0)?.date}
             </div>
           </div>
         </div>
