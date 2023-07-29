@@ -12,7 +12,7 @@ import {
 
 import Locale, { getLang } from "../locales";
 import { showToast } from "../components/ui-lib";
-import { ModelConfig, ModelType, VoiceConfig, useAppConfig } from "./config";
+import { ModelConfig, ModelType, useAppConfig, VoiceConfig } from "./config";
 import { createEmptyMask, Mask } from "./mask";
 import {
   DEFAULT_INPUT_TEMPLATE,
@@ -330,9 +330,12 @@ export const useChatStore = create<ChatStore>()(
           userMessage = createMessage({
             role: "user",
             content: userContent,
-            function_call: "auto",
-            functions: loadFunctions(),
           });
+          const functions = loadFunctions();
+          if (functions.length > 0) {
+            userMessage.functions = loadFunctions();
+            userMessage.function_call = "auto";
+          }
         }
 
         const botMessage: ChatMessage = createMessage({
