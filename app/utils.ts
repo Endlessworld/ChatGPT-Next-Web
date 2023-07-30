@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { showToast } from "./components/ui-lib";
 import Locale from "./locales";
-import { RequestMessage } from "@/app/client/api";
-import { useChatStore } from "@/app/store";
 
 export function trimTopic(topic: string) {
   return topic.replace(/[，。！？”“"、,.!?]*$/, "");
@@ -62,7 +60,7 @@ export async function ideaMessage(
             showToast(Locale.Merge.Success);
           }
           if (message.event === "auto") {
-            showToast("自动回写成功");
+            // showToast("自动回写成功");
           }
           if (message.event === "function_call") {
             console.log(cefResponse);
