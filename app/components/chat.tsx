@@ -996,6 +996,10 @@ function _Chat() {
     }
     context.push(copiedHello);
   }
+  const toggleSound = () => {
+    setSoundOn(!soundOn);
+    localStorage.setItem("soundOn", String(!soundOn));
+  };
 
   // preview messages
   const renderMessages = useMemo(() => {
