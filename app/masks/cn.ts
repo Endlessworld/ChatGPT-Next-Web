@@ -1,5 +1,6 @@
 import { BuiltinMask } from "./typing";
-import { isIdeaPlugin, projectContext } from "@/app/utils";
+import { getCookie, getUserInfo, isIdeaPlugin, useUserInfo } from "@/app/utils";
+import Locales from "@/app/locales";
 
 export const CN_MASKS: BuiltinMask[] = [
   {
@@ -9,7 +10,7 @@ export const CN_MASKS: BuiltinMask[] = [
       {
         id: "x-chatgpt-to-pic-1",
         role: "assistant",
-        content: "你好呀，我是你的编程助手 X-ChatGPT，请问有什么需要帮忙的嘛",
+        content: Locales.Error.HelloMessage(getUserInfo()),
         date: "",
       },
     ],

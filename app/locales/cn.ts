@@ -1,18 +1,25 @@
 import { SubmitKey } from "../store/config";
 import { LOGIN_HOST } from "@/app/constant";
+import { isIdeaPlugin } from "@/app/utils";
 
 const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
     Unauthorized: `OpenAI API Key无效
-请[登录](${LOGIN_HOST})或者点此[获取访问密码](https://forum.xr21.me/forum-post/64.html)以免费使用。
-[反馈建议](https://forum.xr21.me/forum/36.html/)|[聊天吐槽](https://forum.xr21.me/forum/95.html/?index=1)|[捐赠入口](https://forum.xr21.me/forum-post/253.html/)
+    请点此[登录](${LOGIN_HOST})
+    [反馈建议](https://forum.xr21.me/forum/36.html/)|[爱发电](https://forum.xr21.me/forum-post/253.html/)
 `,
-    HelloMessage: `欢迎使用X-ChatGPT
-    请[登录](${LOGIN_HOST})或者点此[获取访问密码](https://forum.xr21.me/forum-post/64.html)以免费使用。
-    或者前往[设置](/#/settings)页输入自己的OpenAI API Key 以解除这个限制。
-    [反馈建议](https://forum.xr21.me/forum/36.html/)
-    `,
+    HelloMessage: (userInfo: any) => {
+      console.log(userInfo);
+      let display_name = userInfo?.display_name;
+      return `${
+        !!display_name
+          ? "欢迎回来 " + display_name
+          : `欢迎使用X-ChatGPT 您当前未登录 请点此[登录](${LOGIN_HOST})\n[反馈建议](https://forum.xr21.me/forum/36.html/)|[爱发电](https://forum.xr21.me/forum-post/253.html/)
+        `
+      }
+    `;
+    },
   },
   Auth: {
     Title: "需要密码",

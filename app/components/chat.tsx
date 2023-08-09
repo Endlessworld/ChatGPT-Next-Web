@@ -56,7 +56,9 @@ import {
 import dispatchEventStorage, {
   autoGrowTextArea,
   copyToClipboard,
+  getCookie,
   getProjectContextAwareness,
+  getUserInfo,
   getVoices,
   isIdeaPlugin,
   Merge,
@@ -992,7 +994,7 @@ function _Chat() {
   ) {
     const copiedHello = Object.assign({}, BOT_HELLO);
     if (!accessStore.isAuthorized()) {
-      copiedHello.content = Locale.Error.HelloMessage;
+      copiedHello.content = Locale.Error.HelloMessage(getUserInfo());
     }
     context.push(copiedHello);
   }

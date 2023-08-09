@@ -10,7 +10,6 @@ import CloseIcon from "../icons/close.svg";
 import MaskIcon from "../icons/mask.svg";
 import AnnouncementIcon from "../icons/announcement.svg";
 import UserIcon from "../icons/user.svg";
-import PluginIcon from "../icons/plugin.svg";
 import DragIcon from "../icons/drag.svg";
 
 import Locale from "../locales";
@@ -24,7 +23,7 @@ import {
 } from "../constant";
 
 import { Link, useNavigate } from "react-router-dom";
-import { isIdeaPlugin, useMobileScreen } from "../utils";
+import { getUserInfo, isIdeaPlugin, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { Markdown } from "@/app/components/markdown";
 import { useMaskStore } from "@/app/store/mask";
@@ -187,7 +186,10 @@ export function SideBar(props: { className?: string }) {
                 showModal({
                   title: "公告",
                   children: (
-                    <Markdown content={Locale.Error.HelloMessage} defaultShow />
+                    <Markdown
+                      content={Locale.Error.HelloMessage(getUserInfo())}
+                      defaultShow
+                    />
                   ),
                   onClose: () => {},
                 });

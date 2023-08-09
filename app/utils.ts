@@ -261,6 +261,9 @@ export async function clearCache() {
 }
 
 export function useUserInfo(): any {
+  return getUserInfo();
+}
+export function getUserInfo(): any {
   let userInfo = getCookie("user_info");
   return JSON.parse(userInfo);
 }
@@ -269,12 +272,14 @@ export function useUserAvatar(): any {
   return JSON.parse(userInfo).custom_avatar;
 }
 export function getCookie(name: string | any[]) {
-  const cookieString = document.cookie;
-  const cookies = cookieString.split(";");
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
-    if (cookie.startsWith(name + "=")) {
-      return cookie.substring(name.length + 1);
+  if (typeof document !== "undefined") {
+    const cookieString = (document as any).cookie;
+    const cookies = cookieString.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + "=")) {
+        return cookie.substring(name.length + 1);
+      }
     }
   }
   return "{}";

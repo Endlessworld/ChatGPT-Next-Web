@@ -1,6 +1,6 @@
 import { SubmitKey } from "../store/config";
 import type { PartialLocaleType } from "./index";
-import { REQUEST_LIMIT, REQUEST_MAX_LIMIT } from "@/app/constant";
+import { LOGIN_HOST, REQUEST_LIMIT, REQUEST_MAX_LIMIT } from "@/app/constant";
 
 const tw: PartialLocaleType = {
   WIP: "該功能仍在開發中……",
@@ -9,12 +9,17 @@ const tw: PartialLocaleType = {
     如果您是第一次使用，請前往公眾號 【[微聊小助手]()】 發送 "密码" 或者訪問 [forum.xr21.me](https://forum.xr21.me) 以獲取存取密碼。
     或者，您可以填寫自己的 "OpenAI API Key" 以解除此限制。
     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
-    HelloMessage: `欢迎使用X-ChatGPT
-    免费通道，暂时提供每小时${REQUEST_LIMIT}次/ip免费体验次数。
-    请点此[获取访问密码](https://forum.xr21.me/forum-post/64.html)以免费解锁至每小时${REQUEST_MAX_LIMIT}次/ip。
-    或者前往[设置](/#/settings)页输入自己的API Key 以解除这个限制。
-    [反馈建议](https://forum.xr21.me/forum/36.html/)|[聊天吐槽](https://forum.xr21.me/forum/95.html/?index=1)|[捐赠入口](https://forum.xr21.me/forum-post/253.html/)
-    `,
+    HelloMessage: (userInfo: any) => {
+      console.log(userInfo);
+      let display_name = userInfo?.display_name;
+      return `${
+        !!display_name
+          ? "欢迎回来 " + display_name
+          : `欢迎使用X-ChatGPT \n您当前未登录 请点击[登录](${LOGIN_HOST})\n[反馈建议](https://forum.xr21.me/forum/36.html/)|[爱发电](https://forum.xr21.me/forum-post/253.html/)
+        `
+      }
+    `;
+    },
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 條對話`,

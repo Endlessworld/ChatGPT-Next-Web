@@ -1,6 +1,6 @@
 import { SubmitKey } from "../store/config";
 import { LocaleType } from "./index";
-import { REQUEST_LIMIT, REQUEST_MAX_LIMIT } from "@/app/constant";
+import { LOGIN_HOST, REQUEST_LIMIT, REQUEST_MAX_LIMIT } from "@/app/constant";
 
 // if you are adding a new translation, please use PartialLocaleType instead of LocaleType
 const en: LocaleType = {
@@ -10,11 +10,10 @@ const en: LocaleType = {
     If you are using it for the first time, go to public account 【[微聊小助手]()】 and send "密码" Or visit [forum.xr21.me](https://forum.xr21.me)" to get the access password. 
     Alternatively, you can input your own "OpenAI API Key" to remove this limitation.
      ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
-    HelloMessage: `Welcome to X-ChatGPT!
-      The free channel currently provides ${REQUEST_LIMIT} requests per hour per IP for free trial.
-      Please click [here](https://forum.xr21.me/forum-post/64.html) to obtain the access password and unlock it to ${REQUEST_MAX_LIMIT} requests per hour per IP for free.
-      Alternatively, you can go to the [Settings](/#/settings) page and enter your own API Key to remove this limitation.
-      [Feedback Hub](https://forum.xr21.me/forum/36.html/)|[Interactive Forum](https://forum.xr21.me/forum/95.html/?index=1)|[Donation Center](https://forum.xr21.me/forum-post/253.html/)
+    HelloMessage: (userInfo: any) => `Welcome to X-ChatGPT!
+    Please [login](${LOGIN_HOST}) or click [here](https://forum.xr21.me/forum-post/64.html) to get an access password for free.
+    Alternatively, you can go to the [Settings](/#/settings) page and enter your own OpenAI API Key .
+    [Feedback Hub](https://forum.xr21.me/forum/36.html/)|[Interactive Forum](https://forum.xr21.me/forum/95.html/?index=1)|[Donation Center](https://forum.xr21.me/forum-post/253.html/)
     `,
   },
   Auth: {
