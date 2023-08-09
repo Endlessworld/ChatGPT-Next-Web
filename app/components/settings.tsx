@@ -424,7 +424,9 @@ export function Settings() {
               <a href={LOGIN_HOST} target="_self">
                 <IconButton
                   text={
-                    userInfo.display_name ? userInfo.display_name : "未登录"
+                    userInfo["display_name"]
+                      ? userInfo["display_name"]
+                      : Locale.Auth.NotLogin
                   }
                   icon={<UserIcon />}
                   shadow

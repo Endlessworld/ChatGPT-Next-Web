@@ -3,13 +3,7 @@ import type { PartialLocaleType } from "./index";
 
 const vi: PartialLocaleType = {
   WIP: "Sắp ra mắt...",
-  Error: {
-    Unauthorized: `Mật khẩu truy cập không chính xác hoặc bị trống. Vui lòng đi tới trang [设置](/#/settings) và nhập mật khẩu truy cập chính xác. 
-    Nếu bạn đang sử dụng lần đầu tiên, vui lòng đi tới tài khoản công cộng 【[微聊小助手]()】 và gửi "密码" hoặc truy cập [forum.xr21.me](https://forum.xr21.me) để lấy mật khẩu truy cập. 
-    Ngoài ra, bạn có thể nhập "OpenAI API Key" của riêng mình để loại bỏ giới hạn này.
-    ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)
-     `,
-  },
+  Error: {},
   ChatItem: {
     ChatItemCount: (count: number) => `${count} tin nhắn`,
   },

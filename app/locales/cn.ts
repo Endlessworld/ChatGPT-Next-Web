@@ -1,13 +1,11 @@
 import { SubmitKey } from "../store/config";
 import { LOGIN_HOST } from "@/app/constant";
-import { isIdeaPlugin } from "@/app/utils";
 
 const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
-    Unauthorized: `OpenAI API Key无效
-    请点此[登录](${LOGIN_HOST})
-    [反馈建议](https://forum.xr21.me/forum/36.html/)|[爱发电](https://forum.xr21.me/forum-post/253.html/)
+    Unauthorized: `OpenAI API Key无效 请点此[登录](${LOGIN_HOST})或者在[设置](/#/settings)中填写自己的Open API Key 
+    [反馈建议](https://forum.xr21.me/forum/36.html/)|[捐赠](https://forum.xr21.me/forum-post/253.html/)
 `,
     HelloMessage: (userInfo: any) => {
       console.log(userInfo);
@@ -15,7 +13,8 @@ const cn = {
       return `${
         !!display_name
           ? "欢迎回来 " + display_name
-          : `欢迎使用X-ChatGPT 您当前未登录 请点此[登录](${LOGIN_HOST})\n[反馈建议](https://forum.xr21.me/forum/36.html/)|[爱发电](https://forum.xr21.me/forum-post/253.html/)
+          : `欢迎使用X-ChatGPT 您当前未登录 请点此[登录](${LOGIN_HOST})
+          \n[反馈建议](https://forum.xr21.me/forum/36.html/)|[捐赠](https://forum.xr21.me/forum-post/253.html/)
         `
       }
     `;
@@ -27,6 +26,7 @@ const cn = {
     Input: "在此处填写访问码",
     Confirm: "确认",
     Later: "稍后再说",
+    NotLogin: "未登录",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
@@ -140,6 +140,7 @@ const cn = {
   Sidebar: {
     Title: "X-ChatGPT",
     SubTitle: "您的专属AI助手",
+    Profile: "个人中心",
   },
   Settings: {
     Title: "设置",

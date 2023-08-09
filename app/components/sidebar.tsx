@@ -148,6 +148,13 @@ export function SideBar(props: { className?: string }) {
         {/*    onClick={() => showToast(Locale.WIP)}*/}
         {/*    shadow*/}
         {/*/>*/}
+        <IconButton
+          icon={<UserIcon />}
+          text={shouldNarrow ? undefined : Locale.Sidebar.Profile}
+          className={styles["sidebar-bar-button"]}
+          onClick={() => (location.href = "https://forum.xr21.me/user")}
+          shadow
+        />
       </div>
 
       <div
@@ -195,12 +202,6 @@ export function SideBar(props: { className?: string }) {
                 });
               }}
             />
-          </div>
-
-          <div className={styles["sidebar-action"]}>
-            <a href="https://forum.xr21.me/user" target="_self">
-              <IconButton icon={<UserIcon />} shadow />
-            </a>
           </div>
         </div>
         <div>

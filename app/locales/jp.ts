@@ -3,12 +3,7 @@ import type { PartialLocaleType } from "./index";
 
 const jp: PartialLocaleType = {
   WIP: "この機能は開発中です",
-  Error: {
-    Unauthorized: `アクセスパスワードが正しくないか、空白です。ページ [设置](/#/settings) にアクセスして、正しいアクセスパスワードを入力してください。
-    初めて使う場合は、パブリックアカウント 【[微聊小助手]()】 に移動して "密码" を送信 または訪問 [forum.xr21.me](https://forum.xr21.me)してアクセスパスワードを取得できます。
-    また、独自の OpenAI API Key を入力して、この制限を解除することもできます。
-     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
-  },
+  Error: {},
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 通のチャット`,
   },

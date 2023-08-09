@@ -1,14 +1,13 @@
 import { SubmitKey } from "../store/config";
 import type { PartialLocaleType } from "./index";
-import { LOGIN_HOST, REQUEST_LIMIT, REQUEST_MAX_LIMIT } from "@/app/constant";
+import { LOGIN_HOST } from "@/app/constant";
 
 const tw: PartialLocaleType = {
   WIP: "該功能仍在開發中……",
   Error: {
-    Unauthorized: `存取密碼不正確或為空。請前往 [设置](/#/settings) 頁面輸入正確的存取密碼。
-    如果您是第一次使用，請前往公眾號 【[微聊小助手]()】 發送 "密码" 或者訪問 [forum.xr21.me](https://forum.xr21.me) 以獲取存取密碼。
-    或者，您可以填寫自己的 "OpenAI API Key" 以解除此限制。
-    ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
+    Unauthorized: `OpenAI API Key无效 请点此[登录](${LOGIN_HOST})或者在[设置](/#/settings)中填写自己的Open API Key 
+    [反馈建议](https://forum.xr21.me/forum/36.html/)|[捐赠](https://forum.xr21.me/forum-post/253.html/)
+    `,
     HelloMessage: (userInfo: any) => {
       console.log(userInfo);
       let display_name = userInfo?.display_name;

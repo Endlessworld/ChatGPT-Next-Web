@@ -3,13 +3,7 @@ import type { PartialLocaleType } from "./index";
 
 const cs: PartialLocaleType = {
   WIP: "V přípravě...",
-  Error: {
-    Unauthorized: `Přístupové heslo není správné nebo není zadáno. Přejděte na stránku [设置](/#/settings) a zadejte správné přístupové heslo. 
-    Pokud používáte poprvé, přejděte na veřejný účet 【[微聊小助手]()】 a odešlete "密码" nebo navštivte [forum.xr21.me](https://forum.xr21.me), 
-    abyste získali přístupové heslo. Nebo můžete zadat svůj klíč "OpenAI API", aby se tato omezení odstranila.
-    ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)
-    `,
-  },
+  Error: {},
   ChatItem: {
     ChatItemCount: (count: number) => `${count} zpráv`,
   },

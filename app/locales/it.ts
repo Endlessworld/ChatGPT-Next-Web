@@ -3,12 +3,7 @@ import type { PartialLocaleType } from "./index";
 
 const it: PartialLocaleType = {
   WIP: "Work in progress...",
-  Error: {
-    Unauthorized: ` La password di accesso non è corretta o vuota. Si prega di andare alla pagina [设置](/#/settings) e inserire la password di accesso corretta.
-     Se la stai utilizzando per la prima volta, vai all'account pubblico 【[微聊小助手]()】 e invia "密码" o visita [forum.xr21.me](https://forum.xr21.me) per ottenere la password di accesso. 
-     In alternativa, è possibile inserire il proprio "OpenAI API Key" per rimuovere questa limitazione.
-     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
-  },
+  Error: {},
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messaggi`,
   },

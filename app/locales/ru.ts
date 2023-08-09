@@ -3,12 +3,7 @@ import type { PartialLocaleType } from "./index";
 
 const ru: PartialLocaleType = {
   WIP: "Скоро...",
-  Error: {
-    Unauthorized: ` Пароль доступа неверен или пуст. Перейдите на страницу [设置](/#/settings) и введите правильный пароль доступа. 
-    Если вы используете его впервые, перейдите в общедоступный аккаунт 【[微聊小助手]()】 и отправьте "密码" или посетить [forum.xr21.me](https://forum.xr21.me), чтобы получить пароль доступа. 
-    В качестве альтернативы, вы можете ввести свой собственный ключ "OpenAI API", чтобы убрать ограничение.
-     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)`,
-  },
+  Error: {},
   ChatItem: {
     ChatItemCount: (count: number) => `${count} сообщений`,
   },

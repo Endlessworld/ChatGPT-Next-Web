@@ -3,10 +3,7 @@ import type { PartialLocaleType } from "./index";
 
 const ar: PartialLocaleType = {
   WIP: "قريبًا...",
-  Error: {
-    Unauthorized:
-      "غير مصرح بالوصول، يرجى إدخال رمز الوصول [auth](/#/auth) في صفحة المصادقة.",
-  },
+  Error: {},
   Auth: {
     Title: "تحتاج إلى رمز الوصول",
     Tips: "يرجى إدخال رمز الوصول أدناه",

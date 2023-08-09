@@ -3,13 +3,7 @@ import type { PartialLocaleType } from "./index";
 
 const de: PartialLocaleType = {
   WIP: "In Bearbeitung...",
-  Error: {
-    Unauthorized: ` Das Zugangspasswort ist falsch oder leer. Gehen Sie zur Seite [设置](/#/settings) und geben Sie das richtige Zugangspasswort ein.
-     Wenn Sie es zum ersten Mal verwenden, gehen Sie zum öffentlichen Konto 【[微聊小助手]()】 und senden Sie "密码" oder besuchen Sie [forum.xr21.me](https://forum.xr21.me), um das Zugangspasswort zu erhalten. 
-     Oder Sie können Ihren "OpenAI API" -Schlüssel eingeben, um diese Einschränkung aufzuheben.
-     ![weixin](/weixin-logo.png)  ![tme](/t-logo.jpg)
-    `,
-  },
+  Error: {},
   ChatItem: {
     ChatItemCount: (count: number) => `${count} Nachrichten`,
   },
