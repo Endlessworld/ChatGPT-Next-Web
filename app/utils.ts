@@ -97,17 +97,6 @@ export async function functionCall(messageText: string) {
   ideaMessage({ event: "function_call", message: messageText });
 }
 
-export function projectContext() {
-  let content = `在单个代码块中输出代码
-            保持你的回答简短和客观。
-            在你的回答中使用 Markdown 格式。
-            确保在 Markdown 代码块的开头包含编程语言名称。
-            避免用三个反引号包装整个回答。 
-            你每次只能给出一个回复。
-            你应该始终生成与对话相关且不冒犯的下一个用户回合的简短建议。`;
-  return content;
-}
-
 export function getProjectContextAwareness() {
   let content = `\u200D\u200D`;
   if (isIdeaPlugin()) {

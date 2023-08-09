@@ -8,15 +8,15 @@ const cn = {
     [反馈建议](https://forum.xr21.me/forum/36.html/)|[捐赠](https://forum.xr21.me/forum-post/253.html/)
 `,
     HelloMessage: (userInfo: any) => {
-      console.log(userInfo);
       let display_name = userInfo?.display_name;
+      console.log(userInfo);
       return `${
         !!display_name
-          ? "欢迎回来 " + display_name
-          : `欢迎使用X-ChatGPT 您当前未登录 请点此[登录](${LOGIN_HOST})\n[反馈建议](https://forum.xr21.me/forum/36.html/)|[捐赠](https://forum.xr21.me/forum-post/253.html/)
-        `
+          ? `欢迎回来 ${display_name}`
+          : `欢迎使用X-ChatGPT 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用`
       }
-    `;
+         [反馈建议](https://forum.xr21.me/forum/36.html/)|[捐赠](https://forum.xr21.me/forum-post/253.html/)
+        `;
     },
   },
   Auth: {

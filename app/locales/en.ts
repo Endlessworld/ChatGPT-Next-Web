@@ -9,11 +9,18 @@ const en: LocaleType = {
     Unauthorized: `OpenAI API Key is invalid Please click here [Login](${LOGIN_HOST}) Or fill in your Open API Key in [Settings](/#/settings).
     [Feedback](https://forum.xr21.me/forum/36.html/)|[Donation](https://forum.xr21.me/forum-post/253.html/)
     `,
-    HelloMessage: (userInfo: any) => `Welcome to X-ChatGPT!
-    You are not currently logged in Please click here [Login](${LOGIN_HOST})
-    Or fill in your Open API Key in [Settings](/#/settings).
-    [Feedback](https://forum.xr21.me/forum/36.html/)|[Forum](https://forum.xr21.me/forum/95.html/?index=1)|[Donation](https://forum.xr21.me/forum-post/253.html/)
-    `,
+    HelloMessage: (userInfo: any) => {
+      let display_name = userInfo?.display_name;
+      return `${
+        !!display_name
+          ? `Welcome back ${display_name}`
+          : `Welcome to X-ChatGPT You are not currently logged in.
+       Please click here [Login](${LOGIN_HOST}) to use for free 
+       Or fill in your Open API Key in [Settings](/#/settings).`
+      }
+       [Feedback](https://forum.xr21.me/forum/36.html/)|[Donation](https://forum.xr21.me/forum-post/253.html/)
+      `;
+    },
   },
   Auth: {
     Title: "Need Access Code",
