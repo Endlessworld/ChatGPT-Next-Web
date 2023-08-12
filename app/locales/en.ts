@@ -4,7 +4,7 @@ import { LOGIN_HOST } from "@/app/constant";
 
 // if you are adding a new translation, please use PartialLocaleType instead of LocaleType
 const en: LocaleType = {
-  WIP: "Coming Soon...",
+  WIP: "In the construction of the AI capability library, we will extend any function of your AI assistant in the groovy language without restrictions",
   Error: {
     Unauthorized: `OpenAI API Key is invalid Please click here [Login](${LOGIN_HOST}) Or fill in your Open API Key in [Settings](/#/settings).
     [Feedback](https://forum.xr21.me/forum/36.html/)|[Donation](https://forum.xr21.me/forum-post/253.html/)

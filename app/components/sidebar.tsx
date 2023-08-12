@@ -11,6 +11,7 @@ import MaskIcon from "../icons/mask.svg";
 import AnnouncementIcon from "../icons/announcement.svg";
 import UserIcon from "../icons/user.svg";
 import DragIcon from "../icons/drag.svg";
+import PluginIcon from "../icons/plugin.svg";
 
 import Locale from "../locales";
 import { useAppConfig, useChatStore, useNoticeStore } from "../store";
@@ -27,7 +28,7 @@ import { getUserInfo, isIdeaPlugin, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { Markdown } from "@/app/components/markdown";
 import { useMaskStore } from "@/app/store/mask";
-import { showConfirm, showModal } from "./ui-lib";
+import { showConfirm, showModal, showToast } from "./ui-lib";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
@@ -134,13 +135,13 @@ export function SideBar(props: { className?: string }) {
           onClick={() => navigate(Path.NewChat, { state: { fromHome: true } })}
           shadow
         />
-        {/*<IconButton*/}
-        {/*  icon={<PluginIcon />}*/}
-        {/*  text={shouldNarrow ? undefined : Locale.Plugin.Name}*/}
-        {/*  className={styles["sidebar-bar-button"]}*/}
-        {/*  onClick={() => showToast(Locale.WIP)}*/}
-        {/*  shadow*/}
-        {/*/>*/}
+        <IconButton
+          icon={<PluginIcon />}
+          text={shouldNarrow ? undefined : Locale.Plugin.Name}
+          className={styles["sidebar-bar-button"]}
+          onClick={() => showToast(Locale.WIP)}
+          shadow
+        />
         {/*<IconButton*/}
         {/*    icon={<ShoppingIcon />}*/}
         {/*    text={shouldNarrow ? undefined : Locale.Shopping.Name}*/}

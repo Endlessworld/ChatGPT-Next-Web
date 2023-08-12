@@ -3,7 +3,7 @@ import type { PartialLocaleType } from "./index";
 import { LOGIN_HOST } from "@/app/constant";
 
 const tw: PartialLocaleType = {
-  WIP: "該功能仍在開發中……",
+  WIP: "AI能力库建设中、我们将以groovy语言无限制的为您的AI助手扩展任意功能",
   Error: {
     Unauthorized: `OpenAI API Key无效 请点此[登录](${LOGIN_HOST})或者在[设置](/#/settings)中填写自己的Open API Key 
     [反馈建议](https://forum.xr21.me/forum/36.html/)|[捐赠](https://forum.xr21.me/forum-post/253.html/)

@@ -2,7 +2,7 @@ import { SubmitKey } from "../store/config";
 import { LOGIN_HOST } from "@/app/constant";
 
 const cn = {
-  WIP: "该功能仍在开发中……",
+  WIP: "AI能力库建设中、我们将以groovy语言无限制的为您的AI助手扩展任意功能",
   Error: {
     Unauthorized: `OpenAI API Key无效 请点此[登录](${LOGIN_HOST})或者在[设置](/#/settings)中填写自己的Open API Key 
     [反馈建议](https://forum.xr21.me/forum/36.html/)|[捐赠](https://forum.xr21.me/forum-post/253.html/)
@@ -15,7 +15,6 @@ const cn = {
           ? `欢迎回来 ${display_name}`
           : `欢迎使用X-ChatGPT 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用`
       }
-         [反馈建议](https://forum.xr21.me/forum/36.html/)|[捐赠](https://forum.xr21.me/forum-post/253.html/)
         `;
     },
   },
@@ -325,7 +324,7 @@ const cn = {
     Edit: "语音设置",
   },
   Plugin: {
-    Name: "插件",
+    Name: "函数库",
   },
   Shopping: {
     Name: "商店",
