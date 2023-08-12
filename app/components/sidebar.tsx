@@ -135,13 +135,6 @@ export function SideBar(props: { className?: string }) {
           onClick={() => navigate(Path.NewChat, { state: { fromHome: true } })}
           shadow
         />
-        <IconButton
-          icon={<PluginIcon />}
-          text={shouldNarrow ? undefined : Locale.Plugin.Name}
-          className={styles["sidebar-bar-button"]}
-          onClick={() => showToast(Locale.WIP)}
-          shadow
-        />
         {/*<IconButton*/}
         {/*    icon={<ShoppingIcon />}*/}
         {/*    text={shouldNarrow ? undefined : Locale.Shopping.Name}*/}
@@ -150,6 +143,15 @@ export function SideBar(props: { className?: string }) {
         {/*    shadow*/}
         {/*/>*/}
         <IconButton
+          icon={<PluginIcon />}
+          text={shouldNarrow ? undefined : Locale.Plugin.Name}
+          className={styles["sidebar-bar-button"]}
+          onClick={() => showToast(Locale.WIP)}
+          shadow
+        />
+      </div>
+      <div className={styles["sidebar-header-bar"]}>
+        <IconButton
           icon={<UserIcon />}
           text={shouldNarrow ? undefined : Locale.Sidebar.Profile}
           className={styles["sidebar-bar-button"]}
@@ -157,7 +159,6 @@ export function SideBar(props: { className?: string }) {
           shadow
         />
       </div>
-
       <div
         className={styles["sidebar-body"]}
         onClick={(e) => {
