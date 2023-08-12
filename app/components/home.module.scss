@@ -258,12 +258,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all ease 0.3s;
+    transition: all ease 0.1s;
     overflow: hidden;
 
     &:hover {
       .chat-item-narrow {
-        transform: scale(0.7) translateX(-50%);
+        transform: scale(1.5) translateX(-50%);
       }
     }
   }
@@ -273,7 +273,7 @@
     font-weight: lighter;
     color: var(--black);
     transform: translateX(0);
-    transition: all ease 0.3s;
+    transition: all ease 0.1s;
     padding: 4px;
     display: flex;
     flex-direction: column;
@@ -282,17 +282,17 @@
     .chat-item-avatar {
       display: flex;
       justify-content: center;
-      opacity: 0.2;
+      opacity: 0.1;
       position: absolute;
-      transform: scale(4);
+      transform: scale(2.8);
     }
 
     .chat-item-narrow-count {
       font-size: 24px;
       font-weight: bolder;
       text-align: center;
-      color: var(--primary);
-      opacity: 0.6;
+      color: var(--black);
+      opacity: 0.8;
     }
   }
 
