@@ -56,7 +56,6 @@ import {
 import dispatchEventStorage, {
   autoGrowTextArea,
   copyToClipboard,
-  getCookie,
   getProjectContextAwareness,
   getUserInfo,
   getVoices,
@@ -65,7 +64,6 @@ import dispatchEventStorage, {
   Replace,
   selectOrCopy,
   useMobileScreen,
-  useUserInfo,
 } from "../utils";
 
 import dynamic from "next/dynamic";
@@ -87,11 +85,10 @@ import {
   showPrompt,
   showToast,
 } from "./ui-lib";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   CHAT_PAGE_SIZE,
   LAST_INPUT_KEY,
-  MAX_RENDER_MSG_COUNT,
   Path,
   REQUEST_TIMEOUT_MS,
 } from "../constant";
@@ -1588,7 +1585,7 @@ function _Chat() {
           />
           <IconButton
             icon={<SendWhiteIcon />}
-            text={Locale.Chat.Send}
+            // text={Locale.Chat.Send}
             className={styles["chat-input-send"]}
             type="primary"
             onClick={() => doSubmit(userInput)}

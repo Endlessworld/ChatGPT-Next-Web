@@ -488,7 +488,7 @@
   width: 100%;
   border-radius: 10px;
   border: var(--border-in-light);
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.03);
+  box-shadow: var(--input-shadow);
   background-color: var(--white);
   color: var(--black);
   font-family: inherit;
@@ -500,7 +500,8 @@
 }
 
 .chat-input:focus {
-  border: 1px solid var(--primary);
+  border: var(--input-foucs-border);
+  box-shadow: var(--input-foucs-shadow);
 }
 
 .chat-input-send {

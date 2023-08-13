@@ -174,6 +174,7 @@ export function SideBar(props: { className?: string }) {
         <div className={styles["sidebar-actions"]}>
           <div className={styles["sidebar-action"] + " " + styles.mobile}>
             <IconButton
+              shadow
               icon={<CloseIcon />}
               onClick={async () => {
                 if (await showConfirm(Locale.Home.DeleteChat)) {
@@ -187,8 +188,9 @@ export function SideBar(props: { className?: string }) {
               <IconButton icon={<SettingsIcon />} shadow />
             </Link>
           </div>
-          <div className={styles["sidebar-action"]}>
+          <div>
             <IconButton
+              shadow
               icon={<AnnouncementIcon />}
               onClick={() => {
                 // console.log(notice);

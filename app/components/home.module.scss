@@ -169,7 +169,7 @@
   border-radius: 10px;
   margin-bottom: 10px;
   box-shadow: var(--card-shadow);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.1s ease;
   cursor: pointer;
   user-select: none;
   border: 2px solid transparent;
@@ -179,10 +179,14 @@
 
 .chat-item:hover {
   background-color: var(--hover-color);
+  border: var(--input-foucs-border);
+  //box-shadow: var(--card-foucs-shadow);
 }
 
 .chat-item-selected {
-  border-color: var(--primary);
+  background-color: var(--hover-color);
+  border: var(--input-foucs-border);
+  box-shadow: var(--card-foucs-shadow);
 }
 
 .chat-item-title {
