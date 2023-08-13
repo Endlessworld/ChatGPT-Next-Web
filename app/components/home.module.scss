@@ -161,15 +161,18 @@
   flex: 1;
   overflow: auto;
   overflow-x: hidden;
+  margin-left: -10px;
+  margin-right: -5px;
+  z-index: 999;
 }
 
 .chat-item {
   padding: 10px 14px;
   background-color: var(--white);
   border-radius: 10px;
-  margin-bottom: 10px;
+  margin: 5px 5px 5px 10px;
   box-shadow: var(--card-shadow);
-  transition: background-color 0.1s ease;
+  transition: all 150ms ease;
   cursor: pointer;
   user-select: none;
   border: 2px solid transparent;
@@ -178,14 +181,13 @@
 }
 
 .chat-item:hover {
-  background-color: var(--hover-color);
-  border: var(--input-foucs-border);
-  //box-shadow: var(--card-foucs-shadow);
+  background-color: var(--bar-color);
+  box-shadow: var(--card-foucs-shadow);
 }
 
 .chat-item-selected {
-  background-color: var(--hover-color);
-  border: var(--input-foucs-border);
+  background-color: var(--bar-color);
+  //border: var(--input-foucs-border);
   box-shadow: var(--card-foucs-shadow);
 }
 

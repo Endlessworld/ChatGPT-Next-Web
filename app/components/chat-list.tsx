@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { Path } from "../constant";
 import { MaskAvatar } from "./mask";
 import { Mask } from "../store/mask";
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { showConfirm } from "./ui-lib";
 
 export function ChatItem(props: {

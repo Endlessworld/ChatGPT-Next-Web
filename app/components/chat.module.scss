@@ -33,7 +33,11 @@
       pointer-events: none;
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
+      //border-color: var(--input-foucs-border);
+      box-shadow: var(--card-foucs-shadow);
+      background-color: var(--input-foucs-border);
       --delay: 0.5s;
       width: var(--full-width);
       transition-delay: var(--delay);
@@ -44,7 +48,6 @@
         transform: translate(0);
       }
     }
-
     .text,
     .icon {
       display: flex;
@@ -246,8 +249,7 @@
   flex: 1;
   overflow: auto;
   overflow-x: hidden;
-  padding: 20px;
-  padding-bottom: 40px;
+  padding: 20px 20px 40px;
   position: relative;
   overscroll-behavior: none;
 }
@@ -310,7 +312,7 @@
     justify-content: space-between;
     transition: all ease 0.3s;
     transform: scale(0.9) translateY(5px);
-    margin: 0 10px;
+    margin: 0 0px;
     opacity: 0;
     pointer-events: none;
 
@@ -376,8 +378,9 @@
   max-width: 100%;
   margin-top: 10px;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color:var(--bar-color);
   padding: 10px;
+  box-shadow: var(--card-shadow);
   font-size: 14px;
   user-select: text;
   word-break: break-word;
@@ -497,20 +500,26 @@
   outline: none;
   box-sizing: border-box;
   min-height: 68px;
+  &:hover,
+  &:focus {
+    border: var(--input-foucs-border);
+    box-shadow: var(--card-foucs-shadow);
+    background-color: var(--input-foucs-border);
+  }
 }
 
-.chat-input:focus {
-  border: var(--input-foucs-border);
-  box-shadow: var(--input-foucs-shadow);
-}
 
 .chat-input-send {
-  background-color: var(--primary);
-  color: white;
-
+  background-color: var(--button-color);
+  box-shadow: var(--input-shadow);
   position: absolute;
   right: 30px;
   bottom: 32px;
+  &:hover,
+  &:focus {
+    box-shadow: var(--card-foucs-shadow);
+    background-color: var(--button-foucs-color);
+  }
 }
 
 @media only screen and (max-width: 600px) {

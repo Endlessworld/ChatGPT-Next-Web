@@ -1587,7 +1587,7 @@ function _Chat() {
             icon={<SendWhiteIcon />}
             // text={Locale.Chat.Send}
             className={styles["chat-input-send"]}
-            type="primary"
+            // type="danger"
             onClick={() => doSubmit(userInput)}
           />
         </div>

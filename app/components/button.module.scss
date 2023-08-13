@@ -7,7 +7,7 @@
   padding: 10px;
 
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 150ms ease;
   overflow: hidden;
   user-select: none;
   outline: none;
@@ -45,7 +45,9 @@
 
   &:hover,
   &:focus {
-    border-color: var(--primary);
+    border-color: var(--input-foucs-border);
+    box-shadow: var(--card-foucs-shadow);
+    background-color: var(--input-foucs-border);
   }
 }
 
