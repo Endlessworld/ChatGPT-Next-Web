@@ -1,8 +1,10 @@
+import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
 import { LocaleType } from "./index";
 import { LOGIN_HOST } from "@/app/constant";
 
 // if you are adding a new translation, please use PartialLocaleType instead of LocaleType
+
 const en: LocaleType = {
   WIP: "In the construction of the AI capability library, we will extend any function of your AI assistant in the groovy language without restrictions",
   Error: {
@@ -204,6 +206,10 @@ const en: LocaleType = {
     SendPreviewBubble: {
       Title: "Send Preview Bubble",
       SubTitle: "Preview markdown in bubble",
+    },
+    AutoGenerateTitle: {
+      Title: "Auto Generate Title",
+      SubTitle: "Generate a suitable title based on the conversation content",
     },
     Mask: {
       Splash: {

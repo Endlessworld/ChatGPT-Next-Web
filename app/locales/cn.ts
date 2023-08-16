@@ -1,5 +1,8 @@
+import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
 import { LOGIN_HOST } from "@/app/constant";
+
+const isApp = !!getClientConfig()?.isApp;
 
 const cn = {
   WIP: "AI能力库建设中、我们将以groovy语言无限制的为您的AI助手扩展任意功能",
@@ -200,6 +203,10 @@ const cn = {
     SendPreviewBubble: {
       Title: "预览气泡",
       SubTitle: "在预览气泡中预览 Markdown 内容",
+    },
+    AutoGenerateTitle: {
+      Title: "自动生成标题",
+      SubTitle: "根据对话内容生成合适的标题",
     },
     Mask: {
       Splash: {

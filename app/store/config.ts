@@ -28,6 +28,7 @@ export const DEFAULT_CONFIG = {
   theme: Theme.Auto as Theme,
   tightBorder: isIdeaPlugin() || !!getClientConfig()?.isApp,
   sendPreviewBubble: true,
+  enableAutoGenerateTitle: true,
   sidebarWidth: 300,
   disablePromptHint: false,
   dontShowMaskSplashScreen: true, // 创建聊天时不显示初始屏幕
@@ -164,7 +165,7 @@ export const useAppConfig = create<ChatConfigStore>()(
     }),
     {
       name: StoreKey.Config,
-      version: 3.6,
+      version: 3.7,
       migrate(persistedState, version) {
         const state = persistedState as ChatConfig;
 
@@ -185,6 +186,10 @@ export const useAppConfig = create<ChatConfigStore>()(
 
         if (version < 3.6) {
           state.modelConfig.enableInjectSystemPrompts = true;
+        }
+
+        if (version < 3.7) {
+          state.enableAutoGenerateTitle = true;
         }
 
         return state as any;
