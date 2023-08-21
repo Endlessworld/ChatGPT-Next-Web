@@ -135,13 +135,6 @@ export function SideBar(props: { className?: string }) {
           onClick={() => navigate(Path.NewChat, { state: { fromHome: true } })}
           shadow
         />
-        {/*<IconButton*/}
-        {/*    icon={<ShoppingIcon />}*/}
-        {/*    text={shouldNarrow ? undefined : Locale.Shopping.Name}*/}
-        {/*    className={styles["sidebar-bar-button"]}*/}
-        {/*    onClick={() => showToast(Locale.WIP)}*/}
-        {/*    shadow*/}
-        {/*/>*/}
         <IconButton
           icon={<PluginIcon />}
           text={shouldNarrow ? undefined : Locale.Plugin.Name}
@@ -156,6 +149,13 @@ export function SideBar(props: { className?: string }) {
           text={shouldNarrow ? undefined : Locale.Sidebar.Profile}
           className={styles["sidebar-bar-button"]}
           onClick={() => (location.href = "https://forum.xr21.me/user")}
+          shadow
+        />
+        <IconButton
+          icon={<UserIcon />}
+          text={shouldNarrow ? undefined : Locale.Sidebar.Forum.Name}
+          className={styles["sidebar-bar-button"]}
+          onClick={() => (location.href = "https://forum.xr21.me/")}
           shadow
         />
       </div>

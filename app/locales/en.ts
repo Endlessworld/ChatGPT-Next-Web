@@ -146,6 +146,9 @@ const en: LocaleType = {
     Title: "X-ChatGPT",
     SubTitle: "Your own AI assistant",
     Profile: "Profile",
+    Forum: {
+      Name: "Community",
+    },
   },
   Settings: {
     Title: "Settings",

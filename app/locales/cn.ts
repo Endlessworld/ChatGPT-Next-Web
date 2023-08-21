@@ -142,6 +142,9 @@ const cn = {
     Title: "X-ChatGPT",
     SubTitle: "您的专属AI助手",
     Profile: "个人中心",
+    Forum: {
+      Name: "社区交流",
+    },
   },
   Settings: {
     Title: "设置",
@@ -331,13 +334,13 @@ const cn = {
     Edit: "语音设置",
   },
   Plugin: {
-    Name: "函数库",
+    Name: "插件商店",
   },
   Shopping: {
     Name: "商店",
   },
   Mask: {
-    Name: "面具",
+    Name: "预制角色",
     Page: {
       Title: "预设角色面具",
       SubTitle: (count: number) => `${count} 个预设角色定义`,
