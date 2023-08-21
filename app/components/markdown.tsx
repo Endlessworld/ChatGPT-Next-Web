@@ -197,6 +197,7 @@ function _MarkDownContent(props: { content: string }) {
             </div>
           );
         },
+        p: (pProps) => <p {...pProps} dir="auto" />,
         a: (aProps) => {
           const href = aProps.href || "";
           const isInternal = /^\/#/i.test(href) || href.includes("self");
