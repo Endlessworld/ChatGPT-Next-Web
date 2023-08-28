@@ -1,3 +1,95 @@
+import {
+  a11yDark,
+  atomDark,
+  base16AteliersulphurpoolLight,
+  cb,
+  coldarkCold,
+  coldarkDark,
+  coy,
+  darcula,
+  dark,
+  dracula,
+  duotoneDark,
+  duotoneEarth,
+  duotoneForest,
+  duotoneLight,
+  duotoneSea,
+  duotoneSpace,
+  funky,
+  ghcolors,
+  gruvboxDark,
+  gruvboxLight,
+  hopscotch,
+  materialDark,
+  materialLight,
+  materialOceanic,
+  nord,
+  okaidia,
+  oneDark,
+  oneLight,
+  pojoaque,
+  prism,
+  shadesOfPurple,
+  solarizedlight,
+  synthwave84,
+  tomorrow,
+  twilight,
+  vs,
+  vscDarkPlus,
+  xonokai,
+} from "react-syntax-highlighter/dist/esm/styles/prism";
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/zenburn" {}
+
+export type CodeStyles = {
+  name: string;
+  style: { [key: string]: React.CSSProperties };
+};
+export type CodeStylesType = (typeof CODE_STYLES)[number]["name"];
+export const CODE_STYLES: CodeStyles[] = [
+  { name: "vscDarkPlus", style: vscDarkPlus },
+  { name: "a11yDark", style: a11yDark },
+  { name: "atomDark", style: atomDark },
+  {
+    name: "base16AteliersulphurpoolLight",
+    style: base16AteliersulphurpoolLight,
+  },
+  { name: "cb", style: cb },
+  { name: "coldarkCold", style: coldarkCold },
+  { name: "coldarkDark", style: coldarkDark },
+  { name: "coy", style: coy },
+  { name: "darcula", style: darcula },
+  { name: "dark", style: dark },
+  { name: "dracula", style: dracula },
+  { name: "duotoneDark", style: duotoneDark },
+  { name: "duotoneEarth", style: duotoneEarth },
+  { name: "duotoneForest", style: duotoneForest },
+  { name: "duotoneLight", style: duotoneLight },
+  { name: "duotoneSea", style: duotoneSea },
+  { name: "duotoneSpace", style: duotoneSpace },
+  { name: "funky", style: funky },
+  { name: "ghcolors", style: ghcolors },
+  { name: "gruvboxDark", style: gruvboxDark },
+  { name: "gruvboxLight", style: gruvboxLight },
+  { name: "hopscotch", style: hopscotch },
+  { name: "materialDark", style: materialDark },
+  { name: "materialLight", style: materialLight },
+  { name: "materialOceanic", style: materialOceanic },
+  { name: "nord", style: nord },
+  { name: "oneDark", style: oneDark },
+  { name: "oneLight", style: oneLight },
+  { name: "pojoaque", style: pojoaque },
+  { name: "prism", style: prism },
+  { name: "shadesOfPurple", style: shadesOfPurple },
+  { name: "solarizedlight", style: solarizedlight },
+  { name: "okaidia", style: okaidia },
+  { name: "synthwave84", style: synthwave84 },
+  { name: "tomorrow", style: tomorrow },
+  { name: "twilight", style: twilight },
+  { name: "vs", style: vs },
+  { name: "xonokai", style: xonokai },
+];
+
 export const OWNER = "Endlessworld";
 export const REPO = "ChatGPT-Next-Web";
 export const REPO_URL = `https://github.com/${OWNER}/${REPO}`;
@@ -38,6 +130,7 @@ export enum StoreKey {
   Update = "chat-update",
   Sync = "sync",
 }
+
 export const REQUEST_LIMIT = 10;
 export const REQUEST_MAX_LIMIT = 100;
 export const MAX_SIDEBAR_WIDTH = 500;

@@ -210,6 +210,10 @@ const en: LocaleType = {
       Title: "Send Preview Bubble",
       SubTitle: "Preview markdown in bubble",
     },
+    syntaxHighlighter: {
+      Title: "Syntax Highlighter",
+      SubTitle: "Choose your favorite syntax highlighting mode",
+    },
     AutoGenerateTitle: {
       Title: "Auto Generate Title",
       SubTitle: "Generate a suitable title based on the conversation content",

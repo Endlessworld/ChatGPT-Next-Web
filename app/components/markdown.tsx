@@ -1,47 +1,21 @@
 import ReactMarkdown from "react-markdown";
 import "katex/dist/katex.min.css";
-import styles from "./markdown.module.scss";
+
 import RemarkMath from "remark-math";
 import RemarkBreaks from "remark-breaks";
 import RehypeKatex from "rehype-katex";
 import RemarkGfm from "remark-gfm";
 import hljs from "highlight.js";
-import { useRef, useState, RefObject, useEffect } from "react";
-import { copyToClipboard, Replace } from "../utils";
+import React, { RefObject, useEffect, useRef } from "react";
+import { copyToClipboard } from "../utils";
 import mermaid from "mermaid";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import {
-  prism,
-  vscDarkPlus,
-  xonokai,
-} from "react-syntax-highlighter/dist/esm/styles/prism";
-
 import LoadingIcon from "../icons/three-dots.svg";
-import React from "react";
 import { showImageModal } from "./ui-lib";
-import { useThrottledCallback } from "use-debounce";
 import { CodeProps } from "react-markdown/lib/ast-to-react";
-import {
-  github,
-  githubGist,
-  gml,
-  googlecode,
-  hybrid,
-  idea,
-  kimbieLight,
-  paraisoLight,
-  qtcreatorLight,
-  stackoverflowLight,
-  tomorrowNight,
-  vs2015,
-  xt256,
-} from "react-syntax-highlighter/dist/esm/styles/hljs";
-import {
-  dark,
-  materialDark,
-  materialLight,
-} from "react-syntax-highlighter/dist/cjs/styles/prism";
-import Locale from "@/app/locales";
+import styles from "./markdown.module.scss";
+import { Theme, useAppConfig } from "@/app/store";
+import { CODE_STYLES } from "@/app/constant";
 
 export function Mermaid(props: { code: string; onError: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -84,40 +58,9 @@ export function Mermaid(props: { code: string; onError: () => void }) {
   );
 }
 
-// export function PreCode(props: { children: any }) {
-//   const ref = useRef<HTMLPreElement>(null);
-//   const [mermaidCode, setMermaidCode] = useState("");
-//
-//   useEffect(() => {
-//     if (!ref.current) return;
-//     const mermaidDom = ref.current.querySelector("code.language-mermaid");
-//     if (mermaidDom) {
-//       setMermaidCode((mermaidDom as HTMLElement).innerText);
-//     }
-//   }, [props.children]);
-//
-//   if (mermaidCode) {
-//     return <Mermaid code={mermaidCode} onError={() => setMermaidCode("")} />;
-//   }
-//
-//   return (
-//     <pre ref={ref}>
-//       <span
-//         className="copy-code-button"
-//         onClick={() => {
-//           if (ref.current) {
-//             const code = ref.current.innerText;
-//             copyToClipboard(code);
-//           }
-//         }}
-//       ></span>
-//       {props.children}
-//     </pre>
-//   );
-// }
-
 function _MarkDownContent(props: { content: string }) {
-  React.useEffect(() => {
+  const configStore = useAppConfig();
+  useEffect(() => {
     hljs.highlightAll();
   }, []);
   return (
@@ -143,7 +86,11 @@ function _MarkDownContent(props: { content: string }) {
             return (
               <code
                 className={styles["code-font"]}
-                style={{ backgroundColor: "#f9f2f4" }}
+                style={{
+                  backgroundColor: Theme.Dark.includes(configStore.theme)
+                    ? "rgb(43, 45, 48)"
+                    : "#f9f2f4",
+                }}
               >
                 {(codeProps as any).children}
               </code>
@@ -159,7 +106,11 @@ function _MarkDownContent(props: { content: string }) {
           ) : (
             <div>
               <SyntaxHighlighter
-                style={vscDarkPlus}
+                style={
+                  CODE_STYLES.find(
+                    (style) => style.name === configStore.syntaxHighlighter,
+                  )?.style
+                }
                 language={language}
                 // wrapLongLines={true}
                 // wrapLines={true}

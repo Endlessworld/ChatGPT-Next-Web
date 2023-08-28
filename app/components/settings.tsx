@@ -39,7 +39,13 @@ import Locale, {
   getLang,
 } from "../locales";
 import { copyToClipboard, useUserInfo } from "../utils";
-import { LOGIN_HOST, Path, RELEASE_URL, UPDATE_URL } from "../constant";
+import {
+  CODE_STYLES,
+  LOGIN_HOST,
+  Path,
+  RELEASE_URL,
+  UPDATE_URL,
+} from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
@@ -390,7 +396,7 @@ export function Settings() {
   const clientConfig = useMemo(() => getClientConfig(), []);
   const showAccessCode = enabledAccessControl;
   // && !clientConfig?.isApp;
-
+  const stylesNames = CODE_STYLES.map((style) => Object.keys(style)).flat();
   return (
     <ErrorBoundary>
       <div className="window-header" data-tauri-drag-region>
@@ -565,6 +571,26 @@ export function Settings() {
                 )
               }
             ></input>
+          </ListItem>
+          <ListItem
+            title={Locale.Settings.syntaxHighlighter.Title}
+            subTitle={Locale.Settings.syntaxHighlighter.SubTitle}
+          >
+            <Select
+              value={config.syntaxHighlighter}
+              onChange={(e) => {
+                updateConfig(
+                  (config) =>
+                    (config.syntaxHighlighter = e.currentTarget.value),
+                );
+              }}
+            >
+              {CODE_STYLES.map((style) => (
+                <option value={style.name} key={style.name}>
+                  {style.name}
+                </option>
+              ))}
+            </Select>
           </ListItem>
         </List>
 

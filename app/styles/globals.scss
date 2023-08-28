@@ -26,6 +26,7 @@
 
   --button-color:var(--primary);
   --button-foucs-color: var(--primary);
+  --code-font-color: #c7254e;
 }
 
 @mixin dark {
@@ -53,6 +54,7 @@
   --input-foucs-border: 1px solid var(--black);
   --button-color:var(--bar-color);
   --button-foucs-color:var(--bar-color);
+  --code-font-color: rgba(241, 232, 97, 0.76);
 
   div:not(.no-dark) > svg {
     filter: invert(0.5);

@@ -2,7 +2,12 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { LLMModel } from "../client/api";
 import { getClientConfig } from "../config/client";
-import { DEFAULT_INPUT_TEMPLATE, DEFAULT_MODELS, StoreKey } from "../constant";
+import {
+  CodeStylesType,
+  DEFAULT_INPUT_TEMPLATE,
+  DEFAULT_MODELS,
+  StoreKey,
+} from "../constant";
 import { isIdeaPlugin } from "@/app/utils";
 
 export type ModelType = (typeof DEFAULT_MODELS)[number]["name"];
@@ -33,6 +38,7 @@ export const DEFAULT_CONFIG = {
   disablePromptHint: false,
   dontShowMaskSplashScreen: true, // 创建聊天时不显示初始屏幕
   hideBuiltinMasks: false, // dont add builtin masks
+  syntaxHighlighter: "vscDarkPlus" as CodeStylesType,
 
   customModels: "",
   models: DEFAULT_MODELS as any as LLMModel[],

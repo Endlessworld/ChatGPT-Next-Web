@@ -4,8 +4,13 @@
 }
 
 .code-font {
-  background-color: #1f6feb;
-  color: #c7254e;
+  color: var(--code-font-color);
   border-radius: 2px;
-  font-family: 'Source Code Pro,DejaVu Sans Mono,Ubuntu Mono,Anonymous Pro,Droid Sans Mono,Menlo,Monaco,Consolas,Inconsolata,Courier,monospace,PingFang SC,Microsoft YaHei,sans-serif', serif
+  box-shadow: 0 0 2px 0.5px rgb(206, 210, 206);
+  font-family: Droid Sans Mono, Source Code Pro, DejaVu Sans Mono, Ubuntu Mono, Anonymous Pro, Menlo, Monaco, Consolas, Inconsolata, Courier, monospace, PingFang SC, Microsoft YaHei, sans-serif, serif;
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 6px 1.5px rgb(206, 210, 206);;
+    text-shadow: 0 0 rgb(245, 229, 51);
+  }
 }
