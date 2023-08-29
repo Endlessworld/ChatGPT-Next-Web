@@ -214,6 +214,8 @@ Your response must not contain information that:
 (9) Containing other content prohibited by laws or administrative regulations.
 (10) Sensitive personal user information of others`;
 
+export const SUMMARIZE_MODEL = "gpt-3.5-turbo";
+
 export const DEFAULT_MODELS = [
   {
     name: "gpt-4",

@@ -213,6 +213,9 @@ const es: PartialLocaleType = {
   Shopping: {
     Name: "Compras",
   },
+  FineTuned: {
+    Sysmessage: "Eres un asistente que",
+  },
   Mask: {
     Name: "Mask",
     Page: {

@@ -214,6 +214,9 @@ const tr: PartialLocaleType = {
   Shopping: {
     Name: "Alışveriş",
   },
+  FineTuned: {
+    Sysmessage: "Sen bir asistansın",
+  },
   Mask: {
     Name: "Mask",
     Page: {

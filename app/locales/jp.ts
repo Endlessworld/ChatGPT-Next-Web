@@ -228,6 +228,7 @@ const jp: PartialLocaleType = {
   Shopping: {
     Name: "ショッピング",
   },
+  FineTuned: { Sysmessage: "あなたはアシスタントです" },
   Mask: {
     Name: "キャラクタープリセット",
     Page: {

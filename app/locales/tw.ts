@@ -221,6 +221,7 @@ const tw: PartialLocaleType = {
   Shopping: {
     Name: "購物",
   },
+  FineTuned: { Sysmessage: "你是一個助手" },
   Mask: {
     Name: "面具",
     Page: {

@@ -205,6 +205,9 @@ const vi: PartialLocaleType = {
   Shopping: {
     Name: "Mua sắm",
   },
+  FineTuned: {
+    Sysmessage: "Bạn là một trợ lý",
+  },
   Mask: {
     Name: "Mẫu",
     Page: {

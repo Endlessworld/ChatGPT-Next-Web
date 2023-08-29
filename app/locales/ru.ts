@@ -210,6 +210,9 @@ const ru: PartialLocaleType = {
   Shopping: {
     Name: "Шоппинг",
   },
+  FineTuned: {
+    Sysmessage: "Вы - ассистент, который",
+  },
   Mask: {
     Name: "Маска",
     Page: {

@@ -343,6 +343,9 @@ const cn = {
   Shopping: {
     Name: "商店",
   },
+  FineTuned: {
+    Sysmessage: "你是一个助手",
+  },
   Mask: {
     Name: "预制角色",
     Page: {

@@ -256,6 +256,9 @@ ${builtin} مدمجة، ${custom} تم تعريفها من قبل المستخد
   Shopping: {
     Name: "دكان",
   },
+  FineTuned: {
+    Sysmessage: "أنت مساعد ي",
+  },
   Mask: {
     Name: "الأقنعة",
     Page: {
