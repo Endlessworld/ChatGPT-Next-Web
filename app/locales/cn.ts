@@ -139,9 +139,14 @@ const cn = {
     Revert: "撤销",
   },
   Sidebar: {
-    Title: "X-ChatGPT",
+    Title: "X-Copilot",
     SubTitle: "您的专属AI助手",
-    Profile: "个人中心",
+    Profile: "我的",
+    Announcement: {
+      Title: "公告",
+      Content:
+        "由于API遭到盗用,访问密码将于下一版本发布后停用、后续仅限注册用户免费使用、且速率调整为每个用户100次/每小时",
+    },
     Forum: {
       Name: "社区交流",
     },

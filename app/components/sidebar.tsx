@@ -5,7 +5,6 @@ import styles from "./home.module.scss";
 import { IconButton } from "./button";
 import SettingsIcon from "../icons/settings.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
-import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import MaskIcon from "../icons/mask.svg";
 import AnnouncementIcon from "../icons/announcement.svg";
@@ -24,7 +23,7 @@ import {
 } from "../constant";
 
 import { Link, useNavigate } from "react-router-dom";
-import { getUserInfo, isIdeaPlugin, useMobileScreen } from "../utils";
+import { useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { Markdown } from "@/app/components/markdown";
 import { useMaskStore } from "@/app/store/mask";
@@ -118,46 +117,34 @@ export function SideBar(props: { className?: string }) {
       }`}
     >
       <div className={styles["sidebar-header"]}>
-        {/*<div className={styles["sidebar-title"]}>{Locale.Sidebar.Title}</div>*/}
-        {/*<div className={styles["sidebar-sub-title"]}>*/}
-        {/*  {Locale.Sidebar.SubTitle}*/}
-        {/*</div>*/}
+        <div className={styles["sidebar-title"]}>
+          {Locale.Sidebar.Title}
+          <div className={styles["sidebar-sub-title"]}>
+            {Locale.Sidebar.SubTitle}
+          </div>
+        </div>
+
+        <div className={styles["sidebar-header-bar"]}>
+          <IconButton
+            icon={<MaskIcon />}
+            text={shouldNarrow ? undefined : Locale.Mask.Name}
+            className={styles["sidebar-bar-button"]}
+            onClick={() =>
+              navigate(Path.NewChat, { state: { fromHome: true } })
+            }
+            shadow
+          />
+          <IconButton
+            icon={<PluginIcon />}
+            text={shouldNarrow ? undefined : Locale.Plugin.Name}
+            className={styles["sidebar-bar-button"]}
+            onClick={() => showToast(Locale.WIP)}
+            shadow
+          />
+        </div>
         <div className={styles["sidebar-logo"] + " no-dark"}>
           <ChatGptIcon />
         </div>
-      </div>
-
-      <div className={styles["sidebar-header-bar"]}>
-        <IconButton
-          icon={<MaskIcon />}
-          text={shouldNarrow ? undefined : Locale.Mask.Name}
-          className={styles["sidebar-bar-button"]}
-          onClick={() => navigate(Path.NewChat, { state: { fromHome: true } })}
-          shadow
-        />
-        <IconButton
-          icon={<PluginIcon />}
-          text={shouldNarrow ? undefined : Locale.Plugin.Name}
-          className={styles["sidebar-bar-button"]}
-          onClick={() => showToast(Locale.WIP)}
-          shadow
-        />
-      </div>
-      <div className={styles["sidebar-header-bar"]}>
-        <IconButton
-          icon={<UserIcon />}
-          text={shouldNarrow ? undefined : Locale.Sidebar.Profile}
-          className={styles["sidebar-bar-button"]}
-          onClick={() => (location.href = "https://forum.xr21.me/user")}
-          shadow
-        />
-        <IconButton
-          icon={<UserIcon />}
-          text={shouldNarrow ? undefined : Locale.Sidebar.Forum.Name}
-          className={styles["sidebar-bar-button"]}
-          onClick={() => (location.href = "https://forum.xr21.me/")}
-          shadow
-        />
       </div>
       <div
         className={styles["sidebar-body"]}
@@ -175,6 +162,7 @@ export function SideBar(props: { className?: string }) {
           <div className={styles["sidebar-action"] + " " + styles.mobile}>
             <IconButton
               shadow
+              text={"删除"}
               icon={<CloseIcon />}
               onClick={async () => {
                 if (await showConfirm(Locale.Home.DeleteChat)) {
@@ -184,13 +172,29 @@ export function SideBar(props: { className?: string }) {
             />
           </div>
           <div className={styles["sidebar-action"]}>
+            <IconButton
+              icon={<UserIcon />}
+              text={shouldNarrow ? undefined : Locale.Sidebar.Profile}
+              className={styles["sidebar-bar-button"]}
+              onClick={() => (location.href = "https://forum.xr21.me/user")}
+              shadow
+            />
+          </div>
+          <div className={styles["sidebar-action"]}>
             <Link to={Path.Settings}>
-              <IconButton icon={<SettingsIcon />} shadow />
+              <IconButton
+                text={shouldNarrow ? undefined : Locale.Settings.Title}
+                icon={<SettingsIcon />}
+                shadow
+              />
             </Link>
           </div>
           <div className={styles["sidebar-action"]}>
             <IconButton
               shadow
+              text={
+                shouldNarrow ? undefined : Locale.Sidebar.Announcement.Title
+              }
               icon={<AnnouncementIcon />}
               onClick={() => {
                 // console.log(notice);
@@ -198,7 +202,7 @@ export function SideBar(props: { className?: string }) {
                   title: "公告",
                   children: (
                     <Markdown
-                      content={Locale.Error.HelloMessage(getUserInfo())}
+                      content={Locale.Sidebar.Announcement.Content}
                       defaultShow
                     />
                   ),
@@ -207,29 +211,6 @@ export function SideBar(props: { className?: string }) {
               }}
             />
           </div>
-        </div>
-        <div className={styles["sidebar-action"]}>
-          <IconButton
-            icon={<AddIcon />}
-            text={shouldNarrow ? undefined : Locale.Home.NewChat}
-            onClick={() => {
-              if (config.dontShowMaskSplashScreen) {
-                let mask;
-                if (isIdeaPlugin()) {
-                  mask = mask
-                    ? mask
-                    : maskStore
-                        .getAll()
-                        .filter((m) => m.name === "X-ChatGPT")[0];
-                }
-                chatStore.newSession(mask);
-                navigate(Path.Chat);
-              } else {
-                navigate(Path.NewChat);
-              }
-            }}
-            shadow
-          />
         </div>
       </div>
 

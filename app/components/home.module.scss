@@ -51,7 +51,8 @@
 
   .sidebar-header-bar {
     display: flex;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
+    margin-top: 6px;
 
     .sidebar-bar-button {
       flex-grow: 1;
@@ -331,7 +332,6 @@
     .sidebar-actions {
       flex-direction: column-reverse;
       align-items: center;
-
       .sidebar-action {
         margin-right: 0;
         margin-top: 12px;
@@ -342,8 +342,9 @@
 
 .sidebar-tail {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding-top: 20px;
+  padding-top: 12px;
 }
 
 .sidebar-actions {
@@ -351,7 +352,7 @@
 }
 
 .sidebar-action:not(:last-child) {
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
 .loading-content {

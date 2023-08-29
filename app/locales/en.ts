@@ -146,6 +146,11 @@ const en: LocaleType = {
     Title: "X-ChatGPT",
     SubTitle: "Your own AI assistant",
     Profile: "Profile",
+    Announcement: {
+      Title: "Announcement",
+      Content:
+        "Due to the theft of the API, the access password will be retired after the next release, and will be free for registered users for free thereafter, and the rate will be adjusted to 100 times per user per hour",
+    },
     Forum: {
       Name: "Community",
     },

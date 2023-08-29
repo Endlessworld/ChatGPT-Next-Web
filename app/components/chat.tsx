@@ -99,6 +99,7 @@ import { ChatCommandPrefix, useChatCommand, useCommand } from "../command";
 import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
+import AddIcon from "@/app/icons/add.svg";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -1304,7 +1305,7 @@ function _Chat() {
       console.error("Web Speech API not supported in this browser.");
     }
   };
-
+  const maskStore = useMaskStore();
   return (
     <div className={styles.chat} key={session.id}>
       <div className="window-header" data-tauri-drag-region>
@@ -1352,7 +1353,30 @@ function _Chat() {
               }}
             />
           </div>
-          {showMaxIcon && (
+          <div className="window-action-button">
+            <IconButton
+              icon={<AddIcon />}
+              title={Locale.Home.NewChat}
+              onClick={() => {
+                if (config.dontShowMaskSplashScreen) {
+                  let mask;
+                  if (isIdeaPlugin()) {
+                    mask = mask
+                      ? mask
+                      : maskStore
+                          .getAll()
+                          .filter((m) => m.name === "X-ChatGPT")[0];
+                  }
+                  chatStore.newSession(mask);
+                  navigate(Path.Chat);
+                } else {
+                  navigate(Path.NewChat);
+                }
+              }}
+              shadow
+            />
+          </div>
+          {showMaxIcon && !isIdeaPlugin() && (
             <div className="window-action-button">
               <IconButton
                 icon={config.tightBorder ? <MinIcon /> : <MaxIcon />}
