@@ -356,6 +356,21 @@ pre {
   }
 }
 
+@keyframes avatarAnimation {
+  0% {
+    filter: brightness(1);
+    transform: scale(3) rotate(0deg); /* 初始状态，无旋转 */
+  }
+  50% {
+    filter: brightness(1);
+    transform: scale(3) rotate(180deg);
+  }
+  100% {
+    filter: brightness(1);
+    transform: scale(3) rotate(360deg);
+  }
+}
+
 .user-avatar {
   height: 30px;
   min-height: 30px;
@@ -369,6 +384,19 @@ pre {
   border-radius: 11px;
 }
 
+.user-avatar-pending {
+  height: 10px;
+  min-height: 10px;
+  width: 10px;
+  min-width: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-in-light);
+  box-shadow: var(--card-shadow);
+  border-radius: 11px;
+  animation: avatarAnimation 500ms both infinite linear;
+}
 .one-line {
   white-space: nowrap;
   overflow: hidden;

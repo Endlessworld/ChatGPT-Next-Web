@@ -8,6 +8,7 @@ import { ModelType } from "../store";
 import { useUserAvatar } from "../utils";
 import BotIcon from "../icons/bot.svg";
 import BlackBotIcon from "../icons/black-bot.svg";
+import { ChatControllerPool } from "@/app/client/controller";
 
 export function getChatAvatarUrl(unified: string, style: EmojiStyle) {
   const UserAvatar = () => {
@@ -53,7 +54,13 @@ export function Avatar(props: {
         {props.model?.startsWith("gpt-4") ? (
           <BlackBotIcon className="user-avatar" />
         ) : (
-          <BotIcon className="user-avatar" />
+          <BotIcon
+            className={
+              ChatControllerPool.hasPending()
+                ? "user-avatar-pending"
+                : "user-avatar"
+            }
+          />
         )}
       </div>
     );

@@ -28,6 +28,7 @@ import dynamic from "next/dynamic";
 import { Markdown } from "@/app/components/markdown";
 import { useMaskStore } from "@/app/store/mask";
 import { showConfirm, showModal, showToast } from "./ui-lib";
+import { ChatControllerPool } from "@/app/client/controller";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
@@ -142,7 +143,13 @@ export function SideBar(props: { className?: string }) {
             shadow
           />
         </div>
-        <div className={styles["sidebar-logo"] + " no-dark"}>
+        <div
+          className={
+            ChatControllerPool.hasPending()
+              ? styles["sidebar-logo-pending"]
+              : styles["sidebar-logo"] + " no-dark"
+          }
+        >
           <ChatGptIcon />
         </div>
       </div>

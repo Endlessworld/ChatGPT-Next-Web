@@ -412,8 +412,10 @@ export const useChatStore = create<ChatStore>()(
                 arguments: message.arguments,
               }),
             );
-
-            // ChatControllerPool.remove(session.id, botMessage.id);
+            ChatControllerPool.remove(
+              session.id,
+              botMessage.id ?? messageIndex,
+            );
           },
           onError(error) {
             const isAborted = error.message.includes("aborted");

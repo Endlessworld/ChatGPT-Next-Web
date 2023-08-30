@@ -163,7 +163,14 @@
   pointer-events: none;
   animation: rotateAnimation 8s both infinite linear; /* 添加旋转动画 */
 }
-
+.sidebar-logo-pending {
+  position: fixed;
+  top: -3%;
+  right: -5%;
+  opacity: 0.05;
+  pointer-events: none;
+  animation: rotateAnimation 1000ms both infinite linear; /* 添加旋转动画 */
+}
 .sidebar-title {
   font-size: 20px;
   font-weight: bold;
