@@ -91,6 +91,7 @@ import {
   LAST_INPUT_KEY,
   Path,
   REQUEST_TIMEOUT_MS,
+  UNFINISHED_INPUT,
 } from "../constant";
 import { Avatar } from "./emoji";
 import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
@@ -1306,6 +1307,23 @@ function _Chat() {
     }
   };
   const maskStore = useMaskStore();
+  // remember unfinished input
+  useEffect(() => {
+    // try to load from local storage
+    const key = UNFINISHED_INPUT(session.id);
+    const mayBeUnfinishedInput = localStorage.getItem(key);
+    if (mayBeUnfinishedInput && userInput.length === 0) {
+      setUserInput(mayBeUnfinishedInput);
+      localStorage.removeItem(key);
+    }
+
+    const dom = inputRef.current;
+    return () => {
+      localStorage.setItem(key, dom?.value ?? "");
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className={styles.chat} key={session.id}>
       <div className="window-header" data-tauri-drag-region>
