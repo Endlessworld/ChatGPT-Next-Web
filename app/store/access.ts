@@ -9,6 +9,22 @@ import {
 import { getHeaders } from "../client/api";
 import { getClientConfig } from "../config/client";
 
+// const DEFAULT_OPENAI_URL =
+//   getClientConfig()?.buildMode === "export" ? DEFAULT_API_HOST : "/api/openai/";
+// console.log("[API] default openai url", DEFAULT_OPENAI_URL);
+let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
+
+const DEFAULT_OPENAI_URL = DEFAULT_API_HOST;
+console.log("[API] default openai url", DEFAULT_OPENAI_URL);
+const DEFAULT_ACCESS_STATE = {
+  token: "",
+  accessCode: "",
+  needCode: true,
+  hideUserApiKey: false,
+  hideBalanceQuery: false,
+  disableGPT4: false,
+  openaiUrl: DEFAULT_OPENAI_URL,
+};
 export interface worker {
   title: string;
   api: string;
@@ -33,11 +49,6 @@ export interface AccessControlStore {
   isAuthorized: () => boolean;
   fetch: () => void;
 }
-
-let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
-
-const DEFAULT_OPENAI_URL = DEFAULT_API_HOST;
-console.log("[API] default openai url", DEFAULT_OPENAI_URL);
 
 export const useAccessStore = create<AccessControlStore>()(
   persist(
