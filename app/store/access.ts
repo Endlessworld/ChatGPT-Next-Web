@@ -48,6 +48,7 @@ export interface AccessControlStore {
   enabledAccessControl: () => boolean;
   isAuthorized: () => boolean;
   fetch: () => void;
+  localUpdateTime: number;
 }
 
 export const useAccessStore = create<AccessControlStore>()(
@@ -61,7 +62,7 @@ export const useAccessStore = create<AccessControlStore>()(
       workers: [],
       hideBalanceQuery: false,
       disableGPT4: false,
-
+      localUpdateTime: 0,
       enabledAccessControl() {
         get().fetch();
 
