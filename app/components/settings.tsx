@@ -587,8 +587,6 @@ export function Settings() {
           </ListItem>
         </List>
 
-        <SyncItems />
-
         <List>
           <ListItem
             title={Locale.Settings.Mask.Splash.Title}

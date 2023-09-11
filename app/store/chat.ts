@@ -332,7 +332,11 @@ export const useChatStore = createPersistStore(
         );
       },
 
-      async onUserInput(content, role?: MessageRole, functionName?: string) {
+      async onUserInput(
+        content: string,
+        role?: MessageRole,
+        functionName?: string,
+      ) {
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;
 
