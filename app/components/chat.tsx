@@ -1383,7 +1383,7 @@ function _Chat() {
                       ? mask
                       : maskStore
                           .getAll()
-                          .filter((m) => m.name === "X-ChatGPT")[0];
+                          .filter((m) => m.name === "X-Copilot")[0];
                   }
                   chatStore.newSession(mask);
                   navigate(Path.Chat);

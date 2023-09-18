@@ -16,7 +16,7 @@ const cn = {
       return `${
         !!display_name
           ? `欢迎回来 ${display_name}`
-          : `欢迎使用X-ChatGPT 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用`
+          : `欢迎使用X-Copilot 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用`
       }
         `;
     },
@@ -28,6 +28,7 @@ const cn = {
     Confirm: "确认",
     Later: "稍后再说",
     NotLogin: "未登录",
+    Limit: "您已超速出最大速率100次/每小时，请稍后再试~",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,

@@ -5,10 +5,10 @@ import Locales from "@/app/locales";
 export const CN_MASKS: BuiltinMask[] = [
   {
     avatar: "gpt-bot",
-    name: "X-ChatGPT",
+    name: "X-Copilot",
     context: [
       {
-        id: "x-chatgpt-to-pic-1",
+        id: "x-copilot-to-pic-1",
         role: "assistant",
         content: Locales.Error.HelloMessage(getUserInfo()),
         date: "",

@@ -16,7 +16,7 @@ const en: LocaleType = {
       return `${
         !!display_name
           ? `Welcome back ${display_name}`
-          : `Welcome to X-ChatGPT You are not currently logged in.
+          : `Welcome to X-Copilot You are not currently logged in.
        Please click here [Login](${LOGIN_HOST}) to use for free 
        Or fill in your Open API Key in [Settings](/#/settings).`
       }
@@ -31,6 +31,8 @@ const en: LocaleType = {
     Confirm: "Confirm",
     Later: "Later",
     NotLogin: "Not Login",
+    Limit:
+      "You have overspeeded out the maximum rate 100 times/hour, please try again later~",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,
@@ -143,7 +145,7 @@ const en: LocaleType = {
     Revert: "Revert",
   },
   Sidebar: {
-    Title: "X-ChatGPT",
+    Title: "X-Copilot",
     SubTitle: "Your own AI assistant",
     Profile: "Profile",
     Announcement: {

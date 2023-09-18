@@ -124,20 +124,6 @@ export class ChatGPTApi implements LLMApi {
           async onopen(res) {
             clearTimeout(requestTimeoutId);
             const contentType = res.headers.get("content-type");
-            // console.log(
-            //   "[OpenAI] request response content type: ",
-            //   contentType,
-            // );
-
-            if (contentType?.startsWith("text/plain")) {
-              responseText = await res.clone().text();
-              console.log(
-                'contentType?.startsWith("text/plain")',
-                responseText,
-              );
-              return finish();
-            }
-
             if (
               !res.ok ||
               !res.headers
@@ -150,8 +136,12 @@ export class ChatGPTApi implements LLMApi {
               try {
                 const resJson = await res.clone().json();
                 extraInfo = prettyObject(resJson);
-              } catch {}
+                if (res.status === 429) {
+                  const timestamp = (resJson?.timestamp || 0) + 60 * 60 * 1000;
 
+                  responseTexts.push(Locale.Auth.Limit);
+                }
+              } catch {}
               if (extraInfo) {
                 responseTexts.push(extraInfo);
               }
@@ -159,7 +149,6 @@ export class ChatGPTApi implements LLMApi {
                 responseTexts.push(Locale.Error.Unauthorized);
               }
               responseText = responseTexts.join("\n\n");
-
               return finish();
             }
           },
@@ -173,21 +162,6 @@ export class ChatGPTApi implements LLMApi {
               // console.log(json);
               if (json.choices[0].finish_reason) {
                 if (json.choices[0].finish_reason === "function_call") {
-                  // console.log(
-                  //   "functionCall arguments_json",
-                  //   function_call_arguments_json,
-                  // );
-                  // functionCall(
-                  //   JSON.stringify({
-                  //     function: function_call_name,
-                  //     arguments: function_call_arguments_json,
-                  //   }),
-                  // );
-                  // const call_function =
-                  //   functions
-                  //     ?.filter((f) => f.name === function_call_name)
-                  //     .at(0) || {};
-                  // responseText = ` ${call_function?.description} \nFunction Call ${call_function?.name}  \nArguments: \n\`\`\` json \n ${function_call_arguments_json} \n\`\`\` `;
                   if (options.onFunction) {
                     finished = true;
                     return options.onFunction({
