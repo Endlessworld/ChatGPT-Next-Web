@@ -14,7 +14,7 @@ import DownloadIcon from "../icons/download.svg";
 import UploadIcon from "../icons/upload.svg";
 import ConfigIcon from "../icons/config.svg";
 import ConfirmIcon from "../icons/confirm.svg";
-// import LoadingIcon from "../icons/lo.svg";
+import LoadingIcon from "../icons/three-dots.svg";
 import ConnectionIcon from "../icons/connection.svg";
 import CloudSuccessIcon from "../icons/cloud-success.svg";
 import CloudFailIcon from "../icons/cloud-fail.svg";
@@ -287,7 +287,7 @@ function CheckButton() {
         checkState === "none" ? (
           <ConnectionIcon />
         ) : checkState === "checking" ? (
-          <DownloadIcon />
+          <LoadingIcon />
         ) : checkState === "success" ? (
           <CloudSuccessIcon />
         ) : checkState === "failed" ? (
@@ -969,7 +969,7 @@ export function Settings() {
           {/*) : null}*/}
         </List>
 
-        <SyncItems />
+        {/*<SyncItems />*/}
 
         <List>
           <ListItem
