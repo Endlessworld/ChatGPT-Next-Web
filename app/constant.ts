@@ -103,6 +103,8 @@ export const DEFAULT_API_HOST = "https://api.asia.xr21.me";
 export const LOGIN_HOST =
   "https://forum.xr21.me/user-sign/?tab=signin&redirect_to=https%3A%2F%2Fforum.xr21.me%2Fchatgpt-login-callback%3Fself";
 
+export const DEFAULT_CORS_HOST = "https://chatgpt2.nextweb.fun";
+
 export enum Path {
   Home = "/",
   Chat = "/chat",
@@ -110,6 +112,10 @@ export enum Path {
   NewChat = "/new-chat",
   Masks = "/masks",
   Auth = "/auth",
+}
+
+export enum ApiPath {
+  Cors = "/api/cors",
 }
 
 export enum SlotID {
@@ -141,6 +147,8 @@ export const ACCESS_CODE_PREFIX = "nk-";
 
 export const LAST_INPUT_KEY = "last-input";
 export const UNFINISHED_INPUT = (id: string) => "unfinished-input-" + id;
+
+export const STORAGE_KEY = "chatgpt-next-web";
 
 export const REQUEST_TIMEOUT_MS = 60000;
 
