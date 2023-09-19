@@ -385,6 +385,9 @@ const cn = {
   Shopping: {
     Name: "商店",
   },
+  Vip: {
+    Title: "开通会员",
+  },
   FineTuned: {
     Sysmessage: "你是一个助手",
   },

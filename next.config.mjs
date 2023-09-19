@@ -1,22 +1,22 @@
 import webpack from "webpack";
+import TerserPlugin from 'terser-webpack-plugin';
 
 const mode = process.env.BUILD_MODE ?? "standalone";
 console.log("[Next] build mode", mode);
 
 const disableChunk = !!process.env.DISABLE_CHUNK || mode === "export";
-console.log("[Next] build with chunk: ", !disableChunk);
+console.log("[Next] build with chunk: ", disableChunk);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack(config) {
+  webpack(config,{isServer }) {
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],
     });
-
     if (disableChunk) {
       config.plugins.push(
-        new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 30 }),
+        new webpack.optimize.LimitChunkCountPlugin({ chunkOverhead: 30,maxChunks:99 })
       );
     }
 

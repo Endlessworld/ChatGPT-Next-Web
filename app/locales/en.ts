@@ -392,6 +392,9 @@ const en: LocaleType = {
   Shopping: {
     Name: "Shopping",
   },
+  Vip: {
+    Title: "Subscribe Now",
+  },
   FineTuned: {
     Sysmessage: "You are an assistant that",
   },

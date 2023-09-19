@@ -10,7 +10,7 @@ import MaskIcon from "../icons/mask.svg";
 import AnnouncementIcon from "../icons/announcement.svg";
 import UserIcon from "../icons/user.svg";
 import DragIcon from "../icons/drag.svg";
-import PluginIcon from "../icons/plugin.svg";
+import VipIcon from "../icons/vip.svg";
 
 import Locale from "../locales";
 import { useAppConfig, useChatStore, useNoticeStore } from "../store";
@@ -27,7 +27,7 @@ import { useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { Markdown } from "@/app/components/markdown";
 import { useMaskStore } from "@/app/store/mask";
-import { showConfirm, showModal, showToast } from "./ui-lib";
+import { showConfirm, showModal } from "./ui-lib";
 import { ChatControllerPool } from "@/app/client/controller";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
@@ -144,10 +144,10 @@ export function SideBar(props: { className?: string }) {
             shadow
           />
           <IconButton
-            icon={<PluginIcon />}
-            text={shouldNarrow ? undefined : Locale.Plugin.Name}
+            icon={<VipIcon />}
+            text={shouldNarrow ? undefined : Locale.Vip.Title}
             className={styles["sidebar-bar-button"]}
-            onClick={() => showToast(Locale.WIP)}
+            onClick={() => (location.href = "https://forum.xr21.me/user/vip")}
             shadow
           />
         </div>
