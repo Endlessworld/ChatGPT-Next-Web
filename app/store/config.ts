@@ -5,6 +5,7 @@ import {
   DEFAULT_INPUT_TEMPLATE,
   DEFAULT_MODELS,
   StoreKey,
+  DEFAULT_SIDEBAR_WIDTH,
 } from "../constant";
 import { isIdeaPlugin } from "@/app/utils";
 import { createPersistStore } from "../utils/store";
@@ -34,7 +35,7 @@ export const DEFAULT_CONFIG = {
   tightBorder: isIdeaPlugin() || !!getClientConfig()?.isApp,
   sendPreviewBubble: true,
   enableAutoGenerateTitle: true,
-  sidebarWidth: 300,
+  sidebarWidth: DEFAULT_SIDEBAR_WIDTH,
   disablePromptHint: false,
   dontShowMaskSplashScreen: true, // 创建聊天时不显示初始屏幕
   hideBuiltinMasks: false, // dont add builtin masks

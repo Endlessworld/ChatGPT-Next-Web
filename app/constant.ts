@@ -99,11 +99,12 @@ export const RELEASE_URL = `${REPO_URL}/releases`;
 export const FETCH_COMMIT_URL = `https://api.github.com/repos/${OWNER}/${REPO}/commits?per_page=1`;
 export const FETCH_TAG_URL = `https://api.github.com/repos/${OWNER}/${REPO}/tags?per_page=1`;
 export const RUNTIME_CONFIG_DOM = "danger-runtime-config";
-export const DEFAULT_API_HOST = "https://api.asia.xr21.me";
+
 export const LOGIN_HOST =
   "https://forum.xr21.me/user-sign/?tab=signin&redirect_to=https%3A%2F%2Fforum.xr21.me%2Fchatgpt-login-callback%3Fself";
 
-export const DEFAULT_CORS_HOST = "https://chatgpt2.nextweb.fun";
+export const DEFAULT_CORS_HOST = "https://nb.nextweb.fun";
+export const DEFAULT_API_HOST = "https://api.asia.xr21.me";
 
 export enum Path {
   Home = "/",
@@ -139,6 +140,7 @@ export enum StoreKey {
 
 export const REQUEST_LIMIT = 10;
 export const REQUEST_MAX_LIMIT = 100;
+export const DEFAULT_SIDEBAR_WIDTH = 300;
 export const MAX_SIDEBAR_WIDTH = 500;
 export const MIN_SIDEBAR_WIDTH = 230;
 export const NARROW_SIDEBAR_WIDTH = 100;
@@ -227,14 +229,14 @@ export const DEFAULT_MODELS = [
     name: "gpt-4-0613",
     available: true,
   },
-  {
-    name: "gpt-4-32k",
-    available: true,
-  },
-  {
-    name: "gpt-4-32k-0613",
-    available: true,
-  },
+  // {
+  //   name: "gpt-4-32k",
+  //   available: true,
+  // },
+  // {
+  //   name: "gpt-4-32k-0613",
+  //   available: true,
+  // },
   {
     name: "gpt-3.5-turbo",
     available: true,
