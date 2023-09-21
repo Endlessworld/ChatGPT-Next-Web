@@ -466,6 +466,7 @@ const en: LocaleType = {
     Import: "Import",
     Sync: "Sync",
     Config: "Config",
+    CreateDb: "Create UpStash Redis",
   },
   Exporter: {
     Model: "Model",

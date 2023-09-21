@@ -464,6 +464,7 @@ const cn = {
     Import: "导入",
     Sync: "同步",
     Config: "配置",
+    CreateDb: "创建UpStash Redis",
   },
   Exporter: {
     Model: "模型",

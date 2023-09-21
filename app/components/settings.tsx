@@ -18,6 +18,7 @@ import LoadingIcon from "../icons/three-dots.svg";
 import ConnectionIcon from "../icons/connection.svg";
 import CloudSuccessIcon from "../icons/cloud-success.svg";
 import CloudFailIcon from "../icons/cloud-fail.svg";
+import UpstashIcon from "../icons/upstash.svg";
 
 import {
   Input,
@@ -311,6 +312,13 @@ function SyncConfigModal(props: { onClose?: () => void }) {
         title={Locale.Settings.Sync.Config.Modal.Title}
         onClose={() => props.onClose?.()}
         actions={[
+          <IconButton
+            key="createDb"
+            onClick={() => window.open("https://console.upstash.com/")}
+            icon={<UpstashIcon />}
+            bordered
+            text={Locale.UI.CreateDb}
+          />,
           <CheckButton key="check" />,
           <IconButton
             key="confirm"
@@ -321,60 +329,65 @@ function SyncConfigModal(props: { onClose?: () => void }) {
           />,
         ]}
       >
-        <List>
-          <ListItem
-            title={Locale.Settings.Sync.Config.SyncType.Title}
-            subTitle={Locale.Settings.Sync.Config.SyncType.SubTitle}
-          >
-            <select
-              value={syncStore.provider}
-              onChange={(e) => {
-                syncStore.update(
-                  (config) =>
-                    (config.provider = e.target.value as ProviderType),
-                );
-              }}
-            >
-              {Object.entries(ProviderType).map(([k, v]) => (
-                <option value={v} key={k}>
-                  {k}
-                </option>
-              ))}
-            </select>
-          </ListItem>
+        {false && (
+          <>
+            <List>
+              <ListItem
+                title={Locale.Settings.Sync.Config.SyncType.Title}
+                subTitle={Locale.Settings.Sync.Config.SyncType.SubTitle}
+              >
+                <select
+                  value={syncStore.provider}
+                  onChange={(e) => {
+                    syncStore.update(
+                      (config) =>
+                        (config.provider = e.target.value as ProviderType),
+                    );
+                  }}
+                >
+                  {Object.entries(ProviderType)
+                    .filter(([k, v]) => v == ProviderType.UpStash)
+                    .map(([k, v]) => (
+                      <option value={v} key={k}>
+                        {k}
+                      </option>
+                    ))}
+                </select>
+              </ListItem>
 
-          <ListItem
-            title={Locale.Settings.Sync.Config.Proxy.Title}
-            subTitle={Locale.Settings.Sync.Config.Proxy.SubTitle}
-          >
-            <input
-              type="checkbox"
-              checked={syncStore.useProxy}
-              onChange={(e) => {
-                syncStore.update(
-                  (config) => (config.useProxy = e.currentTarget.checked),
-                );
-              }}
-            ></input>
-          </ListItem>
-          {syncStore.useProxy ? (
-            <ListItem
-              title={Locale.Settings.Sync.Config.ProxyUrl.Title}
-              subTitle={Locale.Settings.Sync.Config.ProxyUrl.SubTitle}
-            >
-              <input
-                type="text"
-                value={syncStore.proxyUrl}
-                onChange={(e) => {
-                  syncStore.update(
-                    (config) => (config.proxyUrl = e.currentTarget.value),
-                  );
-                }}
-              ></input>
-            </ListItem>
-          ) : null}
-        </List>
-
+              <ListItem
+                title={Locale.Settings.Sync.Config.Proxy.Title}
+                subTitle={Locale.Settings.Sync.Config.Proxy.SubTitle}
+              >
+                <input
+                  type="checkbox"
+                  checked={syncStore.useProxy}
+                  onChange={(e) => {
+                    syncStore.update(
+                      (config) => (config.useProxy = e.currentTarget.checked),
+                    );
+                  }}
+                ></input>
+              </ListItem>
+              {syncStore.useProxy ? (
+                <ListItem
+                  title={Locale.Settings.Sync.Config.ProxyUrl.Title}
+                  subTitle={Locale.Settings.Sync.Config.ProxyUrl.SubTitle}
+                >
+                  <input
+                    type="text"
+                    value={syncStore.proxyUrl}
+                    onChange={(e) => {
+                      syncStore.update(
+                        (config) => (config.proxyUrl = e.currentTarget.value),
+                      );
+                    }}
+                  ></input>
+                </ListItem>
+              ) : null}
+            </List>
+          </>
+        )}
         {syncStore.provider === ProviderType.WebDAV && (
           <>
             <List>
@@ -1006,7 +1019,7 @@ export function Settings() {
           {/*) : null}*/}
         </List>
 
-        {/*<SyncItems />*/}
+        <SyncItems />
 
         <List>
           <ListItem

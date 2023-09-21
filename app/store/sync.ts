@@ -23,7 +23,7 @@ export interface WebDavConfig {
 export type SyncStore = GetStoreState<typeof useSyncStore>;
 
 const DEFAULT_SYNC_STATE = {
-  provider: ProviderType.WebDAV,
+  provider: ProviderType.UpStash,
   useProxy: true,
   proxyUrl: corsPath(ApiPath.Cors),
 
