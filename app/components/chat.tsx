@@ -733,6 +733,7 @@ function _Chat() {
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [userInput, setUserInput] = useState("");
+  const [renderUserInput, setRenderUserInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { submitKey, shouldSubmit } = useSubmitHandler();
   const { scrollRef, setAutoScroll, scrollDomToBottom } = useScrollToBottom();
@@ -1001,7 +1002,21 @@ function _Chat() {
     setSoundOn(!soundOn);
     localStorage.setItem("soundOn", String(!soundOn));
   };
-
+  // 当 userInput 变化时，调用防抖函数
+  useEffect(
+    useDebouncedCallback(
+      () => {
+        console.log(userInput);
+        setRenderUserInput(userInput);
+      },
+      500,
+      {
+        leading: true,
+        trailing: true,
+      },
+    ),
+    [userInput],
+  );
   // preview messages
   const renderMessages = useMemo(() => {
     return context
@@ -1020,12 +1035,12 @@ function _Chat() {
           : [],
       )
       .concat(
-        userInput.length > 0 && config.sendPreviewBubble
+        renderUserInput.length > 0 && config.sendPreviewBubble
           ? [
               {
                 ...createMessage({
                   role: "user",
-                  content: userInput,
+                  content: renderUserInput,
                 }),
                 preview: true,
               },
@@ -1037,7 +1052,7 @@ function _Chat() {
     context,
     isLoading,
     session.messages,
-    userInput,
+    renderUserInput,
   ]);
 
   const [msgRenderIndex, _setMsgRenderIndex] = useState(
