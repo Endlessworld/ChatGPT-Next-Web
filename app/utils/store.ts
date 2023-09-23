@@ -1,8 +1,22 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, PersistStorage } from "zustand/middleware";
 import { Updater } from "../typing";
 import { deepClone } from "./clone";
-
+import localforage from "localforage";
+localforage.config();
+// 定义适配器函数将localforage返回的Promise类型转换为void类型
+const storageAdapter: PersistStorage<any> = {
+  getItem: (key) =>
+    localforage.getItem(key).then((value) => {
+      if (value) {
+        return JSON.parse(typeof value === "string" ? value : "{}");
+      }
+      return {};
+    }),
+  setItem: (key, value) =>
+    localforage.setItem(key, JSON.stringify(value)) as Promise<any>,
+  removeItem: (key) => localforage.removeItem(key) as Promise<void>,
+};
 type SecondParam<T> = T extends (
   _f: infer _F,
   _s: infer S,
@@ -31,6 +45,7 @@ export function createPersistStore<T, M>(
   ) => M,
   persistOptions: SecondParam<typeof persist<T & M & MakeUpdater<T>>>,
 ) {
+  persistOptions.storage = storageAdapter;
   return create<T & M & MakeUpdater<T>>()(
     persist((set, get) => {
       return {
