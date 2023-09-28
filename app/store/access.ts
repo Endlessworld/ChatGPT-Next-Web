@@ -94,7 +94,7 @@ export const useAccessStore = create<AccessControlStore>()(
       fetch() {
         if (getClientConfig()?.buildMode === "export") {
           get().workers = WORKERS_LIST;
-          get().needCode = true;
+          get().needCode = false;
         }
         if (fetchState > 0 || getClientConfig()?.buildMode === "export") return;
         fetchState = 1;
