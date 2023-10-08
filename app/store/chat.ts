@@ -370,7 +370,7 @@ export const useChatStore = createPersistStore(
         // get recent messages
         const recentMessages = get().getMessagesWithMemory();
         const sendMessages = recentMessages.concat(userMessage);
-        console.log("sendMessages", JSON.stringify(userMessage));
+        // console.log("sendMessages", JSON.stringify(userMessage));
         const messageIndex = get().currentSession().messages.length + 1;
 
         // save user's and bot's message

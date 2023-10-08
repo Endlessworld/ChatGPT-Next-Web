@@ -139,8 +139,15 @@ export function getLocalAppState() {
 }
 
 export function setLocalAppState(appState: AppState) {
+  let timeout = 0;
   Object.entries(LocalStateSetters).forEach(([key, setter]) => {
-    setter(appState[key as keyof AppState]);
+    setTimeout(
+      () => {
+        setter(appState[key as keyof AppState]);
+        console.log(timeout);
+      },
+      (timeout += 100),
+    );
   });
 }
 

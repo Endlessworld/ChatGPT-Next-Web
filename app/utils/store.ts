@@ -4,6 +4,7 @@ import { Updater } from "../typing";
 // import { deepClone } from "./clone";
 import localforage from "localforage";
 import { debounce } from "lodash";
+import { deepClone } from "@/app/utils/clone";
 localforage.config();
 // 定义适配器函数将localforage返回的Promise类型转换为void类型
 const storageAdapter: PersistStorage<any> = {
@@ -18,7 +19,7 @@ const storageAdapter: PersistStorage<any> = {
     // 在这里使用了防抖函数
     console.log(`Setting item - Key: ${key}`); // 日志输出 key 和 value
     return localforage.setItem(key, JSON.stringify(value)) as Promise<any>;
-  }, 200), // 这里假设延迟为 200ms
+  }, 80), // 这里假设延迟为 200ms
   removeItem: (key) => localforage.removeItem(key) as Promise<void>,
 };
 
@@ -65,8 +66,9 @@ export function createPersistStore<T, M>(
           >);
         }, 500),
         update(updater) {
-          // const state = deepClone(get());
-          const state = { ...get() };
+          console.log("update >>>", Date.now());
+          const state = deepClone(get());
+          // const state = { ...get() };
           updater(state);
           get().markUpdate();
           set(state);

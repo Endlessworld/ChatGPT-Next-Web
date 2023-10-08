@@ -1,4 +1,3 @@
-import { Updater } from "../typing";
 import { ApiPath, STORAGE_KEY, StoreKey } from "../constant";
 import { createPersistStore } from "../utils/store";
 import {
@@ -69,7 +68,7 @@ export const useSyncStore = createPersistStore(
         const localState = getLocalAppState();
         mergeAppState(localState, remoteState);
         setLocalAppState(localState);
-        location.reload();
+        setTimeout(() => location.reload(), 500);
       } catch (e) {
         console.error("[Import]", e);
         showToast(Locale.Settings.Sync.ImportFailed);

@@ -1006,10 +1006,9 @@ function _Chat() {
   useEffect(
     useDebouncedCallback(
       () => {
-        console.log(userInput);
         setRenderUserInput(userInput);
       },
-      500,
+      300,
       {
         leading: true,
         trailing: true,
@@ -1176,7 +1175,7 @@ function _Chat() {
     if (isIdeaPlugin()) {
       config.update((settings) => (settings.tightBorder = true));
       (window as any).doSubmit = doSubmit;
-      (window as any).clearSessions = () => chatStore.clearSessions();
+      (window as any).clearSessions = chatStore.clearSessions;
       (window as any).syncThemes = (isDark: boolean) => {
         config.update(
           (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
