@@ -12,6 +12,7 @@ import { showToast } from "../components/ui-lib";
 import Locale from "../locales";
 import { createSyncClient, ProviderType } from "../utils/cloud";
 import { corsPath } from "../utils/cors";
+import { getClientConfig } from "@/app/config/client";
 
 export interface WebDavConfig {
   server: string;
