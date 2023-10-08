@@ -19,6 +19,7 @@ export interface WebDavConfig {
   password: string;
 }
 
+const isApp = !!getClientConfig()?.isApp;
 export type SyncStore = GetStoreState<typeof useSyncStore>;
 
 const DEFAULT_SYNC_STATE = {
@@ -56,7 +57,13 @@ export const useSyncStore = createPersistStore(
 
     export() {
       const state = getLocalAppState();
-      const fileName = `Backup-${new Date().toLocaleString()}.json`;
+      const datePart = isApp
+        ? `${new Date().toLocaleDateString().replace(/\//g, "_")} ${new Date()
+            .toLocaleTimeString()
+            .replace(/:/g, "_")}`
+        : new Date().toLocaleString();
+
+      const fileName = `Backup-${datePart}.json`;
       downloadAs(JSON.stringify(state), fileName);
     },
 
