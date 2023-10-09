@@ -451,7 +451,7 @@ export function ImagePreviewer(props: {
       const blob = await toPng(dom);
       if (!blob) return;
 
-      if (isMobile || (isApp && window.__TAURI__)) {
+      if ((isMobile || (isApp && window.__TAURI__)) && !isIdeaPlugin()) {
         if (isApp && window.__TAURI__) {
           const result = await window.__TAURI__.dialog.save({
             defaultPath: `${props.topic}.png`,
