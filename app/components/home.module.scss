@@ -142,15 +142,12 @@
 
 @keyframes rotateAnimation {
   0% {
-    filter: brightness(1);
     transform: scale(3) rotate(0deg); /* 初始状态，无旋转 */
   }
   50% {
-    filter: brightness(1);
     transform: scale(3) rotate(-180deg);
   }
   100% {
-    filter: brightness(1);
     transform: scale(3) rotate(-360deg);
   }
 }
@@ -159,7 +156,7 @@
   position: fixed;
   top: -3%;
   right: -5%;
-  opacity: 0.05;
+  opacity: 0.1;
   pointer-events: none;
   animation: rotateAnimation 8s both infinite linear; /* 添加旋转动画 */
 }
@@ -167,7 +164,7 @@
   position: fixed;
   top: -3%;
   right: -5%;
-  opacity: 0.05;
+  opacity: 0.1;
   pointer-events: none;
   animation: rotateAnimation 1000ms both infinite linear; /* 添加旋转动画 */
 }
@@ -272,7 +269,7 @@
     position: fixed;
     top: -3%;
     right: -5%;
-    opacity: 0.05;
+    opacity: 0.1;
     pointer-events: none;
     animation: rotateAnimation 8s both infinite linear; /* 添加旋转动画 */
   }
