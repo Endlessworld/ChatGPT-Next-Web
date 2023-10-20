@@ -151,8 +151,7 @@ const en: LocaleType = {
     Profile: "Profile",
     Announcement: {
       Title: "Announcement",
-      Content:
-        "Due to the theft of the API, the access password will be retired after the next release, and will be free for registered users for free thereafter, and the rate will be adjusted to 100 times per user per hour",
+      Content: "Connected to the SparkDesk model, welcome to use",
     },
     Forum: {
       Name: "Community",

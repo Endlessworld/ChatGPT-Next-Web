@@ -146,8 +146,7 @@ const cn = {
     Profile: "我的",
     Announcement: {
       Title: "公告",
-      Content:
-        "由于API遭到盗用,访问密码将于下一版本发布后停用、后续仅限注册用户免费使用、且速率调整为每个用户100次/每小时",
+      Content: "已接入讯飞星火模型欢迎使用",
     },
     Forum: {
       Name: "社区交流",
