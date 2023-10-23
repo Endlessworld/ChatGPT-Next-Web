@@ -253,14 +253,9 @@ export function useMobileScreen() {
 
 export async function clearCache() {
   let clearCache = async function () {
-    // for (let key in localStorage) {
-    //   console.log(key,);
-    //   if (localStorage.getItem(key) != null && key != 'app-config') {
-    //     localStorage.removeItem(key)
-    //   }
-    // }
     localStorage.clear();
-    sessionStorage.clear();
+    // sessionStorage.clear();
+    indexedDB.deleteDatabase("localforage");
     // del sw cache
     const cacheKeys = await caches.keys();
     for (const cacheKey of cacheKeys) {
