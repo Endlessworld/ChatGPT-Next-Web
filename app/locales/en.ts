@@ -15,7 +15,7 @@ const en: LocaleType = {
       let display_name = userInfo?.display_name;
       return `${
         !!display_name
-          ? `Welcome back ${display_name}`
+          ? `Welcome back ${display_name} i am the SparkDesk model`
           : `Welcome to X-Copilot You are not currently logged in.
        Please click here [Login](${LOGIN_HOST}) to use for free 
        Or fill in your Open API Key in [Settings](/#/settings).`
@@ -151,7 +151,8 @@ const en: LocaleType = {
     Profile: "Profile",
     Announcement: {
       Title: "Announcement",
-      Content: "Connected to the SparkDesk model, welcome to use",
+      Content:
+        "2023.10.23 The SparkDesk model is connected and used by default，If you need to use the function call function, switch to OpenAI GPT series models",
     },
     Forum: {
       Name: "Community",

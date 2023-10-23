@@ -15,7 +15,7 @@ const cn = {
       console.log(userInfo);
       return `${
         !!display_name
-          ? `欢迎回来 ${display_name}`
+          ? `欢迎回来 ${display_name} 我是讯飞星火认知大模型~`
           : `欢迎使用X-Copilot 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用`
       }
         `;
@@ -146,7 +146,8 @@ const cn = {
     Profile: "我的",
     Announcement: {
       Title: "公告",
-      Content: "已接入讯飞星火模型欢迎使用",
+      Content:
+        "2023.10.23 已接入并默认使用讯飞星火模型，如需使用函数调用功能，请切换成OpenAI GPT系列模型",
     },
     Forum: {
       Name: "社区交流",
