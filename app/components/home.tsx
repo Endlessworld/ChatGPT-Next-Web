@@ -1,5 +1,7 @@
 "use client";
 
+import { Markdown } from "@/app/components/markdown";
+
 require("../polyfill");
 
 import { useEffect, useState } from "react";
@@ -14,9 +16,9 @@ import { clearCache, getCSSVar, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { Path, SlotID } from "../constant";
 import { ErrorBoundary } from "./error";
-
+import { showModal } from "./ui-lib";
 import { getISOLang, getLang } from "../locales";
-
+import Locale from "../locales";
 import {
   HashRouter as Router,
   Route,
@@ -28,7 +30,7 @@ import { Theme, useAppConfig } from "../store/config";
 import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
 import { api } from "../client/api";
-import { useAccessStore } from "../store";
+import { useAccessStore, useNoticeStore } from "../store";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -57,6 +59,7 @@ const MaskPage = dynamic(async () => (await import("./mask")).MaskPage, {
 
 const useCefFunctionInit = function () {
   const config = useAppConfig();
+  const noticeStore = useNoticeStore();
   useEffect(() => {
     // if (isIdeaPlugin()) {
     (window as any).clearCache = clearCache;
@@ -65,7 +68,21 @@ const useCefFunctionInit = function () {
         (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
       );
     };
-    // }
+
+    if (
+      noticeStore.showNotice ||
+      Date.now() - noticeStore.showTimestamp > 86400 * 1000
+    ) {
+      showModal({
+        title: "公告",
+        children: (
+          <Markdown content={Locale.Sidebar.Announcement.Content} defaultShow />
+        ),
+        onClose: () => {
+          noticeStore.update({ showNotice: false, showTimestamp: Date.now() });
+        },
+      });
+    }
   }, []);
 };
 export function useSwitchTheme() {

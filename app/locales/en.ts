@@ -151,8 +151,11 @@ const en: LocaleType = {
     Profile: "Profile",
     Announcement: {
       Title: "Announcement",
-      Content:
-        "2023.10.23 The SparkDesk model is connected and used by default，If you need to use the function call function, switch to OpenAI GPT series models",
+      Content: `The SparkDesk model is connected and used by default.
+        If you need to use the function call function switch to OpenAI GPT series models.  
+        If your model list is not in the list or the default model is not Spark Desk.
+        Please empty the built-in browser cache or perform two [Confirm Reset] operations and log back in.
+        `,
     },
     Forum: {
       Name: "Community",

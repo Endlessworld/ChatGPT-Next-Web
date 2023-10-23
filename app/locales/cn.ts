@@ -146,8 +146,10 @@ const cn = {
     Profile: "我的",
     Announcement: {
       Title: "公告",
-      Content:
-        "2023.10.23 已接入并默认使用讯飞星火模型，如需使用函数调用功能，请切换成OpenAI GPT系列模型",
+      Content: ` 本插件已接入并默认使用SparkDesk(讯飞星火认知大模型)
+          如果您的模型列表中没有或者默认模型不是SparkDesk
+          请清空内置浏览器缓存或执行两次【确认重置】操作并重新登录即可
+          由于讯飞星火不支持函数调用功能、如需使用函数调用请切换至OpenAI GPT系列模型`,
     },
     Forum: {
       Name: "社区交流",
