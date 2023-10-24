@@ -336,10 +336,6 @@
     .sidebar-actions {
       flex-direction: column-reverse;
       align-items: center;
-      .sidebar-action {
-        margin-right: 0;
-        margin-top: 12px;
-      }
     }
   }
 }
@@ -353,10 +349,11 @@
 
 .sidebar-actions {
   display: inline-flex;
+  overflow: hidden;
 }
 
-.sidebar-action:not(:last-child) {
-  margin-right: 10px;
+.sidebar-action {
+  padding: 7px 7px 7px 7px;
 }
 
 .loading-content {

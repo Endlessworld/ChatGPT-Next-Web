@@ -779,7 +779,7 @@ export function Settings() {
             <InputRange
               title={`${config.fontSize ?? 14}px`}
               value={config.fontSize}
-              min="12"
+              min="6"
               max="40"
               step="1"
               onChange={(e) =>
