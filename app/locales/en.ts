@@ -15,7 +15,7 @@ const en: LocaleType = {
       let display_name = userInfo?.display_name;
       return `${
         !!display_name
-          ? `Welcome back ${display_name} i am the SparkDesk model`
+          ? `Welcome back ${display_name} i am X-Copilot!`
           : `Welcome to X-Copilot You are not currently logged in.
        Please click here [Login](${LOGIN_HOST}) to use for free 
        Or fill in your Open API Key in [Settings](/#/settings).`

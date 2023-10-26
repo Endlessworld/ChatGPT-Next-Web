@@ -15,7 +15,7 @@ const cn = {
       // console.log(userInfo);
       return `${
         !!display_name
-          ? `欢迎回来 ${display_name} 我是讯飞星火认知大模型~`
+          ? `欢迎回来 ${display_name} 我是X-Copilot!`
           : `欢迎使用X-Copilot 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用`
       }
         `;

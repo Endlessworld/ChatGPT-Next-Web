@@ -396,11 +396,14 @@ export const useChatStore = createPersistStore(
             });
           },
           onFinish(message) {
+            console.log(">>>>onFinish", message);
             botMessage.streaming = false;
             if (message) {
               botMessage.content = message;
               get().onNewMessage(botMessage);
             }
+            console.log(">>>>remove", ChatControllerPool);
+            ChatControllerPool.stop(session.id, botMessage.id);
             ChatControllerPool.remove(session.id, botMessage.id);
           },
           onFunction(message) {
@@ -487,17 +490,20 @@ export const useChatStore = createPersistStore(
 
         // system prompts, to get close to OpenAI Web ChatGPT
         const shouldInjectSystemPrompts = modelConfig.enableInjectSystemPrompts;
-        const systemPrompts = shouldInjectSystemPrompts
-          ? [
-              createMessage({
-                role: "system",
-                content: fillTemplateWith("", {
-                  ...modelConfig,
-                  template: DEFAULT_SYSTEM_TEMPLATE,
+        const systemPrompts =
+          shouldInjectSystemPrompts &&
+          modelConfig.model !== "SparkDesk" &&
+          !modelConfig.model.startsWith("gpt-4")
+            ? [
+                createMessage({
+                  role: "system",
+                  content: fillTemplateWith("", {
+                    ...modelConfig,
+                    template: DEFAULT_SYSTEM_TEMPLATE,
+                  }),
                 }),
-              }),
-            ]
-          : [];
+              ]
+            : [];
         if (shouldInjectSystemPrompts) {
           // console.log(
           //   "[Global System Prompt] ",

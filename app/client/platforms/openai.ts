@@ -111,6 +111,7 @@ export class ChatGPTApi implements LLMApi {
         const queues: string[] = [];
         const finish = () => {
           if (!finished) {
+            console.log("finished >>>");
             options.onFinish(responseText);
             finished = true;
           }
@@ -154,6 +155,7 @@ export class ChatGPTApi implements LLMApi {
           },
           onmessage(msg) {
             if (msg.data === "[DONE]" || finished) {
+              console.log(">>>>>>>>>DONE");
               return finish();
             }
             const text = msg.data;
@@ -220,6 +222,7 @@ export class ChatGPTApi implements LLMApi {
             }
           },
           onclose() {
+            console.log("onclose >>>> ");
             finish();
           },
           onerror(e) {
