@@ -11,7 +11,7 @@ import styles from "./home.module.scss";
 import BotIcon from "../icons/bot.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 
-import { clearCache, getCSSVar, useMobileScreen } from "../utils";
+import { clearCache, getCSSVar, ideaMessage, useMobileScreen } from "../utils";
 
 import dynamic from "next/dynamic";
 import { Path, SlotID } from "../constant";
@@ -64,11 +64,12 @@ const useCefFunctionInit = function () {
     // if (isIdeaPlugin()) {
     (window as any).clearCache = clearCache;
     (window as any).syncThemes = (isDark: boolean) => {
+      console.log("syncThemes ", isDark);
       config.update(
         (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
       );
     };
-
+    ideaMessage({ event: "initialized" });
     if (
       noticeStore.showNotice ||
       Date.now() - noticeStore.showTimestamp > 86400 * 1000

@@ -12,7 +12,7 @@ const cn = {
 `,
     HelloMessage: (userInfo: any) => {
       let display_name = userInfo?.display_name;
-      console.log(userInfo);
+      // console.log(userInfo);
       return `${
         !!display_name
           ? `欢迎回来 ${display_name} 我是讯飞星火认知大模型~`
