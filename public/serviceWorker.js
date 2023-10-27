@@ -1,8 +1,8 @@
-const CHATGPT_NEXT_WEB_CACHE = "chatgpt-next-web-cache";
+const COPILOT_WEB_CACHE = "copilot-cache";
 
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox-sw.js');
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox-sw.js");
 
-self.addEventListener("activate", function (event) {
+self.addEventListener("activate", function(event) {
   console.log("ServiceWorker activated.");
 });
 
@@ -14,8 +14,14 @@ self.addEventListener("message", (event) => {
 });
 
 workbox.routing.registerRoute(
-  new RegExp('/*'),
-  new workbox.strategies.StaleWhileRevalidate({
-    cacheName: CHATGPT_NEXT_WEB_CACHE
+  /\.js|.css$/,
+  new workbox.strategies.NetworkFirst({
+    cacheName: COPILOT_WEB_CACHE,
+    plugins: [
+      new workbox.expiration.ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 60 * 60
+      })
+    ]
   })
 );
