@@ -151,10 +151,10 @@ const en: LocaleType = {
     Profile: "Profile",
     Announcement: {
       Title: "Announcement",
-      Content: `The SparkDesk model is connected and used by default.
-        If you need to use the function call function switch to OpenAI GPT series models.  
-        If your model list is not in the list or the default model is not Spark Desk.
-        Please empty the built-in browser cache or perform two [Confirm Reset] operations and log back in.
+      Content: `This plug-in has been connected to the full range of OpenAI GPT models, SparkDesk, and gpt-4-bing
+          If you don't have any of the above models from your list of models, please clear the built-in browser cache and log back in.
+          You can use the gpt-3.5 series and SparkDesk models for free.
+          Since iFLYTEK Xinghuo does not support the function call function, if you need to use the function call, please switch to the OpenAI GPT series model.
         `,
     },
     Forum: {
