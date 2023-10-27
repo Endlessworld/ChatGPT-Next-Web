@@ -215,7 +215,10 @@ export const useChatStore = createPersistStore(
         if (mask) {
           const config = useAppConfig.getState();
           const globalModelConfig = config.modelConfig;
-
+          mask.modelConfig.model =
+            globalModelConfig.model !== "SparkDesk"
+              ? globalModelConfig.model
+              : mask.modelConfig.model;
           session.mask = {
             ...mask,
             modelConfig: {
