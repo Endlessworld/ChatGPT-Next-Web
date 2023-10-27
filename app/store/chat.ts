@@ -387,7 +387,7 @@ export const useChatStore = createPersistStore(
           messages: sendMessages,
           config: { ...modelConfig, stream: true },
           onUpdate(message) {
-            botMessage.streaming = true;
+            botMessage.streaming = botMessage.streaming != false;
             if (message) {
               botMessage.content = message;
             }
@@ -396,28 +396,27 @@ export const useChatStore = createPersistStore(
             });
           },
           onFinish(message) {
-            console.log(">>>>onFinish", message);
             botMessage.streaming = false;
             if (message) {
               botMessage.content = message;
               get().onNewMessage(botMessage);
             }
-            console.log(">>>>remove", ChatControllerPool);
             ChatControllerPool.stop(session.id, botMessage.id);
             ChatControllerPool.remove(session.id, botMessage.id);
           },
           onFunction(message) {
             botMessage.streaming = false;
-            botMessage.content = prettyObject(
-              JSON.stringify(
-                {
-                  function: message.function,
-                  arguments: message.arguments,
-                },
-                null,
-                2,
-              ),
-            );
+            botMessage.content = ` \`${message.function}\` function calling...`;
+            // botMessage.content = prettyObject(
+            //   JSON.stringify(
+            //     {
+            //       function: message.function,
+            //       arguments: message.arguments,
+            //     },
+            //     null,
+            //     2,
+            //   ),
+            // );
             get().updateCurrentSession((session) => {
               session.messages = session.messages.concat();
             });
@@ -428,6 +427,7 @@ export const useChatStore = createPersistStore(
                 arguments: message.arguments,
               }),
             );
+            ChatControllerPool.stop(session.id, botMessage.id ?? messageIndex);
             ChatControllerPool.remove(
               session.id,
               botMessage.id ?? messageIndex,

@@ -111,7 +111,6 @@ export class ChatGPTApi implements LLMApi {
         const queues: string[] = [];
         const finish = () => {
           if (!finished) {
-            console.log("finished >>>");
             options.onFinish(responseText);
             finished = true;
           }
@@ -155,7 +154,6 @@ export class ChatGPTApi implements LLMApi {
           },
           onmessage(msg) {
             if (msg.data === "[DONE]" || finished) {
-              console.log(">>>>>>>>>DONE");
               return finish();
             }
             const text = msg.data;
@@ -197,7 +195,6 @@ export class ChatGPTApi implements LLMApi {
                     if (queues.length > 10) {
                       let index = 0;
                       const intervalId = window.setInterval(() => {
-                        // console.log('intervalId',intervalId,count++);
                         if (queues.length > 0) {
                           const text: string | undefined = `${
                             queues.shift() || ""
@@ -207,7 +204,6 @@ export class ChatGPTApi implements LLMApi {
                         } else {
                           index++;
                           if (index > 0) {
-                            // console.log('clearInterval',intervalId,count);
                             window.clearInterval(intervalId);
                             options.onUpdate?.(responseText, "");
                           }
@@ -222,7 +218,6 @@ export class ChatGPTApi implements LLMApi {
             }
           },
           onclose() {
-            console.log("onclose >>>> ");
             finish();
           },
           onerror(e) {
