@@ -47,7 +47,7 @@ export const DEFAULT_CONFIG = {
   models: DEFAULT_MODELS as any as LLMModel[],
 
   modelConfig: {
-    model: "SparkDesk" as ModelType,
+    model: "gpt-3.5-turbo-0613" as ModelType,
     temperature: 0.5,
     max_tokens: 4096,
     top_p: 1,

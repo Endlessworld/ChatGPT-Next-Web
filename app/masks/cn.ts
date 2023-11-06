@@ -15,7 +15,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: isIdeaPlugin() ? "gpt-3.5-turbo-0613" : "SparkDesk",
+      model: isIdeaPlugin() ? "gpt-3.5-turbo-0613" : "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 4097,
       presence_penalty: 0,
