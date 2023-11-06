@@ -151,11 +151,29 @@ const en: LocaleType = {
     Profile: "Profile",
     Announcement: {
       Title: "Announcement",
-      Content: `This plug-in has been connected to the full range of OpenAI GPT models, SparkDesk, and gpt-4-bing
-          If you don't have any of the above models from your list of models, please clear the built-in browser cache and log back in.
-          You can use the gpt-3.5 series and SparkDesk models for free.
-          Since iFLYTEK Xinghuo does not support the function call function, if you need to use the function call, please switch to the OpenAI GPT series model.
-        `,
+      Content: `
+This plug-in is connected to the following models:
+| Manufacturer | Model Name | Access Status | Whether you pay |
+|----------|------------------------------|---------|---------|
+| OpenAI   | gpt-3.5-turbo                |   ✔️    |   ❌    |
+| OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ❌    |
+| OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ❌    |
+| OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ❌    |
+| OpenAI   | gpt-4                        |   ✔️    |   ✔️    |
+| OpenAI   | gpt-4-0613                   |   ✔️    |   ✔️    |
+| OpenAI   | gpt-4-32k                    |   ✔️    |   ✔️    |
+| OpenAI   | gpt-4-32k-0613               |   ✔️    |   ✔️    |
+| Microsoft| gpt-4-bing                   |   ✔️    |   ✔️    |
+| Claude   | claude-2                     |   ✔️    |   ✔️    |
+| Claude   | claude-instant-100k          |   ✔️    |   ✔️    |
+| Xunfei   | SparkDesk                    |   ✔️    |   ✔️    |
+| ChatGLM  | chatglm_pro                  |   ✔️    |   ❌    |
+| ChatGLM  | chatglm_lite                 |   ✔️    |   ❌    |
+| ChatGLM  | chatglm_std                  |   ✔️    |   ❌    |
+
+If you don't have any of the above models from your list of models, please clear the built-in browser cache and log back in.
+if you need to use the function call, please switch to the OpenAI GPT series model.
+`,
     },
     Forum: {
       Name: "Community",

@@ -146,10 +146,28 @@ const cn = {
     Profile: "我的",
     Announcement: {
       Title: "公告",
-      Content: ` 本插件已接入OpenAI GPT全系列模型、SparkDesk、gpt-4-bing、chatglm系列
-          如果您的模型列表中缺少以上模型，请清空内置浏览器缓存并重新登录即可。
-          您可以免费使用gpt-3.5系列与SparkDesk模型。
-          由于讯飞星火不支持函数调用功能、如需使用函数调用请切换至OpenAI GPT系列模型`,
+      Content: ` 
+1、本插件已接入以下模型
+| 厂商      | 模型名称                      | 接入状态 | 是否付费 |
+|----------|-----------------------------|---------|---------|
+| OpenAI   | gpt-3.5-turbo                |   ✔️    |   ❌    |
+| OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ❌    |
+| OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ❌    |
+| OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ❌    |
+| OpenAI   | gpt-4                        |   ✔️    |   ✔️    |
+| OpenAI   | gpt-4-0613                   |   ✔️    |   ✔️    |
+| OpenAI   | gpt-4-32k                    |   ✔️    |   ✔️    |
+| OpenAI   | gpt-4-32k-0613               |   ✔️    |   ✔️    |
+| Microsoft| gpt-4-bing                   |   ✔️    |   ✔️    |
+| Claude   | claude-2                     |   ✔️    |   ✔️    |
+| Claude   | claude-instant-100k          |   ✔️    |   ✔️    |
+| 讯飞星火  | SparkDesk                    |   ✔️    |   ✔️    |
+| 清华智谱  | chatglm_pro                  |   ✔️    |   ❌    |
+| 清华智谱  | chatglm_lite                 |   ✔️    |   ❌    |
+| 清华智谱  | chatglm_std                  |   ✔️    |   ❌    |
+
+如果您的模型列表中缺少以上模型，请执行左上角菜单 > 确认重置 > 重新登录即可
+由于其它模型不支持函数调用功能、如需使用函数调用请切换至OpenAI GPT系列模型`,
     },
     Forum: {
       Name: "社区交流",
