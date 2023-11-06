@@ -494,9 +494,7 @@ export const useChatStore = createPersistStore(
         // system prompts, to get close to OpenAI Web ChatGPT
         const shouldInjectSystemPrompts = modelConfig.enableInjectSystemPrompts;
         const systemPrompts =
-          shouldInjectSystemPrompts &&
-          modelConfig.model !== "SparkDesk" &&
-          !modelConfig.model.startsWith("gpt-4")
+          shouldInjectSystemPrompts && modelConfig.model.startsWith("gpt-3.5")
             ? [
                 createMessage({
                   role: "system",

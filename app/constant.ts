@@ -239,6 +239,18 @@ export const DEFAULT_MODELS = [
     available: true,
   },
   {
+    name: "chatglm_pro",
+    available: true,
+  },
+  {
+    name: "chatglm_lite",
+    available: true,
+  },
+  {
+    name: "chatglm_std",
+    available: true,
+  },
+  {
     name: "SparkDesk",
     available: true,
   },

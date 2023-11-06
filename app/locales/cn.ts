@@ -146,7 +146,7 @@ const cn = {
     Profile: "我的",
     Announcement: {
       Title: "公告",
-      Content: ` 本插件已接入OpenAI GPT全系列模型、SparkDesk、gpt-4-bing
+      Content: ` 本插件已接入OpenAI GPT全系列模型、SparkDesk、gpt-4-bing、chatglm系列
           如果您的模型列表中缺少以上模型，请清空内置浏览器缓存并重新登录即可。
           您可以免费使用gpt-3.5系列与SparkDesk模型。
           由于讯飞星火不支持函数调用功能、如需使用函数调用请切换至OpenAI GPT系列模型`,
