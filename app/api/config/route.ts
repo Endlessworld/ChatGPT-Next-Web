@@ -13,6 +13,7 @@ const DANGER_CONFIG = {
   disableGPT4: serverConfig.disableGPT4,
   hideBalanceQuery: serverConfig.hideBalanceQuery,
   workers: WORKERS_LIST,
+  disableFastLink: serverConfig.disableFastLink,
 };
 
 declare global {

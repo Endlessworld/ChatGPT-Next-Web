@@ -948,7 +948,9 @@ export function Settings() {
               {/*    value={accessStore.openaiUrl}*/}
               {/*    placeholder="https://api.openai.com/"*/}
               {/*    onChange={(e) =>*/}
-              {/*      accessStore.updateOpenAiUrl(e.currentTarget.value)*/}
+              {/*      accessStore.update(*/}
+              {/*        (access) => (access.openaiUrl = e.currentTarget.value),*/}
+              {/*      )*/}
               {/*    }*/}
               {/*  ></input>*/}
               {/*</ListItem>*/}

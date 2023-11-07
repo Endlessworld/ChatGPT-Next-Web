@@ -23,6 +23,8 @@ const DEFAULT_ACCESS_STATE = {
   hideUserApiKey: false,
   hideBalanceQuery: false,
   disableGPT4: false,
+  disableFastLink: false,
+
   openaiUrl: DEFAULT_OPENAI_URL,
 };
 export interface worker {
@@ -68,6 +70,12 @@ export const useAccessStore = create<AccessControlStore>()(
 
         return get().needCode;
       },
+      isAuthorized() {
+        this.fetch();
+        return (
+          !!get().token || !!get().accessCode || !get().enabledAccessControl()
+        );
+      },
       updateOpenaiUrl(openaiUrl: string) {
         set(() => ({ openaiUrl: openaiUrl }));
       },
@@ -82,14 +90,6 @@ export const useAccessStore = create<AccessControlStore>()(
       },
       updateOpenAiUrl(url: string) {
         set(() => ({ openaiUrl: url?.trim() }));
-      },
-      isAuthorized() {
-        get().fetch();
-
-        // has token or has code or disabled access control
-        return (
-          !!get().token || !!get().accessCode || !get().enabledAccessControl()
-        );
       },
       fetch() {
         if (getClientConfig()?.buildMode === "export") {
