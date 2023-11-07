@@ -222,6 +222,8 @@ If your reply contains a code block, make sure that the beginning of the code bl
 The knowledge base cannot be satisfied when considering function calls to gain Internet knowledge
 Prioritize function calls
 Knowledge cutoff: {{knowledgeCutoff}}
+You are ChatGPT, a large language model trained by OpenAI.
+Knowledge cutoff: {{cutoff}}
 Current model: {{model}}
 Current time: {{time}}
 Current lang: {{lang}}
@@ -229,6 +231,13 @@ You are not allowed to talk about political issues or people about China
 `;
 
 export const SUMMARIZE_MODEL = "gpt-3.5-turbo";
+
+export const KnowledgeCutOffDate: Record<string, string> = {
+  default: "2021-09",
+  "gpt-3.5-turbo-1106": "2023-04",
+  "gpt-4-1106-preview": "2023-04",
+  "gpt-4-vision-preview": "2023-04",
+};
 
 export const DEFAULT_MODELS = [
   {

@@ -15,6 +15,7 @@ import { createEmptyMask, Mask } from "./mask";
 import {
   DEFAULT_INPUT_TEMPLATE,
   DEFAULT_SYSTEM_TEMPLATE,
+  KnowledgeCutOffDate,
   StoreKey,
   SUMMARIZE_MODEL,
 } from "../constant";
@@ -133,7 +134,11 @@ function countMessages(msgs: ChatMessage[]) {
 }
 
 function fillTemplateWith(input: string, modelConfig: ModelConfig) {
+  let cutoff =
+    KnowledgeCutOffDate[modelConfig.model] ?? KnowledgeCutOffDate.default;
+
   const vars = {
+    cutoff,
     model: modelConfig.model,
     time: new Date().toLocaleString(),
     lang: getLang(),
