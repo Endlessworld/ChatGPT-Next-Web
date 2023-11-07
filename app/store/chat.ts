@@ -504,8 +504,8 @@ export const useChatStore = createPersistStore(
           let systemTemplate = DEFAULT_SYSTEM_TEMPLATE;
 
           if (
-            model === "gpt-4-1106-preview" ||
-            model === "gpt-4-vision-preview"
+            model === "gpt-4-1106-preview-128k" ||
+            model === "gpt-4-vision-preview-128k"
           ) {
             systemTemplate = systemTemplate.replace(
               "{{knowledgeCutoff}}",
