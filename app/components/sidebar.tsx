@@ -200,7 +200,7 @@ export function SideBar(props: { className?: string }) {
           <div className={styles["sidebar-action"] + " " + styles.mobile}>
             <IconButton
               shadow
-              text={"删除"}
+              text={Locale.Chat.Actions.Delete}
               icon={<CloseIcon />}
               onClick={async () => {
                 if (await showConfirm(Locale.Home.DeleteChat)) {
@@ -237,7 +237,7 @@ export function SideBar(props: { className?: string }) {
               onClick={() => {
                 // console.log(notice);
                 showModal({
-                  title: "公告",
+                  title: Locale.Sidebar.Announcement.Title,
                   children: (
                     <Markdown
                       content={Locale.Sidebar.Announcement.Content}
