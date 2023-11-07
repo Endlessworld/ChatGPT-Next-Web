@@ -50,15 +50,17 @@ import Locale, {
   getLang,
 } from "../locales";
 import { copyToClipboard, useUserInfo } from "../utils";
+
+import Link from "next/link";
 import {
   CODE_STYLES,
   LOGIN_HOST,
+  DEFAULT_API_HOST,
   Path,
   RELEASE_URL,
-  UPDATE_URL,
   STORAGE_KEY,
+  UPDATE_URL,
 } from "../constant";
-import Link from "next/link";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
@@ -592,6 +594,12 @@ export function Settings() {
     console.log("[Update] remote version ", updateStore.remoteVersion);
   }
 
+  const accessStore = useAccessStore();
+  const shouldHideBalanceQuery = useMemo(() => {
+    const isOpenAiUrl = accessStore.openaiUrl.includes(DEFAULT_API_HOST);
+    return accessStore.hideBalanceQuery || isOpenAiUrl;
+  }, [accessStore.hideBalanceQuery, accessStore.openaiUrl]);
+
   const usage = {
     used: updateStore.used,
     subscription: updateStore.subscription,
@@ -609,7 +617,6 @@ export function Settings() {
     });
   }
 
-  const accessStore = useAccessStore();
   const updateOpenaiUrl = accessStore.updateOpenaiUrl;
   const enabledAccessControl = useMemo(
     () => accessStore.enabledAccessControl(),
