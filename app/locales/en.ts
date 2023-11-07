@@ -159,10 +159,14 @@ This plug-in is connected to the following models:
 | OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ❌    |
 | OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ❌    |
 | OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ❌    |
+| OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ❌    |
 | OpenAI   | gpt-4                        |   ✔️    |   ✔️    |
 | OpenAI   | gpt-4-0613                   |   ✔️    |   ✔️    |
 | OpenAI   | gpt-4-32k                    |   ✔️    |   ✔️    |
 | OpenAI   | gpt-4-32k-0613               |   ✔️    |   ✔️    |
+| OpenAI   | gpt-4-1106-preview-128K      |   ✔️    |   ✔️    |
+| OpenAI   | gpt-4-vision-preview-128K    |   ✔️    |   ✔️    |
+| OpenAI   | gpt-4-all                    |   ✔️    |   ✔️    |
 | Microsoft| gpt-4-bing                   |   ✔️    |   ✔️    |
 | Claude   | claude-2                     |   ✔️    |   ✔️    |
 | Claude   | claude-instant-100k          |   ✔️    |   ✔️    |

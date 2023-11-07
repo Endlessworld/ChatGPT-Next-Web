@@ -154,17 +154,21 @@ const cn = {
 | OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ❌    |
 | OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ❌    |
 | OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ❌    |
+| OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ❌    |
 | OpenAI   | gpt-4                        |   ✔️    |   ✔️    |
 | OpenAI   | gpt-4-0613                   |   ✔️    |   ✔️    |
 | OpenAI   | gpt-4-32k                    |   ✔️    |   ✔️    |
 | OpenAI   | gpt-4-32k-0613               |   ✔️    |   ✔️    |
+| OpenAI   | gpt-4-1106-preview-128k      |   ✔️    |   ✔️    |
+| OpenAI   | gpt-4-vision-preview-128k    |   ✔️    |   ✔️    |
+| OpenAI   | gpt-4-all                    |   ✔️    |   ✔️    |
 | Microsoft| gpt-4-bing                   |   ✔️    |   ✔️    |
 | Claude   | claude-2                     |   ✔️    |   ✔️    |
 | Claude   | claude-instant-100k          |   ✔️    |   ✔️    |
-| 讯飞星火  | SparkDesk                    |   ✔️    |   ✔️    |
-| 清华智谱  | chatglm_pro                  |   ✔️    |   ❌    |
-| 清华智谱  | chatglm_lite                 |   ✔️    |   ❌    |
-| 清华智谱  | chatglm_std                  |   ✔️    |   ❌    |
+| 讯飞星火  | SparkDesk                     |   ✔️    |   ✔️    |
+| 清华智谱  | chatglm_pro                   |   ✔️    |   ❌    |
+| 清华智谱  | chatglm_lite                  |   ✔️    |   ❌    |
+| 清华智谱  | chatglm_std                   |   ✔️    |   ❌    |
 
 如果您的模型列表中缺少以上模型，请执行左上角菜单 > 确认重置 > 重新登录即可
 由于其它模型不支持函数调用功能、如需使用函数调用请切换至OpenAI GPT系列模型`,

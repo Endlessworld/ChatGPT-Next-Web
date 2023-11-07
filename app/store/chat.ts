@@ -355,7 +355,11 @@ export const useChatStore = createPersistStore(
             content: userContent,
           });
           const functions = loadFunctions();
-          if (functions.length > 0) {
+          if (
+            functions.length > 0 &&
+            !modelConfig.model.startsWith("gpt-4-vision") &&
+            !modelConfig.model.startsWith("gpt-4-all")
+          ) {
             userMessage.functions = loadFunctions();
             userMessage.function_call = "auto";
           }
