@@ -1,132 +1,81 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import {
-  DEFAULT_API_HOST,
-  DEFAULT_MODELS,
-  StoreKey,
-  WORKERS_LIST,
-} from "../constant";
+import { DEFAULT_API_HOST, StoreKey } from "../constant";
 import { getHeaders } from "../client/api";
 import { getClientConfig } from "../config/client";
+import { createPersistStore } from "../utils/store";
 
-// const DEFAULT_OPENAI_URL =
-//   getClientConfig()?.buildMode === "export" ? DEFAULT_API_HOST : "/api/openai/";
-// console.log("[API] default openai url", DEFAULT_OPENAI_URL);
 let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
 
 const DEFAULT_OPENAI_URL = DEFAULT_API_HOST;
-console.log("[API] default openai url", DEFAULT_OPENAI_URL);
+export interface ApiHost {
+  title: string;
+  api: string;
+  checked: boolean;
+}
 const DEFAULT_ACCESS_STATE = {
-  token: "",
   accessCode: "",
+  useCustomConfig: false,
+
+  // openai
+  openaiUrl: DEFAULT_OPENAI_URL,
+  openaiApiKey: "",
+
+  // azure
+  azureUrl: "",
+  azureApiKey: "",
+  azureApiVersion: "2023-08-01-preview",
+  token: "",
+  // server config
   needCode: true,
   hideUserApiKey: false,
   hideBalanceQuery: false,
   disableGPT4: false,
   disableFastLink: false,
-
-  openaiUrl: DEFAULT_OPENAI_URL,
+  customModels: "",
+  workers: [] as ApiHost[],
 };
-export interface worker {
-  title: string;
-  api: string;
-  checked: boolean;
-}
-export interface AccessControlStore {
-  accessCode: string;
-  token: string;
-  needCode: boolean;
-  hideUserApiKey: boolean;
-  openaiUrl: string;
-  workers: worker[];
-  updateWorkers: (_: worker[]) => void;
-  updateOpenaiUrl: (_: string) => void;
-  hideBalanceQuery: boolean;
-  disableGPT4: boolean;
 
-  updateToken: (_: string) => void;
-  updateCode: (_: string) => void;
-  updateOpenAiUrl: (_: string) => void;
-  enabledAccessControl: () => boolean;
-  isAuthorized: () => boolean;
-  fetch: () => void;
-  localUpdateTime: number;
-}
+export const useAccessStore = createPersistStore(
+  { ...DEFAULT_ACCESS_STATE },
 
-export const useAccessStore = create<AccessControlStore>()(
-  persist(
-    (set, get) => ({
-      token: "",
-      accessCode: "",
-      needCode: true,
-      hideUserApiKey: false,
-      openaiUrl: DEFAULT_OPENAI_URL,
-      workers: [],
-      hideBalanceQuery: false,
-      disableGPT4: false,
-      localUpdateTime: 0,
-      enabledAccessControl() {
-        get().fetch();
+  (set, get) => ({
+    enabledAccessControl() {
+      this.fetch();
 
-        return get().needCode;
-      },
-      isAuthorized() {
-        this.fetch();
-        return (
-          !!get().token || !!get().accessCode || !get().enabledAccessControl()
-        );
-      },
-      updateOpenaiUrl(openaiUrl: string) {
-        set(() => ({ openaiUrl: openaiUrl }));
-      },
-      updateCode(code: string) {
-        set(() => ({ accessCode: code?.trim() }));
-      },
-      updateToken(token: string) {
-        set(() => ({ token: token?.trim() }));
-      },
-      updateWorkers(workers: worker[]) {
-        set(() => ({ workers }));
-      },
-      updateOpenAiUrl(url: string) {
-        set(() => ({ openaiUrl: url?.trim() }));
-      },
-      fetch() {
-        if (getClientConfig()?.buildMode === "export") {
-          get().workers = WORKERS_LIST;
-          get().needCode = false;
-        }
-        if (fetchState > 0 || getClientConfig()?.buildMode === "export") return;
-        fetchState = 1;
-        fetch("/api/config", {
-          method: "post",
-          body: null,
-          headers: {
-            ...getHeaders(),
-          },
-        })
-          .then((res) => res.json())
-          .then((res: DangerConfig) => {
-            console.log("[Config] got config from server", res);
-            set(() => ({ ...res }));
-
-            if (res.disableGPT4) {
-              DEFAULT_MODELS.forEach(
-                (m: any) => (m.available = !m.name.startsWith("gpt-4")),
-              );
-            }
-          })
-          .catch(() => {
-            console.error("[Config] failed to fetch config");
-          })
-          .finally(() => {
-            fetchState = 2;
-          });
-      },
-    }),
-    {
-      name: StoreKey.Access,
-      version: 1,
+      return get().needCode;
     },
-  ),
+    isAuthorized() {
+      this.fetch();
+
+      // has token or has code or disabled access control
+      return (
+        !!get().token || !!get().accessCode || !this.enabledAccessControl()
+      );
+    },
+    fetch() {
+      if (fetchState > 0 || getClientConfig()?.buildMode === "export") return;
+      fetchState = 1;
+      fetch("/api/config", {
+        method: "post",
+        body: null,
+        headers: {
+          ...getHeaders(),
+        },
+      })
+        .then((res) => res.json())
+        .then((res: DangerConfig) => {
+          console.log("[Config] got config from server", res);
+          set(() => ({ ...res }));
+        })
+        .catch(() => {
+          console.error("[Config] failed to fetch config");
+        })
+        .finally(() => {
+          fetchState = 2;
+        });
+    },
+  }),
+  {
+    name: StoreKey.Access,
+    version: 1,
+  },
 );

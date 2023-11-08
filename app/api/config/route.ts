@@ -14,6 +14,7 @@ const DANGER_CONFIG = {
   hideBalanceQuery: serverConfig.hideBalanceQuery,
   workers: WORKERS_LIST,
   disableFastLink: serverConfig.disableFastLink,
+  customModels: serverConfig.customModels,
 };
 
 declare global {

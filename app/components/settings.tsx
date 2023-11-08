@@ -617,7 +617,7 @@ export function Settings() {
     });
   }
 
-  const updateOpenaiUrl = accessStore.updateOpenaiUrl;
+  // const updateOpenaiUrl = accessStore.updateOpenaiUrl;
   const enabledAccessControl = useMemo(
     () => accessStore.enabledAccessControl(),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -921,15 +921,17 @@ export function Settings() {
         <List>
           {showAccessCode ? (
             <ListItem
-              title={Locale.Settings.AccessCode.Title}
-              subTitle={Locale.Settings.AccessCode.SubTitle}
+              title={Locale.Settings.Access.AccessCode.Title}
+              subTitle={Locale.Settings.Access.AccessCode.SubTitle}
             >
               <PasswordInput
                 value={accessStore.accessCode}
                 type="text"
-                placeholder={Locale.Settings.AccessCode.Placeholder}
+                placeholder={Locale.Settings.Access.AccessCode.Placeholder}
                 onChange={(e) => {
-                  accessStore.updateCode(e.currentTarget.value);
+                  accessStore.update(
+                    (s) => (s.accessCode = e.currentTarget.value),
+                  );
                 }}
               />
             </ListItem>
@@ -963,7 +965,9 @@ export function Settings() {
                   type="text"
                   placeholder={Locale.Settings.Token.Placeholder}
                   onChange={(e) => {
-                    accessStore.updateToken(e.currentTarget.value);
+                    accessStore.update(
+                      (s) => (s.token = e.currentTarget.value),
+                    );
                   }}
                 />
               </ListItem>
@@ -979,15 +983,14 @@ export function Settings() {
             <Select
               value={accessStore.openaiUrl}
               onChange={(e) => {
-                // console.log(e);
                 const url = e.target.value as string;
-                accessStore.updateWorkers(
-                  accessStore.workers.map((e) => {
+                accessStore.update((s) => {
+                  s.workers.map((e) => {
                     e.checked = e?.api == url;
                     return e;
-                  }),
-                );
-                updateOpenaiUrl(url);
+                  });
+                  s.openaiUrl = url;
+                });
               }}
             >
               {Object.values(accessStore.workers).map((worker, index) => {
@@ -1032,8 +1035,8 @@ export function Settings() {
 
         <List>
           <ListItem
-            title={Locale.Settings.CustomModel.Title}
-            subTitle={Locale.Settings.CustomModel.SubTitle}
+            title={Locale.Settings.Access.CustomModel.Title}
+            subTitle={Locale.Settings.Access.CustomModel.SubTitle}
           >
             <input
               type="text"

@@ -17,8 +17,10 @@ export function AuthPage() {
   const goHome = () => navigate(Path.Home);
   const goChat = () => navigate(Path.Chat);
   const resetAccessCode = () => {
-    accessStore.updateCode("");
-    accessStore.updateToken("");
+    accessStore.update((access) => {
+      access.openaiApiKey = "";
+      access.accessCode = "";
+    });
   }; // Reset access code to empty string
 
   useEffect(() => {
@@ -43,7 +45,9 @@ export function AuthPage() {
         placeholder={Locale.Auth.Input}
         value={accessStore.accessCode}
         onChange={(e) => {
-          accessStore.updateCode(e.currentTarget.value);
+          accessStore.update(
+            (access) => (access.accessCode = e.currentTarget.value),
+          );
         }}
       />
       {!accessStore.hideUserApiKey ? (
@@ -52,10 +56,12 @@ export function AuthPage() {
           <input
             className={styles["auth-input"]}
             type="password"
-            placeholder={Locale.Settings.Token.Placeholder}
-            value={accessStore.token}
+            placeholder={Locale.Settings.Access.OpenAI.ApiKey.Placeholder}
+            value={accessStore.openaiApiKey}
             onChange={(e) => {
-              accessStore.updateToken(e.currentTarget.value);
+              accessStore.update(
+                (access) => (access.openaiApiKey = e.currentTarget.value),
+              );
             }}
           />
         </>
