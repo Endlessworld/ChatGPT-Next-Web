@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback, useMemo } from "react";
+import { useEffect, useRef, useMemo } from "react";
 
 import styles from "./home.module.scss";
 
@@ -6,6 +6,7 @@ import { IconButton } from "./button";
 import SettingsIcon from "../icons/settings.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
 import CloseIcon from "../icons/close.svg";
+import DeleteIcon from "../icons/delete.svg";
 import MaskIcon from "../icons/mask.svg";
 import AnnouncementIcon from "../icons/announcement.svg";
 import UserIcon from "../icons/user.svg";
@@ -211,7 +212,7 @@ export function SideBar(props: { className?: string }) {
             <IconButton
               shadow
               text={Locale.Chat.Actions.Delete}
-              icon={<CloseIcon />}
+              icon={<DeleteIcon />}
               onClick={async () => {
                 if (await showConfirm(Locale.Home.DeleteChat)) {
                   chatStore.deleteSession(chatStore.currentSessionIndex);

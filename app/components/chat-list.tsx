@@ -17,6 +17,7 @@ import { MaskAvatar } from "./mask";
 import { Mask } from "../store/mask";
 import { useEffect, useRef } from "react";
 import { showConfirm } from "./ui-lib";
+import { useMobileScreen } from "../utils";
 
 export function ChatItem(props: {
   onClick?: () => void;
@@ -84,7 +85,11 @@ export function ChatItem(props: {
 
           <div
             className={styles["chat-item-delete"]}
-            onClickCapture={props.onDelete}
+            onClickCapture={(e) => {
+              props.onDelete?.();
+              e.preventDefault();
+              e.stopPropagation();
+            }}
           >
             <DeleteIcon />
           </div>
@@ -105,6 +110,7 @@ export function ChatList(props: { narrow?: boolean }) {
   );
   const chatStore = useChatStore();
   const navigate = useNavigate();
+  const isMobileScreen = useMobileScreen();
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const { destination, source } = result;
@@ -146,7 +152,7 @@ export function ChatList(props: { narrow?: boolean }) {
                 }}
                 onDelete={async () => {
                   if (
-                    !props.narrow ||
+                    (!props.narrow && !isMobileScreen) ||
                     (await showConfirm(Locale.Home.DeleteChat))
                   ) {
                     chatStore.deleteSession(i);
