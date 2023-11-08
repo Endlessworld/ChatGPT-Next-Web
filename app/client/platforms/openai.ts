@@ -82,6 +82,7 @@ export class ChatGPTApi implements LLMApi {
       top_p: modelConfig.top_p,
       functions: functions,
       function_call: options.messages[messages.length - 1].function_call,
+      max_tokens: Math.max(modelConfig.max_tokens, 1024),
     };
 
     console.log("[Request] openai payload: ", requestPayload);

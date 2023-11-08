@@ -49,8 +49,8 @@ export const DEFAULT_CONFIG = {
   modelConfig: {
     model: "gpt-3.5-turbo-1106" as ModelType,
     temperature: 0.5,
-    max_tokens: 4096,
     top_p: 1,
+    max_tokens: 8192,
     presence_penalty: 0,
     frequency_penalty: 0,
     sendMemory: true,
@@ -101,7 +101,7 @@ export const ModalConfigValidator = {
     if (model == "gpt-3.5-turbo-16k" || model == "gpt-3.5-turbo-16k-0613") {
       return limitNumber(x, 0, 16000, 4096);
     }
-    return limitNumber(x, 0, 32000, 4096);
+    return limitNumber(x, 0, 512000, 4096);
   },
   presence_penalty(x: number) {
     return limitNumber(x, -2, 2, 0);
