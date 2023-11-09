@@ -1,27 +1,15 @@
 const COPILOT_WEB_CACHE = "copilot-cache";
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox-sw.js");
-
-self.addEventListener("activate", function(event) {
-    console.log("ServiceWorker activated.");
+self.addEventListener("activate", function (event) {
+  console.log("ServiceWorker activated.");
 });
 
-workbox.core.clientsClaim();
-self.addEventListener("message", (event) => {
-    if (event.data && event.data.type === "SKIP_WAITING") {
-        self.skipWaiting();
-    }
+self.addEventListener("install", function (event) {
+  event.waitUntil(
+    caches.open(COPILOT_WEB_CACHE).then(function (cache) {
+      return cache.addAll([]);
+    }),
+  );
 });
 
-workbox.routing.registerRoute(
-    /\.js|.css$/,
-    new workbox.strategies.NetworkFirst({
-        cacheName: COPILOT_WEB_CACHE,
-        plugins: [
-            new workbox.expiration.ExpirationPlugin({
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60
-            })
-        ]
-    })
-);
+self.addEventListener("fetch", (e) => {});

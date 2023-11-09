@@ -16,14 +16,26 @@ const nextConfig = {
     });
     if (disableChunk) {
       config.plugins.push(
-        new webpack.optimize.LimitChunkCountPlugin({ chunkOverhead: 30,maxChunks:99 })
+        new webpack.optimize.LimitChunkCountPlugin({ chunkOverhead: 30,maxChunks:150 })
       );
     }
 
     config.resolve.fallback = {
       child_process: false,
     };
-
+    if (!isServer) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        maxInitialRequests: Infinity,
+        minSize: 0,
+        maxSize: 50000
+      };
+      config.optimization.minimizer.push(
+        new TerserPlugin({
+          extractComments: false,
+        })
+      );
+    }
     return config;
   },
   output: mode,
