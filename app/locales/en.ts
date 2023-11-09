@@ -33,7 +33,7 @@ const en: LocaleType = {
     Later: "Later",
     NotLogin: "Not Login",
     Limit:
-      "You have overspeeded out the maximum rate 100 times/hour, please try again later~",
+      "The current model request has reached the upper limit of the threshold, please change to another model, or please try again later~",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,

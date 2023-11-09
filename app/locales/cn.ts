@@ -29,7 +29,7 @@ const cn = {
     Confirm: "确认",
     Later: "稍后再说",
     NotLogin: "未登录",
-    Limit: "您已超速出最大速率100次/每小时，请稍后再试~",
+    Limit: "当前模型请求已达到阈值上限，请换其它模型，或者请稍后再试~",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,

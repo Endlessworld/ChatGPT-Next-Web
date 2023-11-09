@@ -138,7 +138,6 @@ export class ChatGPTApi implements LLMApi {
                 extraInfo = prettyObject(resJson);
                 if (res.status === 429) {
                   const timestamp = (resJson?.timestamp || 0) + 60 * 60 * 1000;
-
                   responseTexts.push(Locale.Auth.Limit);
                 }
               } catch {}
