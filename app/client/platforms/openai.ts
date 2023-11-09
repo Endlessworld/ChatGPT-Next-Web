@@ -1,8 +1,10 @@
 import {
+  ApiPath,
   DEFAULT_API_HOST,
   DEFAULT_MODELS,
   OpenaiPath,
   REQUEST_TIMEOUT_MS,
+  ServiceProvider,
 } from "@/app/constant";
 import {
   ChatMessage,
@@ -20,6 +22,7 @@ import {
 import { prettyObject } from "@/app/utils/format";
 import { functionCall } from "@/app/utils";
 import { getClientConfig } from "@/app/config/client";
+import { makeAzurePath } from "@/app/azure";
 
 export interface OpenAIListModelResponse {
   object: string;
@@ -34,20 +37,35 @@ export class ChatGPTApi implements LLMApi {
   private disableListModels = true;
 
   path(path: string): string {
-    let openaiUrl = useAccessStore.getState().openaiUrl;
-    const apiPath = "/api/openai";
+    const accessStore = useAccessStore.getState();
 
-    if (openaiUrl.length === 0) {
+    const isAzure = accessStore.provider === ServiceProvider.Azure;
+
+    if (isAzure && !accessStore.isValidAzure()) {
+      throw Error(
+        "incomplete azure config, please check it in your settings page",
+      );
+    }
+
+    let baseUrl = isAzure ? accessStore.azureUrl : accessStore.openaiUrl;
+
+    if (baseUrl.length === 0) {
       const isApp = !!getClientConfig()?.isApp;
-      openaiUrl = isApp ? DEFAULT_API_HOST : apiPath;
+      baseUrl = isApp ? DEFAULT_API_HOST : ApiPath.OpenAI;
     }
-    if (openaiUrl.endsWith("/")) {
-      openaiUrl = openaiUrl.slice(0, openaiUrl.length - 1);
+
+    if (baseUrl.endsWith("/")) {
+      baseUrl = baseUrl.slice(0, baseUrl.length - 1);
     }
-    if (!openaiUrl.startsWith("http") && !openaiUrl.startsWith(apiPath)) {
-      openaiUrl = "https://" + openaiUrl;
+    if (!baseUrl.startsWith("http") && !baseUrl.startsWith(ApiPath.OpenAI)) {
+      baseUrl = "https://" + baseUrl;
     }
-    return [openaiUrl, path].join("/");
+
+    if (isAzure) {
+      path = makeAzurePath(path, accessStore.azureApiVersion);
+    }
+
+    return [baseUrl, path].join("/");
   }
 
   extractMessage(res: any) {
@@ -159,7 +177,19 @@ export class ChatGPTApi implements LLMApi {
             }
             const text = msg.data;
             try {
-              const json = JSON.parse(text);
+              const json = JSON.parse(text) as {
+                choices: Array<{
+                  finish_reason: string;
+                  message: {
+                    content: string;
+                  };
+                  delta: {
+                    finish_reason: string;
+                    function_call: { arguments: string; name: string };
+                    content: string;
+                  };
+                }>;
+              };
               // console.log(json);
               if (json.choices[0].finish_reason) {
                 if (json.choices[0].finish_reason === "function_call") {
@@ -215,7 +245,7 @@ export class ChatGPTApi implements LLMApi {
                 }
               }
             } catch (e) {
-              console.error(e, "[Request] parse error", text, msg);
+              console.error("[Request] parse error", text, msg);
             }
           },
           onclose() {

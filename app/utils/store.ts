@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist, PersistStorage } from "zustand/middleware";
+import { combine, persist, PersistStorage } from "zustand/middleware";
 import { Updater } from "../typing";
 // import { deepClone } from "./clone";
 import localforage from "localforage";
@@ -43,8 +43,8 @@ type SetStoreState<T> = (
   replace?: boolean | undefined,
 ) => void;
 
-export function createPersistStore<T, M>(
-  defaultState: T,
+export function createPersistStore<T extends object, M>(
+  state: T,
   methods: (
     set: SetStoreState<T & MakeUpdater<T>>,
     get: () => T & MakeUpdater<T>,
@@ -52,28 +52,35 @@ export function createPersistStore<T, M>(
   persistOptions: SecondParam<typeof persist<T & M & MakeUpdater<T>>>,
 ) {
   persistOptions.storage = storageAdapter;
-  return create<T & M & MakeUpdater<T>>()(
-    persist((set, get) => {
-      return {
-        ...defaultState,
-        ...methods(set as any, get),
-
-        lastUpdateTime: 0,
-        markUpdate: debounce(() => {
-          // console.log("markUpdate >>>", Date.now());
-          set({ lastUpdateTime: Date.now() } as Partial<
-            T & M & MakeUpdater<T>
-          >);
-        }, 500),
-        update(updater) {
-          // console.log("update >>>", Date.now());
-          const state = deepClone(get());
-          // const state = { ...get() };
-          updater(state);
-          get().markUpdate();
-          set(state);
+  return create(
+    persist(
+      combine(
+        {
+          ...state,
+          lastUpdateTime: 0,
         },
-      };
-    }, persistOptions),
+        (set, get) => {
+          return {
+            ...methods(set, get as any),
+
+            markUpdate: debounce(() => {
+              // console.log("markUpdate >>>", Date.now());
+              set({ lastUpdateTime: Date.now() } as Partial<
+                T & M & MakeUpdater<T>
+              >);
+            }, 500),
+            update(updater) {
+              const state = deepClone(get());
+              updater(state);
+              set({
+                ...state,
+                lastUpdateTime: Date.now(),
+              });
+            },
+          } as M & MakeUpdater<T>;
+        },
+      ),
+      persistOptions as any,
+    ),
   );
 }
