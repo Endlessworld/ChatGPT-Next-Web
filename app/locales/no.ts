@@ -103,12 +103,7 @@ const no: PartialLocaleType = {
       SubTitle:
         "Komprimer dersom ikke-komprimert lengde på meldinger overskrider denne verdien",
     },
-    Token: {
-      Title: "API Key",
-      SubTitle:
-        "Bruk din egen API-nøkkel for å ignorere tilgangskoden begrensning",
-      Placeholder: "OpenAI API-nøkkel",
-    },
+
     Usage: {
       Title: "Saldo for konto",
       SubTitle(used: any, total: any) {
@@ -118,11 +113,7 @@ const no: PartialLocaleType = {
       Check: "Sjekk",
       NoAccess: "Skriv inn API-nøkkelen for å sjekke saldo",
     },
-    AccessCode: {
-      Title: "Tilgangskode",
-      SubTitle: "Tilgangskontroll på",
-      Placeholder: "Trenger tilgangskode",
-    },
+
     Model: "Model",
     Temperature: {
       Title: "Temperatur",
