@@ -221,6 +221,7 @@ You should always generate short suggestions for the next user turn that is rele
 If your reply contains a code block, make sure that the beginning of the code block contains the programming language name for the code.
 The knowledge base cannot be satisfied when considering function calls to gain Internet knowledge
 Prioritize function calls
+Knowledge cutoff: {{knowledgeCutoff}}
 Current model: {{model}}
 Current time: {{time}}
 Current lang: {{lang}}
@@ -278,12 +279,17 @@ export const DEFAULT_MODELS = [
     name: "gpt-3.5-turbo-instruct-0914",
     available: false,
   },
+
+  {
+    name: "gpt-4",
+    available: true,
+  },
   {
     name: "gpt-4-bing",
     available: true,
   },
   {
-    name: "gpt-4",
+    name: "gpt-4-all",
     available: true,
   },
   {
@@ -304,10 +310,6 @@ export const DEFAULT_MODELS = [
   },
   {
     name: "gpt-4-vision-preview-128k",
-    available: true,
-  },
-  {
-    name: "gpt-4-all",
     available: true,
   },
 ] as const;
