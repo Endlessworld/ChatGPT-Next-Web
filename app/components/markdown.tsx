@@ -6,7 +6,8 @@ import RemarkBreaks from "remark-breaks";
 import RehypeKatex from "rehype-katex";
 import RemarkGfm from "remark-gfm";
 import hljs from "highlight.js";
-import React, { RefObject, useEffect, useRef } from "react";
+import React, { RefObject, useEffect, useRef, useMemo } from "react";
+import RehypeHighlight from "rehype-highlight";
 import { copyToClipboard } from "../utils";
 import mermaid from "mermaid";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -57,12 +58,32 @@ export function Mermaid(props: { code: string; onError: () => void }) {
     </div>
   );
 }
+function escapeDollarNumber(text: string) {
+  let escapedText = "";
+
+  for (let i = 0; i < text.length; i += 1) {
+    let char = text[i];
+    const nextChar = text[i + 1] || " ";
+
+    if (char === "$" && nextChar >= "0" && nextChar <= "9") {
+      char = "\\$";
+    }
+
+    escapedText += char;
+  }
+
+  return escapedText;
+}
 
 function _MarkDownContent(props: { content: string }) {
   const configStore = useAppConfig();
   useEffect(() => {
     hljs.highlightAll();
   }, []);
+  const escapedContent = useMemo(
+    () => escapeDollarNumber(props.content),
+    [props.content],
+  );
   return (
     <ReactMarkdown
       remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}
@@ -157,7 +178,7 @@ function _MarkDownContent(props: { content: string }) {
         },
       }}
     >
-      {props.content}
+      {escapedContent}
     </ReactMarkdown>
   );
 }
