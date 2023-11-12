@@ -1511,7 +1511,14 @@ function _Chat() {
                         {isUser ? (
                           <Avatar avatar={config.avatar} isChatAvatar={true} />
                         ) : (
-                          <MaskAvatar mask={session.mask} />
+                          <>
+                            <MaskAvatar
+                              avatar={session.mask.avatar}
+                              model={
+                                message.model || session.mask.modelConfig.model
+                              }
+                            />
+                          </>
                         )}
                       </div>
 
