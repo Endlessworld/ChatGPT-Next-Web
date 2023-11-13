@@ -321,12 +321,12 @@ export const WORKERS_LIST = [
   {
     title: "订阅通道-亚洲",
     api: "https://api.asia.xr21.me",
-    checked: true,
+    checked: false,
   },
   {
     title: "订阅通道-欧洲",
     api: "https://api.eu.xr21.me",
-    checked: false,
+    checked: true,
   },
   {
     title: "订阅通道-非洲",
