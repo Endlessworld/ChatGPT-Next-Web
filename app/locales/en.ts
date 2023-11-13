@@ -167,7 +167,6 @@ This plug-in is connected to the following models:
 | OpenAI   | gpt-4-1106-preview-128K      |   ✔️    |   ✔️    |
 | OpenAI   | gpt-4-vision-preview-128K    |   ✔️    |   ✔️    |
 | OpenAI   | gpt-4-all                    |   ✔️    |   ✔️    |
-| Microsoft| gpt-4-bing                   |   ✔️    |   ✔️    |
 | Claude   | claude-2                     |   ✔️    |   ✔️    |
 | Claude   | claude-instant-100k          |   ✔️    |   ✔️    |
 | Xunfei   | SparkDesk                    |   ✔️    |   ✔️    |

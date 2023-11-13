@@ -279,13 +279,8 @@ export const DEFAULT_MODELS = [
     name: "gpt-3.5-turbo-instruct-0914",
     available: false,
   },
-
   {
     name: "gpt-4",
-    available: true,
-  },
-  {
-    name: "gpt-4-bing",
     available: true,
   },
   {

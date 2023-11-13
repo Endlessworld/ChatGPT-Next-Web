@@ -15,7 +15,8 @@ const cn = {
       // console.log(userInfo);
       return `${
         !!display_name
-          ? `欢迎回来 ${display_name} 我是X-Copilot! 默认通道在某些地区不可用 请自信切换其它通道~`
+          ? `欢迎回来 ${display_name} 我是X-Copilot! 订阅渠道-亚洲 在某些地区不可用 请自行切换其它通道~
+          `
           : `欢迎使用X-Copilot 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用`
       }
         `;
@@ -162,7 +163,6 @@ const cn = {
 | OpenAI   | gpt-4-1106-preview-128k      |   ✔️    |   ✔️    |
 | OpenAI   | gpt-4-vision-preview-128k    |   ✔️    |   ✔️    |
 | OpenAI   | gpt-4-all                    |   ✔️    |   ✔️    |
-| Microsoft| gpt-4-bing                   |   ✔️    |   ✔️    |
 | Claude   | claude-2                     |   ✔️    |   ✔️    |
 | Claude   | claude-instant-100k          |   ✔️    |   ✔️    |
 | 讯飞星火  | SparkDesk                     |   ✔️    |   ✔️    |
