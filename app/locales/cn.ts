@@ -15,7 +15,7 @@ const cn = {
       // console.log(userInfo);
       return `${
         !!display_name
-          ? `欢迎回来 ${display_name} 我是X-Copilot!`
+          ? `欢迎回来 ${display_name} 我是X-Copilot! 默认通道在某些地区不可用 请自信切换其它通道~`
           : `欢迎使用X-Copilot 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用`
       }
         `;
