@@ -152,7 +152,8 @@ const en: LocaleType = {
     Announcement: {
       Title: "Announcement",
       Content: `
-This plug-in is connected to the following models:
+1、Azure OpenAI service is supported.
+2、This plug-in is connected to the following models:
 | Manufacturer | Model Name | Access Status | Whether you pay |
 |----------|------------------------------|---------|---------|
 | OpenAI   | gpt-3.5-turbo                |   ✔️    |   ❌    |
