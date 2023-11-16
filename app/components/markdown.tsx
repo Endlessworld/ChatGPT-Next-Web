@@ -12,6 +12,7 @@ import { copyToClipboard } from "../utils";
 import mermaid from "mermaid";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import LoadingIcon from "../icons/three-dots.svg";
+import { useDebouncedCallback } from "use-debounce";
 import { showImageModal } from "./ui-lib";
 import { CodeProps } from "react-markdown/lib/ast-to-react";
 import styles from "./markdown.module.scss";
