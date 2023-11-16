@@ -993,23 +993,54 @@ export function Settings() {
                   {accessStore.provider === "OpenAI" ? (
                     <>
                       <ListItem
-                        title={Locale.Settings.Access.OpenAI.Endpoint.Title}
-                        subTitle={
-                          Locale.Settings.Access.OpenAI.Endpoint.SubTitle
-                        }
+                        title={Locale.Settings.ApiServerAddress}
+                        subTitle={Locale.Settings.ApiServerSubTitle(
+                          accessStore.workers.filter((e) => e.checked)[0]?.api,
+                        )}
                       >
-                        <input
-                          type="text"
+                        <Select
                           value={accessStore.openaiUrl}
-                          placeholder={OPENAI_BASE_URL}
-                          onChange={(e) =>
-                            accessStore.update(
-                              (access) =>
-                                (access.openaiUrl = e.currentTarget.value),
-                            )
-                          }
-                        ></input>
+                          onChange={(e) => {
+                            const url = e.target.value as string;
+                            accessStore.update((s) => {
+                              s.workers.map((e) => {
+                                e.checked = e?.api == url;
+                                return e;
+                              });
+                              s.openaiUrl = url;
+                            });
+                          }}
+                        >
+                          {Object.values(accessStore.workers).map(
+                            (worker, index) => {
+                              // console.log(worker, index);
+                              return (
+                                <option value={worker?.api} key={worker?.api}>
+                                  {worker.title}
+                                </option>
+                              );
+                            },
+                          )}
+                        </Select>
                       </ListItem>
+                      {/*<ListItem*/}
+                      {/*  title={Locale.Settings.Access.OpenAI.Endpoint.Title}*/}
+                      {/*  subTitle={*/}
+                      {/*    Locale.Settings.Access.OpenAI.Endpoint.SubTitle*/}
+                      {/*  }*/}
+                      {/*>*/}
+                      {/*  <input*/}
+                      {/*    type="text"*/}
+                      {/*    value={accessStore.openaiUrl}*/}
+                      {/*    placeholder={OPENAI_BASE_URL}*/}
+                      {/*    onChange={(e) =>*/}
+                      {/*      accessStore.update(*/}
+                      {/*        (access) =>*/}
+                      {/*          (access.openaiUrl = e.currentTarget.value),*/}
+                      {/*      )*/}
+                      {/*    }*/}
+                      {/*  ></input>*/}
+                      {/*</ListItem>*/}
                       <ListItem
                         title={Locale.Settings.Access.OpenAI.ApiKey.Title}
                         subTitle={Locale.Settings.Access.OpenAI.ApiKey.SubTitle}
@@ -1093,36 +1124,6 @@ export function Settings() {
               )}
             </>
           )}
-
-          <ListItem
-            title={Locale.Settings.ApiServerAddress}
-            subTitle={Locale.Settings.ApiServerSubTitle(
-              accessStore.workers.filter((e) => e.checked)[0]?.api,
-            )}
-          >
-            <Select
-              value={accessStore.openaiUrl}
-              onChange={(e) => {
-                const url = e.target.value as string;
-                accessStore.update((s) => {
-                  s.workers.map((e) => {
-                    e.checked = e?.api == url;
-                    return e;
-                  });
-                  s.openaiUrl = url;
-                });
-              }}
-            >
-              {Object.values(accessStore.workers).map((worker, index) => {
-                // console.log(worker, index);
-                return (
-                  <option value={worker?.api} key={worker?.api}>
-                    {worker.title}
-                  </option>
-                );
-              })}
-            </Select>
-          </ListItem>
 
           {!shouldHideBalanceQuery && !clientConfig?.isApp ? (
             <ListItem

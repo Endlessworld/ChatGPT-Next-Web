@@ -20,7 +20,7 @@ export interface ApiHost {
 
 const DEFAULT_ACCESS_STATE = {
   accessCode: "",
-  useCustomConfig: false,
+  useCustomConfig: true,
 
   provider: ServiceProvider.OpenAI,
 
@@ -40,6 +40,7 @@ const DEFAULT_ACCESS_STATE = {
   disableGPT4: false,
   disableFastLink: false,
   customModels: "",
+  localUpdateTime: 0,
   token: "",
   workers: [] as ApiHost[],
 };

@@ -41,6 +41,7 @@ export function auth(req: NextRequest) {
 
   if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !apiKey) {
     return {
+      status: 401,
       error: true,
       msg: !accessCode ? "empty access code" : "wrong access code",
     };
