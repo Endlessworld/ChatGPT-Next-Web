@@ -7,12 +7,10 @@ import RehypeKatex from "rehype-katex";
 import RemarkGfm from "remark-gfm";
 import hljs from "highlight.js";
 import React, { RefObject, useEffect, useRef, useMemo } from "react";
-import RehypeHighlight from "rehype-highlight";
 import { copyToClipboard } from "../utils";
 import mermaid from "mermaid";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import LoadingIcon from "../icons/three-dots.svg";
-import { useDebouncedCallback } from "use-debounce";
 import { showImageModal } from "./ui-lib";
 import { CodeProps } from "react-markdown/lib/ast-to-react";
 import styles from "./markdown.module.scss";
@@ -103,7 +101,11 @@ function _MarkDownContent(props: { content: string }) {
               </code>
             );
           }
-          const result = hljs.highlightAuto(codeBlock);
+
+          const language =
+            codeProps?.className?.replace("language-", "") ||
+            hljs.highlightAuto(codeBlock ? codeBlock : "").language;
+          // console.log(language)
           if (codeProps.inline) {
             return (
               <code
@@ -118,11 +120,7 @@ function _MarkDownContent(props: { content: string }) {
               </code>
             );
           }
-          let language = codeProps?.className?.replace("language-", "");
-          language = !language
-            ? hljs.highlightAuto(codeBlock ? codeBlock : "").language
-            : language;
-          // console.log("language >>> ", language);
+
           return language === "mermaid" ? (
             <Mermaid code={codeBlock} onError={() => ""} />
           ) : (

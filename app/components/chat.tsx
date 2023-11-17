@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-
+import hljs from "highlight.js";
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
 import RenameIcon from "../icons/rename.svg";
@@ -1031,6 +1031,7 @@ function _Chat() {
   );
   // preview messages
   const renderMessages = useMemo(() => {
+    hljs.highlightAll();
     return context
       .concat(session.messages as RenderMessage[])
       .concat(
