@@ -3,6 +3,7 @@ import {
   DEFAULT_API_HOST,
   ServiceProvider,
   StoreKey,
+  WORKERS_LIST,
 } from "../constant";
 import { getHeaders } from "../client/api";
 import { getClientConfig } from "../config/client";
@@ -34,7 +35,7 @@ const DEFAULT_ACCESS_STATE = {
   azureApiVersion: "2023-08-01-preview",
 
   // server config
-  needCode: true,
+  needCode: false,
   hideUserApiKey: false,
   hideBalanceQuery: false,
   disableGPT4: false,
@@ -42,7 +43,7 @@ const DEFAULT_ACCESS_STATE = {
   customModels: "",
   localUpdateTime: 0,
   token: "",
-  workers: [] as ApiHost[],
+  workers: WORKERS_LIST as ApiHost[],
 };
 
 export const useAccessStore = createPersistStore(
