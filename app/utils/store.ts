@@ -17,9 +17,9 @@ const storageAdapter: PersistStorage<any> = {
     }),
   setItem: debounce((key, value) => {
     // 在这里使用了防抖函数
-    // console.log(`Setting item - Key: ${key}`); // 日志输出 key 和 value
+    console.log(`Setting item - Key: ${key}`); // 日志输出 key 和 value
     return localforage.setItem(key, JSON.stringify(value)) as Promise<any>;
-  }, 80), // 这里假设延迟为 200ms
+  }, 200), // 这里假设延迟为 200ms
   removeItem: (key) => localforage.removeItem(key) as Promise<void>,
 };
 
@@ -62,14 +62,14 @@ export function createPersistStore<T extends object, M>(
         (set, get) => {
           return {
             ...methods(set, get as any),
-
             markUpdate: debounce(() => {
-              // console.log("markUpdate >>>", Date.now());
+              console.log("markUpdate >>>", Date.now());
               set({ lastUpdateTime: Date.now() } as Partial<
                 T & M & MakeUpdater<T>
               >);
             }, 500),
             update(updater) {
+              console.log("update >>>", Date.now());
               const state = deepClone(get());
               updater(state);
               set({

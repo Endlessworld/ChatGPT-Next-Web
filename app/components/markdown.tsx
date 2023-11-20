@@ -76,9 +76,6 @@ function escapeDollarNumber(text: string) {
 
 function _MarkDownContent(props: { content: string }) {
   const configStore = useAppConfig();
-  useEffect(() => {
-    hljs.highlightAll();
-  }, []);
   const escapedContent = useMemo(
     () => escapeDollarNumber(props.content),
     [props.content],
@@ -120,7 +117,7 @@ function _MarkDownContent(props: { content: string }) {
               </code>
             );
           }
-
+          // hljs.highlightAll();
           return language === "mermaid" ? (
             <Mermaid code={codeBlock} onError={() => ""} />
           ) : (

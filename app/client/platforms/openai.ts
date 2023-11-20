@@ -6,12 +6,7 @@ import {
   REQUEST_TIMEOUT_MS,
   ServiceProvider,
 } from "@/app/constant";
-import {
-  ChatMessage,
-  useAccessStore,
-  useAppConfig,
-  useChatStore,
-} from "@/app/store";
+import { useAccessStore, useAppConfig, useChatStore } from "@/app/store";
 
 import { ChatOptions, getHeaders, LLMApi, LLMModel, LLMUsage } from "../api";
 import Locale from "../../locales";
@@ -20,10 +15,9 @@ import {
   fetchEventSource,
 } from "@fortaine/fetch-event-source";
 import { prettyObject } from "@/app/utils/format";
-import { functionCall } from "@/app/utils";
 import { getClientConfig } from "@/app/config/client";
 import { makeAzurePath } from "@/app/azure";
-
+import hljs from "highlight.js";
 export interface OpenAIListModelResponse {
   object: string;
   data: Array<{
@@ -134,18 +128,20 @@ export class ChatGPTApi implements LLMApi {
         function animateResponseText() {
           if (finished || controller.signal.aborted) {
             responseText += remainText;
+            hljs.highlightAll();
             console.log("[Response Animation] finished");
             return;
           }
 
           if (remainText.length > 0) {
-            const fetchCount = Math.max(1, Math.round(remainText.length / 60));
+            const fetchCount = Math.max(1, Math.round(remainText.length / 5));
             const fetchText = remainText.slice(0, fetchCount);
-            responseText += fetchText;
             remainText = remainText.slice(fetchCount);
-            options.onUpdate?.(responseText, fetchText);
+            for (const char of fetchText) {
+              responseText += char;
+              options.onUpdate?.(responseText, char);
+            }
           }
-
           requestAnimationFrame(animateResponseText);
         }
 
@@ -239,33 +235,33 @@ export class ChatGPTApi implements LLMApi {
                   json.choices[0]?.delta?.content ||
                   json.choices[0]?.message?.content;
                 if (delta) {
-                  if (options.config.model.startsWith("gpt")) {
-                    // responseText += delta;
-                    // options.onUpdate?.(responseText, delta);
-                    remainText += delta;
-                  } else {
-                    for (const char of delta) {
-                      queues.push(char);
-                    }
-                    if (queues.length > 10) {
-                      let index = 0;
-                      const intervalId = window.setInterval(() => {
-                        if (queues.length > 0) {
-                          const text: string | undefined = `${
-                            queues.shift() || ""
-                          }${queues.shift() || ""}`;
-                          responseText += text;
-                          options.onUpdate?.(responseText, "text1");
-                        } else {
-                          index++;
-                          if (index > 0) {
-                            window.clearInterval(intervalId);
-                            options.onUpdate?.(responseText, "");
-                          }
-                        }
-                      }, 75);
-                    }
-                  }
+                  // if (options.config.model.startsWith("gpt")) {
+                  // responseText += delta;
+                  // options.onUpdate?.(responseText, delta);
+                  remainText += delta;
+                  // } else {
+                  //   for (const char of delta) {
+                  //     queues.push(char);
+                  //   }
+                  //   if (queues.length > 10) {
+                  //     let index = 0;
+                  //     const intervalId = window.setInterval(() => {
+                  //       if (queues.length > 0) {
+                  //         const text: string | undefined = `${
+                  //           queues.shift() || ""
+                  //         }${queues.shift() || ""}`;
+                  //         responseText += text;
+                  //         options.onUpdate?.(responseText, "text1");
+                  //       } else {
+                  //         index++;
+                  //         if (index > 0) {
+                  //           window.clearInterval(intervalId);
+                  //           options.onUpdate?.(responseText, "");
+                  //         }
+                  //       }
+                  //     }, 75);
+                  //   }
+                  // }
                 }
               }
             } catch (e) {

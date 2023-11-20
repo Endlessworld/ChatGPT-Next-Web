@@ -530,7 +530,7 @@ export const useChatStore = createPersistStore(
               template: systemTemplate,
             }),
           });
-          console.log("[Global System Prompt] ", systemPrompt.content);
+          // console.log("[Global System Prompt] ", systemPrompt.content);
         }
 
         // long term memory
