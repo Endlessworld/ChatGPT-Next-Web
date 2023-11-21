@@ -64,6 +64,7 @@ import {
   ServiceProvider,
   SlotID,
   UPDATE_URL,
+  OPENAI_URL,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
@@ -600,12 +601,8 @@ export function Settings() {
 
   const accessStore = useAccessStore();
   const shouldHideBalanceQuery = useMemo(() => {
-    const isOpenAiUrl = accessStore.openaiUrl.includes(OPENAI_BASE_URL);
-    return (
-      accessStore.hideBalanceQuery ||
-      isOpenAiUrl ||
-      accessStore.provider === ServiceProvider.Azure
-    );
+    const isOpenAiUrl = accessStore.openaiUrl.includes(OPENAI_URL);
+    return isOpenAiUrl || accessStore.provider === ServiceProvider.Azure;
   }, [
     accessStore.hideBalanceQuery,
     accessStore.openaiUrl,
@@ -1125,7 +1122,7 @@ export function Settings() {
             </>
           )}
 
-          {!shouldHideBalanceQuery && !clientConfig?.isApp ? (
+          {shouldHideBalanceQuery ? (
             <ListItem
               title={Locale.Settings.Usage.Title}
               subTitle={

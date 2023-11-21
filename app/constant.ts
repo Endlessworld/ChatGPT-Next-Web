@@ -106,7 +106,7 @@ export const LOGIN_HOST =
 export const DEFAULT_CORS_HOST = "https://nb.nextweb.fun";
 export const DEFAULT_API_HOST = "https://api.eu.xr21.me";
 export const OPENAI_BASE_URL = "https://api.eu.xr21.me";
-
+export const OPENAI_URL = "https://api.openai.com";
 export enum Path {
   Home = "/",
   Chat = "/chat",
