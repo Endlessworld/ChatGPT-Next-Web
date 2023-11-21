@@ -235,7 +235,6 @@ The knowledge base cannot be satisfied when considering function calls to gain I
 Prioritize function calls
 Knowledge cutoff: {{knowledgeCutoff}}
 You are ChatGPT, a large language model trained by OpenAI.
-Knowledge cutoff: {{cutoff}}
 Current model: {{model}}
 Current time: {{time}}
 Current lang: {{lang}}

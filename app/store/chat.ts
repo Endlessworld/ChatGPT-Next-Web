@@ -502,7 +502,7 @@ export const useChatStore = createPersistStore(
 
         // system prompts, to get close to OpenAI Web ChatGPT
         const shouldInjectSystemPrompts = modelConfig.enableInjectSystemPrompts;
-        let systemPrompts = shouldInjectSystemPrompts ? [] : [];
+        let systemPrompts: ChatMessage[] = shouldInjectSystemPrompts ? [] : [];
 
         if (shouldInjectSystemPrompts) {
           const model = modelConfig.model;
@@ -522,7 +522,8 @@ export const useChatStore = createPersistStore(
               "2021-09",
             );
           }
-
+          systemTemplate = systemTemplate.replace("{{lang}}", getLang());
+          systemTemplate = systemTemplate.replace("{{model}}", model);
           const systemPrompt = createMessage({
             role: "system",
             content: fillTemplateWith("", {
@@ -530,7 +531,8 @@ export const useChatStore = createPersistStore(
               template: systemTemplate,
             }),
           });
-          // console.log("[Global System Prompt] ", systemPrompt.content);
+          systemPrompts.push(systemPrompt);
+          console.log("[Global System Prompt] ", systemPrompts);
         }
 
         // long term memory

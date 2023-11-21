@@ -12,14 +12,32 @@ const cn = {
 `,
     HelloMessage: (userInfo: any) => {
       let display_name = userInfo?.display_name;
-      // console.log(userInfo);
-      return `${
-        !!display_name
-          ? `欢迎回来 ${display_name} 我是X-Copilot! 订阅渠道-亚洲 在某些地区不可用 请自行切换其它通道~
-          `
-          : `欢迎使用X-Copilot 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用`
+      if (!!display_name) {
+        return `欢迎回来 ${display_name} 我是X-Copilot!`;
       }
-        `;
+      return `  
+欢迎使用X-Copilot 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用 
+| 厂商      | 模型名称                      | 接入状态 | 是否免费 |
+|----------|-----------------------------|---------|---------|
+| OpenAI   | gpt-3.5-turbo                |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ✔️   |
+| 清华智谱  | chatglm_pro                   |   ✔️    |   ✔️   |
+| 清华智谱  | chatglm_lite                  |   ✔️    |   ✔️   |
+| 清华智谱  | chatglm_std                   |   ✔️    |   ✔️   |
+| 讯飞星火  | SparkDesk                     |   ✔️    |   ❌   |
+| OpenAI   | gpt-4                        |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0613                   |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-32k                    |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-32k-0613               |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-1106-preview-128k      |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-vision-preview-128k    |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-all                    |   ✔️    |   ❌   |
+| Claude   | claude-2                     |   ✔️    |   ❌   |
+| Claude   | claude-instant-100k          |   ✔️    |   ❌   |
+      `;
     },
   },
   Auth: {
@@ -150,26 +168,26 @@ const cn = {
       Content: ` 
 1、已支持Azure OpenAI服务
 2、本插件已接入以下模型
-| 厂商      | 模型名称                      | 接入状态 | 是否付费 |
+| 厂商      | 模型名称                      | 接入状态 | 是否免费 |
 |----------|-----------------------------|---------|---------|
-| OpenAI   | gpt-3.5-turbo                |   ✔️    |   ❌    |
-| OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ❌    |
-| OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ❌    |
-| OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ❌    |
-| OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ❌    |
-| OpenAI   | gpt-4                        |   ✔️    |   ✔️    |
-| OpenAI   | gpt-4-0613                   |   ✔️    |   ✔️    |
-| OpenAI   | gpt-4-32k                    |   ✔️    |   ✔️    |
-| OpenAI   | gpt-4-32k-0613               |   ✔️    |   ✔️    |
-| OpenAI   | gpt-4-1106-preview-128k      |   ✔️    |   ✔️    |
-| OpenAI   | gpt-4-vision-preview-128k    |   ✔️    |   ✔️    |
-| OpenAI   | gpt-4-all                    |   ✔️    |   ✔️    |
-| Claude   | claude-2                     |   ✔️    |   ✔️    |
-| Claude   | claude-instant-100k          |   ✔️    |   ✔️    |
-| 讯飞星火  | SparkDesk                     |   ✔️    |   ✔️    |
-| 清华智谱  | chatglm_pro                   |   ✔️    |   ❌    |
-| 清华智谱  | chatglm_lite                  |   ✔️    |   ❌    |
-| 清华智谱  | chatglm_std                   |   ✔️    |   ❌    |
+| OpenAI   | gpt-3.5-turbo                |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ✔️   |
+| 清华智谱  | chatglm_pro                   |   ✔️    |   ✔️   |
+| 清华智谱  | chatglm_lite                  |   ✔️    |   ✔️   |
+| 清华智谱  | chatglm_std                   |   ✔️    |   ✔️   |
+| 讯飞星火  | SparkDesk                     |   ✔️    |   ❌   |
+| OpenAI   | gpt-4                        |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0613                   |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-32k                    |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-32k-0613               |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-1106-preview-128k      |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-vision-preview-128k    |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-all                    |   ✔️    |   ❌   |
+| Claude   | claude-2                     |   ✔️    |   ❌   |
+| Claude   | claude-instant-100k          |   ✔️    |   ❌   |
 
 如果您的模型列表中缺少以上模型，请执行左上角菜单 > 确认重置 > 重新登录即可
 由于其它模型不支持函数调用功能、如需使用函数调用请切换至OpenAI GPT系列模型`,
