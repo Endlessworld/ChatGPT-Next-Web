@@ -1093,6 +1093,7 @@ function _Chat() {
     const isTouchBottomEdge = bottomHeight >= e.scrollHeight - edgeThreshold;
     const isHitBottom =
       bottomHeight >= e.scrollHeight - (isMobileScreen ? 4 : 10);
+    // console.table(`总高度 ${e.scrollHeight}  可视高度 ${e.clientHeight}  滚动的位置 ${e.scrollTop} 底部高度 ${bottomHeight},  ${e.scrollHeight - edgeThreshold}`);
 
     const prevPageMsgIndex = msgRenderIndex - CHAT_PAGE_SIZE;
     const nextPageMsgIndex = msgRenderIndex + CHAT_PAGE_SIZE;

@@ -235,33 +235,7 @@ export class ChatGPTApi implements LLMApi {
                   json.choices[0]?.delta?.content ||
                   json.choices[0]?.message?.content;
                 if (delta) {
-                  // if (options.config.model.startsWith("gpt")) {
-                  // responseText += delta;
-                  // options.onUpdate?.(responseText, delta);
                   remainText += delta;
-                  // } else {
-                  //   for (const char of delta) {
-                  //     queues.push(char);
-                  //   }
-                  //   if (queues.length > 10) {
-                  //     let index = 0;
-                  //     const intervalId = window.setInterval(() => {
-                  //       if (queues.length > 0) {
-                  //         const text: string | undefined = `${
-                  //           queues.shift() || ""
-                  //         }${queues.shift() || ""}`;
-                  //         responseText += text;
-                  //         options.onUpdate?.(responseText, "text1");
-                  //       } else {
-                  //         index++;
-                  //         if (index > 0) {
-                  //           window.clearInterval(intervalId);
-                  //           options.onUpdate?.(responseText, "");
-                  //         }
-                  //       }
-                  //     }, 75);
-                  //   }
-                  // }
                 }
               }
             } catch (e) {
