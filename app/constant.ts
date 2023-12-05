@@ -330,7 +330,7 @@ export const DEFAULT_MODELS = [
   },
 ] as const;
 
-export const CHAT_PAGE_SIZE = 9;
+export const CHAT_PAGE_SIZE = 15;
 export const MAX_RENDER_MSG_COUNT = 45;
 
 export const WORKERS_LIST = [
