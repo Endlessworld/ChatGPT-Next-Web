@@ -17,7 +17,7 @@ import dynamic from "next/dynamic";
 import { Path, SlotID } from "../constant";
 import { ErrorBoundary } from "./error";
 import { showModal } from "./ui-lib";
-import { getISOLang, getLang } from "../locales";
+import { getISOLang, getJvmLocale, getLang } from "../locales";
 import Locale from "../locales";
 import {
   HashRouter as Router,
@@ -69,7 +69,10 @@ const useCefFunctionInit = function () {
         (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
       );
     };
-    ideaMessage({ event: "initialized" });
+    ideaMessage({
+      event: "initialized",
+      message: JSON.stringify({ lang: getJvmLocale() }),
+    });
     if (
       noticeStore.showNotice ||
       Date.now() - noticeStore.showTimestamp > 86400 * 1000

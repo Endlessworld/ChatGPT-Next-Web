@@ -132,3 +132,11 @@ export function getISOLang() {
   const lang = getLang();
   return isoLangString[lang] ?? lang;
 }
+export function getJvmLocale() {
+  const jvmLocale: Record<string, string> = {
+    cn: "zh-CN",
+    tw: "zh-TW",
+  };
+  const lang = getLang();
+  return jvmLocale[lang] ?? lang;
+}

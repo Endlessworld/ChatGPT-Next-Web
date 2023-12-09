@@ -44,8 +44,11 @@ export function getVoices(
 //   });
 // }
 export async function ideaMessage(
-  message: Record<string, unknown> = { event: "replace", message: "" },
+  message: Record<string, unknown> = { event: "", message: "" },
 ) {
+  if (message.event === "") {
+    return;
+  }
   // console.log((window as any).cefQuery);
   try {
     if ((window as any).cefQuery) {
