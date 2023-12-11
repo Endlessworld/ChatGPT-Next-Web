@@ -373,16 +373,6 @@ export function PromptHints(props: {
     };
 
     window.addEventListener("keydown", onKeyDown);
-    (window as any).XAction = function (query: string) {
-      const textarea = document.querySelector(
-        ".input-textarea",
-      ) as HTMLTextAreaElement;
-      textarea.value = query;
-      // console.log(textarea);
-      textarea.dispatchEvent(new Event("input", { bubbles: true }));
-      (window as any).doSubmit(textarea.value);
-      textarea.focus();
-    };
 
     return () => window.removeEventListener("keydown", onKeyDown);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -887,7 +877,17 @@ function _Chat() {
         session.mask.modelConfig = { ...config.modelConfig };
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (window as any).XAction = function (query: string) {
+      chatStore.newSession();
+      const textarea = document.querySelector(
+        ".input-textarea",
+      ) as HTMLTextAreaElement;
+      textarea.value = query;
+      // console.log(textarea);
+      textarea.dispatchEvent(new Event("input", { bubbles: true }));
+      (window as any).doSubmit(textarea.value);
+      textarea.focus();
+    };
   }, []);
 
   // check if should send message
@@ -1575,12 +1575,16 @@ function _Chat() {
                                     <ChatAction
                                       text={Locale.Chat.Actions.Replace}
                                       icon={<ReplaceIcon />}
-                                      onClick={() => Replace(message.content)}
+                                      onClick={() =>
+                                        Replace(message.content, session.id)
+                                      }
                                     />
                                     <ChatAction
                                       text={Locale.Chat.Actions.Merge}
                                       icon={<MergeIcon />}
-                                      onClick={() => Merge(message.content)}
+                                      onClick={() =>
+                                        Merge(message.content, session.id)
+                                      }
                                     />
                                   </>
                                 ) : (

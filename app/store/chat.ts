@@ -332,9 +332,11 @@ export const useChatStore = createPersistStore(
         });
         get().updateStat(message);
         get().summarizeSession();
-        ideaMessage({ event: "auto", message: message.content }).then(
-          (r) => {},
-        );
+        ideaMessage({
+          event: "auto",
+          message: message.content,
+          session: this.currentSession().id,
+        }).then((r) => {});
       },
 
       async onUserInput(
@@ -438,6 +440,7 @@ export const useChatStore = createPersistStore(
                 function: message.function,
                 arguments: message.arguments,
               }),
+              session.id,
             );
             ChatControllerPool.stop(session.id, botMessage.id ?? messageIndex);
             ChatControllerPool.remove(

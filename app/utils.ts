@@ -44,7 +44,11 @@ export function getVoices(
 //   });
 // }
 export async function ideaMessage(
-  message: Record<string, unknown> = { event: "", message: "" },
+  message: Record<string, unknown> = {
+    event: "replace",
+    message: "",
+    session: "",
+  },
 ) {
   if (message.event === "") {
     return;
@@ -88,16 +92,20 @@ export async function ideaMessage(
   }
 }
 
-export async function Merge(messageText: string) {
-  ideaMessage({ event: "diff", message: messageText });
+export async function Merge(messageText: string, session: string) {
+  ideaMessage({ event: "diff", message: messageText, session: session });
 }
 
-export async function Replace(messageText: string) {
-  ideaMessage({ event: "replace", message: messageText });
+export async function Replace(messageText: string, session: string) {
+  ideaMessage({ event: "replace", message: messageText, session: session });
 }
 
-export async function functionCall(messageText: string) {
-  ideaMessage({ event: "function_call", message: messageText });
+export async function functionCall(messageText: string, session: string) {
+  ideaMessage({
+    event: "function_call",
+    message: messageText,
+    session: session,
+  });
 }
 
 export function getProjectContextAwareness() {
