@@ -888,6 +888,13 @@ function _Chat() {
       (window as any).doSubmit(textarea.value);
       textarea.focus();
     };
+    (window as any).XSelectSession = (selectSession: string) => {
+      chatStore.sessions.forEach((forSession, forIndex) => {
+        if (forSession.id == selectSession) {
+          chatStore.selectSession(forIndex);
+        }
+      });
+    };
   }, []);
 
   // check if should send message

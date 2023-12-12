@@ -188,7 +188,12 @@ export const useChatStore = createPersistStore(
           currentSessionIndex: index,
         });
       },
-
+      // selectSessionById(sessionId: string) {
+      //
+      //   set({
+      //     currentSessionIndex: index,
+      //   });
+      // },
       moveSession(from: number, to: number) {
         set((state) => {
           const { sessions, currentSessionIndex: oldIndex } = state;
