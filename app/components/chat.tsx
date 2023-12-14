@@ -888,9 +888,11 @@ function _Chat() {
       (window as any).doSubmit(textarea.value);
       textarea.focus();
     };
+    console.log(" installed XSelectSession");
     (window as any).XSelectSession = (selectSession: string) => {
       chatStore.sessions.forEach((forSession, forIndex) => {
         if (forSession.id == selectSession) {
+          console.log("SelectSession", selectSession);
           chatStore.selectSession(forIndex);
         }
       });
