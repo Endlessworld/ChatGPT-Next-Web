@@ -790,7 +790,17 @@ function _Chat() {
       ),
     del: () => chatStore.deleteSession(chatStore.currentSessionIndex),
   });
-
+  useEffect(() => {
+    console.log("_Chat installed XSelectSession");
+    (window as any).XSelectSession = (selectSession: string) => {
+      chatStore.sessions.forEach((forSession, forIndex) => {
+        if (forSession.id == selectSession) {
+          console.log("_Chat SelectSession", selectSession);
+          chatStore.selectSession(forIndex);
+        }
+      });
+    };
+  }, [chatStore.sessions]);
   // only search prompts when user input is short
   const SEARCH_TEXT_LIMIT = 30;
   const onInput = (text: string) => {
@@ -887,15 +897,6 @@ function _Chat() {
       textarea.dispatchEvent(new Event("input", { bubbles: true }));
       (window as any).doSubmit(textarea.value);
       textarea.focus();
-    };
-    console.log(" installed XSelectSession");
-    (window as any).XSelectSession = (selectSession: string) => {
-      chatStore.sessions.forEach((forSession, forIndex) => {
-        if (forSession.id == selectSession) {
-          console.log("SelectSession", selectSession);
-          chatStore.selectSession(forIndex);
-        }
-      });
     };
   }, []);
 
