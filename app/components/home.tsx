@@ -69,6 +69,15 @@ const useCefFunctionInit = function () {
         (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
       );
     };
+    (window as any).install = (systemInfoJson: string) => {
+      const systemInfo = JSON.parse(systemInfoJson);
+      console.log(systemInfo);
+    };
+    // (window as any).syncThemes = (isDark: boolean) => {
+    //   config.update(
+    //     (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
+    //   );
+    // };
     ideaMessage({
       event: "initialized",
       message: JSON.stringify({ lang: getJvmLocale() }),

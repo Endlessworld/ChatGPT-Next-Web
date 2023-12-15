@@ -102,6 +102,8 @@ import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
 import AddIcon from "@/app/icons/add.svg";
 import { useAllModels } from "../utils/hooks";
+import exports from "webpack";
+import system = exports.RuntimeGlobals.system;
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -892,7 +894,8 @@ function _Chat() {
       const textarea = document.querySelector(
         ".input-textarea",
       ) as HTMLTextAreaElement;
-      textarea.value = query;
+      console.log("XAction > ", query);
+      textarea.value = Buffer.from(query, "base64").toString("utf-8");
       // console.log(textarea);
       textarea.dispatchEvent(new Event("input", { bubbles: true }));
       (window as any).doSubmit(textarea.value);
@@ -1201,11 +1204,6 @@ function _Chat() {
       config.update((settings) => (settings.tightBorder = true));
       (window as any).doSubmit = doSubmit;
       (window as any).clearSessions = chatStore.clearSessions;
-      (window as any).syncThemes = (isDark: boolean) => {
-        config.update(
-          (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
-        );
-      };
     }
   }, []);
 
