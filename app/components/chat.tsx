@@ -51,8 +51,8 @@ import {
   useAccessStore,
   useAppConfig,
   useChatStore,
+  useClientInfoStore,
 } from "../store";
-
 import dispatchEventStorage, {
   autoGrowTextArea,
   copyToClipboard,
@@ -746,6 +746,7 @@ function _Chat() {
   const [soundOn, setSoundOn] = useState(false);
   const isMobileScreen = useMobileScreen();
   const navigate = useNavigate();
+  const clientInfo = useClientInfoStore();
 
   // prompt hints
   const promptStore = usePromptStore();
@@ -891,15 +892,12 @@ function _Chat() {
     });
     (window as any).XAction = function (query: string) {
       chatStore.newSession();
-      const textarea = document.querySelector(
-        ".input-textarea",
-      ) as HTMLTextAreaElement;
       console.log("XAction > ", query);
-      textarea.value = Buffer.from(query, "base64").toString("utf-8");
-      // console.log(textarea);
-      textarea.dispatchEvent(new Event("input", { bubbles: true }));
-      (window as any).doSubmit(textarea.value);
-      textarea.focus();
+      if (clientInfo.is_encode) {
+        console.log("clientInfo > ", clientInfo);
+        query = Buffer.from(query, "base64").toString("utf-8");
+      }
+      (window as any).doSubmit(query);
     };
   }, []);
 
@@ -1202,7 +1200,16 @@ function _Chat() {
   useEffect(() => {
     if (isIdeaPlugin()) {
       config.update((settings) => (settings.tightBorder = true));
-      (window as any).doSubmit = doSubmit;
+      const XSubmit = (userInput: string) => {
+        setIsLoading(true);
+        chatStore.onUserInput(userInput).then(() => setIsLoading(false));
+        localStorage.setItem(LAST_INPUT_KEY, userInput);
+        setUserInput("");
+        setPromptHints([]);
+        if (!isMobileScreen) inputRef.current?.focus();
+        setAutoScroll(true);
+      };
+      (window as any).doSubmit = XSubmit;
       (window as any).clearSessions = chatStore.clearSessions;
     }
   }, []);

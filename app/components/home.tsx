@@ -31,6 +31,7 @@ import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
 import { api } from "../client/api";
 import { useAccessStore, useNoticeStore } from "../store";
+import { ClientInfo, useClientInfoStore } from "@/app/store/plugin";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -59,6 +60,7 @@ const MaskPage = dynamic(async () => (await import("./mask")).MaskPage, {
 
 const useCefFunctionInit = function () {
   const config = useAppConfig();
+  const plugin = useClientInfoStore();
   const noticeStore = useNoticeStore();
   useEffect(() => {
     // if (isIdeaPlugin()) {
@@ -70,18 +72,13 @@ const useCefFunctionInit = function () {
       );
     };
     (window as any).install = (systemInfoJson: string) => {
-      const systemInfo = JSON.parse(systemInfoJson);
-      console.log(systemInfo);
+      const systemInfo = JSON.parse(systemInfoJson) as ClientInfo;
+      plugin.updateClientInfo(systemInfo);
     };
-    // (window as any).syncThemes = (isDark: boolean) => {
-    //   config.update(
-    //     (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
-    //   );
-    // };
     ideaMessage({
       event: "initialized",
       message: JSON.stringify({ lang: getJvmLocale() }),
-    });
+    }).then((r) => {});
     if (
       noticeStore.showNotice ||
       Date.now() - noticeStore.showTimestamp > 86400 * 1000

@@ -139,6 +139,7 @@ export enum StoreKey {
   Prompt = "prompt-store",
   Update = "chat-update",
   Sync = "sync",
+  Plugin = "plugin",
 }
 
 export const REQUEST_LIMIT = 10;
