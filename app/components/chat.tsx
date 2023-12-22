@@ -1631,6 +1631,7 @@ function _Chat() {
                         fontSize={fontSize}
                         parentRef={scrollRef}
                         defaultShow={i >= messages.length - 6}
+                        streaming={message.streaming}
                       />
                     </div>
 

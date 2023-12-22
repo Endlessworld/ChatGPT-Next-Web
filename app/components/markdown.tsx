@@ -6,7 +6,8 @@ import RemarkBreaks from "remark-breaks";
 import RehypeKatex from "rehype-katex";
 import RemarkGfm from "remark-gfm";
 import hljs from "highlight.js";
-import React, { RefObject, useEffect, useRef, useMemo } from "react";
+import RehypeHighlight from "rehype-highlight";
+import React, { RefObject, useEffect, useRef, useMemo, useState } from "react";
 import { copyToClipboard } from "../utils";
 import mermaid from "mermaid";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -16,6 +17,7 @@ import { CodeProps } from "react-markdown/lib/ast-to-react";
 import styles from "./markdown.module.scss";
 import { Theme, useAppConfig } from "@/app/store";
 import { CODE_STYLES } from "@/app/constant";
+import { useDebouncedCallback } from "use-debounce";
 
 export function Mermaid(props: { code: string; onError: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -57,6 +59,114 @@ export function Mermaid(props: { code: string; onError: () => void }) {
     </div>
   );
 }
+export function code(props: any) {
+  const configStore = useAppConfig();
+  const codeBlock = props;
+  if (!codeBlock) {
+    return (
+      <code
+        className={styles["code-font"]}
+        style={{ backgroundColor: "#f9f2f4" }}
+      >
+        {" "}
+      </code>
+    );
+  }
+
+  const language =
+    props?.className?.replace("language-", "") ||
+    hljs.highlightAuto(codeBlock ? codeBlock : "").language;
+  // console.log(language)
+  if (props.inline) {
+    return (
+      <code
+        className={styles["code-font"]}
+        style={{
+          backgroundColor: Theme.Dark.includes(configStore.theme)
+            ? "rgb(43, 45, 48)"
+            : "#f9f2f4",
+        }}
+      >
+        {code(props.children[0])}
+      </code>
+    );
+  }
+}
+export function PreCode(props: { children: any }) {
+  const ref = useRef<HTMLPreElement>(null);
+  const refText = ref.current?.innerText;
+  const [mermaidCode, setMermaidCode] = useState("");
+
+  const renderMermaid = useDebouncedCallback(() => {
+    if (!ref.current) return;
+    const mermaidDom = ref.current.querySelector("code.language-mermaid");
+    if (mermaidDom) {
+      setMermaidCode((mermaidDom as HTMLElement).innerText);
+    }
+  }, 600);
+
+  useEffect(() => {
+    setTimeout(renderMermaid, 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refText]);
+  console.log(props.children);
+
+  return (
+    <>
+      {mermaidCode.length > 0 && (
+        <Mermaid code={mermaidCode} key={mermaidCode} onError={() => ""} />
+      )}
+      <pre ref={ref}>
+        <span
+          className="copy-code-button"
+          onClick={() => {
+            if (ref.current) {
+              const code = ref.current.innerText;
+              if (code) {
+                copyToClipboard(code);
+              }
+            }
+          }}
+        ></span>
+        {code(props.children)}
+      </pre>
+    </>
+  );
+}
+function _firstMarkDownContent(props: { content: string }) {
+  const escapedContent = useMemo(
+    () => escapeDollarNumber(props.content),
+    [props.content],
+  );
+  console.log("_firstMarkDownContent", props.content);
+  return (
+    <ReactMarkdown
+      remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}
+      rehypePlugins={[
+        RehypeKatex,
+        [
+          RehypeHighlight,
+          {
+            detect: false,
+            ignoreMissing: true,
+          },
+        ],
+      ]}
+      components={{
+        pre: PreCode,
+        p: (pProps) => <p {...pProps} dir="auto" />,
+        a: (aProps) => {
+          const href = aProps.href || "";
+          const isInternal = /^\/#/i.test(href);
+          const target = isInternal ? "_self" : aProps.target ?? "_blank";
+          return <a {...aProps} target={target} />;
+        },
+      }}
+    >
+      {escapedContent}
+    </ReactMarkdown>
+  );
+}
 function escapeDollarNumber(text: string) {
   let escapedText = "";
 
@@ -80,6 +190,7 @@ function _MarkDownContent(props: { content: string }) {
     () => escapeDollarNumber(props.content),
     [props.content],
   );
+  console.log("_MarkDownContent", escapedContent);
   return (
     <ReactMarkdown
       remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}
@@ -180,7 +291,7 @@ function _MarkDownContent(props: { content: string }) {
 }
 
 export const MarkdownContent = React.memo(_MarkDownContent);
-
+export const FirstMarkDownContent = React.memo(_firstMarkDownContent);
 export function Markdown(
   props: {
     content: string;
@@ -188,10 +299,10 @@ export function Markdown(
     fontSize?: number;
     parentRef?: RefObject<HTMLDivElement>;
     defaultShow?: boolean;
+    streaming?: boolean;
   } & React.DOMAttributes<HTMLDivElement>,
 ) {
   const mdRef = useRef<HTMLDivElement>(null);
-
   return (
     <div
       className="markdown-body"
@@ -205,6 +316,8 @@ export function Markdown(
     >
       {props.loading ? (
         <LoadingIcon />
+      ) : props.streaming ? (
+        <FirstMarkDownContent content={props.content} />
       ) : (
         <MarkdownContent content={props.content} />
       )}
