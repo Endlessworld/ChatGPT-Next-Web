@@ -1,10 +1,17 @@
 import { getClientConfig } from "../config/client";
-import { ACCESS_CODE_PREFIX, Azure, ServiceProvider } from "../constant";
-import { ChatMessage, ModelType, useAccessStore } from "../store";
+import {
+  ACCESS_CODE_PREFIX,
+  Azure,
+  ModelProvider,
+  ServiceProvider,
+} from "../constant";
+import { ChatMessage, ModelType, useAccessStore, useChatStore } from "../store";
 import { ChatGPTApi } from "./platforms/openai";
 import { getCookie } from "@/app/utils";
 
 export const ROLES = ["system", "user", "assistant", "function"] as const;
+import { GeminiProApi } from "./platforms/google";
+
 export type MessageRole = (typeof ROLES)[number];
 
 export const Models = ["gpt-3.5-turbo", "gpt-4"] as const;
@@ -54,6 +61,13 @@ export interface LLMUsage {
 export interface LLMModel {
   name: string;
   available: boolean;
+  provider: LLMModelProvider;
+}
+
+export interface LLMModelProvider {
+  id: string;
+  providerName: string;
+  providerType: string;
 }
 
 export abstract class LLMApi {
@@ -86,7 +100,11 @@ interface ChatProvider {
 export class ClientApi {
   public llm: LLMApi;
 
-  constructor() {
+  constructor(provider: ModelProvider = ModelProvider.GPT) {
+    if (provider === ModelProvider.GeminiPro) {
+      this.llm = new GeminiProApi();
+      return;
+    }
     this.llm = new ChatGPTApi();
   }
 
@@ -105,7 +123,8 @@ export class ClientApi {
       .concat([
         {
           from: "human",
-          value: "Share from [X-Copilot]: https://chat.xr21.me/#/",
+          value:
+            "Share from [X-Copilot]: https://idea.chat.cloud.copilot.xr21.me/#/",
         },
       ]);
     // 敬告二开开发者们，为了开源大模型的发展，请不要修改上述消息，此消息用于后续数据清洗使用
@@ -136,18 +155,21 @@ export class ClientApi {
   }
 }
 
-export const api = new ClientApi();
-
 export function getHeaders() {
   const accessStore = useAccessStore.getState();
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     "x-requested-with": "XMLHttpRequest",
   };
-
+  const modelConfig = useChatStore.getState().currentSession().mask.modelConfig;
+  const isGoogle = modelConfig.model === "gemini-pro";
   const isAzure = accessStore.provider === ServiceProvider.Azure;
   const authHeader = isAzure ? "api-key" : "Authorization";
-  const apiKey = isAzure ? accessStore.azureApiKey : accessStore.openaiApiKey;
+  const apiKey = isGoogle
+    ? accessStore.googleApiKey
+    : isAzure
+    ? accessStore.azureApiKey
+    : accessStore.openaiApiKey;
 
   const makeBearer = (s: string) => `${isAzure ? "" : "Bearer "}${s.trim()}`;
   const validString = (x: string) => x && x.length > 0;

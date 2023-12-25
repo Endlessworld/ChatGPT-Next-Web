@@ -107,6 +107,8 @@ export const DEFAULT_CORS_HOST = "https://nb.nextweb.fun";
 export const DEFAULT_API_HOST = "https://api.eu.xr21.me";
 export const OPENAI_BASE_URL = "https://api.eu.xr21.me";
 export const OPENAI_URL = "https://api.openai.com";
+export const GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/";
+
 export enum Path {
   Home = "/",
   Chat = "/chat",
@@ -163,6 +165,12 @@ export const EXPORT_MESSAGE_CLASS_NAME = "export-markdown";
 export enum ServiceProvider {
   OpenAI = "OpenAI",
   Azure = "Azure",
+  Google = "Google",
+}
+
+export enum ModelProvider {
+  GPT = "GPT",
+  GeminiPro = "GeminiPro",
 }
 
 export const OpenaiPath = {
@@ -174,6 +182,14 @@ export const OpenaiPath = {
 
 export const Azure = {
   ExampleEndpoint: "https://{resource-url}/openai/deployments/{deploy-id}",
+};
+
+export const Google = {
+  ExampleEndpoint:
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent",
+  ChatPath: "v1beta/models/gemini-pro:generateContent",
+
+  // /api/openai/v1/chat/completions
 };
 
 export const DEFAULT_INPUT_TEMPLATE = `{{input}}`; // input / time / model / lang
@@ -256,78 +272,227 @@ export const DEFAULT_MODELS = [
   {
     name: "claude-2",
     available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
   },
   {
-    name: "claude-instant-100k",
+    name: "gpt-4-0314",
     available: true,
-  },
-  {
-    name: "chatglm_pro",
-    available: true,
-  },
-  {
-    name: "chatglm_lite",
-    available: true,
-  },
-  {
-    name: "chatglm_std",
-    available: true,
-  },
-  {
-    name: "SparkDesk",
-    available: true,
-  },
-  {
-    name: "gpt-3.5-turbo",
-    available: true,
-  },
-  {
-    name: "gpt-3.5-turbo-0613",
-    available: true,
-  },
-  {
-    name: "gpt-3.5-turbo-16k",
-    available: true,
-  },
-  {
-    name: "gpt-3.5-turbo-16k-0613",
-    available: true,
-  },
-  {
-    name: "gpt-3.5-turbo-1106",
-    available: true,
-  },
-  {
-    name: "gpt-3.5-turbo-instruct-0914",
-    available: false,
-  },
-  {
-    name: "gpt-4",
-    available: true,
-  },
-  {
-    name: "gpt-4-all",
-    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
   },
   {
     name: "gpt-4-0613",
     available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "claude-instant-100k",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "chatglm_pro",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "chatglm_lite",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "chatglm_std",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "SparkDesk",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gpt-3.5-turbo",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gpt-3.5-turbo-0301",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gpt-3.5-turbo-0613",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gpt-3.5-turbo-1106",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gpt-3.5-turbo-16k",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gpt-3.5-turbo-16k-0613",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gemini-pro",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gpt-3.5-turbo-1106",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gpt-3.5-turbo-instruct-0914",
+    available: false,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gpt-4",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gpt-4-all",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gpt-4-0613",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
   },
   {
     name: "gpt-4-32k",
     available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
   },
   {
     name: "gpt-4-32k-0613",
     available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
   },
   {
     name: "gpt-4-1106-preview-128k",
     available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
   },
   {
     name: "gpt-4-vision-preview-128k",
     available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gemini-pro",
+    available: true,
+    provider: {
+      id: "google",
+      providerName: "Google",
+      providerType: "google",
+    },
   },
 ] as const;
 

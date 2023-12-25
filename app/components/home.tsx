@@ -14,7 +14,7 @@ import LoadingIcon from "../icons/three-dots.svg";
 import { clearCache, getCSSVar, ideaMessage, useMobileScreen } from "../utils";
 
 import dynamic from "next/dynamic";
-import { Path, SlotID } from "../constant";
+import { ModelProvider, Path, SlotID } from "../constant";
 import { ErrorBoundary } from "./error";
 import { showModal } from "./ui-lib";
 import { getISOLang, getJvmLocale, getLang } from "../locales";
@@ -29,7 +29,7 @@ import { SideBar } from "./sidebar";
 import { Theme, useAppConfig } from "../store/config";
 import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
-import { api } from "../client/api";
+import { ClientApi } from "../client/api";
 import { useAccessStore, useNoticeStore } from "../store";
 import { ClientInfo, useClientInfoStore } from "@/app/store/plugin";
 
@@ -210,6 +210,12 @@ function Screen() {
 export function useLoadData() {
   const config = useAppConfig();
 
+  var api: ClientApi;
+  if (config.modelConfig.model === "gemini-pro") {
+    api = new ClientApi(ModelProvider.GeminiPro);
+  } else {
+    api = new ClientApi(ModelProvider.GPT);
+  }
   useEffect(() => {
     (async () => {
       const models = await api.llm.models();
