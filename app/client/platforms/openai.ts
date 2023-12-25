@@ -128,7 +128,7 @@ export class ChatGPTApi implements LLMApi {
         function animateResponseText() {
           if (finished || controller.signal.aborted) {
             responseText += remainText;
-            hljs.highlightAll();
+            // hljs.highlightAll();
             console.log("[Response Animation] finished");
             return;
           }

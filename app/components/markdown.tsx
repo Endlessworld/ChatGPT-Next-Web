@@ -80,6 +80,9 @@ function _MarkDownContent(props: { content: string }) {
     () => escapeDollarNumber(props.content),
     [props.content],
   );
+  useEffect(() => {
+    hljs.highlightAll();
+  }, [props.content]);
   return (
     <ReactMarkdown
       remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}

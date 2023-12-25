@@ -108,6 +108,12 @@ import system = exports.RuntimeGlobals.system;
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
 });
+const FirstMarkdown = dynamic(
+  async () => (await import("./first-markdown")).FirstMarkdown,
+  {
+    loading: () => <LoadingIcon />,
+  },
+);
 
 export function SessionConfigModel(props: { onClose: () => void }) {
   const chatStore = useChatStore();
@@ -1041,7 +1047,7 @@ function _Chat() {
   );
   // preview messages
   const renderMessages = useMemo(() => {
-    hljs.highlightAll();
+    //
     return context
       .concat(session.messages as RenderMessage[])
       .concat(
@@ -1616,22 +1622,41 @@ function _Chat() {
                       </div>
                     )}
                     <div className={styles["chat-message-item"]}>
-                      <Markdown
-                        content={message.content}
-                        loading={
-                          (message.preview || message.streaming) &&
-                          message.content.length === 0 &&
-                          !isUser
-                        }
-                        onContextMenu={(e) => onRightClick(e, message)}
-                        onDoubleClickCapture={() => {
-                          if (!isMobileScreen) return;
-                          setUserInput(message.content);
-                        }}
-                        fontSize={fontSize}
-                        parentRef={scrollRef}
-                        defaultShow={i >= messages.length - 6}
-                      />
+                      {message.streaming ? (
+                        <FirstMarkdown
+                          content={message.content}
+                          loading={
+                            (message.preview || message.streaming) &&
+                            message.content.length === 0 &&
+                            !isUser
+                          }
+                          onContextMenu={(e) => onRightClick(e, message)}
+                          onDoubleClickCapture={() => {
+                            if (!isMobileScreen) return;
+                            setUserInput(message.content);
+                          }}
+                          fontSize={fontSize}
+                          parentRef={scrollRef}
+                          defaultShow={i >= messages.length - 6}
+                        />
+                      ) : (
+                        <Markdown
+                          content={message.content}
+                          loading={
+                            (message.preview || message.streaming) &&
+                            message.content.length === 0 &&
+                            !isUser
+                          }
+                          onContextMenu={(e) => onRightClick(e, message)}
+                          onDoubleClickCapture={() => {
+                            if (!isMobileScreen) return;
+                            setUserInput(message.content);
+                          }}
+                          fontSize={fontSize}
+                          parentRef={scrollRef}
+                          defaultShow={i >= messages.length - 6}
+                        />
+                      )}
                     </div>
 
                     <div className={styles["chat-message-action-date"]}>
