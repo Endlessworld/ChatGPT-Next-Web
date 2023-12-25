@@ -1,17 +1,4 @@
 import { BuildConfig, getBuildConfig } from "./build";
-
-export function getClientConfig() {
-  if (typeof document !== "undefined") {
-    // client side
-    return JSON.parse(queryMeta("config")) as BuildConfig;
-  }
-
-  if (typeof process !== "undefined") {
-    // server side
-    return getBuildConfig();
-  }
-}
-
 function queryMeta(key: string, defaultValue?: string): string {
   let ret: string;
   if (document) {
@@ -24,4 +11,15 @@ function queryMeta(key: string, defaultValue?: string): string {
   }
 
   return ret;
+}
+
+export function getClientConfig() {
+  if (typeof document !== "undefined") {
+    return JSON.parse(queryMeta("config")) as BuildConfig;
+  }
+
+  if (typeof process !== "undefined") {
+    // server side
+    return getBuildConfig();
+  }
 }
