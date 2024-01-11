@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import { showToast } from "./components/ui-lib";
-import Locale from "./locales";
+import Locale, { getLang } from "./locales";
+import { nanoid } from "nanoid";
+import { Prompt, SearchService, usePromptStore } from "@/app/store/prompt";
 
 export function trimTopic(topic: string) {
   // Fix an issue where double quotes still show in the Indonesian language
   // This will remove the specified punctuation from the end of the string
   // and also trim quotes from both the start and end if they exist.
-  return topic.replace(/^["“”]+|["“”]+$/g, "").replace(/[，。！？”“"、,.!?]*$/, "");
+  return topic
+    .replace(/^["“”]+|["“”]+$/g, "")
+    .replace(/[，。！？”“"、,.!?]*$/, "");
 }
+
 export function isIdeaPlugin() {
   if (typeof window == "undefined") {
     return false;
@@ -18,6 +23,47 @@ export function isIdeaPlugin() {
 export function loadFunctions(): [] {
   let functionsJson: string = localStorage.getItem("functions") || "[]";
   return JSON.parse(functionsJson);
+}
+
+export function fetchPrompt() {
+  if (typeof window == "undefined") {
+    return;
+  }
+  const PROMPT_URL = (window as any).location.origin + "/prompts.json";
+  type PromptList = Array<[string, string]>;
+  fetch(PROMPT_URL, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      let fetchPrompts = [res.en, res.cn];
+      if (getLang() === "cn") {
+        fetchPrompts = fetchPrompts.reverse();
+      }
+      const builtinPrompts = fetchPrompts.map((promptList: PromptList) => {
+        return promptList.map(
+          ([title, content]) =>
+            ({
+              id: nanoid(),
+              title,
+              content,
+              createdAt: Date.now(),
+            }) as Prompt,
+        );
+      });
+
+      const userPrompts = usePromptStore.getState().getUserPrompts() ?? [];
+
+      const allPromptsForSearch = builtinPrompts
+        .reduce((pre, cur) => pre.concat(cur), [])
+        .filter((v) => !!v.title && !!v.content);
+      SearchService.count.builtin = res.en.length + res.cn.length;
+      SearchService.init(allPromptsForSearch, userPrompts);
+    });
 }
 
 export function getVoices(
@@ -33,6 +79,7 @@ export function getVoices(
     callback(voices);
   };
 }
+
 // export async function getVoices(): Promise<SpeechSynthesisVoice[]> {
 //   return new Promise((resolve) => {
 //     let voices = speechSynthesis.getVoices();
@@ -139,6 +186,7 @@ export function getProjectContextAwareness() {
   }
   return content;
 }
+
 export async function copyToClipboard(text: string) {
   try {
     if (window.__TAURI__) {
@@ -209,6 +257,7 @@ export async function downloadAs(text: string, filename: string) {
     document.body.removeChild(element);
   }
 }
+
 export function readFromFile() {
   return new Promise<string>((res, rej) => {
     const fileInput = document.createElement("input");
@@ -259,6 +308,7 @@ export function useWindowSize() {
 }
 
 export const MOBILE_MAX_WIDTH = 600;
+
 export function useMobileScreen() {
   const { width } = useWindowSize();
 
@@ -290,14 +340,17 @@ export async function clearCache() {
 export function useUserInfo(): any {
   return getUserInfo();
 }
+
 export function getUserInfo(): any {
   let userInfo = getCookie("user_info");
   return JSON.parse(userInfo);
 }
+
 export function useUserAvatar(): any {
   let userInfo = getCookie("user_info");
   return JSON.parse(userInfo).custom_avatar;
 }
+
 export function getCookie(name: string | any[]) {
   if (typeof document !== "undefined") {
     const cookieString = (document as any).cookie;
