@@ -170,15 +170,21 @@ const cn = {
 2、本插件已接入以下模型
 | 厂商      | 模型名称                      | 接入状态 | 是否免费 |
 |----------|-----------------------------|---------|---------|
+| 清华智谱  | chatglm_pro                   |   ✔️    |   ✔️   |
+| 清华智谱  | chatglm_lite                  |   ✔️    |   ✔️   |
+| 清华智谱  | chatglm_std                   |   ✔️    |   ✔️   |
+| 清华智谱  | glm-4                        |   ✔️    |   ✔️    |
+| 阿里巴巴  | qwen-max                     |   ✔️    |   ✔️    |
+| 阿里巴巴  | qwen-plus                    |   ✔️    |   ✔️    |
+| 阿里巴巴  | qwen-turbo                   |   ✔️    |   ✔️    |
+| Meta     | codellama-34b-instruct       |   ✔️    |   ✔️    |
+| 讯飞星火   | SparkDesk                   |   ✔️    |   ❌   |
 | OpenAI   | gpt-3.5-turbo                |   ✔️    |   ✔️   |
 | OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ✔️   |
 | OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ✔️   |
 | OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ✔️   |
 | OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ✔️   |
-| 清华智谱  | chatglm_pro                   |   ✔️    |   ✔️   |
-| 清华智谱  | chatglm_lite                  |   ✔️    |   ✔️   |
-| 清华智谱  | chatglm_std                   |   ✔️    |   ✔️   |
-| 讯飞星火  | SparkDesk                     |   ✔️    |   ❌   |
+| OpenAI   | gpt-3.5-plus                 |   ✔️    |   ✔️    |
 | OpenAI   | gpt-4                        |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-0613                   |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-32k                    |   ✔️    |   ❌   |
@@ -186,6 +192,7 @@ const cn = {
 | OpenAI   | gpt-4-1106-preview-128k      |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-vision-preview-128k    |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-all                    |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-browsing               |   ✔️    |   ❌    |
 | Claude   | claude-2                     |   ✔️    |   ❌   |
 | Claude   | claude-instant-100k          |   ✔️    |   ❌   |
 

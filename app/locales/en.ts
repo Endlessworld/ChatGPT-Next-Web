@@ -26,9 +26,15 @@ const en: LocaleType = {
 | OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ✔️    |
 | OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ✔️    |
 | OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ✔️    |
+| OpenAI   | gpt-3.5-plus                 |   ✔️    |   ✔️    |
 | ChatGLM  | chatglm_pro                  |   ✔️    |   ✔️    |
 | ChatGLM  | chatglm_lite                 |   ✔️    |   ✔️    |
 | ChatGLM  | chatglm_std                  |   ✔️    |   ✔️    |
+| ChatGLM  | glm-4                        |   ✔️    |   ✔️    |
+| Alibaba  | qwen-max                     |   ✔️    |   ✔️    |
+| Alibaba  | qwen-plus                    |   ✔️    |   ✔️    |
+| Alibaba  | qwen-turbo                   |   ✔️    |   ✔️    |
+| Google  | codellama-34b-instruct        |   ✔️    |   ✔️    |
 | OpenAI   | gpt-4                        |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-0613                   |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-32k                    |   ✔️    |   ❌    |
@@ -36,9 +42,10 @@ const en: LocaleType = {
 | OpenAI   | gpt-4-1106-preview-128K      |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-vision-preview-128K    |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-all                    |   ✔️    |   ❌    |
+| OpenAI   | gpt-4-browsing               |   ✔️    |   ❌    |
 | Claude   | claude-2                     |   ✔️    |   ❌    |
 | Claude   | claude-instant-100k          |   ✔️    |   ❌    |
-| Xunfei   | SparkDesk                    |   ✔️    |   ❌    |
+| Iflytek  | SparkDesk                    |   ✔️    |   ❌    |
 
 Or fill in your Azure Open AI Setting or Open AI API Key in [Settings](/#/settings).
 When you use Azure Open AI or Open AI Service directly, you don't need to sign in, and all requests don't go through any authentication or forwarding .

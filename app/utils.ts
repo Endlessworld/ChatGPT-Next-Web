@@ -19,9 +19,22 @@ export function isIdeaPlugin() {
   }
   return (window as any).cefQuery;
 }
-
-export function loadFunctions(): [] {
+// 导出一个名为isBase64的函数，用于检查输入的字符串是否为Base64编码
+export function isBase64(str: string) {
+  try {
+    // 尝试对输入的字符串进行Base64解码，然后再进行Base64编码，判断结果是否与原始字符串相等
+    return btoa(atob(str)) == str;
+  } catch (err) {
+    // 如果出现错误，则返回false，表示输入的字符串不是Base64编码
+    return false;
+  }
+}
+// 导出一个函数loadFunctions，该函数会返回一个数组
+export function loadFunctions(): any[] {
+  // 从localStorage中获取名为"functions"的键所对应的值（默认值为"[]"）
   let functionsJson: string = localStorage.getItem("functions") || "[]";
+
+  // 使用JSON.parse将字符串转化为数组类型
   return JSON.parse(functionsJson);
 }
 

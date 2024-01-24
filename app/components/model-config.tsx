@@ -36,7 +36,7 @@ export function ModelConfigList(props: {
             .filter((v) => v.available)
             .map((v, i) => (
               <option value={v.name} key={i}>
-                {v.displayName}({v.provider?.providerName})
+                {v.displayName}
               </option>
             ))}
         </Select>
@@ -65,7 +65,7 @@ export function ModelConfigList(props: {
         subTitle={Locale.Settings.TopP.SubTitle}
       >
         <InputRange
-          value={(props.modelConfig.top_p ?? 1).toFixed(1)}
+          value={(props.modelConfig.top_p ?? 0.9).toFixed(1)}
           min="0"
           max="1"
           step="0.1"

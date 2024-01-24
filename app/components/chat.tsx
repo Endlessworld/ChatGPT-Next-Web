@@ -59,6 +59,7 @@ import dispatchEventStorage, {
   getProjectContextAwareness,
   getUserInfo,
   getVoices,
+  isBase64,
   isIdeaPlugin,
   Merge,
   Replace,
@@ -898,7 +899,7 @@ function _Chat() {
     (window as any).XAction = function (query: string) {
       chatStore.newSession();
       console.log("XAction > ", query);
-      if (clientInfo.is_encode) {
+      if (clientInfo?.is_encode || isBase64(query)) {
         console.log("clientInfo > ", clientInfo);
         query = Buffer.from(query, "base64").toString("utf-8");
       }
