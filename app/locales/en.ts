@@ -31,10 +31,11 @@ const en: LocaleType = {
 | ChatGLM  | chatglm_lite                 |   ✔️    |   ✔️    |
 | ChatGLM  | chatglm_std                  |   ✔️    |   ✔️    |
 | ChatGLM  | glm-4                        |   ✔️    |   ✔️    |
-| Alibaba  | qwen-max                     |   ✔️    |   ✔️    |
-| Alibaba  | qwen-plus                    |   ✔️    |   ✔️    |
 | Alibaba  | qwen-turbo                   |   ✔️    |   ✔️    |
-| Google  | codellama-34b-instruct        |   ✔️    |   ✔️    |
+| Alibaba  | qwen-max                     |   ✔️    |   ❌    |
+| Alibaba  | qwen-plus                    |   ✔️    |   ❌    |
+| Iflytek  | SparkDesk                    |   ✔️    |   ❌    |
+| Meta   | codellama-34b-instruct         |   ✔️    |   ❌    |
 | OpenAI   | gpt-4                        |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-0613                   |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-32k                    |   ✔️    |   ❌    |
@@ -45,7 +46,6 @@ const en: LocaleType = {
 | OpenAI   | gpt-4-browsing               |   ✔️    |   ❌    |
 | Claude   | claude-2                     |   ✔️    |   ❌    |
 | Claude   | claude-instant-100k          |   ✔️    |   ❌    |
-| Iflytek  | SparkDesk                    |   ✔️    |   ❌    |
 
 Or fill in your Azure Open AI Setting or Open AI API Key in [Settings](/#/settings).
 When you use Azure Open AI or Open AI Service directly, you don't need to sign in, and all requests don't go through any authentication or forwarding .
@@ -192,9 +192,16 @@ You will be directly connected to OpenAI or your Azure Endpoint at this point wh
 | OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ✔️    |
 | OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ✔️    |
 | OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ✔️    |
+| OpenAI   | gpt-3.5-plus                 |   ✔️    |   ✔️    |
 | ChatGLM  | chatglm_pro                  |   ✔️    |   ✔️    |
 | ChatGLM  | chatglm_lite                 |   ✔️    |   ✔️    |
 | ChatGLM  | chatglm_std                  |   ✔️    |   ✔️    |
+| ChatGLM  | glm-4                        |   ✔️    |   ✔️    |
+| Alibaba  | qwen-turbo                   |   ✔️    |   ✔️    |
+| Alibaba  | qwen-max                     |   ✔️    |   ❌    |
+| Alibaba  | qwen-plus                    |   ✔️    |   ❌    |
+| Iflytek  | SparkDesk                    |   ✔️    |   ❌    |
+| Meta   | codellama-34b-instruct         |   ✔️    |   ❌    |
 | OpenAI   | gpt-4                        |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-0613                   |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-32k                    |   ✔️    |   ❌    |
@@ -202,9 +209,10 @@ You will be directly connected to OpenAI or your Azure Endpoint at this point wh
 | OpenAI   | gpt-4-1106-preview-128K      |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-vision-preview-128K    |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-all                    |   ✔️    |   ❌    |
+| OpenAI   | gpt-4-browsing               |   ✔️    |   ❌    |
 | Claude   | claude-2                     |   ✔️    |   ❌    |
 | Claude   | claude-instant-100k          |   ✔️    |   ❌    |
-| Xunfei   | SparkDesk                    |   ✔️    |   ❌    |
+
 
 If you don't have any of the above models from your list of models, please clear the built-in browser cache and log back in.
 if you need to use the function call, please switch to the OpenAI GPT series model.
