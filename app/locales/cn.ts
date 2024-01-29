@@ -504,7 +504,7 @@ const cn = {
     Name: "商店",
   },
   Vip: {
-    Title: "开通会员",
+    Title: "付费计划",
   },
   FineTuned: {
     Sysmessage: "你是一个助手",
