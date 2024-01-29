@@ -542,11 +542,11 @@ export function ChatActions(props: {
 
   // switch model
   const currentModel = chatStore.currentSession().mask.modelConfig.model;
+
   const allModels = useAllModels();
-  const models = useMemo(
-    () => allModels.filter((m) => m.available),
-    [allModels],
-  );
+  const models = useMemo(() => {
+    return allModels.filter((m) => m.available);
+  }, [allModels]);
   const [showModelSelector, setShowModelSelector] = useState(false);
 
   useEffect(() => {

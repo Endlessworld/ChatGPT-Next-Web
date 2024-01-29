@@ -44,8 +44,10 @@ const en: LocaleType = {
 | OpenAI   | gpt-4-vision-preview-128K    |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-all                    |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-browsing               |   ✔️    |   ❌    |
-| Claude   | claude-2                     |   ✔️    |   ❌    |
-| Claude   | claude-instant-100k          |   ✔️    |   ❌    |
+| OpenAI   | gpt-4-turbo-all              |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0125-turbo             |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0125-preview           |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-turbo-preview          |   ✔️    |   ❌   |
 
 Or fill in your Azure Open AI Setting or Open AI API Key in [Settings](/#/settings).
 When you use Azure Open AI or Open AI Service directly, you don't need to sign in, and all requests don't go through any authentication or forwarding .
@@ -210,11 +212,12 @@ You will be directly connected to OpenAI or your Azure Endpoint at this point wh
 | OpenAI   | gpt-4-vision-preview-128K    |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-all                    |   ✔️    |   ❌    |
 | OpenAI   | gpt-4-browsing               |   ✔️    |   ❌    |
-| Claude   | claude-2                     |   ✔️    |   ❌    |
-| Claude   | claude-instant-100k          |   ✔️    |   ❌    |
+| OpenAI   | gpt-4-turbo-all              |   ✔️    |   ❌    |
+| OpenAI   | gpt-4-0125-turbo             |   ✔️    |   ❌    |
+| OpenAI   | gpt-4-0125-preview           |   ✔️    |   ❌    |
+| OpenAI   | gpt-4-turbo-preview          |   ✔️    |   ❌    |
 
 
-If you don't have any of the above models from your list of models, please clear the built-in browser cache and log back in.
 if you need to use the function call, please switch to the OpenAI GPT series model.
 `,
     },

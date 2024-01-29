@@ -42,8 +42,10 @@ const cn = {
 | OpenAI   | gpt-4-vision-preview-128k    |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-all                    |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-browsing               |   ✔️    |   ❌   |
-| Claude   | claude-2                     |   ✔️    |   ❌   |
-| Claude   | claude-instant-100k          |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-turbo-all              |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0125-turbo             |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0125-preview           |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-turbo-preview          |   ✔️    |   ❌   |
       `;
     },
   },
@@ -200,10 +202,12 @@ const cn = {
 | OpenAI   | gpt-4-vision-preview-128k    |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-all                    |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-browsing               |   ✔️    |   ❌   |
-| Claude   | claude-2                     |   ✔️    |   ❌   |
-| Claude   | claude-instant-100k          |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-turbo-all              |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0125-turbo             |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0125-preview           |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-turbo-preview          |   ✔️    |   ❌   |
 
-如果您的模型列表中缺少以上模型，请执行左上角菜单 > 确认重置 > 重新登录即可
+
 由于其它模型不支持函数调用功能、如需使用函数调用请切换至OpenAI GPT系列模型`,
     },
     Forum: {

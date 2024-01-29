@@ -150,4 +150,5 @@ export const usePromptStore = createPersistStore(
       fetchPrompt();
     },
   },
+  true,
 );

@@ -806,4 +806,5 @@ export const useChatStore = createPersistStore(
       return newState as any;
     },
   },
+  true,
 );

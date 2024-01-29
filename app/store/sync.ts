@@ -129,4 +129,5 @@ export const useSyncStore = createPersistStore(
       return newState as any;
     },
   },
+  true,
 );

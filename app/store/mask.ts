@@ -123,4 +123,5 @@ export const useMaskStore = createPersistStore(
       return newState as any;
     },
   },
+  true,
 );

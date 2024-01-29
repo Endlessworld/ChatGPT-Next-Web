@@ -128,4 +128,5 @@ export const useAccessStore = createPersistStore(
       return persistedState as any;
     },
   },
+  true,
 );

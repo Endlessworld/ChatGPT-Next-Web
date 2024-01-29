@@ -161,4 +161,5 @@ export const useUpdateStore = createPersistStore(
     name: StoreKey.Update,
     version: 1,
   },
+  true,
 );

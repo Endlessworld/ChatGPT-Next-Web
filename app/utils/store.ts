@@ -5,6 +5,7 @@ import { Updater } from "../typing";
 import localforage from "localforage";
 import { debounce } from "lodash";
 import { deepClone } from "@/app/utils/clone";
+
 localforage.config();
 // 定义适配器函数将localforage返回的Promise类型转换为void类型
 const storageAdapter: PersistStorage<any> = {
@@ -50,8 +51,11 @@ export function createPersistStore<T extends object, M>(
     get: () => T & MakeUpdater<T>,
   ) => M,
   persistOptions: SecondParam<typeof persist<T & M & MakeUpdater<T>>>,
+  useAdapter = false,
 ) {
-  persistOptions.storage = storageAdapter;
+  if (useAdapter) {
+    persistOptions.storage = storageAdapter;
+  }
   return create(
     persist(
       combine(

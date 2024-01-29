@@ -46,4 +46,5 @@ export const useClientInfoStore = createPersistStore(
       return persistedState as any;
     },
   },
+  false,
 );

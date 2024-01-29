@@ -10,7 +10,7 @@ export function ModelConfigList(props: {
   updateConfig: (updater: (config: ModelConfig) => void) => void;
 }) {
   const allModels = useAllModels();
-
+  console.log(allModels);
   return (
     <>
       <ListItem title={Locale.Settings.Model}>
@@ -33,6 +33,8 @@ export function ModelConfigList(props: {
           }}
         >
           {allModels
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .sort((a, b) => a.name.length - b.name.length)
             .filter((v) => v.available)
             .map((v, i) => (
               <option value={v.name} key={i}>

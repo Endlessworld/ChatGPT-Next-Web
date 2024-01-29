@@ -10,6 +10,7 @@ import {
 } from "../constant";
 import { isIdeaPlugin } from "@/app/utils";
 import { createPersistStore } from "../utils/store";
+import { create } from "zustand";
 
 export type ModelType = (typeof DEFAULT_MODELS)[number]["name"];
 
@@ -138,7 +139,7 @@ export const useAppConfig = createPersistStore(
       }
 
       for (const model of newModels) {
-        model.available = true;
+        // model.available = true;
         modelMap[model.name] = model;
       }
 
@@ -185,4 +186,5 @@ export const useAppConfig = createPersistStore(
       return state as any;
     },
   },
+  false,
 );
