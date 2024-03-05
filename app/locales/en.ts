@@ -116,6 +116,7 @@ You will be directly connected to OpenAI or your Azure Endpoint at this point wh
       Masks: "Masks",
       Clear: "Clear Context",
       Settings: "Settings",
+      UploadImage: "Upload Images",
     },
     Rename: "Rename Chat",
     Typing: "Typing…",
@@ -434,9 +435,8 @@ if you need to use the function call, please switch to the OpenAI GPT series mod
       Google: {
         ApiKey: {
           Title: "API Key",
-          SubTitle:
-            "Bypass password access restrictions using a custom Google AI Studio API Key",
-          Placeholder: "Google AI Studio API Key",
+          SubTitle: "Obtain your API Key from Google AI",
+          Placeholder: "Enter your Google AI Studio API Key",
         },
 
         Endpoint: {
@@ -444,9 +444,9 @@ if you need to use the function call, please switch to the OpenAI GPT series mod
           SubTitle: "Example:",
         },
 
-        ApiVerion: {
-          Title: "API Version (gemini-pro api version)",
-          SubTitle: "Select a specific part version",
+        ApiVersion: {
+          Title: "API Version (specific to gemini-pro)",
+          SubTitle: "Select a specific API version",
         },
       },
     },

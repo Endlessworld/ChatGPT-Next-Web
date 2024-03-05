@@ -22,11 +22,11 @@ export function getChatAvatarUrl(unified: string, style: EmojiStyle) {
   ) {
     return userAvatar;
   }
-  return `https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/${style}/64/${unified}.png`;
+  return `https://fastly.jsdelivr.net/npm/emoji-datasource-apple/img/${style}/64/${unified}.png`;
 }
 
 export function getEmojiPickerUrl(unified: string, style: EmojiStyle) {
-  return `https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/${style}/64/${unified}.png`;
+  return `https://fastly.jsdelivr.net/npm/emoji-datasource-apple/img/${style}/64/${unified}.png`;
 }
 
 export function AvatarPicker(props: {

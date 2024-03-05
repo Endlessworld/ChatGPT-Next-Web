@@ -187,6 +187,7 @@ export const Azure = {
 export const Google = {
   ExampleEndpoint: "https://generativelanguage.googleapis.com/",
   ChatPath: "v1beta/models/gemini-pro:generateContent",
+  VisionChatPath: "v1beta/models/gemini-pro-vision:generateContent",
 
   // /api/openai/v1/chat/completions
 };
@@ -249,7 +250,8 @@ You should always generate short suggestions for the next user turn that is rele
 If your reply contains a code block, make sure that the beginning of the code block contains the programming language name for the code.
 The knowledge base cannot be satisfied when considering function calls to gain Internet knowledge
 Prioritize function calls
-You are ChatGPT, a large language model trained by OpenAI.
+You are ChatGPT, a large language model trained by {{ServiceProvider}}.
+Knowledge cutoff: {{cutoff}}
 Current model: {{model}}
 Current time: {{time}}
 Current lang: {{lang}}
@@ -259,11 +261,17 @@ Latex block: $$e=mc^2$$
 `;
 
 export const SUMMARIZE_MODEL = "gpt-3.5-turbo";
+export const GEMINI_SUMMARIZE_MODEL = "gemini-pro";
 
 export const KnowledgeCutOffDate: Record<string, string> = {
   default: "2021-09",
+  "gpt-4-turbo-preview": "2023-12",
   "gpt-4-1106-preview": "2023-04",
+  "gpt-4-0125-preview": "2023-12",
   "gpt-4-vision-preview": "2023-04",
+  // After improvements,
+  // it's now easier to add "KnowledgeCutOffDate" instead of stupid hardcoding it, as was done previously.
+  "gemini-pro": "2023-12",
 };
 
 export const DEFAULT_MODELS = [
@@ -377,6 +385,15 @@ export const DEFAULT_MODELS = [
   },
   {
     name: "gpt-3.5-turbo",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gpt-3.5-turbo-0125",
     available: true,
     provider: {
       id: "openai",
@@ -577,6 +594,15 @@ export const DEFAULT_MODELS = [
   },
   {
     name: "gemini-pro",
+    available: true,
+    provider: {
+      id: "google",
+      providerName: "Google",
+      providerType: "google",
+    },
+  },
+  {
+    name: "gemini-pro-vision",
     available: true,
     provider: {
       id: "google",
