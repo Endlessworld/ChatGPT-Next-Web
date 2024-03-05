@@ -120,7 +120,7 @@ export enum Path {
 
 export enum ApiPath {
   Cors = "/api/cors",
-  OpenAI = "/api/openai",
+  OpenAI = "/",
 }
 
 export enum SlotID {
@@ -429,6 +429,24 @@ export const DEFAULT_MODELS = [
     },
   },
   {
+    name: "gpt-3.5-turbo-1106",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "gpt-3.5-turbo-0125",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
     name: "gpt-3.5-turbo-16k",
     available: true,
     provider: {
@@ -439,25 +457,6 @@ export const DEFAULT_MODELS = [
   },
   {
     name: "gpt-3.5-turbo-16k-0613",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-
-  // {
-  //   name: "gemini-pro",
-  //   available: true,
-  //   provider: {
-  //     id: "openai",
-  //     providerName: "OpenAI",
-  //     providerType: "openai",
-  //   },
-  // },
-  {
-    name: "gpt-3.5-turbo-1106",
     available: true,
     provider: {
       id: "openai",
@@ -608,6 +607,24 @@ export const DEFAULT_MODELS = [
       id: "google",
       providerName: "Google",
       providerType: "google",
+    },
+  },
+  {
+    name: "mixtral-8x7b-32768",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "llama2-70b-4096",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
     },
   },
 ] as const;

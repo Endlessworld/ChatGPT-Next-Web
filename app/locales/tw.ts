@@ -1,11 +1,11 @@
 import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
-import type { PartialLocaleType } from "./index";
+import type { PartialLocaleType as partialLocaleType } from "./index";
 import { LOGIN_HOST } from "@/app/constant";
 
 const isApp = !!getClientConfig()?.isApp;
 
-const tw: PartialLocaleType = {
+const tw: partialLocaleType = {
   WIP: "該功能仍在開發中……",
   Error: {
     Unauthorized: `OpenAI API Key无效 请点此[登录](${LOGIN_HOST})或者在[设置](/#/settings)中填写自己的Open API Key 

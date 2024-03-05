@@ -112,7 +112,7 @@ import AddIcon from "@/app/icons/add.svg";
 import { useAllModels } from "../utils/hooks";
 import exports from "webpack";
 import system = exports.RuntimeGlobals.system;
-import { MultimodalContent } from "../client/api";
+import { MessageRole, MultimodalContent } from "../client/api";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -885,7 +885,7 @@ function _Chat() {
     }
     setIsLoading(true);
     chatStore
-      .onUserInput(userInput, attachImages)
+      .onUserInput(userInput, "user", undefined, attachImages)
       .then(() => setIsLoading(false));
     setAttachImages([]);
     localStorage.setItem(LAST_INPUT_KEY, userInput);
@@ -1045,7 +1045,9 @@ function _Chat() {
     setIsLoading(true);
     const textContent = getMessageTextContent(userMessage);
     const images = getMessageImages(userMessage);
-    chatStore.onUserInput(textContent, images).then(() => setIsLoading(false));
+    chatStore
+      .onUserInput(textContent, message.role, undefined, images)
+      .then(() => setIsLoading(false));
     inputRef.current?.focus();
   };
 
@@ -1195,7 +1197,7 @@ function _Chat() {
   const contextAwarenessHandler = useCallback(() => {
     chatStore.updateCurrentSession((session) => {
       session.mask.context = session.mask.context.filter(
-        (message) => !message.content.startsWith("\u200D\u200D"),
+        (message) => !getMessageTextContent(message).startsWith("\u200D\u200D"),
       );
     });
     const projectContext = localStorage.getItem("project-context");
@@ -1215,7 +1217,7 @@ function _Chat() {
   const functionCallBack = useCallback(() => {
     chatStore.updateCurrentSession((session) => {
       session.mask.context = session.mask.context.filter(
-        (message) => !message.content.startsWith("\u200D\u200D"),
+        (message) => !getMessageTextContent(message).startsWith("\u200D\u200D"),
       );
     });
     const responsesJSON = localStorage.getItem("function-response");
@@ -1433,7 +1435,7 @@ function _Chat() {
       if (!isVisionModel(currentModel)) {
         return;
       }
-      const items = (event.clipboardData || window.clipboardData).items;
+      const items = event.clipboardData.items;
       for (const item of items) {
         if (item.kind === "file" && item.type.startsWith("image/")) {
           event.preventDefault();

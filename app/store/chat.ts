@@ -269,7 +269,8 @@ export const useChatStore = createPersistStore(
         }));
         if (isIdeaPlugin()) {
           session.mask.context = session.mask.context.filter(
-            (message) => !message.content.startsWith("\u200D\u200D"),
+            (message) =>
+              !getMessageTextContent(message).startsWith("\u200D\u200D"),
           );
           const projectContext = localStorage.getItem("project-context");
           if (projectContext) {
