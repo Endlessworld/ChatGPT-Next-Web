@@ -269,30 +269,10 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gpt-4-1106-preview": "2023-04",
   "gpt-4-0125-preview": "2023-12",
   "gpt-4-vision-preview": "2023-04",
-  // After improvements,
-  // it's now easier to add "KnowledgeCutOffDate" instead of stupid hardcoding it, as was done previously.
   "gemini-pro": "2023-12",
 };
 
 export const DEFAULT_MODELS = [
-  // {
-  //   name: "claude-2",
-  //   available: false,
-  //   provider: {
-  //     id: "openai",
-  //     providerName: "OpenAI",
-  //     providerType: "openai",
-  //   },
-  // },
-  // {
-  //   name: "claude-instant-100k",
-  //   available: false,
-  //   provider: {
-  //     id: "openai",
-  //     providerName: "OpenAI",
-  //     providerType: "openai",
-  //   },
-  // },
   {
     name: "chatglm_pro",
     available: true,
@@ -547,7 +527,7 @@ export const DEFAULT_MODELS = [
     },
   },
   {
-    name: "gpt-4-1106-preview-128k",
+    name: "gpt-4-1106-preview",
     available: true,
     provider: {
       id: "openai",
@@ -583,7 +563,7 @@ export const DEFAULT_MODELS = [
     },
   },
   {
-    name: "gpt-4-vision-preview-128k",
+    name: "gpt-4-vision-preview",
     available: true,
     provider: {
       id: "openai",
@@ -620,6 +600,15 @@ export const DEFAULT_MODELS = [
   },
   {
     name: "llama2-70b-4096",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
+  {
+    name: "claude-3-opus-20240229",
     available: true,
     provider: {
       id: "openai",

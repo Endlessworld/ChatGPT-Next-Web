@@ -38,8 +38,8 @@ const cn = {
 | OpenAI   | gpt-4-0613                   |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-32k                    |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-32k-0613               |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-1106-preview-128k      |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-vision-preview-128k    |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-1106-preview           |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-vision-preview         |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-all                    |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-browsing               |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-turbo-all              |   ✔️    |   ❌   |
@@ -199,8 +199,8 @@ const cn = {
 | OpenAI   | gpt-4-0613                   |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-32k                    |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-32k-0613               |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-1106-preview-128k      |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-vision-preview-128k    |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-1106-preview           |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-vision-preview         |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-all                    |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-browsing               |   ✔️    |   ❌   |
 | OpenAI   | gpt-4-turbo-all              |   ✔️    |   ❌   |
