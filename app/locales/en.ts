@@ -1,7 +1,7 @@
 import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
 import { LocaleType } from "./index";
-import { LOGIN_HOST } from "@/app/constant";
+import { LOGIN_HOST, MODEL_LIST_EN } from "@/app/constant";
 
 // if you are adding a new translation, please use PartialLocaleType instead of LocaleType
 
@@ -18,37 +18,8 @@ const en: LocaleType = {
           ? `Welcome back ${display_name} i am X-Copilot!`
           : `Welcome to X-Copilot You are not currently logged in.
          Please click here [Login](${LOGIN_HOST}) to use for free 
-         
-| Provider | Model Name | Access Status | Free |
-|----------|------------------------------|---------|---------|
-| OpenAI   | gpt-3.5-turbo                |   ✔️    |   ✔️    |
-| OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ✔️    |
-| OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ✔️    |
-| OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ✔️    |
-| OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ✔️    |
-| OpenAI   | gpt-3.5-plus                 |   ✔️    |   ✔️    |
-| ChatGLM  | chatglm_pro                  |   ✔️    |   ✔️    |
-| ChatGLM  | chatglm_lite                 |   ✔️    |   ✔️    |
-| ChatGLM  | chatglm_std                  |   ✔️    |   ✔️    |
-| ChatGLM  | glm-4                        |   ✔️    |   ✔️    |
-| Alibaba  | qwen-turbo                   |   ✔️    |   ✔️    |
-| Alibaba  | qwen-max                     |   ✔️    |   ❌    |
-| Alibaba  | qwen-plus                    |   ✔️    |   ❌    |
-| Iflytek  | SparkDesk                    |   ✔️    |   ❌    |
-| Meta   | codellama-34b-instruct         |   ✔️    |   ❌    |
-| OpenAI   | gpt-4                        |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-0613                   |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-32k                    |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-32k-0613               |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-1106-preview           |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-vision-preview         |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-all                    |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-browsing               |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-turbo-all              |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0125-turbo             |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0125-preview           |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-turbo-preview          |   ✔️    |   ❌   |
-
+	      This  plugin  has  accumulated  access  to  31  global  mainstream  large  models：
+ ${MODEL_LIST_EN}
 Or fill in your Azure Open AI Setting or Open AI API Key in [Settings](/#/settings).
 When you use Azure Open AI or Open AI Service directly, you don't need to sign in, and all requests don't go through any authentication or forwarding .
 You will be directly connected to OpenAI or your Azure Endpoint at this point where your data security will be guaranteed to the greatest extent.
@@ -187,38 +158,8 @@ You will be directly connected to OpenAI or your Azure Endpoint at this point wh
       Title: "Announcement",
       Content: `
 1、Azure OpenAI service is supported.
-2、This plug-in is connected to the following models:
-| Provider | Model Name | Access Status | Free |
-|----------|------------------------------|---------|---------|
-| OpenAI   | gpt-3.5-turbo                |   ✔️    |   ✔️    |
-| OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ✔️    |
-| OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ✔️    |
-| OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ✔️    |
-| OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ✔️    |
-| OpenAI   | gpt-3.5-plus                 |   ✔️    |   ✔️    |
-| ChatGLM  | chatglm_pro                  |   ✔️    |   ✔️    |
-| ChatGLM  | chatglm_lite                 |   ✔️    |   ✔️    |
-| ChatGLM  | chatglm_std                  |   ✔️    |   ✔️    |
-| ChatGLM  | glm-4                        |   ✔️    |   ✔️    |
-| Alibaba  | qwen-turbo                   |   ✔️    |   ✔️    |
-| Alibaba  | qwen-max                     |   ✔️    |   ❌    |
-| Alibaba  | qwen-plus                    |   ✔️    |   ❌    |
-| Iflytek  | SparkDesk                    |   ✔️    |   ❌    |
-| Meta   | codellama-34b-instruct         |   ✔️    |   ❌    |
-| OpenAI   | gpt-4                        |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-0613                   |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-32k                    |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-32k-0613               |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-1106-preview           |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-vision-preview         |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-all                    |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-browsing               |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-turbo-all              |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-0125-turbo             |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-0125-preview           |   ✔️    |   ❌    |
-| OpenAI   | gpt-4-turbo-preview          |   ✔️    |   ❌    |
-
-
+2、This  plugin  has  accumulated  access  to  31  global  mainstream  large  models：
+ ${MODEL_LIST_EN}
 if you need to use the function call, please switch to the OpenAI GPT series model.
 `,
     },

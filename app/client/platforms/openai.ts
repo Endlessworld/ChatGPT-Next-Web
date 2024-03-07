@@ -57,11 +57,8 @@ export class ChatGPTApi implements LLMApi {
 
     let baseUrl = isAzure ? accessStore.azureUrl : accessStore.openaiUrl;
 
-    if (baseUrl.length === 0) {
-      const isApp = !!getClientConfig()?.isApp;
-      baseUrl = isApp
-        ? DEFAULT_API_HOST + "/proxy" + ApiPath.OpenAI
-        : ApiPath.OpenAI;
+    if (baseUrl.length === 0 || baseUrl === "/") {
+      baseUrl = accessStore.workers.filter((e) => e.checked)[0]?.api;
     }
 
     if (baseUrl.endsWith("/")) {
@@ -75,7 +72,7 @@ export class ChatGPTApi implements LLMApi {
       path = makeAzurePath(path, accessStore.azureApiVersion);
     }
 
-    console.log("[Proxy Endpoint] ", baseUrl, path);
+    console.log("[Proxy Endpoint] ", [baseUrl, path].join("/"));
 
     return [baseUrl, path].join("/");
   }

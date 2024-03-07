@@ -19,9 +19,7 @@ export interface ApiHost {
 }
 
 const DEFAULT_OPENAI_URL =
-  getClientConfig()?.buildMode === "export"
-    ? DEFAULT_API_HOST + "/api/proxy/openai"
-    : ApiPath.OpenAI;
+  getClientConfig()?.buildMode === "export" ? DEFAULT_API_HOST : ApiPath.OpenAI;
 
 const DEFAULT_ACCESS_STATE = {
   accessCode: "",

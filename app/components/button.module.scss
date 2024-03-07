@@ -22,7 +22,11 @@
   &.primary {
     background-color: var(--primary);
     color: white;
-
+    &:focus,&:hover {
+      //border-color: red;
+      box-shadow: var(--input-foucs-border);
+      background-color: var(--primary-focus);
+    }
     path {
       fill: white !important;
     }
@@ -43,12 +47,7 @@
     }
   }
 
-  &:hover,
-  &:focus {
-    border-color: var(--input-foucs-border);
-    box-shadow: var(--card-foucs-shadow);
-    background-color: var(--input-foucs-border);
-  }
+
 }
 
 .shadow {

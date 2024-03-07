@@ -382,15 +382,6 @@ export const DEFAULT_MODELS = [
     },
   },
   {
-    name: "gpt-3.5-turbo-0301",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-  {
     name: "gpt-3.5-turbo-0613",
     available: true,
     provider: {
@@ -401,24 +392,6 @@ export const DEFAULT_MODELS = [
   },
   {
     name: "gpt-3.5-turbo-1106",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-  {
-    name: "gpt-3.5-turbo-1106",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-  {
-    name: "gpt-3.5-turbo-0125",
     available: true,
     provider: {
       id: "openai",
@@ -445,25 +418,7 @@ export const DEFAULT_MODELS = [
     },
   },
   {
-    name: "gpt-3.5-turbo-instruct-0914",
-    available: false,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-  {
     name: "gpt-4",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-  {
-    name: "gpt-4-0314",
     available: true,
     provider: {
       id: "openai",
@@ -489,25 +444,6 @@ export const DEFAULT_MODELS = [
       providerType: "openai",
     },
   },
-  {
-    name: "gpt-4-turbo-all",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-  {
-    name: "gpt-4-browsing",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-
   {
     name: "gpt-4-32k",
     available: true,
@@ -620,7 +556,80 @@ export const DEFAULT_MODELS = [
 
 export const CHAT_PAGE_SIZE = 9;
 export const MAX_RENDER_MSG_COUNT = 45;
+export const MODEL_LIST_CN = `
 
+| 厂商      | 模型名称                      | 接入状态 | 是否免费 |
+|----------|-----------------------------|---------|---------|
+| 清华智谱  | chatglm_pro                  |   ✔️    |   ✔️   |
+| 清华智谱  | chatglm_lite                 |   ✔️    |   ✔️   |
+| 清华智谱  | chatglm_std                  |   ✔️    |   ✔️   |
+| 清华智谱  | glm-4                        |   ✔️    |   ❌️   |
+| 阿里巴巴  | qwen-turbo                   |   ✔️    |   ✔️   |
+| 阿里巴巴  | qwen-plus                    |   ✔️    |   ❌️   |
+| 阿里巴巴  | qwen-max                     |   ✔️    |   ❌️   |
+| 讯飞星火  | SparkDesk                    |   ✔️    |   ❌   |
+| Meta     | codellama-34b-instruct       |   ✔️    |   ❌️   |
+| Google   | gemini-pro                   |   ✔️    |   ❌️   |
+| Google   | gemini-pro-vision            |   ✔️    |   ❌️   |
+| Anthropic| claude-3-opus-20240229       |   ✔️    |   ❌️   |
+| GroqCloud| llama2-70b-4096              |   ✔️    |   ❌️   |
+| GroqCloud| mixtral-8x7b-32768           |   ✔️    |   ❌️   |
+| OpenAI   | gpt-3.5-turbo                |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-0125           |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-plus                 |   ✔️    |   ✔️   |
+| OpenAI   | gpt-4                        |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0613                   |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-32k                    |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-32k-0613               |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-all                    |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0125-turbo             |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0125-preview           |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-1106-preview           |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-turbo-preview          |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-vision-preview         |   ✔️    |   ❌   |
+
+`;
+
+export const MODEL_LIST_EN = `
+| Provider | Model Name | Access Status | Free |
+|----------|------------------------------|---------|---------|
+| ChatGLM  | chatglm_pro                  |   ✔️    |   ✔️   |
+| ChatGLM  | chatglm_lite                 |   ✔️    |   ✔️   |
+| ChatGLM  | chatglm_std                  |   ✔️    |   ✔️   |
+| ChatGLM  | glm-4                        |   ✔️    |   ❌️   |
+| Alibaba  | qwen-turbo                   |   ✔️    |   ✔️   |
+| Alibaba  | qwen-plus                    |   ✔️    |   ❌️   |
+| Alibaba  | qwen-max                     |   ✔️    |   ❌️   |
+| Iflytek  | SparkDesk                    |   ✔️    |   ❌   |
+| Meta     | codellama-34b-instruct       |   ✔️    |   ❌️   |
+| Google   | gemini-pro                   |   ✔️    |   ❌️   |
+| Google   | gemini-pro-vision            |   ✔️    |   ❌️   |
+| Anthropic| claude-3-opus-20240229       |   ✔️    |   ❌️   |
+| GroqCloud| llama2-70b-4096              |   ✔️    |   ❌️   |
+| GroqCloud| mixtral-8x7b-32768           |   ✔️    |   ❌️   |
+| OpenAI   | gpt-3.5-turbo                |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-turbo-0125           |   ✔️    |   ✔️   |
+| OpenAI   | gpt-3.5-plus                 |   ✔️    |   ✔️   |
+| OpenAI   | gpt-4                        |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0613                   |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-32k                    |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-32k-0613               |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-all                    |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0125-turbo             |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-0125-preview           |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-1106-preview           |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-turbo-preview          |   ✔️    |   ❌   |
+| OpenAI   | gpt-4-vision-preview         |   ✔️    |   ❌   |
+
+`;
 export const WORKERS_LIST = [
   {
     title: "订阅通道-亚洲",

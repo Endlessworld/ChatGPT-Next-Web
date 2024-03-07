@@ -1,6 +1,6 @@
 import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
-import { LOGIN_HOST } from "@/app/constant";
+import { LOGIN_HOST, MODEL_LIST_CN } from "@/app/constant";
 
 const isApp = !!getClientConfig()?.isApp;
 
@@ -17,35 +17,8 @@ const cn = {
       }
       return `  
 欢迎使用X-Copilot 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用 
-| 厂商      | 模型名称                      | 接入状态 | 是否免费 |
-|----------|-----------------------------|---------|---------|
-| 清华智谱  | chatglm_pro                  |   ✔️    |   ✔️   |
-| 清华智谱  | chatglm_lite                 |   ✔️    |   ✔️   |
-| 清华智谱  | chatglm_std                  |   ✔️    |   ✔️   |
-| 清华智谱  | glm-4                        |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo               |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-0613          |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-16k           |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-16k-0613      |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-1106          |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-plus                |   ✔️    |   ✔️    |
-| 阿里巴巴  | qwen-turbo                   |   ✔️    |   ✔️    |
-| 阿里巴巴  | qwen-plus                    |   ✔️    |   ❌️    |
-| 阿里巴巴  | qwen-max                     |   ✔️    |   ❌️    |
-| 讯飞星火  | SparkDesk                    |   ✔️    |   ❌    |
-| Meta     | codellama-34b-instruct       |   ✔️    |   ❌️   |
-| OpenAI   | gpt-4                        |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0613                   |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-32k                    |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-32k-0613               |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-1106-preview           |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-vision-preview         |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-all                    |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-browsing               |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-turbo-all              |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0125-turbo             |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0125-preview           |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-turbo-preview          |   ✔️    |   ❌   |
+本插件已接入以下31个全球主流大模型:
+${MODEL_LIST_CN}
       `;
     },
   },
@@ -176,38 +149,8 @@ const cn = {
     Announcement: {
       Title: "公告",
       Content: ` 
-1、已支持Azure OpenAI服务
-2、本插件已接入以下模型
-| 厂商      | 模型名称                      | 接入状态 | 是否免费 |
-|----------|-----------------------------|---------|---------|
-| 清华智谱  | chatglm_pro                  |   ✔️    |   ✔️   |
-| 清华智谱  | chatglm_lite                 |   ✔️    |   ✔️   |
-| 清华智谱  | chatglm_std                  |   ✔️    |   ✔️   |
-| 清华智谱  | glm-4                        |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo               |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-0613          |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-16k           |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-16k-0613      |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-1106          |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-plus                |   ✔️    |   ✔️    |
-| 阿里巴巴  | qwen-turbo                   |   ✔️    |   ✔️    |
-| 阿里巴巴  | qwen-plus                    |   ✔️    |   ❌️    |
-| 阿里巴巴  | qwen-max                     |   ✔️    |   ❌️    |
-| Meta     | codellama-34b-instruct       |   ✔️    |   ❌️   |
-| 讯飞星火  | SparkDesk                    |   ✔️    |   ❌    |
-| OpenAI   | gpt-4                        |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0613                   |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-32k                    |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-32k-0613               |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-1106-preview           |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-vision-preview         |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-all                    |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-browsing               |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-turbo-all              |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0125-turbo             |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0125-preview           |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-turbo-preview          |   ✔️    |   ❌   |
-
+本插件已累计接入31个全球主流大模型 总有一款适合你
+${MODEL_LIST_CN}
 
 由于其它模型不支持函数调用功能、如需使用函数调用请切换至OpenAI GPT系列模型`,
     },
