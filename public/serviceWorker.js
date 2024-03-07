@@ -15,7 +15,7 @@ self.addEventListener("message", (event) => {
 
 workbox.routing.registerRoute(
     /\.js|.css$/,
-    new workbox.strategies.NetworkFirst({
+    new workbox.strategies.StaleWhileRevalidate({
         cacheName: COPILOT_WEB_CACHE,
         plugins: [
             new workbox.expiration.ExpirationPlugin({
