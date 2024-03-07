@@ -552,6 +552,15 @@ export const DEFAULT_MODELS = [
       providerType: "openai",
     },
   },
+  {
+    name: "claude-3-sonnet-20240229",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
 ] as const;
 
 export const CHAT_PAGE_SIZE = 9;
@@ -572,6 +581,7 @@ export const MODEL_LIST_CN = `
 | Google   | gemini-pro                   |   ✔️    |   ❌️   |
 | Google   | gemini-pro-vision            |   ✔️    |   ❌️   |
 | Anthropic| claude-3-opus-20240229       |   ✔️    |   ❌️   |
+| Anthropic| claude-3-sonnet-20240229     |   ✔️    |   ❌️   |
 | GroqCloud| llama2-70b-4096              |   ✔️    |   ❌️   |
 | GroqCloud| mixtral-8x7b-32768           |   ✔️    |   ❌️   |
 | OpenAI   | gpt-3.5-turbo                |   ✔️    |   ✔️   |
@@ -609,6 +619,7 @@ export const MODEL_LIST_EN = `
 | Google   | gemini-pro                   |   ✔️    |   ❌️   |
 | Google   | gemini-pro-vision            |   ✔️    |   ❌️   |
 | Anthropic| claude-3-opus-20240229       |   ✔️    |   ❌️   |
+| Anthropic| claude-3-sonnet-20240229     |   ✔️    |   ❌️   |
 | GroqCloud| llama2-70b-4096              |   ✔️    |   ❌️   |
 | GroqCloud| mixtral-8x7b-32768           |   ✔️    |   ❌️   |
 | OpenAI   | gpt-3.5-turbo                |   ✔️    |   ✔️   |
