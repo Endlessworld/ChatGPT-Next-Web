@@ -11,7 +11,13 @@ import styles from "./home.module.scss";
 import BotIcon from "../icons/bot.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 
-import { clearCache, getCSSVar, ideaMessage, useMobileScreen } from "../utils";
+import {
+  clearCache,
+  getCSSVar,
+  getUserInfo,
+  ideaMessage,
+  useMobileScreen,
+} from "../utils";
 
 import dynamic from "next/dynamic";
 import { ModelProvider, Path, SlotID } from "../constant";
@@ -60,6 +66,7 @@ const MaskPage = dynamic(async () => (await import("./mask")).MaskPage, {
 
 const useCefFunctionInit = function () {
   const config = useAppConfig();
+  const accessStore = useAccessStore.getState();
   const plugin = useClientInfoStore();
   const noticeStore = useNoticeStore();
   useEffect(() => {
@@ -78,6 +85,14 @@ const useCefFunctionInit = function () {
     ideaMessage({
       event: "initialized",
       message: JSON.stringify({ lang: getJvmLocale() }),
+    }).then((r) => {});
+    let host = accessStore.workers.filter((e) => e.checked)[0]?.api;
+    ideaMessage({
+      event: "sync_session",
+      message: JSON.stringify({
+        host: host,
+        session_token: getUserInfo()?.session_token,
+      }),
     }).then((r) => {});
     if (
       noticeStore.showNotice ||

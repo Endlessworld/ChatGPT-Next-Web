@@ -17,7 +17,7 @@ const cn = {
       }
       return `  
 欢迎使用X-Copilot 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用 
-本插件已接入以下31个全球主流大模型:
+本插件已接入以下30+全球主流大模型:
 ${MODEL_LIST_CN}
       `;
     },
@@ -149,7 +149,7 @@ ${MODEL_LIST_CN}
     Announcement: {
       Title: "公告",
       Content: ` 
-本插件已累计接入31个全球主流大模型 总有一款适合你
+本插件已接入以下30+全球主流大模型:
 ${MODEL_LIST_CN}
 
 由于其它模型不支持函数调用功能、如需使用函数调用请切换至OpenAI GPT系列模型`,
