@@ -66,7 +66,7 @@ const MaskPage = dynamic(async () => (await import("./mask")).MaskPage, {
 
 const useCefFunctionInit = function () {
   const config = useAppConfig();
-  const accessStore = useAccessStore.getState();
+  const accessStore = useAccessStore();
   const plugin = useClientInfoStore();
   const noticeStore = useNoticeStore();
   useEffect(() => {
@@ -87,11 +87,13 @@ const useCefFunctionInit = function () {
       message: JSON.stringify({ lang: getJvmLocale() }),
     }).then((r) => {});
     let host = accessStore.workers.filter((e) => e.checked)[0]?.api;
+    let userInfo = getUserInfo();
     ideaMessage({
       event: "sync_session",
       message: JSON.stringify({
         host: host,
-        session_token: getUserInfo()?.session_token,
+        session_token: userInfo?.session_token,
+        user_id: userInfo?.user_id,
       }),
     }).then((r) => {});
     if (
