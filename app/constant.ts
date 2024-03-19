@@ -38,6 +38,7 @@ import {
   vscDarkPlus,
   xonokai,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { LLMModel } from "@/app/client/api";
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/zenburn" {}
 
@@ -272,87 +273,133 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gemini-pro": "2023-12",
 };
 
-export const DEFAULT_MODELS = [
-  {
-    name: "chatglm_pro",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-  {
-    name: "chatglm_lite",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-  {
-    name: "chatglm_std",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
-  {
-    name: "glm-4",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
+export const DEFAULT_MODELS: readonly LLMModel[] = [
+  // {
+  //   name: "chatglm_pro",
+  //   description:"",
+  //   available: false,
+  // },
+  // {
+  //   name: "chatglm_lite",
+  //   description:"",
+  //   available: false,
+  // },
+  // {
+  //   name: "chatglm_std",
+  //   description:"",
+  //   available: false,
+  // },
+  // {
+  //   name: "glm-4",
+  //   description:"",
+  //   available: false,
+  // },
   {
     name: "SparkDesk",
+    displayName: "SparkDesk",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
-    name: "qwen-max",
+    name: "zero-one-ai/Yi-34B-Chat",
+    displayName: "Yi-34B",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
-    name: "qwen-plus",
+    name: "deepseek-ai/deepseek-coder-33b-instruct",
+    displayName: "deepseek-coder-33b",
+    description: "代码专精、国产",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
-    name: "qwen-turbo",
+    name: "Qwen/Qwen1.5-0.5B-Chat",
+    displayName: "qwen1.5-0.5b-32k",
+    description: "长上下文",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
-    name: "codellama-34b-instruct",
+    name: "Qwen/Qwen1.5-1.8B-Chat",
+    displayName: "qwen1.5-1.8b-32k",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
+  },
+  {
+    name: "Qwen/Qwen1.5-4B-Chat",
+    displayName: "qwen1.5-4b-32k",
+    available: true,
+  },
+  {
+    name: "Qwen/Qwen1.5-7B-Chat",
+    displayName: "qwen1.5-7b-32k",
+    available: true,
+  },
+  {
+    name: "Qwen/Qwen1.5-14B-Chat",
+    displayName: "qwen1.5-14b-32k",
+    available: true,
+  },
+  {
+    name: "Qwen/Qwen1.5-72B-Chat",
+    displayName: "qwen1.5-72b-32k",
+    available: true,
+  },
+  {
+    name: "google/gemma-2b-it",
+    displayName: "gemma-2b",
+    available: true,
+  },
+  {
+    name: "google/gemma-7b-it",
+    displayName: "gemma-7b",
+    available: true,
+  },
+  {
+    name: "codellama/CodeLlama-7b-Instruct-hf",
+    displayName: "codeLlama-7b-Instruct-hf",
+    available: true,
+  },
+  {
+    name: "codellama/CodeLlama-13b-Instruct-hf",
+    displayName: "codeLlama-13b-Instruct-hf",
+    available: true,
+  },
+  {
+    name: "codellama/CodeLlama-34b-Instruct-hf",
+    displayName: "codeLlama-34b-Instruct-hf",
+    available: true,
+  },
+  {
+    name: "codellama/CodeLlama-70b-Instruct-hf",
+    displayName: "codeLlama-70b-Instruct-hf",
+    available: true,
+  },
+  {
+    name: "meta-llama/Llama-2-7b-chat-hf",
+    displayName: "llama-2-7b-chat-hf",
+    available: true,
+  },
+  {
+    name: "meta-llama/Llama-2-13b-chat-hf",
+    displayName: "llama-2-13b-chat-hf",
+    available: true,
+  },
+  {
+    name: "meta-llama/Llama-2-70b-chat-hf",
+    displayName: "llama-2-70b-chat-hf",
+    available: true,
+  },
+  {
+    name: "mistralai/Mistral-7B-Instruct-v0.1",
+    displayName: "mistral-7B-8k",
+    available: true,
+  },
+  {
+    name: "mistralai/Mistral-7B-Instruct-v0.2",
+    displayName: "mistral-7B-8k",
+    available: true,
+  },
+  {
+    name: "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    displayName: "mistral-8x7B-32k",
+    available: true,
   },
   {
     name: "gpt-3.5-plus",
@@ -438,11 +485,7 @@ export const DEFAULT_MODELS = [
   {
     name: "gpt-4-all",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
+    description: "联网、读取链接/文件、较慢",
   },
   {
     name: "gpt-4-32k",
@@ -501,6 +544,7 @@ export const DEFAULT_MODELS = [
   {
     name: "gpt-4-vision-preview",
     available: true,
+    description: "传图、识图",
     provider: {
       id: "openai",
       providerName: "OpenAI",
@@ -510,6 +554,7 @@ export const DEFAULT_MODELS = [
   {
     name: "gemini-pro",
     available: true,
+    displayName: "google/gemini-pro-vision",
     provider: {
       id: "google",
       providerName: "Google",
@@ -518,6 +563,7 @@ export const DEFAULT_MODELS = [
   },
   {
     name: "gemini-pro-vision",
+    displayName: "google/gemini-pro-vision",
     available: true,
     provider: {
       id: "google",
@@ -526,40 +572,40 @@ export const DEFAULT_MODELS = [
     },
   },
   {
-    name: "mixtral-8x7b-32768",
+    name: "copilot/gemini-pro",
+    displayName: "copilot/gemini-pro",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
+  },
+  {
+    name: "copilot/gemini-pro-vision",
+    displayName: "copilot/gemini-pro-vision",
+    available: true,
+  },
+  {
+    name: "mixtral-8x7b-32768",
+    displayName: "mixtral-8x7b-32k",
+    description: "速度x18、世界最快",
+    available: true,
   },
   {
     name: "llama2-70b-4096",
+    description: "速度x18、世界最快",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
     name: "claude-3-opus-20240229",
+    displayName: "claude-3-opus",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
     name: "claude-3-sonnet-20240229",
+    displayName: "claude-3-sonnet",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
+  },
+  {
+    name: "claude-3-haiku-20240307",
+    displayName: "claude-3-haiku",
+    available: true,
   },
 ] as const;
 

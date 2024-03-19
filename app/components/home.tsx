@@ -86,7 +86,7 @@ const useCefFunctionInit = function () {
       event: "initialized",
       message: JSON.stringify({ lang: getJvmLocale() }),
     }).then((r) => {});
-    let host = accessStore.workers.filter((e) => e.checked)[0]?.api;
+    let host = accessStore.openaiUrl;
     let userInfo = getUserInfo();
     ideaMessage({
       event: "sync_session",

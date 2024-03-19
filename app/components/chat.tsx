@@ -113,6 +113,7 @@ import { useAllModels } from "../utils/hooks";
 import exports from "webpack";
 import system = exports.RuntimeGlobals.system;
 import { MessageRole, MultimodalContent } from "../client/api";
+import { collectModels } from "@/app/utils/model";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -676,7 +677,8 @@ export function ChatActions(props: {
         <Selector
           defaultSelectedValue={currentModel}
           items={models.map((m) => ({
-            title: m.displayName,
+            title: m.displayName || m.name,
+            subTitle: m.description,
             value: m.name,
           }))}
           onClose={() => setShowModelSelector(false)}
@@ -686,7 +688,7 @@ export function ChatActions(props: {
               session.mask.modelConfig.model = s[0] as ModelType;
               session.mask.syncGlobalConfig = false;
             });
-            showToast(s[0]);
+            // showToast((s[0] as ModelType));
           }}
         />
       )}

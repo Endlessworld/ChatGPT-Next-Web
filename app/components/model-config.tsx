@@ -34,7 +34,7 @@ export function ModelConfigList(props: {
         >
           {allModels
             .sort((a, b) => a.name.localeCompare(b.name))
-            .sort((a, b) => a.name.length - b.name.length)
+            // .sort((a, b) => a.name.length - b.name.length)
             .filter((v) => v.available)
             .map((v, i) => (
               <option value={v.name} key={i}>

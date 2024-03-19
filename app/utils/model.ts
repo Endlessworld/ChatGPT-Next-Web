@@ -1,24 +1,24 @@
 import { LLMModel } from "../client/api";
 
+const defaultProvider: LLMModel["provider"] = {
+  id: "openai",
+  providerName: "OpenAI",
+  providerType: "openai",
+};
+
 export function collectModelTable(
   models: readonly LLMModel[],
   customModels: string,
 ) {
-  const modelTable: Record<
-    string,
-    {
-      available: boolean;
-      name: string;
-      displayName: string;
-      provider?: LLMModel["provider"]; // Marked as optional
-    }
-  > = {};
+  const modelTable: Record<string, LLMModel> = {};
 
   // default models
   models.forEach((m) => {
     modelTable[m.name] = {
       ...m,
-      displayName: m.name, // 'provider' is copied over if it exists
+      displayName: m.displayName ? m.displayName : m.name,
+      provider: m.provider ? m.provider : defaultProvider,
+      available: m.available ? m.available : true,
     };
   });
 

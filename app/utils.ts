@@ -4,7 +4,6 @@ import Locale, { getLang } from "./locales";
 import { nanoid } from "nanoid";
 import { Prompt, SearchService, usePromptStore } from "@/app/store/prompt";
 import { RequestMessage } from "./client/api";
-import { DEFAULT_MODELS } from "./constant";
 
 export function trimTopic(topic: string) {
   // Fix an issue where double quotes still show in the Indonesian language
