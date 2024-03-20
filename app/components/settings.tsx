@@ -1023,6 +1023,7 @@ export function Settings() {
                                 return e;
                               });
                               s.openaiUrl = url;
+                              console.log(s.workers);
                             });
                           }}
                         >

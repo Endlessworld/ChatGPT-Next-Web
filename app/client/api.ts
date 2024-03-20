@@ -11,6 +11,7 @@ import { getCookie } from "@/app/utils";
 
 export const ROLES = ["system", "user", "assistant", "function"] as const;
 import { GeminiProApi } from "./platforms/google";
+import { useAllModels } from "@/app/utils/hooks";
 
 export type MessageRole = (typeof ROLES)[number];
 
@@ -71,6 +72,7 @@ export interface LLMModel {
   available: boolean;
   displayName?: string;
   description?: string;
+  free?: boolean;
   provider?: LLMModelProvider;
 }
 

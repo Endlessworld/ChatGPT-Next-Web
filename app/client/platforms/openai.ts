@@ -58,7 +58,7 @@ export class ChatGPTApi implements LLMApi {
     let baseUrl = isAzure ? accessStore.azureUrl : accessStore.openaiUrl;
 
     if (baseUrl.length === 0 || baseUrl === "/") {
-      baseUrl = accessStore.openaiUrl;
+      baseUrl = accessStore.workers.filter((e) => e.checked)[0]?.api;
     }
 
     if (baseUrl.endsWith("/")) {

@@ -7,6 +7,7 @@ import {
   isIdeaPlugin,
   loadFunctions,
   trimTopic,
+  useClientApi,
 } from "../utils";
 
 import Locale, { getLang } from "../locales";
@@ -15,20 +16,13 @@ import { ModelConfig, ModelType, useAppConfig, VoiceConfig } from "./config";
 import { createEmptyMask, Mask } from "./mask";
 import {
   DEFAULT_INPUT_TEMPLATE,
-  DEFAULT_MODELS,
   DEFAULT_SYSTEM_TEMPLATE,
   KnowledgeCutOffDate,
-  ModelProvider,
   StoreKey,
   SUMMARIZE_MODEL,
   GEMINI_SUMMARIZE_MODEL,
 } from "../constant";
-import {
-  ClientApi,
-  MessageRole,
-  RequestMessage,
-  MultimodalContent,
-} from "../client/api";
+import { MessageRole, RequestMessage, MultimodalContent } from "../client/api";
 import { ChatControllerPool } from "../client/controller";
 import { prettyObject } from "../utils/format";
 import { estimateTokenLength } from "../utils/token";
@@ -354,7 +348,7 @@ export const useChatStore = createPersistStore(
           event: "auto",
           message: message.content,
           session: this.currentSession().id,
-        }).then((r) => {});
+        }).then(() => {});
       },
 
       async onUserInput(
@@ -434,13 +428,7 @@ export const useChatStore = createPersistStore(
             botMessage,
           ]);
         });
-
-        var api: ClientApi;
-        if (modelConfig.model.startsWith("gemini")) {
-          api = new ClientApi(ModelProvider.GeminiPro);
-        } else {
-          api = new ClientApi(ModelProvider.GPT);
-        }
+        const api = useClientApi(modelConfig.model);
 
         // make request
         api.llm.chat({
@@ -665,12 +653,7 @@ export const useChatStore = createPersistStore(
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;
 
-        var api: ClientApi;
-        if (modelConfig.model.startsWith("gemini")) {
-          api = new ClientApi(ModelProvider.GeminiPro);
-        } else {
-          api = new ClientApi(ModelProvider.GPT);
-        }
+        const api = useClientApi(config.modelConfig.model);
 
         // remove error messages if any
         const messages = session.messages;

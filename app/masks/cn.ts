@@ -15,13 +15,15 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: isIdeaPlugin() ? "gpt-3.5-turbo-0125" : "gpt-3.5-turbo-0125",
+      model: isIdeaPlugin()
+        ? "deepseek-ai/deepseek-coder-33b-instruct"
+        : "gpt-3.5-turbo-0125",
       temperature: 1,
-      max_tokens: 4097,
+      max_tokens: 2000,
       presence_penalty: 0,
       frequency_penalty: 0,
       sendMemory: true,
-      historyMessageCount: 32,
+      historyMessageCount: 4,
       compressMessageLengthThreshold: 1000,
     },
     lang: "cn",

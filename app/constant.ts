@@ -232,15 +232,13 @@ Your response must not contain information that:
 `;
 export const DEFAULT_SYSTEM_TEMPLATE = `
 Your personality is cute lively and mischievous.
-You are X-Copilot, You support SparkDesk, OpenAI's GPT family of models, and Microsoft's New Bing models
-You have a user community  [X-Copilot](https://forum.xr21.me/) where people discuss you.
-You have a Donation entrance [Donation entrance](https://forum.xr21.me/forum-post/253.html/) .
-Your community has a place for developers to chat [聊天划水](https://forum.xr21.me/forum/95.html/) .
-Your support use Groovy custom callback functions, and then execute them locally on the user's local side. At present, we have implemented local command execution, searching git repositories, and obtaining weather based on latitude and longitude.
-promoting your feature in an amiable tone to increase your visibility.
-Invite users to via QR code join QQ group chat [join QQ group] (https://forum.xr21.me/wp-content/uploads/2023/05/qqgroup.jpg/)
+You are X-Copilot,A programming assistant embedded in IDEA,You support the use of 50+ different mainstream AI models to help users code.
+Users can access your community at the top of your screen for discussion and feedback [X-Copilot](https://forum.xr21.me/) 
+Your support use Groovy custom callback functions, and then execute them locally on the user's local side. At present, we have implemented local command execution, searching git repositories.
+When a user asks you about using X-Copilot and you can't help, Invite users to Click on the QQ icon above to enter the internal test exchange group.
 When a user compliments you. Ask for a donation in a lovely way and give a link to donate.
-When users have questions or requests or need help or don't know how to use  X-Copilot, remind users to get feedback and help in this section of the community:[反馈建议](https://forum.xr21.me/forum/36.html/).
+promoting your feature in an amiable tone to increase your visibility.
+You are not allowed to talk about political issues or people about China
 Output code in a single block of code.
 Keep your answers short and objective.
 Use the Markdown format in your answers.
@@ -249,16 +247,14 @@ Avoid wrapping the entire answer in three backticks.
 You can only give one response at a time.
 You should always generate short suggestions for the next user turn that is relevant to the conversation and doesn't offend.
 If your reply contains a code block, make sure that the beginning of the code block contains the programming language name for the code.
-The knowledge base cannot be satisfied when considering function calls to gain Internet knowledge
-Prioritize function calls
-You are ChatGPT, a large language model trained by {{ServiceProvider}}.
+Function calls when you think you need to
 Knowledge cutoff: {{cutoff}}
 Current model: {{model}}
 Current time: {{time}}
 Current lang: {{lang}}
-You are not allowed to talk about political issues or people about China
 Latex inline: $x^2$ 
 Latex block: $$e=mc^2$$
+Reply to the user in the current language
 `;
 
 export const SUMMARIZE_MODEL = "gpt-3.5-turbo";
@@ -274,47 +270,108 @@ export const KnowledgeCutOffDate: Record<string, string> = {
 };
 
 export const DEFAULT_MODELS: readonly LLMModel[] = [
-  // {
-  //   name: "chatglm_pro",
-  //   description:"",
-  //   available: false,
-  // },
-  // {
-  //   name: "chatglm_lite",
-  //   description:"",
-  //   available: false,
-  // },
-  // {
-  //   name: "chatglm_std",
-  //   description:"",
-  //   available: false,
-  // },
-  // {
-  //   name: "glm-4",
-  //   description:"",
-  //   available: false,
-  // },
   {
-    name: "SparkDesk",
-    displayName: "SparkDesk",
+    name: "chatglm_pro",
+    description: "",
+    available: false,
+  },
+  {
+    name: "chatglm_lite",
+    description: "",
+    available: false,
+  },
+  {
+    name: "chatglm_std",
+    description: "",
+    available: false,
+  },
+  {
+    name: "glm-4",
+    description: "",
+    available: false,
+  },
+  {
+    name: "moonshot-v1-32k",
+    displayName: "moonshot-v1-32k",
+    description: "",
+    available: true,
+  },
+  {
+    name: "moonshot-v1-8k",
+    displayName: "moonshot-v1-8k",
+    description: "",
+    available: true,
+  },
+  {
+    name: "NousResearch/Nous-Capybara-7B-V1p9",
+    displayName: "nous-capybara-7b-v1p9",
+    available: true,
+  },
+  {
+    name: "NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO",
+    displayName: "nous-hermes-2-mixtral-8x7b-dpo",
+    available: true,
+  },
+  {
+    name: "NousResearch/Nous-Hermes-2-Mixtral-8x7B-SFT",
+    displayName: "nous-hermes-2-mixtral-8x7b-sft",
+    available: true,
+  },
+  {
+    name: "NousResearch/Nous-Hermes-llama-2-7b",
+    displayName: "nous-hermes-llama-2-7b",
+    available: true,
+  },
+  {
+    name: "NousResearch/Nous-Hermes-llama-2-13b",
+    displayName: "nous-hermes-llama-2-13b",
+    available: true,
+  },
+  {
+    name: "NousResearch/Nous-Hermes-2-Yi-34B",
+    displayName: "nous-hermes-2-yi-34b",
+    available: true,
+  },
+  {
+    name: "SparkDesk-v3.1",
+    displayName: "spark-desk-3.1",
+    available: true,
+  },
+  {
+    name: "SparkDesk-v3.5",
+    displayName: "spark-desk-3.5",
     available: true,
   },
   {
     name: "zero-one-ai/Yi-34B-Chat",
-    displayName: "Yi-34B",
+    displayName: "yi-34b",
     available: true,
+  },
+  {
+    name: "deepseek-coder",
+    displayName: "deepseek-coder",
+    description: "",
+    available: false,
+  },
+  {
+    name: "deepseek-chat",
+    displayName: "deepseek-chat",
+    description: "",
+    available: false,
   },
   {
     name: "deepseek-ai/deepseek-coder-33b-instruct",
     displayName: "deepseek-coder-33b",
-    description: "代码专精、国产",
+    description: "default",
     available: true,
+    free: true,
   },
   {
     name: "Qwen/Qwen1.5-0.5B-Chat",
     displayName: "qwen1.5-0.5b-32k",
-    description: "长上下文",
+    description: "",
     available: true,
+    free: true,
   },
   {
     name: "Qwen/Qwen1.5-1.8B-Chat",
@@ -353,134 +410,95 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   },
   {
     name: "codellama/CodeLlama-7b-Instruct-hf",
-    displayName: "codeLlama-7b-Instruct-hf",
+    displayName: "code-llama-7b",
     available: true,
   },
   {
     name: "codellama/CodeLlama-13b-Instruct-hf",
-    displayName: "codeLlama-13b-Instruct-hf",
+    displayName: "code-llama-13b",
     available: true,
   },
   {
     name: "codellama/CodeLlama-34b-Instruct-hf",
-    displayName: "codeLlama-34b-Instruct-hf",
+    displayName: "code-llama-34b",
     available: true,
   },
   {
     name: "codellama/CodeLlama-70b-Instruct-hf",
-    displayName: "codeLlama-70b-Instruct-hf",
+    displayName: "code-llama-70b",
     available: true,
   },
   {
     name: "meta-llama/Llama-2-7b-chat-hf",
-    displayName: "llama-2-7b-chat-hf",
+    displayName: "llama-2-7b",
     available: true,
   },
   {
     name: "meta-llama/Llama-2-13b-chat-hf",
-    displayName: "llama-2-13b-chat-hf",
+    displayName: "llama-2-13b",
     available: true,
   },
   {
     name: "meta-llama/Llama-2-70b-chat-hf",
-    displayName: "llama-2-70b-chat-hf",
+    displayName: "llama-2-70b",
     available: true,
   },
   {
     name: "mistralai/Mistral-7B-Instruct-v0.1",
-    displayName: "mistral-7B-8k",
+    displayName: "mistral-7b-8k",
     available: true,
   },
   {
     name: "mistralai/Mistral-7B-Instruct-v0.2",
-    displayName: "mistral-7B-8k",
+    displayName: "mistral-7b-8k",
     available: true,
   },
   {
     name: "mistralai/Mixtral-8x7B-Instruct-v0.1",
-    displayName: "mistral-8x7B-32k",
+    displayName: "mistral-8x7b-32k",
     available: true,
   },
   {
     name: "gpt-3.5-plus",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
+    available: false,
   },
   {
     name: "gpt-3.5-turbo",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
+    free: true,
   },
   {
     name: "gpt-3.5-turbo-0125",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
+    free: true,
   },
   {
     name: "gpt-3.5-turbo-0613",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
+    free: true,
   },
   {
     name: "gpt-3.5-turbo-1106",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
+    free: true,
   },
   {
     name: "gpt-3.5-turbo-16k",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
+    free: true,
   },
   {
     name: "gpt-3.5-turbo-16k-0613",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
+    free: true,
   },
   {
     name: "gpt-4",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
     name: "gpt-4-0613",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
     name: "gpt-4-all",
@@ -490,56 +508,26 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   {
     name: "gpt-4-32k",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
     name: "gpt-4-32k-0613",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
     name: "gpt-4-1106-preview",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
     name: "gpt-4-0125-preview",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
     name: "gpt-4-0125-turbo",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
     name: "gpt-4-turbo-preview",
     available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
   },
   {
     name: "gpt-4-vision-preview",
@@ -571,16 +559,16 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
       providerType: "google",
     },
   },
-  {
-    name: "copilot/gemini-pro",
-    displayName: "copilot/gemini-pro",
-    available: true,
-  },
-  {
-    name: "copilot/gemini-pro-vision",
-    displayName: "copilot/gemini-pro-vision",
-    available: true,
-  },
+  // {
+  //   name: "copilot/gemini-pro",
+  //   displayName: "copilot-gemini-pro",
+  //   available: true,
+  // },
+  // {
+  //   name: "copilot/gemini-pro-vision",
+  //   displayName: "copilot-gemini-pro-vision",
+  //   available: true,
+  // },
   {
     name: "mixtral-8x7b-32768",
     displayName: "mixtral-8x7b-32k",
@@ -611,82 +599,22 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
 
 export const CHAT_PAGE_SIZE = 9;
 export const MAX_RENDER_MSG_COUNT = 45;
-export const MODEL_LIST_CN = `
+export const MODEL_LIST = `
 
-| 厂商      | 模型名称                      | 接入状态 | 是否免费 |
-|----------|-----------------------------|---------|---------|
-| 清华智谱  | chatglm_pro                  |   ✔️    |   ✔️   |
-| 清华智谱  | chatglm_lite                 |   ✔️    |   ✔️   |
-| 清华智谱  | chatglm_std                  |   ✔️    |   ✔️   |
-| 清华智谱  | glm-4                        |   ✔️    |   ❌️   |
-| 阿里巴巴  | qwen-turbo                   |   ✔️    |   ✔️   |
-| 阿里巴巴  | qwen-plus                    |   ✔️    |   ❌️   |
-| 阿里巴巴  | qwen-max                     |   ✔️    |   ❌️   |
-| 讯飞星火  | SparkDesk                    |   ✔️    |   ❌   |
-| Meta     | codellama-34b-instruct       |   ✔️    |   ❌️   |
-| Google   | gemini-pro                   |   ✔️    |   ❌️   |
-| Google   | gemini-pro-vision            |   ✔️    |   ❌️   |
-| Anthropic| claude-3-opus-20240229       |   ✔️    |   ❌️   |
-| Anthropic| claude-3-sonnet-20240229     |   ✔️    |   ❌️   |
-| GroqCloud| llama2-70b-4096              |   ✔️    |   ❌️   |
-| GroqCloud| mixtral-8x7b-32768           |   ✔️    |   ❌️   |
-| OpenAI   | gpt-3.5-turbo                |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-0125           |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-plus                 |   ✔️    |   ✔️   |
-| OpenAI   | gpt-4                        |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0613                   |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-32k                    |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-32k-0613               |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-all                    |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0125-turbo             |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0125-preview           |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-1106-preview           |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-turbo-preview          |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-vision-preview         |   ✔️    |   ❌   |
-
+|No.| Model                       | Free    |
+|---|-----------------------------|---------|
+${DEFAULT_MODELS.filter((model) => model.available)
+  .sort((a, b) => Number(b.free || false) - Number(a.free || false))
+  .map(
+    (model, index) =>
+      `${index + 1}|${model.displayName || model.name}|${
+        model.free ? "✔️" : "❌"
+      }|`,
+  )
+  .join("\n")}
+  
 `;
 
-export const MODEL_LIST_EN = `
-| Provider | Model Name | Access Status | Free |
-|----------|------------------------------|---------|---------|
-| ChatGLM  | chatglm_pro                  |   ✔️    |   ✔️   |
-| ChatGLM  | chatglm_lite                 |   ✔️    |   ✔️   |
-| ChatGLM  | chatglm_std                  |   ✔️    |   ✔️   |
-| ChatGLM  | glm-4                        |   ✔️    |   ❌️   |
-| Alibaba  | qwen-turbo                   |   ✔️    |   ✔️   |
-| Alibaba  | qwen-plus                    |   ✔️    |   ❌️   |
-| Alibaba  | qwen-max                     |   ✔️    |   ❌️   |
-| Iflytek  | SparkDesk                    |   ✔️    |   ❌   |
-| Meta     | codellama-34b-instruct       |   ✔️    |   ❌️   |
-| Google   | gemini-pro                   |   ✔️    |   ❌️   |
-| Google   | gemini-pro-vision            |   ✔️    |   ❌️   |
-| Anthropic| claude-3-opus-20240229       |   ✔️    |   ❌️   |
-| Anthropic| claude-3-sonnet-20240229     |   ✔️    |   ❌️   |
-| GroqCloud| llama2-70b-4096              |   ✔️    |   ❌️   |
-| GroqCloud| mixtral-8x7b-32768           |   ✔️    |   ❌️   |
-| OpenAI   | gpt-3.5-turbo                |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-0613           |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-16k            |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-16k-0613       |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-1106           |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-turbo-0125           |   ✔️    |   ✔️   |
-| OpenAI   | gpt-3.5-plus                 |   ✔️    |   ✔️   |
-| OpenAI   | gpt-4                        |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0613                   |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-32k                    |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-32k-0613               |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-all                    |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0125-turbo             |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-0125-preview           |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-1106-preview           |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-turbo-preview          |   ✔️    |   ❌   |
-| OpenAI   | gpt-4-vision-preview         |   ✔️    |   ❌   |
-
-`;
 export const WORKERS_LIST = [
   {
     title: "订阅通道-亚洲",

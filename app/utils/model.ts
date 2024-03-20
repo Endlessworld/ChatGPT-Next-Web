@@ -16,9 +16,9 @@ export function collectModelTable(
   models.forEach((m) => {
     modelTable[m.name] = {
       ...m,
-      displayName: m.displayName ? m.displayName : m.name,
-      provider: m.provider ? m.provider : defaultProvider,
-      available: m.available ? m.available : true,
+      displayName: m.displayName || m.name,
+      provider: m.provider || defaultProvider,
+      available: m.available || false,
     };
   });
 

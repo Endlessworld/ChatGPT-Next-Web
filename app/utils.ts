@@ -3,7 +3,9 @@ import { showToast } from "./components/ui-lib";
 import Locale, { getLang } from "./locales";
 import { nanoid } from "nanoid";
 import { Prompt, SearchService, usePromptStore } from "@/app/store/prompt";
-import { RequestMessage } from "./client/api";
+import { ClientApi, RequestMessage } from "./client/api";
+import { useAllModels } from "@/app/utils/hooks";
+import { DEFAULT_MODELS, ModelProvider } from "@/app/constant";
 
 export function trimTopic(topic: string) {
   // Fix an issue where double quotes still show in the Indonesian language
@@ -546,9 +548,13 @@ export function getMessageImages(message: RequestMessage): string[] {
 }
 
 export function isVisionModel(model: string) {
-  return (
-    // model.startsWith("gpt-4-vision") ||
-    // model.startsWith("gemini-pro-vision") ||
-    model.includes("vision")
-  );
+  return model.includes("vision");
+}
+
+export function useClientApi(modelName: string) {
+  let model = DEFAULT_MODELS.find((value) => value.name == modelName);
+  if (model?.provider?.id == "google") {
+    return new ClientApi(ModelProvider.GeminiPro);
+  }
+  return new ClientApi(ModelProvider.GPT);
 }

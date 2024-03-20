@@ -1,6 +1,6 @@
 import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
-import { LOGIN_HOST, MODEL_LIST_CN } from "@/app/constant";
+import { LOGIN_HOST, MODEL_LIST } from "@/app/constant";
 
 const isApp = !!getClientConfig()?.isApp;
 
@@ -8,7 +8,7 @@ const cn = {
   WIP: "AI能力库建设中、我们将以groovy语言无限制的为您的AI助手扩展任意功能",
   Error: {
     Unauthorized: `OpenAI API Key无效 请点此[登录](${LOGIN_HOST})或者在[设置](/#/settings)中填写自己的Open API Key 
-    [反馈建议](https://forum.xr21.me/forum/36.html/)|[捐赠](https://forum.xr21.me/forum-post/253.html/)
+    [反馈建议](https://forum.xr21.me/forum/36.html/)
 `,
     HelloMessage: (userInfo: any) => {
       let display_name = userInfo?.display_name;
@@ -17,8 +17,8 @@ const cn = {
       }
       return `  
 欢迎使用X-Copilot 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用 
-本插件已接入以下30+全球主流大模型:
-${MODEL_LIST_CN}
+本插件已接入以下50+全球主流大模型:
+${MODEL_LIST}
       `;
     },
   },
@@ -149,8 +149,8 @@ ${MODEL_LIST_CN}
     Announcement: {
       Title: "公告",
       Content: ` 
-本插件已接入以下30+全球主流大模型:
-${MODEL_LIST_CN}
+本插件已接入以下50+全球主流大模型:
+${MODEL_LIST}
 
 由于其它模型不支持函数调用功能、如需使用函数调用请切换至OpenAI GPT系列模型`,
     },

@@ -18,6 +18,7 @@ import {
   isIdeaPlugin,
   useMobileScreen,
   getMessageImages,
+  useClientApi,
 } from "../utils";
 
 import CopyIcon from "../icons/copy.svg";
@@ -312,14 +313,7 @@ export function PreviewActions(props: {
   const config = useAppConfig();
   const onRenderMsgs = (msgs: ChatMessage[]) => {
     setShouldExport(false);
-
-    var api: ClientApi;
-    if (config.modelConfig.model.startsWith("gemini")) {
-      api = new ClientApi(ModelProvider.GeminiPro);
-    } else {
-      api = new ClientApi(ModelProvider.GPT);
-    }
-
+    var api: ClientApi = useClientApi(config.modelConfig.model);
     api
       .share(msgs)
       .then((res) => {

@@ -13,6 +13,7 @@ import LoadingIcon from "../icons/three-dots.svg";
 
 import {
   clearCache,
+  useClientApi,
   getCSSVar,
   getUserInfo,
   ideaMessage,
@@ -35,7 +36,6 @@ import { SideBar } from "./sidebar";
 import { Theme, useAppConfig } from "../store/config";
 import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
-import { ClientApi } from "../client/api";
 import { useAccessStore, useNoticeStore } from "../store";
 import { ClientInfo, useClientInfoStore } from "@/app/store/plugin";
 
@@ -227,12 +227,7 @@ function Screen() {
 export function useLoadData() {
   const config = useAppConfig();
 
-  var api: ClientApi;
-  if (config.modelConfig.model.startsWith("gemini")) {
-    api = new ClientApi(ModelProvider.GeminiPro);
-  } else {
-    api = new ClientApi(ModelProvider.GPT);
-  }
+  var api = useClientApi(config.modelConfig.model);
   useEffect(() => {
     (async () => {
       const models = await api.llm.models();
