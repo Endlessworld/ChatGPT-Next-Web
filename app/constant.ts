@@ -269,6 +269,143 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gemini-pro": "2023-12",
 };
 
+// togethercomputer/GPT-JT-Moderation-6B
+// togethercomputer/LLaMA-2-7B-32K
+// togethercomputer/RedPajama-INCITE-Base-3B-v1
+// togethercomputer/RedPajama-INCITE-7B-Base
+// togethercomputer/RedPajama-INCITE-Instruct-3B-v1
+// togethercomputer/RedPajama-INCITE-7B-Instruct
+// togethercomputer/StripedHyena-Hessian-7B
+// mistralai/Mistral-7B-v0.1
+// mistralai/Mixtral-8x7B-v0.1
+export const CODE_COMPLETE_MODELS: LLMModel[] = [
+  {
+    name: "codellama/CodeLlama-70b-Python-hf",
+    displayName: "CodeLlama-70b-Python-hf",
+    available: true,
+  },
+  {
+    name: "codellama/CodeLlama-34b-Python-hf",
+    displayName: "CodeLlama-34b-Python-hf",
+    available: true,
+  },
+  {
+    name: "codellama/CodeLlama-13b-Python-hf",
+    displayName: "CodeLlama-13b-Python-hf",
+    available: true,
+  },
+  {
+    name: "codellama/CodeLlama-7b-Python-hf",
+    displayName: "CodeLlama-7b-Python-hf",
+    available: true,
+  },
+  {
+    name: "Phind/Phind-CodeLlama-34B-v2",
+    displayName: "Phind-CodeLlama-34B-v2",
+    available: true,
+  },
+  {
+    name: "WizardLM/WizardCoder-Python-34B-V1.0",
+    displayName: "WizardCoder-Python-34B-V1.0",
+    available: true,
+  },
+  {
+    name: "WizardLM/WizardCoder-15B-V1.0",
+    displayName: "WizardCoder-15B-V1.0",
+    available: true,
+  },
+  {
+    name: "zero-one-ai/Yi-34B",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "zero-one-ai/Yi-6B",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "google/gemma-2b",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "google/gemma-7b",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "meta-llama/Llama-2-70b-hf",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "meta-llama/Llama-2-13b-hf",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "meta-llama/Llama-2-7b-hf",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "microsoft/phi-2",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "Nexusflow/NexusRaven-V2-13B",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "Qwen/Qwen1.5-0.5B",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "Qwen/Qwen1.5-1.8B",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "Qwen/Qwen1.5-4B",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "Qwen/Qwen1.5-7B",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "Qwen/Qwen1.5-14B",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "Qwen/Qwen1.5-72B",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "mistralai/Mistral-7B-v0.1",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "mistralai/Mixtral-8x7B-v0.1",
+    displayName: "",
+    available: true,
+  },
+  {
+    name: "deepseek-ai/deepseek-coder-33b-instruct",
+    displayName: "deepseek-coder-33b",
+    available: true,
+  },
+];
+
 export const DEFAULT_MODELS: readonly LLMModel[] = [
   {
     name: "chatglm_pro",

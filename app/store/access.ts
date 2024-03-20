@@ -1,11 +1,12 @@
 import {
   ApiPath,
+  CODE_COMPLETE_MODELS,
   DEFAULT_API_HOST,
   ServiceProvider,
   StoreKey,
   WORKERS_LIST,
 } from "../constant";
-import { getHeaders } from "../client/api";
+import { getHeaders, LLMModel } from "../client/api";
 import { getClientConfig } from "../config/client";
 import { createPersistStore } from "../utils/store";
 import { ensure } from "../utils/clone";
@@ -19,7 +20,9 @@ export interface ApiHost {
 }
 
 const DEFAULT_OPENAI_URL =
-  getClientConfig()?.buildMode === "export" ? DEFAULT_API_HOST : ApiPath.OpenAI;
+  getClientConfig()?.buildMode === "export"
+    ? DEFAULT_API_HOST
+    : DEFAULT_API_HOST;
 
 const DEFAULT_ACCESS_STATE = {
   accessCode: "",
@@ -51,6 +54,7 @@ const DEFAULT_ACCESS_STATE = {
   localUpdateTime: 0,
   token: "",
   workers: WORKERS_LIST as ApiHost[],
+  codeCompleteModel: "WizardLM/WizardCoder-15B-V1.0",
 };
 
 export const useAccessStore = createPersistStore(

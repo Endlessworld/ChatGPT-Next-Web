@@ -369,6 +369,11 @@ if you need to use the function call, please switch to the OpenAI GPT series mod
           SubTitle: "Check your api version from azure console",
         },
       },
+      CodeCompleteModel: {
+        Title: "Code completion model",
+        SubTitle:
+          "Specifies the model to be used for code inference and completion when encoding",
+      },
       CustomModel: {
         Title: "Custom Models",
         SubTitle: "Custom model options, seperated by comma",

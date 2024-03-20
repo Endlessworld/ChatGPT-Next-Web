@@ -35,6 +35,7 @@ import { ModelConfigList } from "./model-config";
 
 import { IconButton } from "./button";
 import {
+  ModalConfigValidator,
   SubmitKey,
   Theme,
   useAccessStore,
@@ -49,7 +50,7 @@ import Locale, {
   changeLang,
   getLang,
 } from "../locales";
-import { copyToClipboard, useUserInfo } from "../utils";
+import { copyToClipboard, ideaMessage, useUserInfo } from "../utils";
 
 import Link from "next/link";
 import {
@@ -66,6 +67,7 @@ import {
   SlotID,
   UPDATE_URL,
   OPENAI_URL,
+  CODE_COMPLETE_MODELS,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
@@ -77,6 +79,8 @@ import { useSyncStore } from "../store/sync";
 import { nanoid } from "nanoid";
 import { useMaskStore } from "../store/mask";
 import { ProviderType } from "../utils/cloud";
+import { useAllModels } from "@/app/utils/hooks";
+import { LLMModel } from "@/app/client/api";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -671,7 +675,7 @@ export function Settings() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  const completeModels = CODE_COMPLETE_MODELS;
   const clientConfig = useMemo(() => getClientConfig(), []);
   const showAccessCode = enabledAccessControl;
   // && !clientConfig?.isApp;
@@ -1023,6 +1027,15 @@ export function Settings() {
                                 return e;
                               });
                               s.openaiUrl = url;
+                              ideaMessage({
+                                event: "sync_session",
+                                message: JSON.stringify({
+                                  host: url,
+                                  session_token: userInfo?.session_token,
+                                  user_id: userInfo?.user_id,
+                                  model: s.codeCompleteModel,
+                                }),
+                              });
                               console.log(s.workers);
                             });
                           }}
@@ -1231,6 +1244,41 @@ export function Settings() {
 
         <List>
           <ListItem
+            title={Locale.Settings.Access.CodeCompleteModel.Title}
+            subTitle={Locale.Settings.Access.CodeCompleteModel.SubTitle}
+          >
+            <Select
+              value={accessStore.codeCompleteModel}
+              onChange={(e) => {
+                let selectedModel = e.currentTarget.value;
+                accessStore.update((s) => {
+                  s.codeCompleteModel = selectedModel;
+                  ideaMessage({
+                    event: "sync_session",
+                    message: JSON.stringify({
+                      host: accessStore.openaiUrl,
+                      session_token: userInfo?.session_token,
+                      user_id: userInfo?.user_id,
+                      model: selectedModel,
+                    }),
+                  });
+                });
+              }}
+            >
+              {completeModels
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .sort((a, b) => a.name.length - b.name.length)
+                .filter((v) => v.available)
+                .map((v, i) => (
+                  <option value={v.name} key={i}>
+                    {v.displayName || v.name}
+                  </option>
+                ))}
+            </Select>
+          </ListItem>
+        </List>
+        <List>
+          <ListItem
             title={Locale.Settings.Access.CustomModel.Title}
             subTitle={Locale.Settings.Access.CustomModel.SubTitle}
           >
@@ -1246,7 +1294,6 @@ export function Settings() {
             ></input>
           </ListItem>
         </List>
-
         <List>
           <ModelConfigList
             modelConfig={config.modelConfig}

@@ -377,6 +377,10 @@ ${MODEL_LIST}
           SubTitle: "选择一个特定的 API 版本",
         },
       },
+      CodeCompleteModel: {
+        Title: "代码补全模型",
+        SubTitle: "代码推理/补全模型",
+      },
       CustomModel: {
         Title: "自定义模型名",
         SubTitle: "增加自定义模型可选项，使用英文逗号隔开",
