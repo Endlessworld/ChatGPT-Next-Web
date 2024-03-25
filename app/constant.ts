@@ -404,6 +404,11 @@ export const CODE_COMPLETE_MODELS: LLMModel[] = [
     displayName: "deepseek-coder-33b",
     available: true,
   },
+  {
+    name: "gpt-3.5-turbo-instruct",
+    displayName: "gpt-3.5-turbo-instruct",
+    available: true,
+  },
 ];
 
 export const DEFAULT_MODELS: readonly LLMModel[] = [

@@ -54,7 +54,6 @@ const DEFAULT_ACCESS_STATE = {
   localUpdateTime: 0,
   token: "",
   workers: WORKERS_LIST as ApiHost[],
-  codeCompleteModel: "WizardLM/WizardCoder-15B-V1.0",
 };
 
 export const useAccessStore = createPersistStore(

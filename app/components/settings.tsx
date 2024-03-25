@@ -1035,7 +1035,9 @@ export function Settings() {
                                   host: url,
                                   session_token: userInfo?.session_token,
                                   user_id: userInfo?.user_id,
-                                  model: s.codeCompleteModel,
+                                  model: config.codeCompleteModel,
+                                  enable_local_completion:
+                                    config.enableOllamaLocalCompletionServer,
                                 }),
                               });
                               console.log(s.workers);
@@ -1264,10 +1266,10 @@ export function Settings() {
             subTitle={Locale.Settings.Access.CloudCompleteModel.SubTitle}
           >
             <Select
-              value={accessStore.codeCompleteModel}
+              value={config.codeCompleteModel}
               onChange={(e) => {
                 let selectedModel = e.currentTarget.value;
-                accessStore.update((s) => {
+                config.update((s) => {
                   s.codeCompleteModel = selectedModel;
                   ideaMessage({
                     event: "sync_session",
@@ -1276,6 +1278,8 @@ export function Settings() {
                       session_token: userInfo?.session_token,
                       user_id: userInfo?.user_id,
                       model: selectedModel,
+                      enableLocalCompletion:
+                        config.enableOllamaLocalCompletionServer,
                     }),
                   });
                 });
@@ -1299,13 +1303,23 @@ export function Settings() {
             <input
               type="checkbox"
               checked={config.enableOllamaLocalCompletionServer}
-              onChange={(e) =>
+              onChange={(e) => {
+                ideaMessage({
+                  event: "sync_session",
+                  message: JSON.stringify({
+                    host: accessStore.openaiUrl,
+                    session_token: userInfo?.session_token,
+                    user_id: userInfo?.user_id,
+                    model: config.codeCompleteModel,
+                    enable_local_completion: e.currentTarget.checked,
+                  }),
+                });
                 updateConfig(
                   (config) =>
                     (config.enableOllamaLocalCompletionServer =
                       e.currentTarget.checked),
-                )
-              }
+                );
+              }}
             ></input>
           </ListItem>
           <ListItem

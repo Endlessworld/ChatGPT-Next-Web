@@ -94,7 +94,8 @@ const useCefFunctionInit = function () {
         host: host,
         session_token: userInfo?.session_token,
         user_id: userInfo?.user_id,
-        model: accessStore.codeCompleteModel,
+        model: config.codeCompleteModel,
+        enable_local_completion: config.enableOllamaLocalCompletionServer,
       }),
     }).then((r) => {});
     if (

@@ -46,6 +46,7 @@ export const DEFAULT_CONFIG = {
   enableOllamaLocalCompletionServer: false,
   enableOllamaLocalChatServer: false,
   customModels: "",
+  codeCompleteModel: "",
   models: DEFAULT_MODELS as any as LLMModel[],
 
   modelConfig: {
