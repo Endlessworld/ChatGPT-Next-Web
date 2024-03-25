@@ -358,21 +358,27 @@ if you need to use the function call, please switch to the OpenAI GPT series mod
           SubTitle: "Check your api key from Azure console",
           Placeholder: "Azure Api Key",
         },
-
         Endpoint: {
           Title: "Azure Endpoint",
           SubTitle: "Example: ",
         },
-
         ApiVerion: {
           Title: "Azure Api Version",
           SubTitle: "Check your api version from azure console",
         },
       },
-      CodeCompleteModel: {
+      CloudCompleteModel: {
         Title: "Code completion model",
         SubTitle:
           "Specifies the model to be used for code inference and completion when encoding",
+      },
+      LocalCompletionModel: {
+        Title: "Enable the local completion model",
+        SubTitle: "Ollama code completion local service",
+      },
+      LocalChatModel: {
+        Title: "启用本地聊天模型",
+        SubTitle: "Ollama聊天模型本地服务(http://localhost:11434)",
       },
       CustomModel: {
         Title: "Custom Models",

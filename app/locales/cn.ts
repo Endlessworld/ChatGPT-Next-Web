@@ -371,15 +371,22 @@ ${MODEL_LIST}
           Title: "终端地址",
           SubTitle: "示例：",
         },
-
         ApiVersion: {
           Title: "API 版本（仅适用于 gemini-pro）",
           SubTitle: "选择一个特定的 API 版本",
         },
       },
-      CodeCompleteModel: {
+      CloudCompleteModel: {
         Title: "代码补全模型",
         SubTitle: "代码推理/补全模型",
+      },
+      LocalCompletionModel: {
+        Title: "启用本地补全模型",
+        SubTitle: "Ollama代码完成本地服务(http://localhost:11434)",
+      },
+      LocalChatModel: {
+        Title: "启用本地聊天模型",
+        SubTitle: "Ollama聊天模型本地服务(http://localhost:11434)",
       },
       CustomModel: {
         Title: "自定义模型名",
@@ -387,7 +394,7 @@ ${MODEL_LIST}
       },
     },
 
-    Model: "模型 (model)",
+    Model: "聊天模型 (model)",
     Temperature: {
       Title: "随机性 (temperature)",
       SubTitle: "值越大，回复越随机",

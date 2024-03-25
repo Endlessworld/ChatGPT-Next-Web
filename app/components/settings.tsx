@@ -79,8 +79,7 @@ import { useSyncStore } from "../store/sync";
 import { nanoid } from "nanoid";
 import { useMaskStore } from "../store/mask";
 import { ProviderType } from "../utils/cloud";
-import { useAllModels } from "@/app/utils/hooks";
-import { LLMModel } from "@/app/client/api";
+import { collectModels } from "@/app/utils/model";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -675,9 +674,12 @@ export function Settings() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const completeModels = CODE_COMPLETE_MODELS;
+
   const clientConfig = useMemo(() => getClientConfig(), []);
   const showAccessCode = enabledAccessControl;
+  const completeModels = useMemo(() => {
+    return collectModels(CODE_COMPLETE_MODELS, config.customModels);
+  }, [config.customModels]);
   // && !clientConfig?.isApp;
   const stylesNames = CODE_STYLES.map((style) => Object.keys(style)).flat();
   return (
@@ -1241,11 +1243,25 @@ export function Settings() {
         </List>
 
         <SyncItems />
-
         <List>
           <ListItem
-            title={Locale.Settings.Access.CodeCompleteModel.Title}
-            subTitle={Locale.Settings.Access.CodeCompleteModel.SubTitle}
+            title={Locale.Settings.Access.CustomModel.Title}
+            subTitle={Locale.Settings.Access.CustomModel.SubTitle}
+          >
+            <input
+              type="text"
+              value={config.customModels}
+              placeholder="model1,model2,model3"
+              onChange={(e) =>
+                config.update(
+                  (config) => (config.customModels = e.currentTarget.value),
+                )
+              }
+            ></input>
+          </ListItem>
+          <ListItem
+            title={Locale.Settings.Access.CloudCompleteModel.Title}
+            subTitle={Locale.Settings.Access.CloudCompleteModel.SubTitle}
           >
             <Select
               value={accessStore.codeCompleteModel}
@@ -1276,24 +1292,40 @@ export function Settings() {
                 ))}
             </Select>
           </ListItem>
-        </List>
-        <List>
           <ListItem
-            title={Locale.Settings.Access.CustomModel.Title}
-            subTitle={Locale.Settings.Access.CustomModel.SubTitle}
+            title={Locale.Settings.Access.LocalCompletionModel.Title}
+            subTitle={Locale.Settings.Access.LocalCompletionModel.SubTitle}
           >
             <input
-              type="text"
-              value={config.customModels}
-              placeholder="model1,model2,model3"
+              type="checkbox"
+              checked={config.enableOllamaLocalCompletionServer}
               onChange={(e) =>
-                config.update(
-                  (config) => (config.customModels = e.currentTarget.value),
+                updateConfig(
+                  (config) =>
+                    (config.enableOllamaLocalCompletionServer =
+                      e.currentTarget.checked),
+                )
+              }
+            ></input>
+          </ListItem>
+          <ListItem
+            title={Locale.Settings.Access.LocalChatModel.Title}
+            subTitle={Locale.Settings.Access.LocalChatModel.SubTitle}
+          >
+            <input
+              type="checkbox"
+              checked={config.enableOllamaLocalChatServer}
+              onChange={(e) =>
+                updateConfig(
+                  (config) =>
+                    (config.enableOllamaLocalChatServer =
+                      e.currentTarget.checked),
                 )
               }
             ></input>
           </ListItem>
         </List>
+
         <List>
           <ModelConfigList
             modelConfig={config.modelConfig}

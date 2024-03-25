@@ -43,7 +43,8 @@ export const DEFAULT_CONFIG = {
   dontShowMaskSplashScreen: true, // 创建聊天时不显示初始屏幕
   hideBuiltinMasks: false, // dont add builtin masks
   syntaxHighlighter: "vscDarkPlus" as CodeStylesType,
-
+  enableOllamaLocalCompletionServer: false,
+  enableOllamaLocalChatServer: false,
   customModels: "",
   models: DEFAULT_MODELS as any as LLMModel[],
 
