@@ -18,6 +18,7 @@ import {
 import { prettyObject } from "@/app/utils/format";
 import { makeAzurePath } from "@/app/azure";
 import { getMessageTextContent, isVisionModel } from "@/app/utils";
+import { FetchEventSourceInit } from "@fortaine/fetch-event-source/lib/cjs/fetch";
 
 export interface OpenAIListModelResponse {
   object: string;
@@ -127,8 +128,11 @@ export class ChatGPTApi implements LLMApi {
         body: JSON.stringify(requestPayload),
         signal: controller.signal,
         headers: getHeaders(),
-      };
-
+      } as FetchEventSourceInit;
+      const appConfig = useAppConfig.getState();
+      if (appConfig.enableOllamaLocalChatServer) {
+        chatPayload.mode = "no-cors";
+      }
       // make a fetch request
       const requestTimeoutId = setTimeout(
         () => controller.abort(),

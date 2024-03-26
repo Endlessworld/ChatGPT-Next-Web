@@ -176,6 +176,9 @@ export class ClientApi {
 export function getHeaders() {
   const accessStore = useAccessStore.getState();
   const appConfig = useAppConfig.getState();
+  if (appConfig.enableOllamaLocalChatServer) {
+    return {};
+  }
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     "x-requested-with": "XMLHttpRequest",
@@ -216,6 +219,8 @@ export function getHeaders() {
     delete headers["x-session"];
     delete headers["x-id"];
     delete headers["x-requested-with"];
+    delete headers[authHeader];
   }
+  console.log(headers);
   return headers;
 }

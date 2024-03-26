@@ -105,6 +105,7 @@ export const LOGIN_HOST =
   "https://forum.xr21.me/user-sign/?tab=signin&redirect_to=https%3A%2F%2Fforum.xr21.me%2Fchatgpt-login-callback%3Fself";
 
 export const DEFAULT_CORS_HOST = "https://nb.nextweb.fun";
+// export const LOCAL_OLLAMA_HOST = "http://localhost:11434/v1/chat/completions";
 export const LOCAL_OLLAMA_HOST = "http://localhost:11434/v1/chat/completions";
 export const DEFAULT_API_HOST = "https://api.eu.xr21.me";
 export const OPENAI_BASE_URL = "https://api.eu.xr21.me";
