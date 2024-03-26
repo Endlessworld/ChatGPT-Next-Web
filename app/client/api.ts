@@ -5,7 +5,13 @@ import {
   ModelProvider,
   ServiceProvider,
 } from "../constant";
-import { ChatMessage, ModelType, useAccessStore, useChatStore } from "../store";
+import {
+  ChatMessage,
+  ModelType,
+  useAccessStore,
+  useAppConfig,
+  useChatStore,
+} from "../store";
 import { ChatGPTApi } from "./platforms/openai";
 import { getCookie } from "@/app/utils";
 
@@ -169,6 +175,7 @@ export class ClientApi {
 
 export function getHeaders() {
   const accessStore = useAccessStore.getState();
+  const appConfig = useAppConfig.getState();
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     "x-requested-with": "XMLHttpRequest",
@@ -205,5 +212,10 @@ export function getHeaders() {
   const userInfo = JSON.parse(json);
   headers["x-id"] = userInfo.user_id || "";
   headers["x-session"] = userInfo.session_token || "";
+  if (appConfig.enableOllamaLocalChatServer) {
+    delete headers["x-session"];
+    delete headers["x-id"];
+    delete headers["x-requested-with"];
+  }
   return headers;
 }

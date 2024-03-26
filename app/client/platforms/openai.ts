@@ -1,36 +1,23 @@
 "use client";
 import {
   ApiPath,
-  DEFAULT_API_HOST,
   DEFAULT_MODELS,
+  LOCAL_OLLAMA_HOST,
   OpenaiPath,
   REQUEST_TIMEOUT_MS,
   ServiceProvider,
 } from "@/app/constant";
 import { useAccessStore, useAppConfig, useChatStore } from "@/app/store";
 
-import {
-  ChatOptions,
-  getHeaders,
-  LLMApi,
-  LLMModel,
-  LLMUsage,
-  MultimodalContent,
-} from "../api";
+import { ChatOptions, getHeaders, LLMApi, LLMModel, LLMUsage } from "../api";
 import Locale from "../../locales";
 import {
   EventStreamContentType,
   fetchEventSource,
 } from "@fortaine/fetch-event-source";
 import { prettyObject } from "@/app/utils/format";
-import { getClientConfig } from "@/app/config/client";
 import { makeAzurePath } from "@/app/azure";
-import hljs from "highlight.js";
-import {
-  getMessageTextContent,
-  getMessageImages,
-  isVisionModel,
-} from "@/app/utils";
+import { getMessageTextContent, isVisionModel } from "@/app/utils";
 
 export interface OpenAIListModelResponse {
   object: string;
@@ -46,7 +33,11 @@ export class ChatGPTApi implements LLMApi {
 
   path(path: string): string {
     const accessStore = useAccessStore.getState();
-
+    const appConfig = useAppConfig.getState();
+    console.log(appConfig);
+    if (appConfig.enableOllamaLocalChatServer) {
+      return LOCAL_OLLAMA_HOST;
+    }
     const isAzure = accessStore.provider === ServiceProvider.Azure;
 
     if (isAzure && !accessStore.isValidAzure()) {
@@ -235,7 +226,6 @@ export class ChatGPTApi implements LLMApi {
                   };
                 }>;
               };
-              // console.log(json);
               if (json.choices[0].finish_reason) {
                 if (json.choices[0].finish_reason === "function_call") {
                   if (options.onFunction) {
@@ -273,6 +263,7 @@ export class ChatGPTApi implements LLMApi {
           },
           onerror(e) {
             // options.onError?.(e);
+            console.error("[Request] parse error", e);
             finish();
             throw e;
           },
@@ -291,6 +282,7 @@ export class ChatGPTApi implements LLMApi {
       options.onError?.(e as Error);
     }
   }
+
   async usage() {
     const formatDate = (d: Date) =>
       `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, "0")}-${d
@@ -388,4 +380,5 @@ export class ChatGPTApi implements LLMApi {
     }));
   }
 }
+
 export { OpenaiPath };

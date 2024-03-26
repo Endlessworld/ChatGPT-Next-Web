@@ -404,7 +404,16 @@ export function useUserInfo(): any {
 
 export function getUserInfo(): any {
   let userInfo = getCookie("user_info");
-  return JSON.parse(userInfo);
+  return JSON.parse(userInfo) as {
+    user_id: string;
+    display_name: string;
+    user_email: string;
+    user_login: string;
+    custom_avatar: string;
+    vip_level: string;
+    vip_exp_date: Date;
+    session_token: string;
+  };
 }
 
 export function useUserAvatar(): any {

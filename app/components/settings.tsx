@@ -591,6 +591,12 @@ export function Settings() {
   const remoteId = updateStore.formatVersion(updateStore.remoteVersion);
   const hasNewVersion = currentVersion !== remoteId;
   const userInfo = useUserInfo();
+  let showLocalServer = false;
+  if (userInfo.vip_exp_date) {
+    showLocalServer =
+      new Date(userInfo.vip_exp_date).getTime() > new Date().getTime();
+  }
+  // console.log(userInfo.vip_exp_date)
   const updateUrl = getClientConfig()?.isApp ? RELEASE_URL : UPDATE_URL;
 
   function checkUpdate(force = false) {
@@ -1296,48 +1302,52 @@ export function Settings() {
                 ))}
             </Select>
           </ListItem>
-          <ListItem
-            title={Locale.Settings.Access.LocalCompletionModel.Title}
-            subTitle={Locale.Settings.Access.LocalCompletionModel.SubTitle}
-          >
-            <input
-              type="checkbox"
-              checked={config.enableOllamaLocalCompletionServer}
-              onChange={(e) => {
-                ideaMessage({
-                  event: "sync_session",
-                  message: JSON.stringify({
-                    host: accessStore.openaiUrl,
-                    session_token: userInfo?.session_token,
-                    user_id: userInfo?.user_id,
-                    model: config.codeCompleteModel,
-                    enable_local_completion: e.currentTarget.checked,
-                  }),
-                });
-                updateConfig(
-                  (config) =>
-                    (config.enableOllamaLocalCompletionServer =
-                      e.currentTarget.checked),
-                );
-              }}
-            ></input>
-          </ListItem>
-          <ListItem
-            title={Locale.Settings.Access.LocalChatModel.Title}
-            subTitle={Locale.Settings.Access.LocalChatModel.SubTitle}
-          >
-            <input
-              type="checkbox"
-              checked={config.enableOllamaLocalChatServer}
-              onChange={(e) =>
-                updateConfig(
-                  (config) =>
-                    (config.enableOllamaLocalChatServer =
-                      e.currentTarget.checked),
-                )
-              }
-            ></input>
-          </ListItem>
+          {showLocalServer ? (
+            <>
+              <ListItem
+                title={Locale.Settings.Access.LocalCompletionModel.Title}
+                subTitle={Locale.Settings.Access.LocalCompletionModel.SubTitle}
+              >
+                <input
+                  type="checkbox"
+                  disabled={userInfo.is_vip as boolean}
+                  checked={config.enableOllamaLocalCompletionServer}
+                  onChange={(e) => {
+                    ideaMessage({
+                      event: "sync_session",
+                      message: JSON.stringify({
+                        host: accessStore.openaiUrl,
+                        session_token: userInfo?.session_token,
+                        user_id: userInfo?.user_id,
+                        model: config.codeCompleteModel,
+                        enable_local_completion: e.currentTarget.checked,
+                      }),
+                    });
+                    config.update((config) => {
+                      config.enableOllamaLocalCompletionServer =
+                        e.currentTarget.checked;
+                    });
+                  }}
+                ></input>
+              </ListItem>
+              <ListItem
+                title={Locale.Settings.Access.LocalChatModel.Title}
+                subTitle={Locale.Settings.Access.LocalChatModel.SubTitle}
+              >
+                <input
+                  type="checkbox"
+                  checked={config.enableOllamaLocalChatServer}
+                  onChange={(e) =>
+                    updateConfig((config) => {
+                      config.enableOllamaLocalChatServer =
+                        e.currentTarget.checked;
+                      console.log(config.enableOllamaLocalChatServer);
+                    })
+                  }
+                ></input>
+              </ListItem>
+            </>
+          ) : null}
         </List>
 
         <List>
