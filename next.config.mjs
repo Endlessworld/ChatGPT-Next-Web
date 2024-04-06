@@ -24,17 +24,17 @@ const nextConfig = {
       child_process: false,
     };
     if (!isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        maxInitialRequests: Infinity,
-        minSize: 0,
-        maxSize: 50000
-      };
-      config.optimization.minimizer.push(
-        new TerserPlugin({
-          extractComments: false,
-        })
-      );
+      // config.optimization.splitChunks = {
+      //   chunks: 'all',
+      //   maxInitialRequests: Infinity,
+      //   minSize: 0,
+      //   maxSize: 50000
+      // };
+      // config.optimization.minimizer.push(
+      //   new TerserPlugin({
+      //     extractComments: false,
+      //   })
+      // );
     }
     return config;
   },

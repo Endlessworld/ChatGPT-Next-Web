@@ -409,7 +409,7 @@ export const CODE_COMPLETE_MODELS: LLMModel[] = [
   {
     name: "gpt-3.5-turbo-instruct",
     displayName: "gpt-3.5-turbo-instruct",
-    available: true,
+    available: false,
   },
 ];
 
@@ -450,6 +450,7 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     name: "NousResearch/Nous-Capybara-7B-V1p9",
     displayName: "nous-capybara-7b-v1p9",
     available: true,
+    free: true,
   },
   {
     name: "NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO",
@@ -465,11 +466,12 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     name: "NousResearch/Nous-Hermes-llama-2-7b",
     displayName: "nous-hermes-llama-2-7b",
     available: true,
+    free: true,
   },
   {
     name: "NousResearch/Nous-Hermes-llama-2-13b",
     displayName: "nous-hermes-llama-2-13b",
-    available: true,
+    available: false,
   },
   {
     name: "NousResearch/Nous-Hermes-2-Yi-34B",
@@ -511,6 +513,13 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     free: true,
   },
   {
+    name: "deepseek-ai/deepseek-llm-67b-chat",
+    displayName: "deepseek-llm-67b-chat",
+    description: "推荐",
+    available: true,
+    free: false,
+  },
+  {
     name: "Qwen/Qwen1.5-0.5B-Chat",
     displayName: "qwen1.5-0.5b-32k",
     description: "",
@@ -521,16 +530,19 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     name: "Qwen/Qwen1.5-1.8B-Chat",
     displayName: "qwen1.5-1.8b-32k",
     available: true,
+    free: true,
   },
   {
     name: "Qwen/Qwen1.5-4B-Chat",
     displayName: "qwen1.5-4b-32k",
     available: true,
+    free: true,
   },
   {
     name: "Qwen/Qwen1.5-7B-Chat",
     displayName: "qwen1.5-7b-32k",
     available: true,
+    free: true,
   },
   {
     name: "Qwen/Qwen1.5-14B-Chat",
@@ -546,16 +558,19 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     name: "google/gemma-2b-it",
     displayName: "gemma-2b",
     available: true,
+    free: true,
   },
   {
     name: "google/gemma-7b-it",
     displayName: "gemma-7b",
     available: true,
+    free: true,
   },
   {
     name: "codellama/CodeLlama-7b-Instruct-hf",
     displayName: "code-llama-7b",
     available: true,
+    free: true,
   },
   {
     name: "codellama/CodeLlama-13b-Instruct-hf",
@@ -576,6 +591,7 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     name: "meta-llama/Llama-2-7b-chat-hf",
     displayName: "llama-2-7b",
     available: true,
+    free: true,
   },
   {
     name: "meta-llama/Llama-2-13b-chat-hf",
@@ -589,17 +605,39 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   },
   {
     name: "mistralai/Mistral-7B-Instruct-v0.1",
-    displayName: "mistral-7b-8k",
+    displayName: "mistral-7b-8k-v0.1",
     available: true,
+    free: true,
   },
   {
     name: "mistralai/Mistral-7B-Instruct-v0.2",
-    displayName: "mistral-7b-8k",
+    displayName: "mistral-7b-8k-v0.2",
     available: true,
+    free: true,
   },
   {
     name: "mistralai/Mixtral-8x7B-Instruct-v0.1",
     displayName: "mistral-8x7b-32k",
+    available: true,
+  },
+  {
+    name: "cognitivecomputations/dolphin-2.5-mixtral-8x7b",
+    displayName: "dolphin-2.5-mixtral-8x7b",
+    available: true,
+  },
+  {
+    name: "garage-bAInd/Platypus2-70B-instruct",
+    displayName: "platypus2-70b",
+    available: true,
+  },
+  {
+    name: "WizardLM/WizardLM-13B-V1.2",
+    displayName: "wizardlm-13b",
+    available: true,
+  },
+  {
+    name: "lmsys/vicuna-13b-v1.5",
+    displayName: "vicuna-13b",
     available: true,
   },
   {
