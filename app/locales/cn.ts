@@ -382,7 +382,7 @@ ${MODEL_LIST}
       },
       LocalCompletionModel: {
         Title: "启用本地补全模型",
-        SubTitle: "Ollama代码完成本地服务(http://localhost:11434)",
+        SubTitle: "Ollama代码完成本地服务(预览功能暂不可用)",
       },
       LocalChatModel: {
         Title: "启用本地聊天模型",

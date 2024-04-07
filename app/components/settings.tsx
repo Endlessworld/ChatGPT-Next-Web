@@ -50,7 +50,12 @@ import Locale, {
   changeLang,
   getLang,
 } from "../locales";
-import { copyToClipboard, ideaMessage, useUserInfo } from "../utils";
+import {
+  copyToClipboard,
+  ideaMessage,
+  isIdeaPlugin,
+  useUserInfo,
+} from "../utils";
 
 import Link from "next/link";
 import {
@@ -591,11 +596,11 @@ export function Settings() {
   const remoteId = updateStore.formatVersion(updateStore.remoteVersion);
   const hasNewVersion = currentVersion !== remoteId;
   const userInfo = useUserInfo();
-  let showLocalServer = false;
-  if (userInfo.vip_exp_date) {
-    showLocalServer =
-      new Date(userInfo.vip_exp_date).getTime() > new Date().getTime();
-  }
+  let showLocalServer = isIdeaPlugin();
+  // if (userInfo.vip_exp_date) {
+  //   showLocalServer =
+  //     new Date(userInfo.vip_exp_date).getTime() > new Date().getTime();
+  // }
   // console.log(userInfo.vip_exp_date)
   const updateUrl = getClientConfig()?.isApp ? RELEASE_URL : UPDATE_URL;
 
