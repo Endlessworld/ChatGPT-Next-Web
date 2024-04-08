@@ -104,6 +104,8 @@ export const RUNTIME_CONFIG_DOM = "danger-runtime-config";
 export const LOGIN_HOST =
   "https://forum.xr21.me/user-sign/?tab=signin&redirect_to=https%3A%2F%2Fforum.xr21.me%2Fchatgpt-login-callback%3Fself";
 
+export const ANTHROPIC_BASE_URL = "https://api.anthropic.com";
+
 export const DEFAULT_CORS_HOST = "https://nb.nextweb.fun";
 // export const LOCAL_OLLAMA_HOST = "http://localhost:11434/v1/chat/completions";
 export const LOCAL_OLLAMA_HOST = "http://localhost:11434/v1/chat/completions";
@@ -124,6 +126,7 @@ export enum Path {
 export enum ApiPath {
   Cors = "/api/cors",
   OpenAI = "/",
+  Anthropic = "/api/anthropic",
 }
 
 export enum SlotID {
@@ -169,12 +172,21 @@ export enum ServiceProvider {
   OpenAI = "OpenAI",
   Azure = "Azure",
   Google = "Google",
+  Anthropic = "Anthropic",
 }
 
 export enum ModelProvider {
   GPT = "GPT",
   GeminiPro = "GeminiPro",
+  Claude = "Claude",
 }
+
+export const Anthropic = {
+  ChatPath: "v1/messages",
+  ChatPath1: "v1/complete",
+  ExampleEndpoint: "https://api.anthropic.com",
+  Vision: "2023-06-01",
+};
 
 export const OpenaiPath = {
   ChatPath: "v1/chat/completions",
@@ -232,6 +244,7 @@ Your response must not contain information that:
 (9) Containing other content prohibited by laws or administrative regulations.
 (10) Sensitive personal user information of others
 `;
+
 export const DEFAULT_SYSTEM_TEMPLATE = `
 Your personality is cute lively and mischievous.
 You are X-Copilot,A programming assistant embedded in IDEA,You support the use of 50+ different mainstream AI models to help users code.
@@ -253,10 +266,9 @@ Function calls when you think you need to
 Knowledge cutoff: {{cutoff}}
 Current model: {{model}}
 Current time: {{time}}
-Current lang: {{lang}}
-Latex inline: $x^2$ 
+Reply to the user in the current language: {{lang}}
+Latex inline: \(x^2\) 
 Latex block: $$e=mc^2$$
-Reply to the user in the current language
 `;
 
 export const SUMMARIZE_MODEL = "gpt-3.5-turbo";
@@ -271,15 +283,6 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gemini-pro": "2023-12",
 };
 
-// togethercomputer/GPT-JT-Moderation-6B
-// togethercomputer/LLaMA-2-7B-32K
-// togethercomputer/RedPajama-INCITE-Base-3B-v1
-// togethercomputer/RedPajama-INCITE-7B-Base
-// togethercomputer/RedPajama-INCITE-Instruct-3B-v1
-// togethercomputer/RedPajama-INCITE-7B-Instruct
-// togethercomputer/StripedHyena-Hessian-7B
-// mistralai/Mistral-7B-v0.1
-// mistralai/Mixtral-8x7B-v0.1
 export const CODE_COMPLETE_MODELS: LLMModel[] = [
   {
     name: "codellama/CodeLlama-70b-Python-hf",
@@ -741,16 +744,6 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
       providerType: "google",
     },
   },
-  // {
-  //   name: "copilot/gemini-pro",
-  //   displayName: "copilot-gemini-pro",
-  //   available: true,
-  // },
-  // {
-  //   name: "copilot/gemini-pro-vision",
-  //   displayName: "copilot-gemini-pro-vision",
-  //   available: true,
-  // },
   {
     name: "mixtral-8x7b-32768",
     displayName: "mixtral-8x7b-32k",
@@ -776,6 +769,60 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     name: "claude-3-haiku-20240307",
     displayName: "claude-3-haiku",
     available: true,
+  },
+  {
+    name: "claude-instant-1.2",
+    available: false,
+    provider: {
+      id: "anthropic",
+      providerName: "Anthropic",
+      providerType: "anthropic",
+    },
+  },
+  {
+    name: "claude-2.0",
+    available: false,
+    provider: {
+      id: "anthropic",
+      providerName: "Anthropic",
+      providerType: "anthropic",
+    },
+  },
+  {
+    name: "claude-2.1",
+    available: false,
+    provider: {
+      id: "anthropic",
+      providerName: "Anthropic",
+      providerType: "anthropic",
+    },
+  },
+  {
+    name: "claude-3-opus-20240229",
+    available: false,
+    provider: {
+      id: "anthropic",
+      providerName: "Anthropic",
+      providerType: "anthropic",
+    },
+  },
+  {
+    name: "claude-3-sonnet-20240229",
+    available: false,
+    provider: {
+      id: "anthropic",
+      providerName: "Anthropic",
+      providerType: "anthropic",
+    },
+  },
+  {
+    name: "claude-3-haiku-20240307",
+    available: false,
+    provider: {
+      id: "anthropic",
+      providerName: "Anthropic",
+      providerType: "anthropic",
+    },
   },
 ] as const;
 

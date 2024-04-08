@@ -9,7 +9,15 @@ import {
 } from "@/app/constant";
 import { useAccessStore, useAppConfig, useChatStore } from "@/app/store";
 
-import { ChatOptions, getHeaders, LLMApi, LLMModel, LLMUsage } from "../api";
+import {
+  ChatOptions,
+  getHeaders,
+  GPTFunction,
+  LLMApi,
+  LLMModel,
+  LLMUsage,
+  MultimodalContent,
+} from "../api";
 import Locale from "../../locales";
 import {
   EventStreamContentType,
@@ -27,6 +35,22 @@ export interface OpenAIListModelResponse {
     object: string;
     root: string;
   }>;
+}
+
+interface RequestPayload {
+  messages: {
+    role: "system" | "user" | "assistant" | "function";
+    content: string | MultimodalContent[];
+  }[];
+  stream?: boolean;
+  model: string;
+  temperature: number;
+  presence_penalty: number;
+  frequency_penalty: number;
+  top_p: number;
+  max_tokens?: number;
+  functions?: GPTFunction[];
+  function_call?: string;
 }
 
 export class ChatGPTApi implements LLMApi {
@@ -91,7 +115,7 @@ export class ChatGPTApi implements LLMApi {
       },
     };
     const functions = options.messages[messages.length - 1].functions;
-    const requestPayload = {
+    const requestPayload: RequestPayload = {
       messages,
       stream: options.config.stream,
       // stream: options.messages[messages.length - 1].functions ? false : options.config.stream,
@@ -107,12 +131,7 @@ export class ChatGPTApi implements LLMApi {
 
     // add max_tokens to vision model
     if (visionModel) {
-      Object.defineProperty(requestPayload, "max_tokens", {
-        enumerable: true,
-        configurable: true,
-        writable: true,
-        value: modelConfig.max_tokens,
-      });
+      requestPayload["max_tokens"] = Math.max(modelConfig.max_tokens, 4000);
     }
 
     console.log("[Request] openai payload: ", requestPayload);
@@ -151,6 +170,9 @@ export class ChatGPTApi implements LLMApi {
             responseText += remainText;
             // hljs.highlightAll();
             console.log("[Response Animation] finished");
+            if (responseText?.length === 0) {
+              options.onError?.(new Error("empty response from server"));
+            }
             return;
           }
 
@@ -229,6 +251,7 @@ export class ChatGPTApi implements LLMApi {
                     content: string;
                   };
                 }>;
+                prompt_filter_results?: any;
               };
               if (json.choices[0].finish_reason) {
                 if (json.choices[0].finish_reason === "function_call") {
@@ -257,6 +280,20 @@ export class ChatGPTApi implements LLMApi {
                 if (delta) {
                   remainText += delta;
                 }
+              }
+              const textmoderation = json?.prompt_filter_results;
+
+              if (
+                textmoderation &&
+                textmoderation.length > 0 &&
+                ServiceProvider.Azure
+              ) {
+                const contentFilterResults =
+                  textmoderation[0]?.content_filter_results;
+                console.log(
+                  `[${ServiceProvider.Azure}] [Text Moderation] flagged categories result:`,
+                  contentFilterResults,
+                );
               }
             } catch (e) {
               console.error("[Request] parse error", text, msg);

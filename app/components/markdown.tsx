@@ -74,12 +74,30 @@ function escapeDollarNumber(text: string) {
   return escapedText;
 }
 
-function _MarkDownContent(props: { content: string }) {
-  const configStore = useAppConfig();
-  const escapedContent = useMemo(
-    () => escapeDollarNumber(props.content),
-    [props.content],
+function escapeBrackets(text: string) {
+  const pattern =
+    /(```[\s\S]*?```|`.*?`)|\\\[([\s\S]*?[^\\])\\\]|\\\((.*?)\\\)/g;
+  return text.replace(
+    pattern,
+    (match, codeBlock, squareBracket, roundBracket) => {
+      if (codeBlock) {
+        return codeBlock;
+      } else if (squareBracket) {
+        return `$$${squareBracket}$$`;
+      } else if (roundBracket) {
+        return `$${roundBracket}$`;
+      }
+      return match;
+    },
   );
+}
+
+function _MarkDownContent(props: { content: string }) {
+  const escapedContent = useMemo(() => {
+    console.log("================", props.content);
+    return escapeBrackets(escapeDollarNumber(props.content));
+  }, [props.content]);
+
   useEffect(() => {
     hljs.highlightAll();
   }, [props.content]);

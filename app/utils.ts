@@ -18,7 +18,6 @@ export function trimTopic(topic: string) {
       .replace(/[，。！？”“"、,.!?*]*$/, "")
   );
 }
-
 export function isIdeaPlugin() {
   if (typeof window == "undefined") {
     return false;
@@ -249,10 +248,7 @@ export async function downloadAs(text: string, filename: string) {
 
     if (result !== null) {
       try {
-        await window.__TAURI__.fs.writeBinaryFile(
-          result,
-          new Uint8Array([...text].map((c) => c.charCodeAt(0))),
-        );
+        await window.__TAURI__.fs.writeTextFile(result, text);
         showToast(Locale.Download.Success);
       } catch (error) {
         showToast(Locale.Download.Failed);
@@ -557,7 +553,10 @@ export function getMessageImages(message: RequestMessage): string[] {
 }
 
 export function isVisionModel(model: string) {
-  return model.includes("vision");
+  // Note: This is a better way using the TypeScript feature instead of `&&` or `||` (ts v5.5.0-dev.20240314 I've been using)
+  const visionKeywords = ["vision", "claude-3"];
+
+  return visionKeywords.some((keyword) => model.includes(keyword));
 }
 
 export function useClientApi(modelName: string) {
