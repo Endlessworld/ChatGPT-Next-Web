@@ -101,6 +101,7 @@ function _MarkDownContent(props: { content: string }) {
   useEffect(() => {
     hljs.highlightAll();
   }, [props.content]);
+  const configStore = useAppConfig();
   return (
     <ReactMarkdown
       remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}

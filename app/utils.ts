@@ -564,5 +564,8 @@ export function useClientApi(modelName: string) {
   if (model?.provider?.id == "google") {
     return new ClientApi(ModelProvider.GeminiPro);
   }
+  if (model?.provider?.id == "anthropic") {
+    return new ClientApi(ModelProvider.Claude);
+  }
   return new ClientApi(ModelProvider.GPT);
 }
