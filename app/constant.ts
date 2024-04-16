@@ -405,6 +405,11 @@ export const CODE_COMPLETE_MODELS: LLMModel[] = [
     available: true,
   },
   {
+    name: "mistralai/mixtral-8x22b",
+    displayName: "mixtral-8x22b",
+    available: true,
+  },
+  {
     name: "deepseek-ai/deepseek-coder-33b-instruct",
     displayName: "deepseek-coder-33b",
     available: true,
@@ -412,7 +417,7 @@ export const CODE_COMPLETE_MODELS: LLMModel[] = [
   {
     name: "gpt-3.5-turbo-instruct",
     displayName: "gpt-3.5-turbo-instruct",
-    available: false,
+    available: true,
   },
 ];
 
@@ -707,7 +712,11 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     available: true,
   },
   {
-    name: "gpt-4-0125-turbo",
+    name: "gpt-4-turbo",
+    available: true,
+  },
+  {
+    name: "gpt-4-turbo-2024-04-09",
     available: true,
   },
   {
