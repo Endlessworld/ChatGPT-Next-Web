@@ -437,13 +437,13 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   {
     name: "moonshot-v1-32k",
     displayName: "moonshot-v1-32k",
-    description: "",
+    description: "月之暗面|kimi|国产",
     available: true,
   },
   {
     name: "moonshot-v1-8k",
     displayName: "moonshot-v1-8k",
-    description: "",
+    description: "月之暗面|kimi|国产",
     available: true,
   },
   {
@@ -481,77 +481,85 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   {
     name: "SparkDesk-v3.1",
     displayName: "spark-desk-3.1",
+    description: "讯飞星火|国产",
     available: true,
   },
   {
     name: "SparkDesk-v3.5",
     displayName: "spark-desk-3.5",
+    description: "讯飞星火|国产",
     available: true,
   },
   {
     name: "zero-one-ai/Yi-34B-Chat",
     displayName: "yi-34b",
+    description: "零一万物|国产",
     available: true,
   },
   {
     name: "deepseek-coder",
     displayName: "deepseek-coder",
-    description: "",
+    description: "深度求索|代码专精|国产",
     available: false,
   },
   {
     name: "deepseek-chat",
     displayName: "deepseek-chat",
-    description: "",
+    description: "深度求索|代码专精|国产",
     available: false,
   },
   {
     name: "deepseek-ai/deepseek-coder-33b-instruct",
     displayName: "deepseek-coder-33b",
-    description: "default",
+    description: "深度求索|代码专精|国产",
     available: true,
     free: true,
   },
   {
     name: "deepseek-ai/deepseek-llm-67b-chat",
     displayName: "deepseek-llm-67b-chat",
-    description: "推荐",
+    description: "深度求索|代码专精|国产",
     available: true,
     free: false,
   },
   {
     name: "Qwen/Qwen1.5-0.5B-Chat",
-    displayName: "qwen1.5-0.5b-32k",
-    description: "",
+    displayName: "qwen1.5-0.5b",
+    description: "阿里云|通义千问|国产",
     available: true,
     free: true,
   },
   {
     name: "Qwen/Qwen1.5-1.8B-Chat",
-    displayName: "qwen1.5-1.8b-32k",
+    displayName: "qwen1.5-1.8b",
+    description: "阿里云|通义千问|国产",
     available: true,
     free: true,
   },
   {
     name: "Qwen/Qwen1.5-4B-Chat",
-    displayName: "qwen1.5-4b-32k",
+    displayName: "qwen1.5-4b",
+    description: "阿里云|通义千问|国产",
     available: true,
     free: true,
   },
   {
     name: "Qwen/Qwen1.5-7B-Chat",
-    displayName: "qwen1.5-7b-32k",
+    displayName: "qwen1.5-7b",
+    description: "阿里云|通义千问|国产",
     available: true,
     free: true,
   },
   {
     name: "Qwen/Qwen1.5-14B-Chat",
-    displayName: "qwen1.5-14b-32k",
+    displayName: "qwen1.5-14b",
+    description: "阿里云|通义千问|国产",
     available: true,
   },
   {
     name: "Qwen/Qwen1.5-72B-Chat",
-    displayName: "qwen1.5-72b-32k",
+    displayName: "qwen1.5-72b",
+    description: "阿里云|通义千问|国产",
     available: true,
   },
   {
@@ -605,15 +613,43 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   },
   {
     name: "mistralai/Mistral-7B-Instruct-v0.1",
-    displayName: "mistral-7b-8k-v0.1",
+    displayName: "mistral-7b-v0.1",
     available: true,
     free: true,
   },
   {
     name: "mistralai/Mistral-7B-Instruct-v0.2",
-    displayName: "mistral-7b-8k-v0.2",
+    displayName: "mistral-7b-v0.2",
     available: true,
     free: true,
+  },
+  {
+    name: "mixtral-8x7b-32768",
+    displayName: "mixtral-8x7b-32k",
+    description: "速度x18",
+    available: true,
+  },
+  {
+    name: "llama2-70b-4096",
+    description: "速度x18",
+    available: true,
+  },
+  {
+    name: "mixtral-8x22b-finetuned",
+    displayName: "mixtral-8x22b",
+    description: "最强开源|64k|141B",
+    available: true,
+  },
+  {
+    name: "microsoft/WizardLM-2-8x22B",
+    displayName: "WizardLM-2-8x22B",
+    description: "microsoft|基于mixtral-8x22b微调|响应略慢",
+    available: true,
+  },
+  {
+    name: "WizardLM/WizardLM-13B-V1.2",
+    displayName: "wizardlm-13b",
+    available: true,
   },
   {
     name: "mistralai/Mixtral-8x7B-Instruct-v0.1",
@@ -628,11 +664,6 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   {
     name: "garage-bAInd/Platypus2-70B-instruct",
     displayName: "platypus2-70b",
-    available: true,
-  },
-  {
-    name: "WizardLM/WizardLM-13B-V1.2",
-    displayName: "wizardlm-13b",
     available: true,
   },
   {
@@ -685,7 +716,7 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   {
     name: "gpt-4-all",
     available: true,
-    description: "联网、读取链接/文件、较慢",
+    description: "联网|读取链接|较慢",
   },
   {
     name: "gpt-4-32k",
@@ -714,33 +745,35 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   {
     name: "gpt-4-vision-preview",
     available: true,
-    description: "传图、识图",
+    description: "传图|识图",
     provider: {
       id: "openai",
       providerName: "OpenAI",
       providerType: "openai",
     },
   },
-  {
-    name: "gemini-pro",
-    available: true,
-    displayName: "google/gemini-pro-vision",
-    provider: {
-      id: "google",
-      providerName: "Google",
-      providerType: "google",
-    },
-  },
-  {
-    name: "gemini-pro-vision",
-    displayName: "google/gemini-pro-vision",
-    available: true,
-    provider: {
-      id: "google",
-      providerName: "Google",
-      providerType: "google",
-    },
-  },
+  // {
+  //   name: "gemini-pro",
+  //   available: true,
+  //   displayName: "google/gemini-pro-vision",
+  //   description: "官方渠道|填写API-KEY",
+  //   provider: {
+  //     id: "google",
+  //     providerName: "Google",
+  //     providerType: "google",
+  //   },
+  // },
+  // {
+  //   name: "gemini-pro-vision",
+  //   displayName: "google/gemini-pro-vision",
+  //   description: "官方渠道|填写API-KEY",
+  //   available: true,
+  //   provider: {
+  //     id: "google",
+  //     providerName: "Google",
+  //     providerType: "google",
+  //   },
+  // },
   // {
   //   name: "copilot/gemini-pro",
   //   displayName: "copilot-gemini-pro",
@@ -751,17 +784,6 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   //   displayName: "copilot-gemini-pro-vision",
   //   available: true,
   // },
-  {
-    name: "mixtral-8x7b-32768",
-    displayName: "mixtral-8x7b-32k",
-    description: "速度x18、世界最快",
-    available: true,
-  },
-  {
-    name: "llama2-70b-4096",
-    description: "速度x18、世界最快",
-    available: true,
-  },
   {
     name: "claude-3-opus-20240229",
     displayName: "claude-3-opus",
