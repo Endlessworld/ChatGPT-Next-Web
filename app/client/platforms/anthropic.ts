@@ -67,6 +67,7 @@ const ClaudeMapper = {
   assistant: "assistant",
   user: "user",
   system: "user",
+  function: "function",
 } as const;
 
 const keys = ["claude-2, claude-instant-1"];

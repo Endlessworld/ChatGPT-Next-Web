@@ -793,7 +793,7 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   },
   {
     name: "gpt-4-turbo",
-    description: "函数调用|本地命令执行",
+    description: "OpenAI|最新|函数调用|本地命令执行|强烈推荐",
     available: true,
   },
   {
@@ -849,16 +849,19 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   {
     name: "claude-3-opus-20240229",
     displayName: "claude-3-opus",
+    description: "不稳定",
     available: true,
   },
   {
     name: "claude-3-sonnet-20240229",
     displayName: "claude-3-sonnet",
+    description: "不稳定",
     available: true,
   },
   {
     name: "claude-3-haiku-20240307",
     displayName: "claude-3-haiku",
+    description: "不稳定",
     available: true,
   },
   // {
