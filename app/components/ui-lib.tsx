@@ -15,6 +15,7 @@ import Locale from "../locales";
 import { createRoot } from "react-dom/client";
 import React, { HTMLProps, useEffect, useState } from "react";
 import { IconButton } from "./button";
+import { LLMModel } from "@/app/client/api";
 
 export function Popover(props: {
   children: JSX.Element;
@@ -44,6 +45,7 @@ export function Card(props: { children: JSX.Element[]; className?: string }) {
 export function ListItem(props: {
   title: string;
   subTitle?: string;
+  info?: LLMModel;
   children?: JSX.Element | JSX.Element[];
   icon?: JSX.Element;
   className?: string;
@@ -63,8 +65,24 @@ export function ListItem(props: {
               {props.subTitle}
             </div>
           )}
+          {props.info &&
+            props.info.description &&
+            props.info.description.split("|").map((tag, index) => (
+              <div key={index} className={styles["list-item-tag"]}>
+                {tag}
+              </div>
+            ))}
         </div>
       </div>
+      {props.info && (
+        <div
+          className={
+            styles[props.info.free ? "list-item-free" : "list-item-vip"]
+          }
+        >
+          {props.info.free === true ? "FREE" : "VIP"}
+        </div>
+      )}
       {props.children}
     </div>
   );
@@ -102,6 +120,7 @@ interface ModalProps {
   footer?: React.ReactNode;
   onClose?: () => void;
 }
+
 export function Modal(props: ModalProps) {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -441,6 +460,7 @@ export function Selector<T>(props: {
   items: Array<{
     title: string;
     subTitle?: string;
+    info?: LLMModel;
     value: T;
   }>;
   defaultSelectedValue?: T;
@@ -460,6 +480,7 @@ export function Selector<T>(props: {
                 key={i}
                 title={item.title}
                 subTitle={item.subTitle}
+                info={item.info}
                 onClick={() => {
                   props.onSelection?.([item.value]);
                   props.onClose?.();

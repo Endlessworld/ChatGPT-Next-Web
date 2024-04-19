@@ -8,7 +8,6 @@ import React, {
   Fragment,
   RefObject,
 } from "react";
-import hljs from "highlight.js";
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
 import RenameIcon from "../icons/rename.svg";
@@ -110,10 +109,7 @@ import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
 import AddIcon from "@/app/icons/add.svg";
 import { useAllModels } from "../utils/hooks";
-import exports from "webpack";
-import system = exports.RuntimeGlobals.system;
-import { MessageRole, MultimodalContent } from "../client/api";
-import { collectModels } from "@/app/utils/model";
+import { MultimodalContent } from "../client/api";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -680,7 +676,7 @@ export function ChatActions(props: {
           defaultSelectedValue={currentModel}
           items={models.map((m) => ({
             title: m.displayName || m.name,
-            subTitle: m.description,
+            info: m,
             value: m.name,
           }))}
           onClose={() => setShowModelSelector(false)}
