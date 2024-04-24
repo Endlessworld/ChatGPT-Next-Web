@@ -42,6 +42,7 @@ import { EXPORT_MESSAGE_CLASS_NAME, ModelProvider } from "../constant";
 import { getClientConfig } from "../config/client";
 import { ClientApi } from "../client/api";
 import { getMessageTextContent } from "../utils";
+import { identifyDefaultClaudeModel } from "../utils/checkers";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,

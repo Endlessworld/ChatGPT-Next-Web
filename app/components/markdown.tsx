@@ -94,7 +94,6 @@ function escapeBrackets(text: string) {
 
 function _MarkDownContent(props: { content: string }) {
   const escapedContent = useMemo(() => {
-    console.log("================", props.content);
     return escapeBrackets(escapeDollarNumber(props.content));
   }, [props.content]);
 

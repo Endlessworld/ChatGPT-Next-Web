@@ -38,6 +38,8 @@ import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
 import { useAccessStore, useNoticeStore } from "../store";
 import { ClientInfo, useClientInfoStore } from "@/app/store/plugin";
+import { ClientApi } from "../client/api";
+import { identifyDefaultClaudeModel } from "../utils/checkers";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
