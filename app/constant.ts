@@ -422,12 +422,12 @@ export const CODE_COMPLETE_MODELS: LLMModel[] = [
   {
     name: "meta-llama/Llama-3-8b-hf",
     displayName: "llama-3-8b",
-    available: false,
+    available: true,
   },
   {
     name: "meta-llama/Meta-Llama-3-70B",
     displayName: "llama-3-70B",
-    available: false,
+    available: true,
   },
 ];
 
@@ -653,7 +653,7 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   {
     name: "meta-llama/Llama-3-70b-chat-hf",
     displayName: "llama-3-70b",
-    description: "Meta|8K|81.7|70b模型上限|代码精通|不稳定|推荐",
+    description: "Meta|8K|81.7|代码精通|稳定|推荐",
     available: true,
   },
   {
@@ -674,12 +674,12 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     name: "mixtral-8x7b-32768",
     displayName: "mixtral-8x7b",
     description: "Groq|速度x18|SMoE|32k|46.7B|稳定|推荐",
-    available: true,
+    available: false,
   },
   {
     name: "llama2-70b-4096",
     description: "Groq|速度x18|稳定|推荐",
-    available: true,
+    available: false,
   },
   {
     name: "mixtral-8x22b-finetuned",
@@ -702,6 +702,12 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     name: "mistralai/Mixtral-8x7B-Instruct-v0.1",
     displayName: "mistral-8x7b",
     description: "SMoE|32k|46.7B|略优于GPT3.5",
+    available: true,
+  },
+  {
+    name: "databricks/dbrx-instruct",
+    displayName: "dbrx-instruct",
+    description: "Databricks|32k|132B",
     available: true,
   },
   {
@@ -798,6 +804,7 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   },
   {
     name: "gpt-4-turbo-2024-04-09",
+    description: "OpenAI|最新|函数调用",
     available: true,
   },
   {
@@ -849,19 +856,19 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   {
     name: "claude-3-opus-20240229",
     displayName: "claude-3-opus",
-    description: "不稳定",
+    description: "不稳定|略慢",
     available: true,
   },
   {
     name: "claude-3-sonnet-20240229",
     displayName: "claude-3-sonnet",
-    description: "不稳定",
+    description: "不稳定|略慢",
     available: true,
   },
   {
     name: "claude-3-haiku-20240307",
     displayName: "claude-3-haiku",
-    description: "不稳定",
+    description: "不稳定|略慢",
     available: true,
   },
   // {

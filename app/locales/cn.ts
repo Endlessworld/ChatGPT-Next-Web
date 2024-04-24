@@ -1,6 +1,6 @@
 import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
-import { LOGIN_HOST, MODEL_LIST } from "@/app/constant";
+import { DEFAULT_MODELS, LOGIN_HOST, MODEL_LIST } from "@/app/constant";
 import { isIdeaPlugin } from "@/app/utils";
 
 const isApp = !!getClientConfig()?.isApp;
@@ -14,14 +14,16 @@ const cn = {
     HelloMessage: (userInfo: any) => {
       let display_name = userInfo?.display_name;
       if (!!display_name) {
-        return `欢迎回来 ${display_name} 我是X-Copilot!`;
+        return `欢迎回来 ${display_name} 我是X-Copilot! `;
       }
       return `  
 欢迎使用X-Copilot 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用 
-本${isIdeaPlugin() ? "插件" : "站"}已接入以下60主流大模型:
+本${isIdeaPlugin() ? "插件" : "站"}已接入以下${
+        DEFAULT_MODELS.filter((model) => model.available).length
+      }主流大模型:
 ${MODEL_LIST}
 
-更多模型持续接入中
+更多模型持续接入中 
       `;
     },
   },
@@ -152,7 +154,9 @@ ${MODEL_LIST}
     Announcement: {
       Title: "公告",
       Content: ` 
-本${isIdeaPlugin() ? "插件" : "站"}已接入以下60全球主流大模型:
+本${isIdeaPlugin() ? "插件" : "站"}已接入以下${
+        DEFAULT_MODELS.filter((model) => model.available).length
+      }全球主流大模型:
 ${MODEL_LIST}
 更多模型持续接入中
 由于其它模型不支持函数调用功能、如需使用函数调用请切换至OpenAI GPT系列模型`,

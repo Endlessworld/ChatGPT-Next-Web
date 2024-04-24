@@ -1,7 +1,6 @@
-import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
 import { LocaleType } from "./index";
-import { LOGIN_HOST, MODEL_LIST } from "@/app/constant";
+import { DEFAULT_MODELS, LOGIN_HOST, MODEL_LIST } from "@/app/constant";
 
 // if you are adding a new translation, please use PartialLocaleType instead of LocaleType
 
@@ -18,7 +17,9 @@ const en: LocaleType = {
           ? `Welcome back ${display_name} i am X-Copilot!`
           : `Welcome to X-Copilot You are not currently logged in.
          Please click here [Login](${LOGIN_HOST}) to use for free 
-	      This  plugin  has  accumulated  access  to  50+  global  mainstream  large  models：
+	      This  plugin  has  accumulated  access  to ${
+          DEFAULT_MODELS.filter((model) => model.available).length
+        }  global  mainstream  large  models：
  ${MODEL_LIST}
 Or fill in your Azure Open AI Setting or Open AI API Key in [Settings](/#/settings).
 When you use Azure Open AI or Open AI Service directly, you don't need to sign in, and all requests don't go through any authentication or forwarding .
@@ -158,7 +159,9 @@ You will be directly connected to OpenAI or your Azure Endpoint at this point wh
       Title: "Announcement",
       Content: `
 1、Azure OpenAI service is supported.
-2、This  plugin  has  accumulated  access  to  50+  global  mainstream  large  models：
+2、This  plugin  has  accumulated  access  to  ${
+        DEFAULT_MODELS.filter((model) => model.available).length
+      } global  mainstream  large  models：
  ${MODEL_LIST}
 if you need to use the function call, please switch to the OpenAI GPT series model.
 `,
