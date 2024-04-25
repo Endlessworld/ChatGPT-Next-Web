@@ -40,6 +40,7 @@ import { useAccessStore, useNoticeStore } from "../store";
 import { ClientInfo, useClientInfoStore } from "@/app/store/plugin";
 import { ClientApi } from "../client/api";
 import { identifyDefaultClaudeModel } from "../utils/checkers";
+import { useMaskStore } from "@/app/store/mask";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -68,6 +69,7 @@ const MaskPage = dynamic(async () => (await import("./mask")).MaskPage, {
 
 const useCefFunctionInit = function () {
   const config = useAppConfig();
+  const mask = useMaskStore();
   const accessStore = useAccessStore();
   const plugin = useClientInfoStore();
   const noticeStore = useNoticeStore();
@@ -99,6 +101,10 @@ const useCefFunctionInit = function () {
         model: config.codeCompleteModel,
         enable_local_completion: config.enableOllamaLocalCompletionServer,
       }),
+    }).then((r) => {});
+    ideaMessage({
+      event: "sync_mask",
+      message: JSON.stringify(mask.getAll().map((e) => e.name)),
     }).then((r) => {});
     if (
       noticeStore.showNotice ||
