@@ -488,8 +488,8 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   },
   {
     name: "glm-4",
-    description: "",
-    available: false,
+    description: "智谱清言",
+    available: true,
   },
   {
     name: "moonshot-v1-32k",
@@ -697,6 +697,12 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     available: true,
   },
   {
+    name: "llama3-70b-8192",
+    displayName: "llama3-70b-8192",
+    description: "Groq|8K|81.7|代码精通|稳定|推荐|速度最快",
+    available: true,
+  },
+  {
     name: "mistralai/Mistral-7B-Instruct-v0.1",
     displayName: "mistral-7b-v0.1",
     description: "mistralai|优于llama-2-13b",
@@ -827,7 +833,7 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   },
   {
     name: "gpt-4-32k-0613",
-    available: true,
+    available: false,
   },
   {
     name: "gpt-4-1106-preview",
