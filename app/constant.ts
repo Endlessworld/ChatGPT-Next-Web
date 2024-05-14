@@ -845,12 +845,12 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   },
   {
     name: "gpt-4-turbo",
-    description: "OpenAI|最新|函数调用|本地命令执行|强烈推荐",
+    description: "OpenAI|最新|强烈推荐",
     available: true,
   },
   {
-    name: "gpt-4-turbo-2024-04-09",
-    description: "OpenAI|最新|函数调用",
+    name: "gpt-4o-2024-05-13",
+    description: "OpenAI|最新",
     available: true,
   },
   {
