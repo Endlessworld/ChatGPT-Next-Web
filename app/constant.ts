@@ -623,7 +623,19 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   {
     name: "Qwen/Qwen1.5-72B-Chat",
     displayName: "qwen1.5-72b",
+    description: "阿里云|通义千问",
+    available: true,
+  },
+  {
+    name: "Qwen/Qwen1.5-110B-Chat",
+    displayName: "qwen1.5-110b",
     description: "阿里云|通义千问|国产",
+    available: true,
+  },
+  {
+    name: "Snowflake/snowflake-arctic-instruct",
+    displayName: "snowflake-arctic",
+    description: "Snowflake|MoE|480B|128×3.66B",
     available: true,
   },
   {
