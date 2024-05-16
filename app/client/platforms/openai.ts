@@ -320,7 +320,7 @@ export class ChatGPTApi implements LLMApi {
         const res = await fetch(chatPath, chatPayload);
         clearTimeout(requestTimeoutId);
         const resJson = await res.json();
-        console.log("resJson >>>>>>>", resJson);
+        // console.log("resJson >>>>>>>", resJson);
         const message = this.extractMessage(resJson);
         options.onFinish(message);
       }
@@ -410,7 +410,7 @@ export class ChatGPTApi implements LLMApi {
 
     const resJson = (await res.json()) as OpenAIListModelResponse;
     const chatModels = resJson.data?.filter((m) => m.id.startsWith("gpt-"));
-    console.log("[Models]", chatModels);
+    // console.log("[Models]", chatModels);
 
     if (!chatModels) {
       return [];

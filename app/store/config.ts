@@ -46,7 +46,7 @@ export const DEFAULT_CONFIG = {
   enableOllamaLocalCompletionServer: false,
   enableOllamaLocalChatServer: false,
   customModels: "",
-  codeCompleteModel: "",
+  codeCompleteModel: "WizardLM/WizardCoder-15B-V1.0",
   models: DEFAULT_MODELS as any as LLMModel[],
 
   modelConfig: {

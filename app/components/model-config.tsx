@@ -10,7 +10,7 @@ export function ModelConfigList(props: {
   updateConfig: (updater: (config: ModelConfig) => void) => void;
 }) {
   const allModels = useAllModels();
-  console.debug(allModels.filter((m) => m.available));
+  // console.debug(allModels.filter((m) => m.available));
   return (
     <>
       <ListItem title={Locale.Settings.Model}>
