@@ -4,7 +4,6 @@ import Locale, { getLang } from "./locales";
 import { nanoid } from "nanoid";
 import { Prompt, SearchService, usePromptStore } from "@/app/store/prompt";
 import { ClientApi, RequestMessage } from "./client/api";
-import { useAllModels } from "@/app/utils/hooks";
 import { DEFAULT_MODELS, ModelProvider } from "@/app/constant";
 
 export function trimTopic(topic: string) {
@@ -18,12 +17,14 @@ export function trimTopic(topic: string) {
       .replace(/[，。！？”“"、,.!?*]*$/, "")
   );
 }
+
 export function isIdeaPlugin() {
   if (typeof window == "undefined") {
     return false;
   }
   return (window as any).cefQuery;
 }
+
 // 导出一个名为isBase64的函数，用于检查输入的字符串是否为Base64编码
 export function isBase64(str: string) {
   try {
@@ -34,6 +35,7 @@ export function isBase64(str: string) {
     return false;
   }
 }
+
 // 导出一个函数loadFunctions，该函数会返回一个数组
 export function loadFunctions(): any[] {
   // 从localStorage中获取名为"functions"的键所对应的值（默认值为"[]"）
@@ -574,4 +576,14 @@ export function useClientApi(modelName: string) {
     return new ClientApi(ModelProvider.Claude);
   }
   return new ClientApi(ModelProvider.GPT);
+}
+
+export function preCefMessage(query: string) {
+  const result = { message: query } as { message: string; mask: string };
+  if (query.startsWith("{") && query.endsWith("}")) {
+    let json = JSON.parse(query) as typeof result;
+    result.message = json.message;
+    result.mask = json.mask;
+  }
+  return result;
 }

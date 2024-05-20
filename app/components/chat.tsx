@@ -71,6 +71,7 @@ import dispatchEventStorage, {
   getMessageImages,
   isVisionModel,
   compressImage,
+  preCefMessage,
 } from "../utils";
 
 import dynamic from "next/dynamic";
@@ -944,13 +945,18 @@ function _Chat() {
       }
     });
     (window as any).XAction = function (query: string) {
-      chatStore.newSession();
       console.log("XAction > ", query);
       if (clientInfo?.is_encode || isBase64(query)) {
         console.log("clientInfo > ", clientInfo);
         query = Buffer.from(query, "base64").toString("utf-8");
       }
-      (window as any).doSubmit(query);
+      let message = preCefMessage(query);
+      let mask = maskStore
+        .getAll()
+        .filter((mask) => mask.name === message.mask)
+        .at(0);
+      chatStore.newSession(mask);
+      (window as any).doSubmit(message.message);
     };
   }, []);
 
