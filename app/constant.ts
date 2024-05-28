@@ -587,6 +587,36 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     free: false,
   },
   {
+    name: "ERNIE-Speed-128K",
+    displayName: "ERNIE-Speed-128K",
+    available: false,
+  },
+  {
+    name: "ERNIE-Speed-8K",
+    displayName: "ERNIE-Speed-8K",
+    available: false,
+  },
+  {
+    name: "ERNIE-Lite-8K-0922",
+    displayName: "ERNIE-Lite-8K-0922",
+    available: false,
+  },
+  {
+    name: "ERNIE-Lite-8K-0308",
+    displayName: "ERNIE-Lite-8K-0308",
+    available: false,
+  },
+  {
+    name: "ERNIE-Speed-8K",
+    displayName: "ERNIE-Speed-8K",
+    available: false,
+  },
+  {
+    name: "ERNIE-Tiny-8K",
+    displayName: "ERNIE-Tiny-8K",
+    available: false,
+  },
+  {
     name: "Qwen/Qwen1.5-0.5B-Chat",
     displayName: "qwen1.5-0.5b",
     description: "通义千问",
