@@ -2,9 +2,10 @@ import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
 import { DEFAULT_MODELS, LOGIN_HOST, MODEL_LIST } from "@/app/constant";
 import { isIdeaPlugin } from "@/app/utils";
+import { useClientInfoStore } from "@/app/store";
 
 const isApp = !!getClientConfig()?.isApp;
-
+const plugin = useClientInfoStore();
 const cn = {
   WIP: "AI能力库建设中、我们将以groovy语言无限制的为您的AI助手扩展任意功能",
   Error: {
@@ -14,10 +15,11 @@ const cn = {
     HelloMessage: (userInfo: any) => {
       let display_name = userInfo?.display_name;
       if (!!display_name) {
-        return `欢迎回来 ${display_name} 我是X-Copilot!
-         本${isIdeaPlugin() ? "插件" : "站"}已接入${
-           DEFAULT_MODELS.filter((model) => model.available).length
-         }个主流大模型 如果您的模型列表与公告中的列表不一致, 请执行 设置 > 重置所有设置 > 立即重置`;
+        return `欢迎回来 ${display_name} 我是X-Copilot!${
+          isIdeaPlugin()
+            ? "我的最新版已经支持代码补全啦 快来插件商店更新吧！"
+            : ""
+        }`;
       }
       return `  
 欢迎使用X-Copilot 您当前未登录 请点此[登录](${LOGIN_HOST})以免费使用 

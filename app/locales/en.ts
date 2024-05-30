@@ -21,10 +21,7 @@ const en: LocaleType = {
           DEFAULT_MODELS.filter((model) => model.available).length
         }  global  mainstream  large  models：
  ${MODEL_LIST}
-Or fill in your Azure Open AI Setting or Open AI API Key in [Settings](/#/settings).
-When you use Azure Open AI or Open AI Service directly, you don't need to sign in, and all requests don't go through any authentication or forwarding .
-You will be directly connected to OpenAI or your Azure Endpoint at this point where your data security will be guaranteed to the greatest extent.
-[Feedback](https://forum.xr21.me/forum/36.html/)|[Donation](https://forum.xr21.me/forum-post/253.html/)
+ 
 `
       }`;
     },

@@ -16,7 +16,7 @@ const tw: partialLocaleType = {
       return `${
         !!display_name
           ? "欢迎回来 " + display_name
-          : `欢迎使用X-Copilot \n您当前未登录 请点击[登录](${LOGIN_HOST})\n[反馈建议](https://forum.xr21.me/forum/36.html/)|[爱发电](https://forum.xr21.me/forum-post/253.html/)
+          : `欢迎使用X-Copilot \n您当前未登录 请点击[登录](${LOGIN_HOST})
         `
       }
     `;

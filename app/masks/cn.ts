@@ -1,5 +1,5 @@
 import { BuiltinMask } from "./typing";
-import { getCookie, getUserInfo, isIdeaPlugin, useUserInfo } from "@/app/utils";
+import { getUserInfo, isIdeaPlugin } from "@/app/utils";
 import Locales from "@/app/locales";
 
 export const CN_MASKS: BuiltinMask[] = [
@@ -90,35 +90,7 @@ export const CN_MASKS: BuiltinMask[] = [
     builtin: false,
     createdAt: 1693789703210,
   },
-  {
-    avatar: "gpt-bot",
-    name: "唯事件反导因果分析",
-    context: [
-      {
-        id: "aDw5CFgi49ugdRCAQe52",
-        date: "",
-        role: "system",
-        content: `宇宙遵循四大基本力法则 但是这种法则不会因个人或集体已意志而改变，我们称之为硬性规则。人类社会为了更好的生存 个体需要尊从道德和法律约束，但在不同时代和社会环境中，道德和法律标准不同，以人类个体或集体意志而改变，我们称之为软性规则。在多种不同规则的共同作用下，一个或多个事件必然引发另一个事件，一个事件也必然由另外一个或多个事件引发，于是就有了因和果，随着时间和空间的发展，事件之间形成了因果链，因果链相互链接，其中闪烁着命运的脉络，主导着世间万物发展和变化的规律。透过因果链，我们可以推导事件发生的原因，以及原因的原因，以此类推，可以无限向前回溯，直到宇宙的起点。也可以推导一个事件可能引发的结果，以及结果的结果，无限向后演算，直到宇宙的终点。这个理论 我称之为 唯事件反导理论。现在，当我向你描述一个事件 ，并告诉你它是结果 你需要根据你所了解的规则以及常识，以此事件为基础，从无数可能性之中 推导出最为可能的一个或多个可能原因，然后推导这些原因的原因，以此类推，你可以无限向前回溯。每个事件为一个节点，这个事件可以有无数个节点。同理 当我描述一个原因事件 你也可以找到这些因的果，果的果，无限向后推理，当我描述一个事件 但是不说它是因或果 你就可以向前和向后分别推理这个事件可能发生的原因自己可能导致的后果， 使用mermaid关系图展示这些因果链，事件处于其中的某一级之中，如果节点数也就是因果链深度不够我的要求，你需要细化因果之间的关联以增加节点数。`,
-      },
-    ],
-    syncGlobalConfig: true,
-    modelConfig: {
-      model: "gpt-3.5-turbo",
-      temperature: 0.5,
-      max_tokens: 4096,
-      top_p: 1,
-      presence_penalty: 0,
-      frequency_penalty: 0,
-      sendMemory: true,
-      historyMessageCount: 2,
-      compressMessageLengthThreshold: 1000,
-      enableInjectSystemPrompts: true,
-      template: "{{input}}",
-    },
-    lang: "cn",
-    builtin: false,
-    createdAt: 1694159225793,
-  },
+
   {
     avatar: "1f5bc-fe0f",
     name: "以文搜图",
@@ -377,6 +349,35 @@ export const CN_MASKS: BuiltinMask[] = [
     lang: "cn",
     builtin: true,
     createdAt: 1688899480536,
+  },
+  {
+    avatar: "gpt-bot",
+    name: "唯事件反导因果分析",
+    context: [
+      {
+        id: "aDw5CFgi49ugdRCAQe52",
+        date: "",
+        role: "system",
+        content: `宇宙遵循四大基本力法则 但是这种法则不会因个人或集体已意志而改变，我们称之为硬性规则。人类社会为了更好的生存 个体需要尊从道德和法律约束，但在不同时代和社会环境中，道德和法律标准不同，以人类个体或集体意志而改变，我们称之为软性规则。在多种不同规则的共同作用下，一个或多个事件必然引发另一个事件，一个事件也必然由另外一个或多个事件引发，于是就有了因和果，随着时间和空间的发展，事件之间形成了因果链，因果链相互链接，其中闪烁着命运的脉络，主导着世间万物发展和变化的规律。透过因果链，我们可以推导事件发生的原因，以及原因的原因，以此类推，可以无限向前回溯，直到宇宙的起点。也可以推导一个事件可能引发的结果，以及结果的结果，无限向后演算，直到宇宙的终点。这个理论 我称之为 唯事件反导理论。现在，当我向你描述一个事件 ，并告诉你它是结果 你需要根据你所了解的规则以及常识，以此事件为基础，从无数可能性之中 推导出最为可能的一个或多个可能原因，然后推导这些原因的原因，以此类推，你可以无限向前回溯。每个事件为一个节点，这个事件可以有无数个节点。同理 当我描述一个原因事件 你也可以找到这些因的果，果的果，无限向后推理，当我描述一个事件 但是不说它是因或果 你就可以向前和向后分别推理这个事件可能发生的原因自己可能导致的后果， 使用mermaid关系图展示这些因果链，事件处于其中的某一级之中，如果节点数也就是因果链深度不够我的要求，你需要细化因果之间的关联以增加节点数。`,
+      },
+    ],
+    syncGlobalConfig: true,
+    modelConfig: {
+      model: "gpt-3.5-turbo",
+      temperature: 0.5,
+      max_tokens: 4096,
+      top_p: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      sendMemory: true,
+      historyMessageCount: 2,
+      compressMessageLengthThreshold: 1000,
+      enableInjectSystemPrompts: true,
+      template: "{{input}}",
+    },
+    lang: "cn",
+    builtin: false,
+    createdAt: 1694159225793,
   },
   {
     avatar: "1f469-200d-2695-fe0f",
