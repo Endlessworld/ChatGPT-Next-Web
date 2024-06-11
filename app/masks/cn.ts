@@ -15,9 +15,7 @@ export const CN_MASKS: BuiltinMask[] = [
       },
     ],
     modelConfig: {
-      model: isIdeaPlugin()
-        ? "deepseek-ai/deepseek-coder-33b-instruct"
-        : "gpt-3.5-turbo-0125",
+      model: isIdeaPlugin() ? "Qwen/Qwen2-72B-Instruct" : "gpt-3.5-turbo-0125",
       temperature: 1,
       max_tokens: 2000,
       presence_penalty: 0,

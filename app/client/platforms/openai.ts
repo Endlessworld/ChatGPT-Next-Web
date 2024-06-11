@@ -168,6 +168,7 @@ export class ChatGPTApi implements LLMApi {
         let responseText = "";
         let remainText = "";
         let finished = false;
+        let is_function_call = false;
         const queues: string[] = [];
 
         // animate response to make it looks smooth
@@ -176,7 +177,7 @@ export class ChatGPTApi implements LLMApi {
             responseText += remainText;
             // hljs.highlightAll();
             console.log("[Response Animation] finished");
-            if (responseText?.length === 0) {
+            if (responseText?.length === 0 && !is_function_call) {
               options.onError?.(new Error("empty response from server"));
             }
             return;
@@ -261,6 +262,7 @@ export class ChatGPTApi implements LLMApi {
               };
               if (json.choices[0].finish_reason) {
                 if (json.choices[0].finish_reason === "function_call") {
+                  is_function_call = true;
                   if (options.onFunction) {
                     finished = true;
                     return options.onFunction({
@@ -272,12 +274,14 @@ export class ChatGPTApi implements LLMApi {
                   }
                 }
               }
-              if (json.choices[0]?.delta?.function_call) {
-                function_call_arguments_json +=
-                  json.choices[0]?.delta?.function_call?.arguments;
-                if (json.choices[0]?.delta?.function_call?.name) {
-                  function_call_name =
-                    json.choices[0]?.delta?.function_call?.name;
+              let function_call = json.choices[0]?.delta?.function_call;
+              if (function_call) {
+                is_function_call = true;
+                if (function_call?.arguments) {
+                  function_call_arguments_json += function_call?.arguments;
+                }
+                if (function_call?.name) {
+                  function_call_name = function_call?.name;
                 }
               } else {
                 const delta =
