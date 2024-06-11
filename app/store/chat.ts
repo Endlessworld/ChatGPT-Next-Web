@@ -260,9 +260,14 @@ export const useChatStore = createPersistStore(
             (message) =>
               !getMessageTextContent(message).startsWith("\u200D\u200D"),
           );
-          const projectContext = localStorage.getItem("project-context");
-          if (projectContext) {
-            if (JSON.parse(projectContext).enableContext) {
+          const projectContextJson = localStorage.getItem("project-context");
+          if (projectContextJson) {
+            const projectContext = JSON.parse(projectContextJson);
+            if (
+              projectContext.enableContext &&
+              projectContext.content &&
+              Object.keys(projectContext.content).length > 0
+            ) {
               const contextAwareness = getProjectContextAwareness();
               const awareMessage = createMessage({
                 role: "system",
