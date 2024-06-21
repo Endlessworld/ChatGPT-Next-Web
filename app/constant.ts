@@ -967,6 +967,12 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     description: "不稳定|略慢",
     available: true,
   },
+  {
+    name: "claude-3.5-sonnet-20240620",
+    displayName: "claude-3.5-sonnet-20240620",
+    description: "Claude|最新",
+    available: true,
+  },
   // {
   //   name: "claude-instant-1.2",
   //   available: false,
