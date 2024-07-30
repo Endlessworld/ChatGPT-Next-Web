@@ -691,6 +691,18 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     free: true,
   },
   {
+    name: "google/gemma-2-9b-it",
+    displayName: "gemma-2-9b",
+    description: "google",
+    available: true,
+  },
+  {
+    name: "google/gemma-2-27b-it",
+    displayName: "gemma-2-27b",
+    description: "google",
+    available: true,
+  },
+  {
     name: "codellama/CodeLlama-7b-Instruct-hf",
     displayName: "code-llama-7b",
     description: "Meta",
@@ -732,6 +744,48 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     name: "meta-llama/Llama-2-70b-chat-hf",
     displayName: "llama-2-70b",
     description: "Meta",
+    available: true,
+  },
+  {
+    name: "meta-llama/Meta-Llama-3-70B-Instruct-Lite",
+    displayName: "llama-3-70b-lite",
+    description: "Meta",
+    available: true,
+  },
+  {
+    name: "meta-llama/Meta-Llama-3-70B-Instruct-Turbo",
+    displayName: "llama-3-70b-turbo",
+    description: "Meta",
+    available: true,
+  },
+  {
+    name: "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+    displayName: "llama-3-8b-lite",
+    description: "Meta",
+    available: true,
+  },
+  {
+    name: "meta-llama/Meta-Llama-3-8B-Instruct-Turbo",
+    displayName: "llama-3-8b-turbo",
+    description: "Meta",
+    available: true,
+  },
+  {
+    name: "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+    displayName: "llama-3.1-8b-turbo",
+    description: "Meta",
+    available: true,
+  },
+  {
+    name: "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
+    displayName: "llama-3.1-70b-turbo",
+    description: "Meta",
+    available: true,
+  },
+  {
+    name: "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo",
+    displayName: "llama-3.1-405b-turbo",
+    description: "Meta|7月最强开源",
     available: true,
   },
   {
@@ -900,6 +954,11 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   },
   {
     name: "gpt-4o-2024-05-13",
+    description: "OpenAI|最强",
+    available: true,
+  },
+  {
+    name: "gpt-4o-mini",
     description: "OpenAI|最新",
     available: true,
   },
