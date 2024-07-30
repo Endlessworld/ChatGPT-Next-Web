@@ -50,7 +50,7 @@ export const DEFAULT_CONFIG = {
   models: DEFAULT_MODELS as any as LLMModel[],
 
   modelConfig: {
-    model: "Qwen/Qwen2-72B-Instruct" as ModelType,
+    model: "gpt-3.5-turbo-0125" as ModelType,
     temperature: 0.5,
     top_p: 0.9,
     max_tokens: 2000,
