@@ -50,7 +50,7 @@ interface RequestPayload {
   top_p: number;
   max_tokens?: number;
   functions?: GPTFunction[];
-  function_call?: string;
+  function_call?: string | { name: string };
 }
 
 export class ChatGPTApi implements LLMApi {
