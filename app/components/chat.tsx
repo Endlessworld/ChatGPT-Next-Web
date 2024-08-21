@@ -851,7 +851,6 @@ function _Chat() {
   });
   const agentCommands = useChatCommand({
     executeCommand: () => localStorage.setItem("useAgent", "executeCommand"),
-    news: () => localStorage.setItem("useAgent", "news"),
     githubSearch: () => localStorage.setItem("useAgent", "githubSearch"),
   });
   useEffect(() => {
