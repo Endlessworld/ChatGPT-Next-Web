@@ -104,7 +104,12 @@ import {
 import { Avatar } from "./emoji";
 import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
 import { useMaskStore } from "../store/mask";
-import { ChatCommandPrefix, useChatCommand, useCommand } from "../command";
+import {
+  AgentPrefix,
+  ChatCommandPrefix,
+  useChatCommand,
+  useCommand,
+} from "../command";
 import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
@@ -844,6 +849,11 @@ function _Chat() {
       ),
     del: () => chatStore.deleteSession(chatStore.currentSessionIndex),
   });
+  const agentCommands = useChatCommand({
+    executeCommand: () => localStorage.setItem("useAgent", "executeCommand"),
+    news: () => localStorage.setItem("useAgent", "news"),
+    githubSearch: () => localStorage.setItem("useAgent", "githubSearch"),
+  });
   useEffect(() => {
     console.log("_Chat installed XSelectSession");
     (window as any).XSelectSession = (selectSession: string) => {
@@ -866,6 +876,8 @@ function _Chat() {
       setPromptHints([]);
     } else if (text.startsWith(ChatCommandPrefix)) {
       setPromptHints(chatCommands.search(text));
+    } else if (text.startsWith(AgentPrefix)) {
+      setPromptHints(agentCommands.search(text));
     } else if (!config.disablePromptHint && n < SEARCH_TEXT_LIMIT) {
       // check if need to trigger auto completion
       if (text.startsWith("/")) {
@@ -882,6 +894,13 @@ function _Chat() {
       setUserInput("");
       setPromptHints([]);
       matchCommand.invoke();
+      return;
+    }
+    const agentMatchCommand = agentCommands.match(userInput);
+    if (agentMatchCommand.matched) {
+      setUserInput(agentMatchCommand.description);
+      setPromptHints([]);
+      agentMatchCommand.invoke();
       return;
     }
     setIsLoading(true);
@@ -901,10 +920,15 @@ function _Chat() {
       setPromptHints([]);
 
       const matchedChatCommand = chatCommands.match(prompt.content);
+      const matchedAgentCommand = agentCommands.match(prompt.content);
       if (matchedChatCommand.matched) {
         // if user is selecting a chat command, just trigger it
         matchedChatCommand.invoke();
         setUserInput("");
+      } else if (matchedAgentCommand.matched) {
+        // if user is selecting a chat command, just trigger it
+        matchedAgentCommand.invoke();
+        setUserInput(matchedAgentCommand.description);
       } else {
         // or fill the prompt
         setUserInput(prompt.content);

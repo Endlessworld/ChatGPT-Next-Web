@@ -1,7 +1,7 @@
 import {
   functionCall,
-  getProjectContextAwareness,
   getMessageTextContent,
+  getProjectContextAwareness,
   getUserInfo,
   ideaMessage,
   isIdeaPlugin,
@@ -17,18 +17,18 @@ import { createEmptyMask, Mask } from "./mask";
 import {
   DEFAULT_INPUT_TEMPLATE,
   DEFAULT_SYSTEM_TEMPLATE,
+  GEMINI_SUMMARIZE_MODEL,
   KnowledgeCutOffDate,
   StoreKey,
   SUMMARIZE_MODEL,
-  GEMINI_SUMMARIZE_MODEL,
 } from "../constant";
-import { MessageRole, RequestMessage, MultimodalContent } from "../client/api";
+import { MessageRole, MultimodalContent, RequestMessage } from "../client/api";
 import { ChatControllerPool } from "../client/controller";
 import { prettyObject } from "../utils/format";
 import { estimateTokenLength } from "../utils/token";
 import { nanoid } from "nanoid";
 import { createPersistStore } from "../utils/store";
-import { identifyDefaultClaudeModel } from "../utils/checkers";
+import { ChatCommands } from "@/app/command";
 
 export type ChatMessage = RequestMessage & {
   date: string;
@@ -407,12 +407,13 @@ export const useChatStore = createPersistStore(
           });
           const functions = loadFunctions();
           if (
+            functions &&
             functions.length > 0 &&
             !modelConfig.model.startsWith("gpt-4-vision") &&
             !modelConfig.model.startsWith("gpt-4-all")
           ) {
-            userMessage.functions = loadFunctions();
-            userMessage.function_call = "auto";
+            userMessage.functions = functions;
+            userMessage.function_call = { name: functions[0].name };
           }
         }
 
@@ -464,8 +465,13 @@ export const useChatStore = createPersistStore(
             ChatControllerPool.remove(session.id, botMessage.id);
           },
           onFunction(message) {
+            const description =
+              "`" +
+              (Locale.Chat.Commands[message.function as keyof ChatCommands] ||
+                message.function) +
+              "`";
             botMessage.streaming = false;
-            botMessage.content = ` \`${message.function}\` function calling...`;
+            botMessage.content = ` \`${description}\`${Locale.Chat.Processing}`;
             // botMessage.content = prettyObject(
             //   JSON.stringify(
             //     {

@@ -9,7 +9,7 @@ import hljs from "highlight.js";
 import React, { RefObject, useEffect, useRef, useMemo } from "react";
 import { copyToClipboard } from "../utils";
 import mermaid from "mermaid";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { LightAsync as SyntaxHighlighter } from "react-syntax-highlighter";
 import LoadingIcon from "../icons/three-dots.svg";
 import { showImageModal } from "./ui-lib";
 import { CodeProps } from "react-markdown/lib/ast-to-react";
@@ -138,7 +138,6 @@ function _MarkDownContent(props: { content: string }) {
               </code>
             );
           }
-          // hljs.highlightAll();
           return language === "mermaid" ? (
             <Mermaid code={codeBlock} onError={() => ""} />
           ) : (

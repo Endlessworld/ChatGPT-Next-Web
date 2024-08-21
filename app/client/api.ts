@@ -38,7 +38,7 @@ export interface RequestMessage {
   content: string | MultimodalContent[];
   name?: string;
   functions?: GPTFunction[];
-  function_call?: string;
+  function_call?: string | { name: string };
 }
 export interface GPTFunction {
   name?: string;

@@ -32,21 +32,20 @@ export function useCommand(commands: Commands = {}) {
   }, [searchParams, commands]);
 }
 
-interface ChatCommands {
-  new?: Command;
-  newm?: Command;
-  next?: Command;
-  prev?: Command;
-  clear?: Command;
-  del?: Command;
+export interface ChatCommands {
+  [key: string]: Command;
 }
 
 export const ChatCommandPrefix = ":";
+export const AgentPrefix = "@";
 
 export function useChatCommand(commands: ChatCommands = {}) {
   function extract(userInput: string) {
     return (
-      userInput.startsWith(ChatCommandPrefix) ? userInput.slice(1) : userInput
+      userInput.startsWith(ChatCommandPrefix) ||
+      userInput.startsWith(AgentPrefix)
+        ? userInput.slice(1)
+        : userInput
     ) as keyof ChatCommands;
   }
 
@@ -54,18 +53,19 @@ export function useChatCommand(commands: ChatCommands = {}) {
     const input = extract(userInput);
     const desc = Locale.Chat.Commands;
     return Object.keys(commands)
-      .filter((c) => c.startsWith(input))
+      .filter((c) => c.startsWith(input as string))
       .map((c) => ({
         title: desc[c as keyof ChatCommands],
-        content: ChatCommandPrefix + c,
+        content: userInput.slice(1) + c,
       }));
   }
 
   function match(userInput: string) {
     const command = extract(userInput);
     const matched = typeof commands[command] === "function";
-
+    const description = Locale.Chat.Commands[command as keyof ChatCommands];
     return {
+      description: "`@" + (description || command) + "` ",
       matched,
       invoke: () => matched && commands[command]!(userInput),
     };

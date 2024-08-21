@@ -37,12 +37,18 @@ export function isBase64(str: string) {
 }
 
 // 导出一个函数loadFunctions，该函数会返回一个数组
-export function loadFunctions(): any[] {
+export function loadFunctions(): any[] | undefined {
   // 从localStorage中获取名为"functions"的键所对应的值（默认值为"[]"）
+  let useAgent = localStorage.getItem("useAgent");
   let functionsJson: string = localStorage.getItem("functions") || "[]";
-
   // 使用JSON.parse将字符串转化为数组类型
-  return JSON.parse(functionsJson);
+  if (useAgent) {
+    localStorage.removeItem("useAgent");
+    return JSON.parse(functionsJson).filter(
+      (e: { name: string | null }) => e.name == useAgent,
+    );
+  }
+  return undefined;
 }
 
 export function fetchPrompt() {

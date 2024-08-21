@@ -8,11 +8,13 @@ import RehypeHighlight from "rehype-highlight";
 import { useRef, useState, RefObject, useEffect, useMemo } from "react";
 import { copyToClipboard } from "../utils";
 import mermaid from "mermaid";
-
+import styles from "./markdown.module.scss";
 import LoadingIcon from "../icons/three-dots.svg";
 import React from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { showImageModal } from "./ui-lib";
+import { CodeProps } from "react-markdown/lib/ast-to-react";
+import { Theme, useAppConfig } from "@/app/store";
 
 export function Mermaid(props: { code: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -121,7 +123,7 @@ function _MarkDownContent(props: { content: string }) {
     () => escapeDollarNumber(props.content),
     [props.content],
   );
-
+  const configStore = useAppConfig();
   return (
     <ReactMarkdown
       remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}
@@ -137,6 +139,36 @@ function _MarkDownContent(props: { content: string }) {
       ]}
       components={{
         pre: PreCode,
+        code: (codeProps: CodeProps) => {
+          const codeBlock = (codeProps as any)?.children[0];
+          if (!codeBlock) {
+            return (
+              <code
+                className={styles["code-font"]}
+                style={{ backgroundColor: "#f9f2f4" }}
+              >
+                {" "}
+              </code>
+            );
+          }
+
+          if (codeProps.inline) {
+            return (
+              <code
+                className={styles["code-font"]}
+                style={{
+                  backgroundColor: Theme.Dark.includes(configStore.theme)
+                    ? "rgb(43, 45, 48)"
+                    : "#f9f2f4",
+                }}
+              >
+                {(codeProps as any).children}
+              </code>
+            );
+          }
+          return <div>{(codeProps as any).children}</div>;
+        },
+
         p: (pProps) => <p {...pProps} dir="auto" />,
         a: (aProps) => {
           const href = aProps.href || "";
