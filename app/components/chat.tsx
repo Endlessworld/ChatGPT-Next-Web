@@ -121,7 +121,7 @@ const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
 });
 const FirstMarkdown = dynamic(
-  async () => (await import("./first-markdown")).FirstMarkdown,
+  async () => (await import("./first-markdown-vditor")).FirstMarkdown,
   {
     loading: () => <LoadingIcon />,
   },
@@ -1747,7 +1747,7 @@ function _Chat() {
                           defaultShow={i >= messages.length - 6}
                         />
                       ) : (
-                        <Markdown
+                        <FirstMarkdown
                           content={getMessageTextContent(message)}
                           loading={
                             (message.preview || message.streaming) &&
