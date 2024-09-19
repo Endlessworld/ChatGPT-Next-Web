@@ -3,13 +3,15 @@ import Vditor from "vditor";
 import "vditor/dist/index.css";
 import ".././styles/highlight-vditor.scss";
 import LoadingIcon from "../icons/img-loading.svg";
+import { useAppConfig } from "@/app/store";
 
-function VditorPreview(props: { content: string }) {
+function VditorPreview(props: { content: string; fontSize?: number }) {
   const elementId = "preview" + props.content.length;
   const elementRef = useRef<HTMLDivElement>(null);
+  const config = useAppConfig();
   const options = {
     /** 显示模式。默认值: 'both' */
-    mode: "dark",
+    mode: config.theme,
     icon: "material",
     speech: {
       enable: false,
@@ -101,8 +103,13 @@ function VditorPreview(props: { content: string }) {
       });
     }
   }, [props.content]);
-
-  return <div id={elementId} ref={elementRef}></div>;
+  return (
+    <div
+      id={elementId}
+      ref={elementRef}
+      style={{ fontSize: `${props.fontSize ?? 12}px` }}
+    ></div>
+  );
 }
 
 export const VditorPreviewVditor = React.memo(VditorPreview);
@@ -131,7 +138,10 @@ export function FirstMarkdown(
       {props.loading ? (
         <LoadingIcon />
       ) : (
-        <VditorPreviewVditor content={props.content} />
+        <VditorPreviewVditor
+          content={props.content}
+          fontSize={props.fontSize}
+        />
       )}
     </div>
   );
