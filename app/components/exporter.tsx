@@ -43,9 +43,12 @@ import { getClientConfig } from "../config/client";
 import { ClientApi } from "../client/api";
 import { getMessageTextContent } from "../utils";
 
-const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
-  loading: () => <LoadingIcon />,
-});
+const Markdown = dynamic(
+  async () => (await import("./first-markdown-vditor")).FirstMarkdown,
+  {
+    loading: () => <LoadingIcon />,
+  },
+);
 
 export function ExportMessageModal(props: { onClose: () => void }) {
   return (
