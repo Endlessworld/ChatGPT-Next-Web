@@ -562,7 +562,7 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   },
   {
     name: "deepseek-chat",
-    displayName: "deepseek-chat-v2",
+    displayName: "deepseek-chat",
     description: "深度求索|236B|32k|稳定|强烈推荐",
     available: true,
   },
@@ -577,14 +577,14 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     name: "deepseek-ai/deepseek-coder-33b-instruct",
     displayName: "deepseek-coder-33b",
     description: "深度求索|开源版|16K",
-    available: true,
+    available: false,
     free: true,
   },
   {
     name: "deepseek-ai/deepseek-llm-67b-chat",
     displayName: "deepseek-llm-67b-chat",
     description: "深度求索|开源版",
-    available: true,
+    available: false,
     free: false,
   },
   {
@@ -864,19 +864,19 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
     name: "cognitivecomputations/dolphin-2.5-mixtral-8x7b",
     displayName: "dolphin-2.5-mixtral-8x7b",
     description: "Dolphin AI|mistral-8x7b微调|擅长代码",
-    available: true,
+    available: false,
   },
   {
     name: "garage-bAInd/Platypus2-70B-instruct",
     displayName: "platypus2-70b",
     description: "StabilityAI|基于Llama2微调",
-    available: true,
+    available: false,
   },
   {
     name: "lmsys/vicuna-13b-v1.5",
     displayName: "vicuna-13b",
     description: "羊驼",
-    available: true,
+    available: false,
   },
   {
     name: "gpt-3.5-plus",
@@ -885,37 +885,25 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   {
     name: "gpt-3.5-turbo",
     available: true,
-    description: "最新|函数调用|本地命令执行|推荐",
+    description: "Agent|推荐",
     free: true,
   },
   {
     name: "gpt-3.5-turbo-0125",
     available: true,
-    description: "最新|函数调用|本地命令执行",
-    free: true,
-  },
-  {
-    name: "gpt-3.5-turbo-0613",
-    available: true,
-    description: "即将废弃",
+    description: "最新",
     free: true,
   },
   {
     name: "gpt-3.5-turbo-1106",
-    description: "函数调用|本地命令执行",
+    description: "Agent",
     available: true,
     free: true,
   },
   {
     name: "gpt-3.5-turbo-16k",
     available: true,
-    description: "函数调用|本地命令执行",
-    free: true,
-  },
-  {
-    name: "gpt-3.5-turbo-16k-0613",
-    description: "即将废弃",
-    available: true,
+    description: "Agent",
     free: true,
   },
   {
@@ -949,17 +937,17 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   },
   {
     name: "gpt-4-turbo",
-    description: "OpenAI|最新|强烈推荐",
+    description: "OpenAI|最新|Agent",
     available: true,
   },
   {
     name: "gpt-4o-2024-05-13",
-    description: "OpenAI|最强",
+    description: "OpenAI|最强|Agent|快速|强烈推荐",
     available: true,
   },
   {
     name: "gpt-4o-mini",
-    description: "OpenAI|最新",
+    description: "OpenAI|最新|Agent|快速|强烈推荐",
     available: true,
   },
   {
@@ -1029,7 +1017,7 @@ export const DEFAULT_MODELS: readonly LLMModel[] = [
   {
     name: "claude-3.5-sonnet-20240620",
     displayName: "claude-3.5-sonnet-20240620",
-    description: "Claude|最新",
+    description: "不稳定",
     available: true,
   },
   // {
