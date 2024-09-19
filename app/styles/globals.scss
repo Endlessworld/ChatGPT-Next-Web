@@ -8,7 +8,7 @@
   --white: rgb(247, 248, 250);
   --black: rgba(30, 30, 30, 0.91);
   --gray: rgb(250, 250, 250);
-  --primary: rgba(13, 90, 255, 0.66) ;
+  --primary: rgba(13, 90, 255, 0.66);
   --primary-focus: rgb(19, 124, 250);
   --second: #f7f8fa;
   --hover-color: #f3f3f3;
@@ -18,16 +18,22 @@
   /* shadow */
   --shadow: 0px 0px 3px 1px rgb(175, 175, 183);
   --card-foucs-shadow: 0px 0px 7px 3px rgb(175, 175, 183);
-  --card-shadow: 0px 0px 3px 1px  rgb(175, 175, 183,0.5);
-  --input-shadow: 0px 0px 3px 1px  rgb(175, 175, 183);
-  --input-foucs-shadow:0px 0px 7px 2px  rgb(175, 175, 183);
+  --card-shadow: 0px 0px 3px 1px rgb(175, 175, 183, 0.5);
+  --input-shadow: 0px 0px 3px 1px rgb(175, 175, 183);
+  --input-foucs-shadow: 0px 0px 7px 2px rgb(175, 175, 183);
   --input-foucs-border: 1px solid rgba(13, 90, 255, 0.66);
   /* stroke */
   --border-in-light: 1px solid rgb(226, 226, 229);
 
-  --button-color:var(--primary);
+  --button-color: var(--primary);
   --button-foucs-color: var(--primary);
-  --code-font-color: #c7254e;
+  --inline-code-font-color: #c7254e;
+  --inline-code-font-background-color: rgb(249, 242, 244);
+  //--inline-code-font-background-color: rgb(241, 230, 223);
+  --vditor-font-color: rgb(21, 21, 21);
+  --vditor-table-background-color: var(-card-shadow);
+  --vditor-table-background-2n-color: #fff;
+  --vditor-table-td-boder: 1px solid #f0f0f0;;
 }
 
 @mixin dark {
@@ -38,7 +44,7 @@
   --black: rgb(187, 187, 187, 0.5);
   --gray: rgb(21, 21, 21);
   --primary: rgb(55, 95, 172);
-  --primary-focus: rgba(13, 90, 255, 0.66) ;
+  --primary-focus: rgba(13, 90, 255, 0.66);
   --second: rgb(43, 45, 48);
   --hover-color: #323232;
 
@@ -54,10 +60,14 @@
   --input-shadow: var(--card-shadow);
   --input-foucs-shadow: var(--card-foucs-shadow);
   --input-foucs-border: 1px solid var(--black);
-  --button-color:var(--bar-color);
-  --button-foucs-color:var(--bar-color);
-  --code-font-color: rgba(241, 232, 97, 0.76);
-
+  --button-color: var(--bar-color);
+  --button-foucs-color: var(--bar-color);
+  --inline-code-font-color: rgb(255, 241, 53);
+  --inline-code-font-background-color: var(--white);
+  --vditor-font-color: rgb(250, 250, 250);
+  --vditor-table-background-color: var(-card-shadow);
+  --vditor-table-background-2n-color: rgba(7, 7, 21, 0.8);
+  --vditor-table-td-boder: 1px solid #5d5d63;
   div:not(.no-dark) > svg {
     filter: invert(0.5);
   }
@@ -105,11 +115,12 @@
     @include dark;
   }
 }
+
 html {
   height: var(--full-height);
 
   font-family: "Noto Sans", "SF Pro SC", "SF Pro Text", "SF Pro Icons",
-    "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
 body {
@@ -324,6 +335,7 @@ pre {
   &:hover {
     filter: brightness(0.9);
   }
+
   &:focus {
     filter: brightness(0.95);
   }
@@ -396,6 +408,7 @@ pre {
   border-radius: 11px;
   animation: avatarAnimation 500ms both infinite linear;
 }
+
 .one-line {
   white-space: nowrap;
   overflow: hidden;
@@ -404,4 +417,81 @@ pre {
 
 .copyable {
   user-select: text;
+}
+
+.vditor {
+  --border-color: #d1d5da;
+  --second-color: rgba(88, 96, 105, 0.36);
+
+  --panel-background-color: #fff;
+  --panel-shadow: 0 1px 2px rgb(231, 54, 54);
+
+  --toolbar-background-color: #f6f8fa;
+  --toolbar-icon-color: #586069;
+  //--toolbar-icon-hover-color: @blurColor;
+  --toolbar-height: 35px;
+  --toolbar-divider-margin-top: 8px;
+
+  --textarea-background-color: #fafbfc;
+  --textarea-text-color: #24292e;
+
+  --resize-icon-color: var(--toolbar-icon-color);
+  --resize-background-color: var(--toolbar-background-color);
+  --resize-hover-icon-color: var(--panel-background-color);
+  --resize-hover-background-color: var(--toolbar-icon-hover-color);
+
+  --count-background-color: rgba(27, 31, 35, 0.05);
+  --heading-border-color: #eaecef;
+  --blockquote-color: #6a737d;
+
+  --ir-heading-color: #660e7a;
+  --ir-title-color: #808080;
+  --ir-bi-color: #0033b3;
+  --ir-link-color: #008000;
+  --ir-bracket-color: #0000ff;
+  --ir-paren-color: #008000;
+
+  .vditor-reset code {
+    margin: 0 1px;
+    padding: .2em .4em;
+    font-size: .9em;
+    border-radius: 3px;
+    border: 1px solid #f0f0f0;
+    font-family: sfmono-regular, Consolas, liberation mono, Menlo, Courier, monospace;
+  }
+
+  .vditor-reset code:not(.hljs):not(.highlight-chroma) {
+    background: #faf0de;
+    color: rgb(190, 33, 33);
+  }
+
+  &--dark {
+    --border-color: #141414;
+    --second-color: rgba(185, 185, 185, 0.36);
+
+    --panel-background-color: #24292e;
+    --panel-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+
+    --toolbar-background-color: #1d2125;
+    --toolbar-icon-color: #b9b9b9;
+    --toolbar-icon-hover-color: #fff;
+
+    --textarea-background-color: #2f363d;
+    --textarea-text-color: #d1d5da;
+
+    --resize-icon-color: var(--border-color);
+    --resize-background-color: var(--second-color);
+    --resize-hover-icon-color: var(--toolbar-icon-hover-color);
+    --resize-hover-background-color: rgba(185, 185, 185, 0.86);
+
+    --heading-border-color: var(--textarea-text-color);
+    --blockquote-color: var(--toolbar-icon-color);
+
+    --ir-heading-color: #9876aa;
+    --ir-title-color: #808080;
+    --ir-bi-color: #cc7832;
+    --ir-link-color: #ffc66d;
+    --ir-bracket-color: #287bde;
+    --ir-paren-color: #6a8759;
+  }
 }

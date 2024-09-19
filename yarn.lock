@@ -2832,6 +2832,11 @@ dequal@^2.0.0:
   resolved "https://registry.yarnpkg.com/dequal/-/dequal-2.0.3.tgz#2644214f1997d39ed0ee0ece72335490a7ac67be"
   integrity sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==
 
+diff-match-patch@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/diff-match-patch/-/diff-match-patch-1.0.5.tgz#abb584d5f10cd1196dfc55aa03701592ae3f7b37"
+  integrity sha512-IayShXAgj/QMXgB0IWmKx+rOPuGMhqm5w6jvFxmVenXKIzRqTAAsbBPT3kWQeGANj3jGgvcvv4yK6SxqYmikgw==
+
 diff@^5.0.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-5.1.0.tgz#bc52d298c5ea8df9194800224445ed43ffc87e40"
@@ -6219,6 +6224,13 @@ uvu@^0.5.0:
     diff "^5.0.0"
     kleur "^4.0.3"
     sade "^1.7.3"
+
+vditor@3.9.8:
+  version "3.9.8"
+  resolved "https://registry.yarnpkg.com/vditor/-/vditor-3.9.8.tgz#3999b9151b640fd5470a0d92691f308e7b2e46ba"
+  integrity sha512-Ls17n8GR9t6JOQqH6c0+UegOkuKT/qtMEUOi/a92OzocbsqNiit0YwtgTiqCE26u3go7ExHRJ2e83YJT2AHfxw==
+  dependencies:
+    diff-match-patch "^1.0.5"
 
 vfile-location@^4.0.0:
   version "4.1.0"
