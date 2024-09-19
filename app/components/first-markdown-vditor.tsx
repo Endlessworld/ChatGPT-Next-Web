@@ -2,30 +2,14 @@ import React, { RefObject, useEffect, useRef } from "react";
 import Vditor from "vditor";
 import "vditor/dist/index.css";
 import ".././styles/highlight-vditor.scss";
-import { useAppConfig } from "@/app/store";
 import LoadingIcon from "../icons/img-loading.svg";
 
 function VditorPreview(props: { content: string }) {
   const elementId = "preview" + props.content.length;
   const elementRef = useRef<HTMLDivElement>(null);
-  const config = useAppConfig();
   const options = {
     /** 显示模式。默认值: 'both' */
     mode: "dark",
-    /** @link https://ld246.com/article/1549638745630#options-preview-hljs */
-    hljs: {
-      /** 代码块没有指定语言时，使用此值。默认值: "" */
-      // defaultLang: "java",
-      /** 是否启用行号。默认值: false */
-      lineNumber: true,
-      /** 代码风格，可选值参见 [Chroma](https://xyproto.github.io/splash/docs/longer/all.html)。 默认值: 'github' */
-      // style: "github-dark",
-      style: "base16-snazzy",
-      /** 是否启用代码高亮。默认值: true */
-      enable: true,
-      /** 自定义指定语言: CODE_LANGUAGES */
-      // langs: CODE_LANGUAGES,
-    },
     icon: "material",
     speech: {
       enable: false,
@@ -75,15 +59,20 @@ function VditorPreview(props: { content: string }) {
       /** 数学公式渲染引擎为 MathJax 时传入的参数 */
       mathJaxOptions: {},
     },
-    renderers: {
-      renderCodeSpanOpenMarker: (node: ILuteNode, entering: boolean) => {
-        if (entering) {
-          return [`<code class="code-font">`, Lute.WalkContinue];
-        } else {
-          return ["", Lute.WalkContinue];
-        }
-      },
+    /** @link https://ld246.com/article/1549638745630#options-preview-hljs */
+    hljs: {
+      /** 代码块没有指定语言时，使用此值。默认值: "" */
+      defaultLang: "java",
+      /** 是否启用行号。默认值: false */
+      lineNumber: true,
+      /** 代码风格，可选值参见 [Chroma](https://xyproto.github.io/splash/docs/longer/all.html)。 默认值: 'github' */
+      style: "fruity",
+      /** 是否启用代码高亮。默认值: true */
+      enable: true,
+      /** 自定义指定语言: CODE_LANGUAGES */
+      // langs: [],
     },
+    renderers: {},
     lazyLoadImage:
       "https://cdn.jsdelivr.net/npm/vditor/dist/images/img-loading.svg",
     after: () => {
@@ -92,9 +81,23 @@ function VditorPreview(props: { content: string }) {
   } as IPreviewOptions;
 
   useEffect(() => {
-    if (elementRef.current) {
-      Vditor.preview(elementRef.current, props.content, options).then((r) => {
+    if (elementRef.current != null) {
+      Vditor.preview(elementRef.current, props.content, options).then(() => {
         console.log("preview done");
+        if (elementRef.current != null) {
+          const elements = elementRef.current.querySelectorAll("img,canvas");
+          console.log("elements", elements);
+          for (let element of elements) {
+            element.addEventListener("click", (event) => {
+              console.log("click event", event);
+              // @ts-ignore
+              if (event.target.tagName === "IMG") {
+                console.log("click img", event);
+                Vditor.previewImage(event.target as HTMLImageElement);
+              }
+            });
+          }
+        }
       });
     }
   }, [props.content]);
@@ -102,8 +105,7 @@ function VditorPreview(props: { content: string }) {
   return <div id={elementId} ref={elementRef}></div>;
 }
 
-// export const VditorPreviewContent = React.memo(vditorPreview);
-export default VditorPreview;
+export const VditorPreviewVditor = React.memo(VditorPreview);
 
 export function FirstMarkdown(
   props: {
@@ -115,11 +117,11 @@ export function FirstMarkdown(
   } & React.DOMAttributes<HTMLDivElement>,
 ) {
   const mdRef = useRef<HTMLDivElement>(null);
-  const element = (
+  return (
     <div
       className="markdown-container"
       style={{
-        fontSize: `${props.fontSize ?? 14}px`,
+        fontSize: `${props.fontSize ?? 12}px`,
       }}
       ref={mdRef}
       onContextMenu={props.onContextMenu}
@@ -129,10 +131,8 @@ export function FirstMarkdown(
       {props.loading ? (
         <LoadingIcon />
       ) : (
-        <VditorPreview content={props.content} />
+        <VditorPreviewVditor content={props.content} />
       )}
     </div>
   );
-
-  return element;
 }

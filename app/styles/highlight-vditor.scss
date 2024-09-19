@@ -86,20 +86,10 @@
   margin: 0.1em 0;
 }
 
-.vditor-reset code {
-  margin: 0 1px;
-  padding: .2em .4em;
-  font-size: .9em;
-  border-radius: 3px;
-  border: 1px solid #f0f0f0;
-  font-family: Droid Sans Mono, Source Code Pro, DejaVu Sans Mono, Ubuntu Mono, Anonymous Pro, Menlo, Monaco, Consolas, Inconsolata, Courier, monospace, PingFang SC, Microsoft YaHei, sans-serif, serif;
-}
-
 .vditor-reset code:not(.hljs):not(.highlight-chroma) {
   background: var(--inline-code-font-background-color);
   font-weight: bold;
   color: var(--inline-code-font-color);
-  //color: var(--code-font-color);
   border-color: var(--border-in-light);
   border-style: hidden;
   border-width: 1px 1px 1px 1px;
@@ -109,7 +99,7 @@
 
   &:hover,
   &:focus {
-    box-shadow: 0 0 2px 5px rgb(206, 210, 206);;
+    box-shadow: 0 0 8px 2px rgb(206, 210, 206);;
     text-shadow: 0 0 rgb(245, 229, 51);
   }
 }
@@ -204,3 +194,5 @@
   outline: none;
   cursor: pointer;
 }
+
+

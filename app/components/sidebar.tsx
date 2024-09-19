@@ -27,7 +27,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { isIOS, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
-import { Markdown } from "@/app/components/markdown";
+import { FirstMarkdown } from "@/app/components/first-markdown-vditor";
 import { useMaskStore } from "@/app/store/mask";
 import { showConfirm, showModal } from "./ui-lib";
 import { ChatControllerPool } from "@/app/client/controller";
@@ -250,7 +250,7 @@ export function SideBar(props: { className?: string }) {
                 showModal({
                   title: Locale.Sidebar.Announcement.Title,
                   children: (
-                    <Markdown
+                    <FirstMarkdown
                       content={Locale.Sidebar.Announcement.Content}
                       defaultShow
                     />
