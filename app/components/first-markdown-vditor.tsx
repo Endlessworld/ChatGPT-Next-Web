@@ -1,37 +1,36 @@
-import React, { RefObject, useEffect, useRef, useState } from "react";
+import React, { RefObject, useEffect, useRef } from "react";
 import Vditor from "vditor";
 import "vditor/dist/index.css";
-import LoadingIcon from "@/app/icons/three-dots.svg";
-import { Theme, useAppConfig } from "@/app/store";
-import styles from "./markdown.module.scss";
+import ".././styles/highlight-vditor.scss";
+import { useAppConfig } from "@/app/store";
+import LoadingIcon from "../icons/img-loading.svg";
 
 function VditorPreview(props: { content: string }) {
   const elementId = "preview" + props.content.length;
   const elementRef = useRef<HTMLDivElement>(null);
   const config = useAppConfig();
-  const theme = Theme.Dark.includes(config.theme);
   const options = {
     /** 显示模式。默认值: 'both' */
     mode: "dark",
     /** @link https://ld246.com/article/1549638745630#options-preview-hljs */
     hljs: {
       /** 代码块没有指定语言时，使用此值。默认值: "" */
-      defaultLang: "java",
+      // defaultLang: "java",
       /** 是否启用行号。默认值: false */
       lineNumber: true,
       /** 代码风格，可选值参见 [Chroma](https://xyproto.github.io/splash/docs/longer/all.html)。 默认值: 'github' */
-      style: "github-dark",
+      // style: "github-dark",
+      style: "base16-snazzy",
       /** 是否启用代码高亮。默认值: true */
       enable: true,
       /** 自定义指定语言: CODE_LANGUAGES */
       // langs: CODE_LANGUAGES,
     },
-    theme: {
-      current: "dark",
-    },
+    icon: "material",
     speech: {
       enable: false,
     },
+    emojiPath: "https://cdn.jsdelivr.net/npm/vditor@1.3.1/dist/images/emoji",
     /** @link https://ld246.com/article/1549638745630#options-preview-markdown */
     markdown: {
       /** 自动空格。默认值: false */
@@ -61,7 +60,10 @@ function VditorPreview(props: { content: string }) {
       /** 支持自动链接 */
       gfmAutoLink: true,
     },
-    icon: "ant",
+    //必须 否则默认加载light主题 从而覆盖掉highlight.scss
+    theme: {
+      current: "",
+    },
     /** @link https://ld246.com/article/1549638745630#options-preview-math */
     math: {
       /** 内联数学公式起始 $ 后是否允许数字。默认值: false */
@@ -75,18 +77,17 @@ function VditorPreview(props: { content: string }) {
     },
     renderers: {
       renderCodeSpanOpenMarker: (node: ILuteNode, entering: boolean) => {
-        const classNames = styles["code-font"];
-        console.log(classNames);
         if (entering) {
-          return [
-            `<code className=${classNames}
-                style="backgroundColor: "#f9f2f4">`,
-            Lute.WalkContinue,
-          ];
+          return [`<code class="code-font">`, Lute.WalkContinue];
         } else {
-          return [``, Lute.WalkContinue];
+          return ["", Lute.WalkContinue];
         }
       },
+    },
+    lazyLoadImage:
+      "https://cdn.jsdelivr.net/npm/vditor/dist/images/img-loading.svg",
+    after: () => {
+      console.log("preview after");
     },
   } as IPreviewOptions;
 
@@ -114,10 +115,9 @@ export function FirstMarkdown(
   } & React.DOMAttributes<HTMLDivElement>,
 ) {
   const mdRef = useRef<HTMLDivElement>(null);
-  console.log(props.fontSize);
   const element = (
     <div
-      className="markdown-body"
+      className="markdown-container"
       style={{
         fontSize: `${props.fontSize ?? 14}px`,
       }}
