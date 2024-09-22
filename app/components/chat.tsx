@@ -46,6 +46,9 @@ import StyleIcon from "../icons/palette.svg";
 import PluginIcon from "../icons/plugin.svg";
 import ShortcutkeyIcon from "../icons/shortcutkey.svg";
 import ReloadIcon from "../icons/reload.svg";
+import ReplaceIcon from "../icons/replace.svg";
+import MergeIcon from "../icons/merge.svg";
+import AddIcon from "../icons/add.svg";
 
 import {
   ChatMessage,
@@ -104,11 +107,17 @@ import {
   REQUEST_TIMEOUT_MS,
   UNFINISHED_INPUT,
   ServiceProvider,
+  LAST_INPUT_KEY,
 } from "../constant";
 import { Avatar } from "./emoji";
 import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
 import { useMaskStore } from "../store/mask";
-import { ChatCommandPrefix, useChatCommand, useCommand } from "../command";
+import {
+  AgentPrefix,
+  ChatCommandPrefix,
+  useChatCommand,
+  useCommand,
+} from "../command";
 import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
@@ -119,6 +128,17 @@ const localStorage = safeLocalStorage();
 import { ClientApi } from "../client/api";
 import { createTTSPlayer } from "../utils/audio";
 import { MsEdgeTTS, OUTPUT_FORMAT } from "../utils/ms_edge_tts";
+import dispatchEventStorage, {
+  clearCache,
+  getJvmLocale,
+  getProjectContextAwareness,
+  ideaMessage,
+  isIdeaPlugin,
+  Merge,
+  preCefMessage,
+  Replace,
+} from "@/app/copiolt/copilot";
+import { debounce } from "rxjs";
 
 const ttsPlayer = createTTSPlayer();
 
@@ -917,7 +937,7 @@ export function ShortcutKeyModal(props: { onClose: () => void }) {
 
 function _Chat() {
   type RenderMessage = ChatMessage & { preview?: boolean };
-
+  const maskStore = useMaskStore();
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
   const config = useAppConfig();
@@ -993,7 +1013,10 @@ function _Chat() {
     fork: () => chatStore.forkSession(),
     del: () => chatStore.deleteSession(chatStore.currentSessionIndex),
   });
-
+  const AgentCommands = useChatCommand({
+    executeCommand: () => localStorage.setItem("useAgent", "executeCommand"),
+    githubSearch: () => localStorage.setItem("useAgent", "githubSearch"),
+  });
   // only search prompts when user input is short
   const SEARCH_TEXT_LIMIT = 30;
   const onInput = (text: string) => {
@@ -1005,6 +1028,8 @@ function _Chat() {
       setPromptHints([]);
     } else if (text.match(ChatCommandPrefix)) {
       setPromptHints(chatCommands.search(text));
+    } else if (text.startsWith(AgentPrefix)) {
+      setPromptHints(AgentCommands.search(text));
     } else if (!config.disablePromptHint && n < SEARCH_TEXT_LIMIT) {
       // check if need to trigger auto completion
       if (text.startsWith("/")) {
@@ -1021,6 +1046,13 @@ function _Chat() {
       setUserInput("");
       setPromptHints([]);
       matchCommand.invoke();
+      return;
+    }
+    const agentMatchCommand = AgentCommands.match(userInput);
+    if (agentMatchCommand.matched) {
+      setUserInput(agentMatchCommand.description);
+      setPromptHints([]);
+      agentMatchCommand.invoke();
       return;
     }
     setIsLoading(true);
@@ -1040,10 +1072,15 @@ function _Chat() {
       setPromptHints([]);
 
       const matchedChatCommand = chatCommands.match(prompt.content);
+      const matchedAgentCommand = AgentCommands.match(prompt.content);
       if (matchedChatCommand.matched) {
         // if user is selecting a chat command, just trigger it
         matchedChatCommand.invoke();
         setUserInput("");
+      } else if (matchedAgentCommand.matched) {
+        // if user is selecting a chat command, just trigger it
+        matchedAgentCommand.invoke();
+        setUserInput(matchedAgentCommand.description);
       } else {
         // or fill the prompt
         setUserInput(prompt.content);
@@ -1083,7 +1120,6 @@ function _Chat() {
         session.mask.modelConfig = { ...config.modelConfig };
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // check if should send message
@@ -1348,6 +1384,116 @@ function _Chat() {
 
   const autoFocus = !isMobileScreen; // wont auto focus on mobile screen
   const showMaxIcon = !isMobileScreen && !clientConfig?.isApp;
+
+  const contextAwarenessHandler = useCallback(() => {
+    chatStore.updateCurrentSession((session) => {
+      session.mask.context = session.mask.context.filter(
+        (message) => !getMessageTextContent(message).startsWith("\u200D\u200D"),
+      );
+    });
+    const projectContext = localStorage.getItem("project-context");
+    if (projectContext) {
+      if (JSON.parse(projectContext).enableContext) {
+        const contextAwareness = getProjectContextAwareness();
+        chatStore.updateCurrentSession((session) => {
+          const awareMessage = createMessage({
+            role: "system",
+            content: contextAwareness,
+          });
+          session.mask.context.unshift(awareMessage);
+        });
+      }
+    }
+  }, [chatStore]);
+  const functionCallBack = useCallback(() => {
+    chatStore.updateCurrentSession((session) => {
+      session.mask.context = session.mask.context.filter(
+        (message) => !getMessageTextContent(message).startsWith("\u200D\u200D"),
+      );
+    });
+    const responsesJSON = localStorage.getItem("function-response");
+    if (responsesJSON) {
+      const responses = JSON.parse(responsesJSON);
+      if (responses) {
+        chatStore.onUserInput(responses.response);
+      }
+    }
+  }, []);
+  useEffect(() => {
+    console.log("_Chat installed XSelectSession");
+    (window as any).XSelectSession = (selectSession: string) => {
+      chatStore.sessions.forEach((forSession, forIndex) => {
+        if (forSession.id == selectSession) {
+          console.log("_Chat SelectSession", selectSession);
+          chatStore.selectSession(forIndex);
+        }
+      });
+    };
+  }, [chatStore.sessions]);
+  useEffect(() => {
+    dispatchEventStorage();
+    // @ts-ignore
+    const handleStorageChange = debounce((event: Event) => {
+      // @ts-ignore
+      if (event.key === "project-context") {
+        // @ts-ignore
+        contextAwarenessHandler();
+      }
+      // @ts-ignore
+      if (event.key === "function-response") {
+        functionCallBack();
+      }
+    }); // 设置函数防抖的延迟时间（毫秒）
+    // @ts-ignore
+    window.addEventListener("storageSetEvent", handleStorageChange);
+    return () => {
+      // @ts-ignore
+      window.removeEventListener("storageSetEvent", handleStorageChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isIdeaPlugin()) {
+      config.update((settings) => (settings.tightBorder = true));
+      const XSubmit = (userInput: string) => {
+        setIsLoading(true);
+        chatStore.onUserInput(userInput).then(() => setIsLoading(false));
+        localStorage.setItem(LAST_INPUT_KEY, userInput);
+        setUserInput("");
+        setPromptHints([]);
+        if (!isMobileScreen) inputRef.current?.focus();
+        setAutoScroll(true);
+      };
+      (window as any).doSubmit = XSubmit;
+      (window as any).clearSessions = chatStore.clearSessions;
+      (window as any).XAction = function (query: string) {
+        console.log("XAction > ", query);
+        // if (clientInfo?.is_encode || isBase64(query)) {
+        //   console.log("clientInfo > ", clientInfo);
+        query = Buffer.from(query, "base64").toString("utf-8");
+        // }
+        let message = preCefMessage(query);
+        let mask = maskStore
+          .getAll()
+          .filter((mask) => mask.name === message.mask)
+          .at(0);
+        chatStore.newSession(mask);
+        (window as any).doSubmit(message.message);
+      };
+      (window as any).syncThemes = (isDark: boolean) => {
+        console.log("syncThemes ", isDark);
+        config.update(
+          (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
+        );
+      };
+      (window as any).clearCache = clearCache;
+
+      ideaMessage({
+        event: "initialized",
+        message: JSON.stringify({ lang: getJvmLocale() }),
+      }).then((r) => {});
+    }
+  }, []);
 
   useCommand({
     fill: setUserInput,
@@ -1629,6 +1775,29 @@ function _Chat() {
               }}
             />
           </div>
+          <div className="window-action-button">
+            <IconButton
+              icon={<AddIcon />}
+              title={Locale.Home.NewChat}
+              onClick={() => {
+                if (config.dontShowMaskSplashScreen) {
+                  let mask;
+                  if (isIdeaPlugin()) {
+                    mask = mask
+                      ? mask
+                      : maskStore
+                          .getAll()
+                          .filter((m) => m.name === "X-Copilot")[0];
+                  }
+                  chatStore.newSession(mask);
+                  navigate(Path.Chat);
+                } else {
+                  navigate(Path.NewChat);
+                }
+              }}
+              shadow
+            />
+          </div>
           {showMaxIcon && (
             <div className="window-action-button">
               <IconButton
@@ -1797,6 +1966,32 @@ function _Chat() {
                                     openaiSpeech(getMessageTextContent(message))
                                   }
                                 />
+                              )}
+                              {isIdeaPlugin() ? (
+                                <>
+                                  <ChatAction
+                                    text={Locale.Chat.Actions.Replace}
+                                    icon={<ReplaceIcon />}
+                                    onClick={() =>
+                                      Replace(
+                                        getMessageTextContent(message),
+                                        session.id,
+                                      )
+                                    }
+                                  />
+                                  <ChatAction
+                                    text={Locale.Chat.Actions.Merge}
+                                    icon={<MergeIcon />}
+                                    onClick={() =>
+                                      Merge(
+                                        getMessageTextContent(message),
+                                        session.id,
+                                      )
+                                    }
+                                  />
+                                </>
+                              ) : (
+                                <></>
                               )}
                             </>
                           )}

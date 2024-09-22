@@ -1,5 +1,8 @@
 import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
+import { isIdeaPlugin } from "@/app/copiolt/copilot";
+import { MODEL_LIST } from "@/app/copiolt/constant";
+import { DEFAULT_MODELS } from "@/app/constant";
 
 const isApp = !!getClientConfig()?.isApp;
 
@@ -17,6 +20,8 @@ const cn = {
     Input: "在此处填写访问码",
     Confirm: "确认",
     Later: "稍后再说",
+    NotLogin: "未登录",
+    Limit: "当前模型请求已达到阈值上限，请换其它模型，或者请稍后再试~",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
@@ -47,6 +52,8 @@ const cn = {
       RefreshToast: "已发送刷新标题请求",
       Speech: "朗读",
       StopSpeech: "停止",
+      Replace: "替换选中",
+      Merge: "代码合并",
     },
     Commands: {
       new: "新建聊天",
@@ -56,7 +63,9 @@ const cn = {
       clear: "清除上下文",
       fork: "复制聊天",
       del: "删除聊天",
-    },
+      executeCommand: "命令执行助手",
+      githubSearch: "Git仓库搜索助手",
+    } as { [key: string]: string },
     InputActions: {
       Stop: "停止响应",
       ToBottom: "滚到最新",
@@ -78,7 +87,7 @@ const cn = {
       if (submitKey === String(SubmitKey.Enter)) {
         inputHints += "，Shift + Enter 换行";
       }
-      return inputHints + "，/ 触发补全，: 触发命令";
+      return inputHints + "，/ 触发补全，: 触发命令" + ", @召唤Agent";
     },
     Send: "发送",
     StartSpeak: "说话",
@@ -103,7 +112,7 @@ const cn = {
     Download: "下载文件",
     Share: "分享到 ShareGPT",
     MessageFromYou: "用户",
-    MessageFromChatGPT: "ChatGPT",
+    MessageFromChatGPT: "X-Copilot",
     Format: {
       Title: "导出格式",
       SubTitle: "可以导出 Markdown 文本或者 PNG 图片",
@@ -144,6 +153,64 @@ const cn = {
     DeleteChat: "确认删除选中的对话？",
     DeleteToast: "已删除会话",
     Revert: "撤销",
+  },
+  Sidebar: {
+    Title: "X-Copilot",
+    SubTitle: "您的专属AI助手",
+    Profile: "我的",
+    Announcement: {
+      Title: "公告",
+      Content: `
+点击上方企鹅图标进入交流群
+1. 插件界面左上角 **\`设置\`** 按钮 / **\`设置\`** > **\`工具\`** > **\`X-Copilot\`** 打开插件设置
+
+2. **\`代码完成\`** 光标处于编辑器任意位置 **\`Shift+空格\`** 触发代码补全、**\`Tab\`** 应用补全代码、**\`ESC\`**/**\`输入其它字符\`**/**\`点击编辑器任意位置\`** 取消补全预览
+3. **\`聊天完成\`** 启用时 每次X-Copilot回复完成，自动提取回复内容中的代码块，从当前光标位置插入代码块 未启用 可由消息框下方的 **\`替换选中\`**/**\`代码合并\`** 按钮手动触发 如果当前回复是由菜单触发的，则替换触发提问时选中的代码块。
+4. **\`代码优选\`** 自动提取代码块时，如果有多个，只选择最后一个代码块
+5. **\`代码对比\`** 仅开启聊天完成时可用 聊天完成触发时 原来直接替换代码块的操作 改为打开代码对比窗口
+6. **\`自定义操作\`** 选中代码块 **\`Ctrl + Shift + X\`** 或选择右键菜单 **\`Ask X-Copilot\`** 输入提示词 点击确定 将输入的操作提示词与代码发送到  **\`X-Copilot\`**
+7. **\`预定义操作\`** 选中代码块 **\`Ctrl + Shift + G\`** 或选择右键菜单 **\`X-Copilot\`** 展开二级菜单 将预定义操作提示词与代码发送到 **\`X-Copilot\`**
+8. **\`上下文感知\`** 选中代码块 右键菜单 **\`加入感知\`** 将代码块加入 **\`System Prompt\`** 上下文。可在 **\`设置\`** > **\`项目感知列表\`** 中对已加入的信息进行管理
+9. **\`方法级上下文菜单\`** **\`Alt+Enter\`** 打开选中菜单可将当前代码块与提示词发送至X-Copilot （点击代码块时将显示蓝色边框，光标位于方法级代码快（蓝色边框中）时可将所有自定义提示词转为上下文意图菜单。）
+10. **\`代码审核\`** 选中Git历史记录、右键菜单 **\`代码审核\`** 分析并总结提交内容
+11. **\`日报生成\`** 选中Git历史记录、右键菜单 **\`日报生成\`** 分析提交内容生成日报周报
+12. **\`Ollama支持\`**
+    1. 安装 **\`Ollama\`** 并本地运行 **\`ollama run {模型名称}\`**  启动服务
+    2. 在 **\`设置\`** >**\`自定义模型名\`** 中填入本地 \`{模型名称}\`
+    3. 勾选 **\`启用本地补全模型\`** / **\`启用本地聊天模型\`**
+    4. **\`聊天模型\`** / **\`代码补全模型\`** 选择新增的模型
+13. **\`自定义Agent\`**
+    1. 如需使用Agent请切换至OpenAI 系列模型,
+    2. 根据[自定义Agent开发教程](https://forum.xr21.me/forum-post/362.html?self/) 编写自定义groovy脚本
+    3. 选中groovy文件右键菜单 **\`加载GPT回调函数\`** 将脚本文件编译为Java并将其中定义的方法注册为GPT回调函数。
+    4. 通过该功能为X-Copilot扩展任意自定义能力。
+    5. **\`所有的脚本将在你的本地主机执行\`**
+    7. 内置Agent **\`executeCommand\`** |使用自然语言在你的本地系统执行ps脚本
+    8. 内置Agent **\`githubSearch\`** | 搜索github仓库
+    9. 使用方式：输入@后弹出Agent列表选择对应Agent即可
+          例如 ：\`@命令执行助手\` 使用edge打开baidu 、打开win11系统设置
+14. 如有 **\`页面异常\`** 请检查网络环境并点击 **\`主页\`** 按钮重新初始化聊天面板
+15. 如有 **\`白屏现象\`** 请确保网络正常在白屏界面执行 鼠标 **\`右键\`** > **\`刷新\`**
+16. 如有 **\`请求报错\`** 请重试或切换其它模型
+16. 如果您的模型列表与公告中的列表不一致 请执行 **\`设置\`**>**\`重置所有设置\`**>**\`立即重置\`**
+17. 如有无法解决的异常请执行 **\`文件\`**>**\`使缓存失效\`**>**\`删除嵌入式浏览器引擎缓存和 Cookie\`**>**\`重启\`** 这将清空所有设置/缓存/聊天记录
+18. 如有中文乱码 **\`Help\`** > **\`Edit Custom VM Options\`** > 新增一行 **\`-Dfile.encoding=UTF-8\`** > **\`重启\`**
+19. **\`免费计划\`** 注册登录即加入免费计划 可使用全部免费模型
+20. **\`付费计划\`** 只需 **\`￥9.9/周\`**、**\`￥39.9/月\`** 加入付费计划 即可使用全部付费模型
+21. **\`速率限制\`** 无论免费还是付费模型 **\`每小时/100/IP\`**
+22. **\`价格/速率限制\`** 如有变更以社区公告为准
+
+本${isIdeaPlugin() ? "插件" : "站"}已接入以下${
+        DEFAULT_MODELS.filter((model) => model.available).length
+      }主流大模型:
+${MODEL_LIST}
+更多模型持续接入中
+
+`,
+    },
+    Forum: {
+      Name: "社区交流",
+    },
   },
   Settings: {
     Title: "设置",
@@ -475,7 +542,38 @@ const cn = {
       },
     },
 
-    Model: "模型 (model)",
+    ApiServerAddress: "服务地址",
+    ApiServerSubTitle: (x: string): string =>
+      x?.endsWith("me")
+        ? `需要登录或填写访问密码`
+        : `需要填写访问apiKey、受地域限制`,
+    User: {
+      Title: "用户名",
+      SubTitle: "登录后可同步用户信息",
+      PointsTitle: "用户积分",
+      PointsSubTitle: "社区用户积分可兑换使用次数",
+    },
+    syntaxHighlighter: {
+      Title: "代码高亮",
+      SubTitle: "从37个选项中选择你最爱的代码高亮模式",
+    },
+    CloudCompleteModel: {
+      Title: "代码补全模型",
+      SubTitle: "代码推理/补全模型",
+    },
+    LocalCompletionModel: {
+      Title: "启用本地补全模型",
+      SubTitle: "Ollama代码完成本地服务(预览功能暂不可用)",
+    },
+    LocalChatModel: {
+      Title: "启用本地聊天模型",
+      SubTitle: "Ollama聊天模型本地服务(http://localhost:11434)",
+    },
+    CustomModel: {
+      Title: "自定义模型名",
+      SubTitle: "增加自定义模型可选项，使用英文逗号隔开",
+    },
+    Model: "聊天模型 (model)",
     CompressModel: {
       Title: "压缩模型",
       SubTitle: "用于压缩历史记录的模型",
@@ -523,7 +621,7 @@ const cn = {
   },
   Store: {
     DefaultTopic: "新的聊天",
-    BotHello: "有什么可以帮你的吗",
+    BotHello: "欢迎回来，有什么可以帮你的吗",
     Error: "出错了，稍后重试吧",
     Prompt: {
       History: (content: string) => "这是历史聊天总结作为前情提要：" + content,
@@ -532,6 +630,17 @@ const cn = {
       Summarize:
         "简要总结一下对话内容，用作后续的上下文提示 prompt，控制在 200 字以内",
     },
+  },
+  Replace: {
+    Success: "已将代码块替换/插入至编辑器",
+    Failed: "复制失败，请赋予剪切板权限",
+  },
+  Merge: {
+    Success: "已打开代码合并窗口",
+    Failed: "代码合并窗口打开失败",
+  },
+  Vip: {
+    Title: "付费计划",
   },
   Copy: {
     Success: "已写入剪贴板",
@@ -610,7 +719,7 @@ const cn = {
     },
   },
   Mask: {
-    Name: "面具",
+    Name: "预制角色",
     Page: {
       Title: "预设角色面具",
       SubTitle: (count: number) => `${count} 个预设角色定义`,
@@ -679,6 +788,7 @@ const cn = {
     Import: "导入",
     Sync: "同步",
     Config: "配置",
+    CreateDb: "创建UpStash Redis",
   },
   Exporter: {
     Description: {
