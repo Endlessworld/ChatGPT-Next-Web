@@ -83,6 +83,7 @@ export enum StoreKey {
   Update = "chat-update",
   Sync = "sync",
   SdList = "sd-list",
+  Copilot = "ide-agi-copilot",
 }
 
 export const DEFAULT_SIDEBAR_WIDTH = 300;

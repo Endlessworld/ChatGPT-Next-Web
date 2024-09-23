@@ -7,7 +7,6 @@ import {
 import {
   ChatMessageTool,
   ChatMessage,
-  ModelType,
   useAccessStore,
   useChatStore,
 } from "../store";
@@ -20,13 +19,8 @@ import { QwenApi } from "./platforms/alibaba";
 import { HunyuanApi } from "./platforms/tencent";
 import { MoonshotApi } from "./platforms/moonshot";
 import { SparkApi } from "./platforms/iflytek";
-
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
-
-export const Models = ["gpt-3.5-turbo", "gpt-4"] as const;
-export const TTSModels = ["tts-1", "tts-1-hd"] as const;
-export type ChatModel = ModelType;
 
 export interface MultimodalContent {
   type: "text" | "image_url";
@@ -217,6 +211,7 @@ export function validString(x: string): boolean {
 }
 
 export function getHeaders(ignoreHeaders: boolean = false) {
+  const userInfo = getUserInfo();
   const accessStore = useAccessStore.getState();
   const chatStore = useChatStore.getState();
   let headers: Record<string, string> = {};
@@ -224,6 +219,8 @@ export function getHeaders(ignoreHeaders: boolean = false) {
     headers = {
       "Content-Type": "application/json",
       Accept: "application/json",
+      "x-id": userInfo.user_id,
+      "x-session": userInfo.session_token,
     };
   }
 

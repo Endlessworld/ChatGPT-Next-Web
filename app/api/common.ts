@@ -94,10 +94,11 @@ export async function requestOpenai(req: NextRequest) {
     headers: {
       "Content-Type": "application/json",
       "Cache-Control": "no-store",
-      [authHeaderName]: authValue,
+      // [authHeaderName]: authValue,
       ...(serverConfig.openaiOrgId && {
         "OpenAI-Organization": serverConfig.openaiOrgId,
       }),
+      Cookie: req.headers.get("cookie") || "",
     },
     method: req.method,
     body: req.body,
@@ -107,7 +108,6 @@ export async function requestOpenai(req: NextRequest) {
     duplex: "half",
     signal: controller.signal,
   };
-
   // #1815 try to refuse gpt4 request
   if (serverConfig.customModels && req.body) {
     try {

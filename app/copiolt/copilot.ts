@@ -23,19 +23,6 @@ export function loadFunctions(): any[] | undefined {
   return undefined;
 }
 
-export default function dispatchEventStorage() {
-  const signSetItem = localStorage.setItem;
-  localStorage.setItem = function (key, val) {
-    signSetItem.apply(this, [key, val]);
-    if (isIdeaPlugin()) {
-      let setEvent: any = new Event("storageSetEvent");
-      setEvent.key = key;
-      setEvent.newValue = val;
-      window.dispatchEvent(setEvent);
-    }
-  };
-}
-
 export function preCefMessage(query: string) {
   const result = { message: query } as { message: string; mask: string };
   if (query.startsWith("{") && query.endsWith("}")) {

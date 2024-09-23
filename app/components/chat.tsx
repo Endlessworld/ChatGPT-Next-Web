@@ -12,6 +12,7 @@ import React, {
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
 import RenameIcon from "../icons/rename.svg";
+import EditIcon from "../icons/rename.svg";
 import ExportIcon from "../icons/share.svg";
 import ReturnIcon from "../icons/return.svg";
 import CopyIcon from "../icons/copy.svg";
@@ -24,11 +25,11 @@ import MaskIcon from "../icons/mask.svg";
 import MaxIcon from "../icons/max.svg";
 import MinIcon from "../icons/min.svg";
 import ResetIcon from "../icons/reload.svg";
+import ReloadIcon from "../icons/reload.svg";
 import BreakIcon from "../icons/break.svg";
 import SettingsIcon from "../icons/chat-settings.svg";
 import DeleteIcon from "../icons/clear.svg";
 import PinIcon from "../icons/pin.svg";
-import EditIcon from "../icons/rename.svg";
 import ConfirmIcon from "../icons/confirm.svg";
 import CloseIcon from "../icons/close.svg";
 import CancelIcon from "../icons/cancel.svg";
@@ -45,7 +46,6 @@ import QualityIcon from "../icons/hd.svg";
 import StyleIcon from "../icons/palette.svg";
 import PluginIcon from "../icons/plugin.svg";
 import ShortcutkeyIcon from "../icons/shortcutkey.svg";
-import ReloadIcon from "../icons/reload.svg";
 import ReplaceIcon from "../icons/replace.svg";
 import MergeIcon from "../icons/merge.svg";
 import AddIcon from "../icons/add.svg";
@@ -82,7 +82,7 @@ import { uploadImage as uploadImageRemote } from "@/app/utils/chat";
 import dynamic from "next/dynamic";
 
 import { ChatControllerPool } from "../client/controller";
-import { DalleSize, DalleQuality, DalleStyle } from "../typing";
+import { DalleQuality, DalleSize, DalleStyle } from "../typing";
 import { Prompt, usePromptStore } from "../store/prompt";
 import Locale from "../locales";
 
@@ -128,17 +128,18 @@ const localStorage = safeLocalStorage();
 import { ClientApi } from "../client/api";
 import { createTTSPlayer } from "../utils/audio";
 import { MsEdgeTTS, OUTPUT_FORMAT } from "../utils/ms_edge_tts";
-import dispatchEventStorage, {
+import {
   clearCache,
   getJvmLocale,
   getProjectContextAwareness,
   ideaMessage,
+  isBase64,
   isIdeaPlugin,
   Merge,
   preCefMessage,
   Replace,
 } from "@/app/copiolt/copilot";
-import { debounce } from "rxjs";
+import { DEFAULT_COPILOT_STATE, useCopilotStore } from "@/app/store/copilot";
 
 const ttsPlayer = createTTSPlayer();
 
@@ -939,6 +940,7 @@ function _Chat() {
   type RenderMessage = ChatMessage & { preview?: boolean };
   const maskStore = useMaskStore();
   const chatStore = useChatStore();
+  const copilotStore = useCopilotStore();
   const session = chatStore.currentSession();
   const config = useAppConfig();
   const fontSize = config.fontSize;
@@ -1430,32 +1432,48 @@ function _Chat() {
       });
     };
   }, [chatStore.sessions]);
-  useEffect(() => {
-    dispatchEventStorage();
-    // @ts-ignore
-    const handleStorageChange = debounce((event: Event) => {
-      // @ts-ignore
-      if (event.key === "project-context") {
-        // @ts-ignore
-        contextAwarenessHandler();
-      }
-      // @ts-ignore
-      if (event.key === "function-response") {
-        functionCallBack();
-      }
-    }); // 设置函数防抖的延迟时间（毫秒）
-    // @ts-ignore
-    window.addEventListener("storageSetEvent", handleStorageChange);
-    return () => {
-      // @ts-ignore
-      window.removeEventListener("storageSetEvent", handleStorageChange);
-    };
-  }, []);
+  // const functionCallBack = useCallback(() => {
+  //   chatStore.updateCurrentSession((session) => {
+  //     session.mask.context = session.mask.context.filter(
+  //       (message) => !getMessageTextContent(message).startsWith("\u200D\u200D"),
+  //     );
+  //   });
+  //   const responsesJSON = localStorage.getItem("function-response");
+  //   if (responsesJSON) {
+  //     const responses = JSON.parse(responsesJSON);
+  //     if (responses) {
+  //       chatStore.onUserInput(responses.response);
+  //     }
+  //   }
+  // }, []);
+  // useEffect(() => {
+  //   dispatchEventStorage();
+  //   // @ts-ignore
+  //   const handleStorageChange = debounce((event: Event) => {
+  //     // @ts-ignore
+  //     if (event.key === "project-context") {
+  //       // @ts-ignore
+  //       contextAwarenessHandler();
+  //     }
+  //     // @ts-ignore
+  //     if (event.key === "function-response") {
+  //       functionCallBack();
+  //     }
+  //   }); // 设置函数防抖的延迟时间（毫秒）
+  //   // @ts-ignore
+  //   window.removeEventListener("storageSetEvent", handleStorageChange);
+  //   window.addEventListener("storageSetEvent", handleStorageChange);
+  //   // return () => {
+  //   //   // @ts-ignore
+  //   //   window.removeEventListener("storageSetEvent", handleStorageChange);
+  //   // };
+  // }, []);
 
   useEffect(() => {
     if (isIdeaPlugin()) {
+      copilotStore.update((copilot) => (copilot.isIde = true));
       config.update((settings) => (settings.tightBorder = true));
-      const XSubmit = (userInput: string) => {
+      (window as Window).doSubmit = (userInput: string) => {
         setIsLoading(true);
         chatStore.onUserInput(userInput).then(() => setIsLoading(false));
         localStorage.setItem(LAST_INPUT_KEY, userInput);
@@ -1464,34 +1482,59 @@ function _Chat() {
         if (!isMobileScreen) inputRef.current?.focus();
         setAutoScroll(true);
       };
-      (window as any).doSubmit = XSubmit;
-      (window as any).clearSessions = chatStore.clearSessions;
-      (window as any).XAction = function (query: string) {
+      (window as Window).clearSessions = chatStore.clearSessions;
+      (window as Window).XAction = function (query: string) {
         console.log("XAction > ", query);
-        // if (clientInfo?.is_encode || isBase64(query)) {
-        //   console.log("clientInfo > ", clientInfo);
-        query = Buffer.from(query, "base64").toString("utf-8");
-        // }
+        if (copilotStore.is_encode || isBase64(query)) {
+          query = Buffer.from(query, "base64").toString("utf-8");
+        }
         let message = preCefMessage(query);
         let mask = maskStore
           .getAll()
           .filter((mask) => mask.name === message.mask)
           .at(0);
         chatStore.newSession(mask);
-        (window as any).doSubmit(message.message);
+        (window as Window).doSubmit(message.message);
       };
-      (window as any).syncThemes = (isDark: boolean) => {
+      (window as Window).syncThemes = (isDark: boolean) => {
         console.log("syncThemes ", isDark);
+        copilotStore.update((copilot) => (copilot.is_light = !isDark));
         config.update(
           (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
         );
       };
-      (window as any).clearCache = clearCache;
-
-      ideaMessage({
-        event: "initialized",
-        message: JSON.stringify({ lang: getJvmLocale() }),
-      }).then((r) => {});
+      (window as Window).clearCache = clearCache;
+      (window as Window).install = (query: string) => {
+        const idea_info = JSON.parse(query) as typeof DEFAULT_COPILOT_STATE;
+        copilotStore.update((copilot) => {
+          copilot.idea_version = idea_info.idea_version;
+          copilot.idea_api_version = idea_info.idea_api_version;
+          copilot.java_vendor = idea_info.java_vendor;
+          copilot.java_version = idea_info.java_version;
+          copilot.java_runtime_version = idea_info.java_runtime_version;
+          copilot.os_name = idea_info.os_name;
+          copilot.os_version = idea_info.os_version;
+          copilot.os_arch = idea_info.os_arch;
+          copilot.x_copilot_plugin_version = idea_info.x_copilot_plugin_version;
+          copilot.initialized = true;
+          console.log("copilot installed ", idea_info);
+          ideaMessage({
+            event: "initialized",
+            message: JSON.stringify({ lang: getJvmLocale() }),
+          }).then((r) => {});
+        });
+      };
+      (window as Window).refreshContextAware = (query: string) => {
+        const contextAware = JSON.parse(query) as {
+          enableContext: boolean;
+          content: Map<string, string>;
+        };
+        copilotStore.update((copilot) => {
+          copilot.enable_context_aware = contextAware.enableContext;
+          copilot.context_aware_content = contextAware.content;
+          console.log(copilot.context_aware_content);
+        });
+      };
     }
   }, []);
 
