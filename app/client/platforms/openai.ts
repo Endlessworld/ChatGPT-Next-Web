@@ -98,7 +98,7 @@ export class ChatGPTApi implements LLMApi {
     if (baseUrl.length === 0) {
       const isApp = !!getClientConfig()?.isApp;
       const apiPath = isAzure ? ApiPath.Azure : ApiPath.OpenAI;
-      baseUrl = isApp ? DEFAULT_API_HOST + "/proxy" + apiPath : apiPath;
+        baseUrl = isApp ? DEFAULT_API_HOST + "/proxy" + apiPath : apiPath;
     }
 
     if (baseUrl.endsWith("/")) {
@@ -277,13 +277,12 @@ export class ChatGPTApi implements LLMApi {
         );
       }
       if (shouldStream) {
+        const currentSession = useChatStore.getState().currentSession();
         let index = -1;
         const [tools, funcs] = usePluginStore
           .getState()
-          .getAsTools(
-            useChatStore.getState().currentSession().mask?.plugin || [],
-          );
-        // console.log("getAsTools", tools, funcs);
+          .getAsTools(currentSession.mask?.plugin || [], currentSession.id);
+        console.log("getAsTools", tools, funcs);
         stream(
           chatPath,
           requestPayload,

@@ -32,7 +32,7 @@ export function useCommand(commands: Commands = {}) {
   }, [searchParams, commands]);
 }
 
-interface ChatCommands {
+export interface ChatCommands {
   [key: string]: Command;
 }
 

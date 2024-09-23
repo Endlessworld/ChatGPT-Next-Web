@@ -155,6 +155,21 @@ export async function functionCall(messageText: string, session: string) {
     message: messageText,
     session: session,
   });
+  return new Promise((resolve) => {
+    const intervalId = setInterval(() => {
+      const response = localStorage.getItem("function-response");
+      if (response !== null) {
+        localStorage.removeItem("function-response");
+        clearInterval(intervalId); // 停止定时器
+        resolve({
+          status: 200,
+          data: {
+            content: response,
+          },
+        });
+      }
+    }, 1000);
+  });
 }
 
 export function getProjectContextAwareness() {
