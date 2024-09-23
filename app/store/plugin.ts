@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 import { createPersistStore } from "../utils/store";
 import yaml from "js-yaml";
 import { adapter } from "../utils";
+import { functionCall } from "@/app/copiolt/copilot";
 
 export type Plugin = {
   id: string;
@@ -195,18 +196,50 @@ export const usePluginStore = createPersistStore(
       set(() => ({ plugins }));
       get().markUpdate();
     },
-
-    getAsTools(ids: string[]) {
+    getAsTools(ids: string[], session: string) {
       const plugins = get().plugins;
       const selected = (ids || [])
         .map((id) => plugins[id])
         .filter((i) => i)
         .map((p) => FunctionToolService.add(p));
-      return [
-        // @ts-ignore
-        selected.reduce((s, i) => s.concat(i.tools), []),
-        selected.reduce((s, i) => Object.assign(s, i.funcs), {}),
-      ];
+      // @ts-ignore
+      const tools = selected.reduce((s, i) => s.concat(i.tools), []);
+      const funcs = selected.reduce((s, i) => Object.assign(s, i.funcs), {});
+
+      const functions = localStorage.getItem("functions");
+      if (functions) {
+        const functionObj = JSON.parse(functions) as [
+          { name: any; javaMethod: any; target: any; parameterType: any },
+        ];
+        for (let func of functionObj) {
+          const useAgent = localStorage.getItem("useAgent");
+          if (!useAgent || (useAgent && func.name !== useAgent)) {
+            continue;
+          }
+          delete func.javaMethod;
+          delete func.target;
+          delete func.parameterType;
+          // @ts-ignore
+          tools.push({
+            type: "function",
+            function: func,
+          });
+
+          // @ts-ignore
+          funcs[func.name] = (args) => {
+            // @ts-ignore
+            localStorage.removeItem("useAgent");
+            console.log("funcs call ", func.name, args);
+            let messageText = JSON.stringify({
+              // @ts-ignore
+              function: func.name,
+              arguments: JSON.stringify(args),
+            });
+            return functionCall(messageText, session);
+          };
+        }
+      }
+      return [tools, funcs];
     },
     get(id?: string) {
       return get().plugins[id ?? 1145141919810];

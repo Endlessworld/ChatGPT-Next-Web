@@ -62,6 +62,7 @@ import {
   DEFAULT_TOPIC,
   ModelType,
   usePluginStore,
+  Plugin,
 } from "../store";
 
 import {
@@ -788,6 +789,10 @@ export function ChatActions(props: {
           onClose={() => setShowPluginSelector(false)}
           onSelection={(s) => {
             chatStore.updateCurrentSession((session) => {
+              pluginStore.getAll().forEach((plugin) => {
+                console.log("plugin", plugin);
+              });
+              console.log("onSelection Plugin", s);
               session.mask.plugin = s as string[];
             });
           }}
@@ -809,7 +814,6 @@ export function EditMessageModal(props: { onClose: () => void }) {
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
   const [messages, setMessages] = useState(session.messages.slice());
-
   return (
     <div className="modal-mask">
       <Modal
@@ -938,6 +942,7 @@ export function ShortcutKeyModal(props: { onClose: () => void }) {
 
 function _Chat() {
   type RenderMessage = ChatMessage & { preview?: boolean };
+  const pluginStore = usePluginStore();
   const maskStore = useMaskStore();
   const chatStore = useChatStore();
   const copilotStore = useCopilotStore();
@@ -1015,10 +1020,21 @@ function _Chat() {
     fork: () => chatStore.forkSession(),
     del: () => chatStore.deleteSession(chatStore.currentSessionIndex),
   });
-  const AgentCommands = useChatCommand({
+  const agents = {
     executeCommand: () => localStorage.setItem("useAgent", "executeCommand"),
     githubSearch: () => localStorage.setItem("useAgent", "githubSearch"),
-  });
+  } as {
+    [key: string]: (param: string) => void;
+  };
+  const plugins: Plugin[] = pluginStore.getAll();
+  for (let key in plugins) {
+    agents[plugins[key].title as string] = () => {
+      console.log("use agent", plugins[key].title);
+      session.mask.plugin = [plugins[key].id];
+      console.log(" session.mask.plugin", session.mask.plugin);
+    };
+  }
+  const AgentCommands = useChatCommand(agents);
   // only search prompts when user input is short
   const SEARCH_TEXT_LIMIT = 30;
   const onInput = (text: string) => {
