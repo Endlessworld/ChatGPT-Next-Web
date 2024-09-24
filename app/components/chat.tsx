@@ -1852,6 +1852,7 @@ function _Chat() {
           <div className="window-action-button">
             <IconButton
               icon={<AddIcon />}
+              bordered
               title={Locale.Home.NewChat}
               onClick={() => {
                 if (config.dontShowMaskSplashScreen) {

@@ -2,7 +2,8 @@ import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
 import { isIdeaPlugin } from "@/app/copiolt/copilot";
 import { MODEL_LIST } from "@/app/copiolt/constant";
-import { DEFAULT_MODELS } from "@/app/constant";
+import { DEFAULT_MODELS } from "@/app/copiolt/constant";
+import { LOGIN_HOST } from "@/app/constant";
 
 const isApp = !!getClientConfig()?.isApp;
 
@@ -11,7 +12,7 @@ const cn = {
   Error: {
     Unauthorized: isApp
       ? "检测到无效 API Key，请前往[设置](/#/settings)页检查 API Key 是否配置正确。"
-      : "访问密码不正确或为空，请前往[登录](/#/auth)页输入正确的访问密码，或者在[设置](/#/settings)页填入你自己的 OpenAI API Key。",
+      : `访问密码不正确或为空，请前往[登录](${LOGIN_HOST})页输入正确的访问密码，或者在[设置](/#/settings)页填入你自己的 OpenAI API Key。`,
   },
   Auth: {
     Title: "需要密码",
@@ -204,6 +205,8 @@ const cn = {
         DEFAULT_MODELS.filter((model) => model.available).length
       }主流大模型:
 ${MODEL_LIST}
+
+以上列表中未见于模型选择列表的可在 **\`设置\`**>**\`自定义模型名\`** 手动填入对应模型名称即可使用
 更多模型持续接入中
 
 `,
