@@ -113,13 +113,13 @@ const DEFAULT_ACCESS_STATE = {
   iflytekApiSecret: "",
 
   // server config
-  needCode: true,
+  needCode: false,
   hideUserApiKey: false,
-  hideBalanceQuery: false,
+  hideBalanceQuery: true,
   disableGPT4: false,
   disableFastLink: false,
   customModels: "",
-  defaultModel: "",
+  defaultModel: "gpt-4o-mini",
 
   // tts config
   edgeTTSVoiceName: "zh-CN-YunxiNeural",

@@ -133,11 +133,6 @@ export const CODE_COMPLETE_MODELS: CopilotModel[] = [
     available: true,
   },
   {
-    name: "deepseek-ai/deepseek-coder-33b-instruct",
-    displayName: "deepseek-coder-33b",
-    available: true,
-  },
-  {
     name: "gpt-3.5-turbo-instruct",
     displayName: "gpt-3.5-turbo-instruct",
     available: true,
@@ -177,7 +172,7 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
   },
   {
     name: "moonshot-v1-128k",
-    displayName: "moonshot-v1-32k",
+    displayName: "moonshot-v1-128k",
     description: "月之暗面|kimi|国产",
     available: true,
   },
@@ -193,13 +188,13 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     description: "月之暗面|kimi|国产",
     available: true,
   },
-  {
-    name: "NousResearch/Nous-Capybara-7B-V1p9",
-    displayName: "nous-capybara-7b-v1p9",
-    description: "NousResearch",
-    available: true,
-    free: true,
-  },
+  // {
+  //   name: "NousResearch/Nous-Capybara-7B-V1p9",
+  //   displayName: "nous-capybara-7b-v1p9",
+  //   description: "NousResearch",
+  //   available: true,
+  //   free: true,
+  // },
   {
     name: "NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO",
     displayName: "nous-hermes-2-mixtral-8x7b-dpo",
@@ -212,13 +207,13 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     description: "NousResearch|mixtral-8x7b微调",
     available: true,
   },
-  {
-    name: "NousResearch/Nous-Hermes-llama-2-7b",
-    displayName: "nous-hermes-llama-2-7b",
-    description: "NousResearch|llama-2-7b微调",
-    available: true,
-    free: true,
-  },
+  // {
+  //   name: "NousResearch/Nous-Hermes-llama-2-7b",
+  //   displayName: "nous-hermes-llama-2-7b",
+  //   description: "NousResearch|llama-2-7b微调",
+  //   available: true,
+  //   free: true,
+  // },
   {
     name: "NousResearch/Nous-Hermes-llama-2-13b",
     displayName: "nous-hermes-llama-2-13b",
@@ -251,9 +246,10 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
   },
   {
     name: "deepseek-chat",
-    displayName: "deepseek-chat-v2",
+    displayName: "deepseek-chat",
     description: "深度求索|236B|32k|稳定|强烈推荐",
     available: true,
+    free: true,
   },
   {
     name: "deepseek-coder",
@@ -262,7 +258,6 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     available: true,
     free: true,
   },
-
   {
     name: "ERNIE-Speed-128K",
     displayName: "ERNIE-Speed-128K",
@@ -633,6 +628,7 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     name: "gpt-4o-mini",
     description: "OpenAI|最新",
     available: true,
+    free: true,
   },
   {
     name: "gpt-4o-mini-2024-07-18",
@@ -705,12 +701,12 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     description: "不稳定|略慢",
     available: true,
   },
-  {
-    name: "claude-3.5-sonnet-20240620",
-    displayName: "claude-3.5-sonnet-20240620",
-    description: "Claude|最新",
-    available: false,
-  },
+  // {
+  //   name: "claude-3.5-sonnet-20240620",
+  //   displayName: "claude-3.5-sonnet-20240620",
+  //   description: "Claude|最新",
+  //   available: false,
+  // },
   // {
   //   name: "claude-instant-1.2",
   //   available: false,
@@ -777,9 +773,7 @@ ${DEFAULT_MODELS.filter((model) => model.available)
   .sort((a, b) => Number(b.free || false) - Number(a.free || false))
   .map(
     (model, index) =>
-      `${index + 1}|${model.displayName || model.name}|${
-        model.free ? "✔️" : "❌"
-      }|`,
+      `${index + 1}|${model.name || model.name}|${model.free ? "✔️" : "❌"}|`,
   )
   .join("\n")}
   

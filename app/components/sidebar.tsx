@@ -5,7 +5,6 @@ import styles from "./home.module.scss";
 import { IconButton } from "./button";
 import SettingsIcon from "../icons/settings.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
-import AddIcon from "../icons/add.svg";
 import MaskIcon from "../icons/mask.svg";
 import DragIcon from "../icons/drag.svg";
 import DiscoveryIcon from "../icons/discovery.svg";
@@ -230,6 +229,7 @@ export function SideBar(props: { className?: string }) {
       >
         <div className={styles["sidebar-header-bar"]}>
           <IconButton
+            bordered
             icon={<MaskIcon />}
             text={shouldNarrow ? undefined : Locale.Mask.Name}
             className={styles["sidebar-bar-button"]}
@@ -243,6 +243,7 @@ export function SideBar(props: { className?: string }) {
             shadow
           />
           <IconButton
+            bordered
             icon={<DiscoveryIcon />}
             text={shouldNarrow ? undefined : Locale.Discovery.Name}
             className={styles["sidebar-bar-button"]}
@@ -250,6 +251,7 @@ export function SideBar(props: { className?: string }) {
             shadow
           />
           <IconButton
+            bordered
             icon={<VipIcon />}
             text={shouldNarrow ? undefined : Locale.Vip.Title}
             className={styles["sidebar-bar-button"]}
@@ -298,6 +300,7 @@ export function SideBar(props: { className?: string }) {
             {/*</div>*/}
             <div className={styles["sidebar-action"]}>
               <IconButton
+                bordered
                 icon={<UserIcon />}
                 text={shouldNarrow ? undefined : Locale.Sidebar.Profile}
                 className={styles["sidebar-bar-button"]}
@@ -308,6 +311,8 @@ export function SideBar(props: { className?: string }) {
             <div className={styles["sidebar-action"]}>
               <Link to={Path.Settings}>
                 <IconButton
+                  bordered
+                  text={Locale.Settings.Title}
                   aria={Locale.Settings.Title}
                   icon={<SettingsIcon />}
                   shadow
@@ -325,6 +330,7 @@ export function SideBar(props: { className?: string }) {
             {/*</div>*/}
             <div className={styles["sidebar-action"]}>
               <IconButton
+                bordered
                 shadow
                 text={
                   shouldNarrow ? undefined : Locale.Sidebar.Announcement.Title
@@ -347,21 +353,21 @@ export function SideBar(props: { className?: string }) {
             </div>
           </>
         }
-        secondaryAction={
-          <IconButton
-            icon={<AddIcon />}
-            text={shouldNarrow ? undefined : Locale.Home.NewChat}
-            onClick={() => {
-              if (config.dontShowMaskSplashScreen) {
-                chatStore.newSession();
-                navigate(Path.Chat);
-              } else {
-                navigate(Path.NewChat);
-              }
-            }}
-            shadow
-          />
-        }
+        // secondaryAction={
+        //   <IconButton bordered
+        //     icon={<AddIcon />}
+        //     text={shouldNarrow ? undefined : Locale.Home.NewChat}
+        //     onClick={() => {
+        //       if (config.dontShowMaskSplashScreen) {
+        //         chatStore.newSession();
+        //         navigate(Path.Chat);
+        //       } else {
+        //         navigate(Path.NewChat);
+        //       }
+        //     }}
+        //     shadow
+        //   />
+        // }
       />
     </SideBarContainer>
   );
