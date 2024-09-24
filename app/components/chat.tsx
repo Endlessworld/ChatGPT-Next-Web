@@ -1490,7 +1490,7 @@ function _Chat() {
     if (isIdeaPlugin()) {
       copilotStore.update((copilot) => (copilot.isIde = true));
       config.update((settings) => (settings.tightBorder = true));
-      (window as Window).doSubmit = (userInput: string) => {
+      (window as any).doSubmit = (userInput: string) => {
         setIsLoading(true);
         chatStore.onUserInput(userInput).then(() => setIsLoading(false));
         localStorage.setItem(LAST_INPUT_KEY, userInput);
@@ -1499,8 +1499,8 @@ function _Chat() {
         if (!isMobileScreen) inputRef.current?.focus();
         setAutoScroll(true);
       };
-      (window as Window).clearSessions = chatStore.clearSessions;
-      (window as Window).XAction = function (query: string) {
+      (window as any).clearSessions = chatStore.clearSessions;
+      (window as any).XAction = function (query: string) {
         console.log("XAction > ", query);
         if (copilotStore.is_encode || isBase64(query)) {
           query = Buffer.from(query, "base64").toString("utf-8");
@@ -1511,17 +1511,17 @@ function _Chat() {
           .filter((mask) => mask.name === message.mask)
           .at(0);
         chatStore.newSession(mask);
-        (window as Window).doSubmit(message.message);
+        (window as any).doSubmit(message.message);
       };
-      (window as Window).syncThemes = (isDark: boolean) => {
+      (window as any).syncThemes = (isDark: boolean) => {
         console.log("syncThemes ", isDark);
         copilotStore.update((copilot) => (copilot.is_light = !isDark));
         config.update(
           (settings) => (settings.theme = isDark ? Theme.Dark : Theme.Light),
         );
       };
-      (window as Window).clearCache = clearCache;
-      (window as Window).install = (query: string) => {
+      (window as any).clearCache = clearCache;
+      (window as any).install = (query: string) => {
         const idea_info = JSON.parse(query) as typeof DEFAULT_COPILOT_STATE;
         copilotStore.update((copilot) => {
           copilot.idea_version = idea_info.idea_version;
@@ -1537,7 +1537,7 @@ function _Chat() {
           console.log("copilot installed ", idea_info);
         });
       };
-      (window as Window).refreshContextAware = (query: string) => {
+      (window as any).refreshContextAware = (query: string) => {
         const contextAware = JSON.parse(query) as {
           enableContext: boolean;
           content: Map<string, string>;
@@ -1643,7 +1643,8 @@ function _Chat() {
       if (!isVisionModel(currentModel)) {
         return;
       }
-      const items = (event.clipboardData || window.clipboardData).items;
+      const items = (event.clipboardData || (window as any).clipboardData)
+        .items;
       for (const item of items) {
         if (item.kind === "file" && item.type.startsWith("image/")) {
           event.preventDefault();
