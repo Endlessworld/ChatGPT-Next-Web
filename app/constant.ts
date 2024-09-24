@@ -8,6 +8,8 @@ export const RELEASE_URL = `${REPO_URL}/releases`;
 export const FETCH_COMMIT_URL = `https://api.github.com/repos/${OWNER}/${REPO}/commits?per_page=1`;
 export const FETCH_TAG_URL = `https://api.github.com/repos/${OWNER}/${REPO}/tags?per_page=1`;
 export const RUNTIME_CONFIG_DOM = "danger-runtime-config";
+export const LOGIN_HOST =
+  "https://forum.xr21.me/user-sign/?tab=signin&redirect_to=https%3A%2F%2Fforum.xr21.me%2Fchatgpt-login-callback%3Fself";
 
 export const STABILITY_BASE_URL = "https://api.stability.ai";
 
@@ -103,7 +105,7 @@ export const REQUEST_TIMEOUT_MS = 60000;
 export const EXPORT_MESSAGE_CLASS_NAME = "export-markdown";
 
 export enum ServiceProvider {
-  OpenAI = "OpenAI",
+  OpenAI = "X-Copilot",
   Azure = "Azure",
   Google = "Google",
   Anthropic = "Anthropic",
@@ -292,9 +294,13 @@ export const DEFAULT_TTS_VOICES = [
 ];
 
 const openaiModels = [
+  "deepseek-chat",
+  "deepseek-coder",
   "gpt-3.5-turbo",
   "gpt-3.5-turbo-1106",
   "gpt-3.5-turbo-0125",
+  "gpt-4o-mini",
+  "gpt-4o-mini-2024-07-18",
   "gpt-4",
   "gpt-4-0613",
   "gpt-4-32k",
@@ -302,17 +308,33 @@ const openaiModels = [
   "gpt-4-turbo",
   "gpt-4-turbo-preview",
   "gpt-4o",
+  "gpt-4o-plus",
   "gpt-4o-2024-05-13",
   "gpt-4o-2024-08-06",
-  "chatgpt-4o-latest",
-  "gpt-4o-mini",
-  "gpt-4o-mini-2024-07-18",
+  "dall-e-3",
   "gpt-4-vision-preview",
   "gpt-4-turbo-2024-04-09",
   "gpt-4-1106-preview",
-  "dall-e-3",
-  "o1-mini",
-  "o1-preview",
+  "chatgpt-4o-latest",
+  "moonshot-v1-8k",
+  "moonshot-v1-32k",
+  "moonshot-v1-128k",
+  "claude-3-opus-20240229",
+  "claude-3-sonnet-20240229",
+  "claude-3-haiku-20240307",
+  "WizardLM/WizardCoder-15B-V1.0",
+  "WizardLM/WizardCoder-15B-V1.0",
+  "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+  "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
+  "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo",
+  "codellama/CodeLlama-34b-Instruct-hf",
+  "google/gemma-2-9b-it",
+  "google/gemma-2-27b-it",
+  "Qwen/Qwen1.5-72B-Chat",
+  "Qwen/Qwen1.5-110B-Chat",
+
+  // "o1-mini",
+  // "o1-preview",
 ];
 
 const googleModels = [
@@ -393,7 +415,7 @@ export const DEFAULT_MODELS = [
     sorted: seq++, // Global sequence sort(index)
     provider: {
       id: "openai",
-      providerName: "OpenAI",
+      providerName: "X-Copilot",
       providerType: "openai",
       sorted: 1, // 这里是固定的，确保顺序与之前内置的版本一致
     },
@@ -518,6 +540,6 @@ export const internalAllowedWebDavEndpoints = [
 export const DEFAULT_GA_ID = "G-89WN60ZK2E";
 export const PLUGINS = [
   { name: "Plugins", path: Path.Plugins },
-  { name: "Stable Diffusion", path: Path.Sd },
-  { name: "Search Chat", path: Path.SearchChat },
+  // { name: "Stable Diffusion", path: Path.Sd },
+  // { name: "Search Chat", path: Path.SearchChat },
 ];

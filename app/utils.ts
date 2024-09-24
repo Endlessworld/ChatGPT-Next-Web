@@ -225,14 +225,25 @@ export function isMacOS(): boolean {
   return false;
 }
 
+function isIterable(obj: any): obj is Iterable<any> {
+  return obj != null && typeof obj[Symbol.iterator] === "function";
+}
+
 export function getMessageTextContent(message: RequestMessage) {
   if (typeof message.content === "string") {
     return message.content;
   }
-  for (const c of message.content) {
-    if (c.type === "text") {
-      return c.text ?? "";
+  if (!message.content) {
+    return message.content;
+  }
+  if (isIterable(message.content)) {
+    for (const c of message.content) {
+      if (c.type === "text") {
+        return c.text ?? "";
+      }
     }
+  } else {
+    console.error("message.content 不是一个可迭代的对象", message.content);
   }
   return "";
 }
@@ -242,10 +253,14 @@ export function getMessageImages(message: RequestMessage): string[] {
     return [];
   }
   const urls: string[] = [];
-  for (const c of message.content) {
-    if (c.type === "image_url") {
-      urls.push(c.image_url?.url ?? "");
+  if (isIterable(message.content)) {
+    for (const c of message.content) {
+      if (c.type === "image_url") {
+        urls.push(c.image_url?.url ?? "");
+      }
     }
+  } else {
+    console.error("message.content 不是一个可迭代的对象", message.content);
   }
   return urls;
 }

@@ -9,6 +9,7 @@ import ConfirmIcon from "../icons/confirm.svg";
 import CancelIcon from "../icons/cancel.svg";
 import MaxIcon from "../icons/max.svg";
 import MinIcon from "../icons/min.svg";
+import BotIcon from "../icons/bot.svg";
 
 import Locale from "../locales";
 
@@ -52,6 +53,7 @@ export function Card(props: { children: JSX.Element[]; className?: string }) {
 export function ListItem(props: {
   title?: string;
   subTitle?: string | JSX.Element;
+  info?: LLMModel;
   children?: JSX.Element | JSX.Element[];
   icon?: JSX.Element;
   className?: string;
@@ -68,7 +70,9 @@ export function ListItem(props: {
       onClick={props.onClick}
     >
       <div className={styles["list-header"]}>
-        {props.icon && <div className={styles["list-icon"]}>{props.icon}</div>}
+        {props.title.includes("Copilot") && props.icon && (
+          <div className={styles["list-icon"]}> {props.icon}</div>
+        )}
         <div className={styles["list-item-title"]}>
           <div>{props.title}</div>
           {props.subTitle && (
@@ -78,6 +82,15 @@ export function ListItem(props: {
           )}
         </div>
       </div>
+      {props.info && (
+        <div
+          className={
+            styles[props.info.free ? "list-item-free" : "list-item-vip"]
+          }
+        >
+          {props.info.free === true ? "FREE" : "VIP"}
+        </div>
+      )}
       {props.children}
     </div>
   );
@@ -509,6 +522,11 @@ export function Selector<T>(props: {
             const selected = selectedValues.includes(item.value);
             return (
               <ListItem
+                icon={
+                  <div>
+                    <BotIcon />
+                  </div>
+                }
                 className={`${styles["selector-item"]} ${
                   item.disable && styles["selector-item-disabled"]
                 }`}
@@ -532,6 +550,13 @@ export function Selector<T>(props: {
                       borderRadius: 10,
                     }}
                   ></div>
+                ) : (
+                  <></>
+                )}
+                {item.title.includes("Copilot") &&
+                (item.title == "gpt-4o-mini (X-Copilot)" ||
+                  item.title.includes("deepseek")) ? (
+                  <div className={styles["list-item-free"]}>{"FREE"}</div>
                 ) : (
                   <></>
                 )}

@@ -18,6 +18,7 @@ import ConfirmIcon from "../icons/confirm.svg";
 import ConnectionIcon from "../icons/connection.svg";
 import CloudSuccessIcon from "../icons/cloud-success.svg";
 import CloudFailIcon from "../icons/cloud-fail.svg";
+import UserIcon from "../icons/user.svg";
 
 import {
   Input,
@@ -69,6 +70,7 @@ import {
   UPDATE_URL,
   Stability,
   Iflytek,
+  LOGIN_HOST,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
@@ -81,6 +83,7 @@ import { nanoid } from "nanoid";
 import { useMaskStore } from "../store/mask";
 import { ProviderType } from "../utils/cloud";
 import { TTSConfigList } from "./tts-config";
+import { getUserInfo } from "@/app/copiolt/copilot";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -667,7 +670,7 @@ export function Settings() {
 
   const clientConfig = useMemo(() => getClientConfig(), []);
   const showAccessCode = enabledAccessControl && !clientConfig?.isApp;
-
+  const userInfo = getUserInfo();
   const accessCodeComponent = showAccessCode && (
     <ListItem
       title={Locale.Settings.Access.AccessCode.Title}
@@ -717,11 +720,11 @@ export function Settings() {
           type="text"
           value={accessStore.openaiUrl}
           placeholder={OPENAI_BASE_URL}
-          onChange={(e) =>
+          onChange={(e) => {
             accessStore.update(
               (access) => (access.openaiUrl = e.currentTarget.value),
-            )
-          }
+            );
+          }}
         ></input>
       </ListItem>
       <ListItem
@@ -1291,6 +1294,25 @@ export function Settings() {
       </div>
       <div className={styles["settings"]}>
         <List>
+          <ListItem
+            title={Locale.Settings.User.Title}
+            subTitle={Locale.Settings.User.SubTitle}
+          >
+            <div className={styles["sidebar-action"]}>
+              <a href={LOGIN_HOST} target="_self">
+                <IconButton
+                  text={
+                    userInfo["display_name"]
+                      ? userInfo["display_name"]
+                      : Locale.Auth.NotLogin
+                  }
+                  icon={<UserIcon />}
+                  shadow
+                />
+              </a>
+            </div>
+          </ListItem>
+
           <ListItem title={Locale.Settings.Avatar}>
             <Popover
               onClose={() => setShowEmojiPicker(false)}

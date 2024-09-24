@@ -549,7 +549,7 @@ ${MODEL_LIST}
         : `需要填写访问apiKey、受地域限制`,
     User: {
       Title: "用户名",
-      SubTitle: "登录后可同步用户信息",
+      SubTitle: "登录后即可使用免费模型",
       PointsTitle: "用户积分",
       PointsSubTitle: "社区用户积分可兑换使用次数",
     },
