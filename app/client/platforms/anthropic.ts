@@ -196,12 +196,11 @@ export class ClaudeApi implements LLMApi {
     options.onController?.(controller);
 
     if (shouldStream) {
+      const currentSession = useChatStore.getState().currentSession();
       let index = -1;
       const [tools, funcs] = usePluginStore
         .getState()
-        .getAsTools(
-          useChatStore.getState().currentSession().mask?.plugin || [],
-        );
+        .getAsTools(currentSession.mask?.plugin || [], currentSession.id);
       return stream(
         path,
         requestBody,
