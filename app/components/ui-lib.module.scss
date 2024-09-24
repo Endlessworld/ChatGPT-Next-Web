@@ -43,6 +43,28 @@
   padding: 10px 20px;
   animation: slide-in ease 0.6s;
 
+  .list-item-free {
+    font-size: 14px;
+    position: relative;
+    top: -18px;
+    right: -18px;
+    border-radius: 5px;
+    background-color: #06b217;
+    color: #f8eb14;
+    display: block;
+    z-index: 999;
+  }
+  .list-item-vip {
+    font-size: 12px;
+    position: relative;
+    top: -18px;
+    right: -18px;
+    border-radius: 5px;
+    background-color: #f1e861;
+    color: #ed0c0c;
+    display: block;
+    z-index: 999;
+  }
   .list-header {
     display: flex;
     align-items: center;

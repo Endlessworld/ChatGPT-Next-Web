@@ -139,6 +139,7 @@ import {
   Merge,
   preCefMessage,
   Replace,
+  getUserInfo,
 } from "@/app/copiolt/copilot";
 import { DEFAULT_COPILOT_STATE, useCopilotStore } from "@/app/store/copilot";
 
@@ -1534,10 +1535,6 @@ function _Chat() {
           copilot.x_copilot_plugin_version = idea_info.x_copilot_plugin_version;
           copilot.initialized = true;
           console.log("copilot installed ", idea_info);
-          ideaMessage({
-            event: "initialized",
-            message: JSON.stringify({ lang: getJvmLocale() }),
-          }).then((r) => {});
         });
       };
       (window as Window).refreshContextAware = (query: string) => {
@@ -1551,6 +1548,24 @@ function _Chat() {
           console.log(copilot.context_aware_content);
         });
       };
+
+      console.log("getJvmLocale", getJvmLocale());
+      ideaMessage({
+        event: "initialized",
+        message: JSON.stringify({ lang: getJvmLocale() }),
+      }).then((r) => {});
+
+      const userInfo = getUserInfo();
+      ideaMessage({
+        event: "sync_session",
+        message: JSON.stringify({
+          host: "http://127.0.0.1:11434",
+          session_token: "",
+          user_id: userInfo?.user_id,
+          model: config.modelConfig.model,
+          enable_local_completion: true,
+        }),
+      });
     }
   }, []);
 

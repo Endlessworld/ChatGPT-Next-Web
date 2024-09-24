@@ -238,6 +238,7 @@ export function ModelConfigList(props: {
           }
         ></input>
       </ListItem>
+
       <ListItem
         title={Locale.Settings.CompressModel.Title}
         subTitle={Locale.Settings.CompressModel.SubTitle}
@@ -246,6 +247,7 @@ export function ModelConfigList(props: {
           className={styles["select-compress-model"]}
           aria-label={Locale.Settings.CompressModel.Title}
           value={compressModelValue}
+          align="left"
           onChange={(e) => {
             const [model, providerName] = e.currentTarget.value.split("@");
             props.updateConfig((config) => {
@@ -254,13 +256,15 @@ export function ModelConfigList(props: {
             });
           }}
         >
-          {allModels
-            .filter((v) => v.available)
-            .map((v, i) => (
-              <option value={`${v.name}@${v.provider?.providerName}`} key={i}>
-                {v.displayName}({v.provider?.providerName})
-              </option>
-            ))}
+          {Object.keys(groupModels).map((providerName, index) => (
+            <optgroup label={providerName} key={index}>
+              {groupModels[providerName].map((v, i) => (
+                <option value={`${v.name}@${v.provider?.providerName}`} key={i}>
+                  {v.displayName}
+                </option>
+              ))}
+            </optgroup>
+          ))}
         </Select>
       </ListItem>
     </>

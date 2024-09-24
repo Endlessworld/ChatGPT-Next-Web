@@ -45,12 +45,12 @@ export const CODE_COMPLETE_MODELS: CopilotModel[] = [
   {
     name: "zero-one-ai/Yi-34B",
     displayName: "Yi-34B",
-    available: true,
+    available: false,
   },
   {
     name: "zero-one-ai/Yi-6B",
     displayName: "Yi-6B",
-    available: true,
+    available: false,
   },
   {
     name: "google/gemma-2b",
@@ -173,6 +173,12 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
   {
     name: "glm-4",
     description: "智谱清言",
+    available: false,
+  },
+  {
+    name: "moonshot-v1-128k",
+    displayName: "moonshot-v1-32k",
+    description: "月之暗面|kimi|国产",
     available: true,
   },
   {
@@ -229,13 +235,13 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     name: "SparkDesk-v3.1",
     displayName: "spark-desk-3.1",
     description: "讯飞星火|国产",
-    available: true,
+    available: false,
   },
   {
     name: "SparkDesk-v3.5",
     displayName: "spark-desk-3.5",
     description: "讯飞星火|国产",
-    available: true,
+    available: false,
   },
   {
     name: "zero-one-ai/Yi-34B-Chat",
@@ -256,20 +262,7 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     available: true,
     free: true,
   },
-  {
-    name: "deepseek-ai/deepseek-coder-33b-instruct",
-    displayName: "deepseek-coder-33b",
-    description: "深度求索|开源版|16K",
-    available: true,
-    free: true,
-  },
-  {
-    name: "deepseek-ai/deepseek-llm-67b-chat",
-    displayName: "deepseek-llm-67b-chat",
-    description: "深度求索|开源版",
-    available: true,
-    free: false,
-  },
+
   {
     name: "ERNIE-Speed-128K",
     displayName: "ERNIE-Speed-128K",
@@ -349,9 +342,8 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
   {
     name: "Qwen/Qwen2-72B-Instruct",
     displayName: "qwen2-72B",
-    description: "阿里云|通义千问|6月最强开源",
+    description: "阿里云|通义千问",
     available: true,
-    free: true,
   },
   {
     name: "Snowflake/snowflake-arctic-instruct",
@@ -408,7 +400,7 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     name: "codellama/CodeLlama-70b-Instruct-hf",
     displayName: "code-llama-70b",
     description: "Meta",
-    available: true,
+    available: false,
   },
   {
     name: "meta-llama/Llama-2-7b-chat-hf",
@@ -474,7 +466,7 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
   {
     name: "meta-llama/Llama-3-8b-chat-hf",
     displayName: "llama-3-8b",
-    description: "Meta|8K|62.2|代码精通|稳定|较快",
+    description: "Meta|8K|62.2",
     available: true,
   },
   {
@@ -483,12 +475,12 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     description: "Meta|8K|81.7|代码精通|稳定|推荐",
     available: true,
   },
-  {
-    name: "llama3-70b-8192",
-    displayName: "llama3-70b-8192",
-    description: "Groq|8K|81.7|代码精通|稳定|推荐|速度最快",
-    available: true,
-  },
+  // {
+  //   name: "llama3-70b-8192",
+  //   displayName: "llama3-70b-8192",
+  //   description: "Groq|8K|81.7|代码精通|稳定|推荐|速度最快",
+  //   available: true,
+  // },
   {
     name: "mistralai/Mistral-7B-Instruct-v0.1",
     displayName: "mistral-7b-v0.1",
@@ -503,33 +495,27 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     available: true,
     free: true,
   },
-  {
-    name: "mixtral-8x7b-32768",
-    displayName: "mixtral-8x7b",
-    description: "Groq|速度x18|SMoE|32k|46.7B|稳定|推荐",
-    available: false,
-  },
-  {
-    name: "llama2-70b-4096",
-    description: "Groq|速度x18|稳定|推荐",
-    available: false,
-  },
-  {
-    name: "mixtral-8x22b-finetuned",
-    displayName: "mixtral-8x22b",
-    description: "mistralai|141B|64k|稳定|推荐",
-    available: true,
-  },
-  {
-    name: "microsoft/WizardLM-2-8x22B",
-    displayName: "wizardlm-2-8x22B",
-    description: "microsoft|基于mixtral-8x22b微调",
-    available: true,
-  },
+  // {
+  //   name: "llama2-70b-4096",
+  //   description: "Groq|速度x18|稳定|推荐",
+  //   available: false,
+  // },
+  // {
+  //   name: "mixtral-8x22b-finetuned",
+  //   displayName: "mixtral-8x22b",
+  //   description: "mistralai|141B|64k|稳定|推荐",
+  //   available: true,
+  // },
+  // {
+  //   name: "microsoft/WizardLM-2-8x22B",
+  //   displayName: "wizardlm-2-8x22B",
+  //   description: "microsoft|基于mixtral-8x22b微调",
+  //   available: true,
+  // },
   {
     name: "WizardLM/WizardLM-13B-V1.2",
     displayName: "wizardlm-13b",
-    available: true,
+    available: false,
   },
   {
     name: "mistralai/Mixtral-8x7B-Instruct-v0.1",
@@ -559,7 +545,7 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     name: "lmsys/vicuna-13b-v1.5",
     displayName: "vicuna-13b",
     description: "羊驼",
-    available: true,
+    available: false,
   },
   {
     name: "gpt-3.5-plus",
@@ -578,12 +564,6 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     free: true,
   },
   {
-    name: "gpt-3.5-turbo-0613",
-    available: true,
-    description: "即将废弃",
-    free: true,
-  },
-  {
     name: "gpt-3.5-turbo-1106",
     description: "函数调用|本地命令执行",
     available: true,
@@ -596,23 +576,12 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     free: true,
   },
   {
-    name: "gpt-3.5-turbo-16k-0613",
-    description: "即将废弃",
-    available: true,
-    free: true,
-  },
-  {
     name: "gpt-4",
     available: true,
   },
   {
     name: "gpt-4-0613",
     available: true,
-  },
-  {
-    name: "gpt-4-all",
-    available: true,
-    description: "联网|读取链接|较慢",
   },
   {
     name: "gpt-4-32k",
@@ -640,11 +609,7 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     description: "OpenAI|最强",
     available: true,
   },
-  {
-    name: "gpt-4o-mini",
-    description: "OpenAI|最新",
-    available: true,
-  },
+
   {
     name: "gpt-4-turbo-preview",
     available: true,
@@ -654,6 +619,42 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     available: true,
     description: "传图|识图",
   },
+  {
+    name: "gpt-4o",
+    available: true,
+    description: "OpenAI|最新",
+  },
+  {
+    name: "gpt-4o-2024-08-06",
+    available: true,
+    description: "OpenAI|最新",
+  },
+  {
+    name: "gpt-4o-mini",
+    description: "OpenAI|最新",
+    available: true,
+  },
+  {
+    name: "gpt-4o-mini-2024-07-18",
+    description: "OpenAI|最新",
+    available: true,
+  },
+  {
+    name: "chatgpt-4o-latest",
+    available: true,
+    description: "latest",
+  },
+  {
+    name: "gpt-4o-plus",
+    available: true,
+    description: "plus",
+  },
+  {
+    name: "dall-e-3",
+    available: true,
+    description: "plus",
+  },
+
   // {
   //   name: "gemini-pro",
   //   available: true,
@@ -708,7 +709,7 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     name: "claude-3.5-sonnet-20240620",
     displayName: "claude-3.5-sonnet-20240620",
     description: "Claude|最新",
-    available: true,
+    available: false,
   },
   // {
   //   name: "claude-instant-1.2",

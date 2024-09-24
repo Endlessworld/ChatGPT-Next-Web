@@ -4,13 +4,14 @@ import styles from "./home.module.scss";
 
 import { IconButton } from "./button";
 import SettingsIcon from "../icons/settings.svg";
-import GithubIcon from "../icons/github.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
 import AddIcon from "../icons/add.svg";
-import DeleteIcon from "../icons/delete.svg";
 import MaskIcon from "../icons/mask.svg";
 import DragIcon from "../icons/drag.svg";
 import DiscoveryIcon from "../icons/discovery.svg";
+import AnnouncementIcon from "../icons/announcement.svg";
+import VipIcon from "../icons/vip.svg";
+import UserIcon from "../icons/user.svg";
 
 import Locale from "../locales";
 
@@ -23,14 +24,13 @@ import {
   NARROW_SIDEBAR_WIDTH,
   Path,
   PLUGINS,
-  REPO_URL,
 } from "../constant";
 
 import { Link, useNavigate } from "react-router-dom";
 import { isIOS, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
-import { showConfirm, Selector } from "./ui-lib";
-
+import { Selector, showModal } from "./ui-lib";
+import { Markdown } from "@/app/components/markdown";
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
 });
@@ -249,6 +249,13 @@ export function SideBar(props: { className?: string }) {
             onClick={() => setShowPluginSelector(true)}
             shadow
           />
+          <IconButton
+            icon={<VipIcon />}
+            text={shouldNarrow ? undefined : Locale.Vip.Title}
+            className={styles["sidebar-bar-button"]}
+            onClick={() => (location.href = "https://forum.xr21.me/user/vip")}
+            shadow
+          />
         </div>
         {showPluginSelector && (
           <Selector
@@ -279,14 +286,23 @@ export function SideBar(props: { className?: string }) {
       <SideBarTail
         primaryAction={
           <>
-            <div className={styles["sidebar-action"] + " " + styles.mobile}>
+            {/*<div className={styles["sidebar-action"] + " " + styles.mobile}>*/}
+            {/*  <IconButton*/}
+            {/*    icon={<DeleteIcon />}*/}
+            {/*    onClick={async () => {*/}
+            {/*      if (await showConfirm(Locale.Home.DeleteChat)) {*/}
+            {/*        chatStore.deleteSession(chatStore.currentSessionIndex);*/}
+            {/*      }*/}
+            {/*    }}*/}
+            {/*  />*/}
+            {/*</div>*/}
+            <div className={styles["sidebar-action"]}>
               <IconButton
-                icon={<DeleteIcon />}
-                onClick={async () => {
-                  if (await showConfirm(Locale.Home.DeleteChat)) {
-                    chatStore.deleteSession(chatStore.currentSessionIndex);
-                  }
-                }}
+                icon={<UserIcon />}
+                text={shouldNarrow ? undefined : Locale.Sidebar.Profile}
+                className={styles["sidebar-bar-button"]}
+                onClick={() => (location.href = "https://forum.xr21.me/user")}
+                shadow
               />
             </div>
             <div className={styles["sidebar-action"]}>
@@ -298,14 +314,36 @@ export function SideBar(props: { className?: string }) {
                 />
               </Link>
             </div>
+            {/*<div className={styles["sidebar-action"]}>*/}
+            {/*  <a href={REPO_URL} target="_blank" rel="noopener noreferrer">*/}
+            {/*    <IconButton*/}
+            {/*      aria={Locale.Export.MessageFromChatGPT}*/}
+            {/*      icon={<GithubIcon />}*/}
+            {/*      shadow*/}
+            {/*    />*/}
+            {/*  </a>*/}
+            {/*</div>*/}
             <div className={styles["sidebar-action"]}>
-              <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
-                <IconButton
-                  aria={Locale.Export.MessageFromChatGPT}
-                  icon={<GithubIcon />}
-                  shadow
-                />
-              </a>
+              <IconButton
+                shadow
+                text={
+                  shouldNarrow ? undefined : Locale.Sidebar.Announcement.Title
+                }
+                icon={<AnnouncementIcon />}
+                onClick={() => {
+                  // console.log(notice);
+                  showModal({
+                    title: Locale.Sidebar.Announcement.Title,
+                    children: (
+                      <Markdown
+                        content={Locale.Sidebar.Announcement.Content}
+                        defaultShow
+                      />
+                    ),
+                    onClose: () => {},
+                  });
+                }}
+              />
             </div>
           </>
         }
