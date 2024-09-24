@@ -24,6 +24,7 @@ import React, {
   useRef,
 } from "react";
 import { IconButton } from "./button";
+import { LLMModel } from "@/app/client/api";
 
 export function Popover(props: {
   children: JSX.Element;
@@ -70,7 +71,7 @@ export function ListItem(props: {
       onClick={props.onClick}
     >
       <div className={styles["list-header"]}>
-        {props.title.includes("Copilot") && props.icon && (
+        {props.title && props.title.includes("Copilot") && props.icon && (
           <div className={styles["list-icon"]}> {props.icon}</div>
         )}
         <div className={styles["list-item-title"]}>
@@ -82,15 +83,6 @@ export function ListItem(props: {
           )}
         </div>
       </div>
-      {props.info && (
-        <div
-          className={
-            styles[props.info.free ? "list-item-free" : "list-item-vip"]
-          }
-        >
-          {props.info.free === true ? "FREE" : "VIP"}
-        </div>
-      )}
       {props.children}
     </div>
   );
