@@ -47,7 +47,7 @@ export async function handle(
     () => {
       controller.abort();
     },
-    10 * 60 * 1000,
+    20 * 60 * 1000,
   );
 
   try {
@@ -69,6 +69,8 @@ export async function handle(
       statusText: res.statusText,
       headers: newHeaders,
     });
+  } catch (e) {
+    console.log("proxy failed", req.method, req.url, e);
   } finally {
     clearTimeout(timeoutId);
   }

@@ -1,10 +1,5 @@
 [
   {
-    "id": "dalle3",
-    "name": "Dalle3",
-    "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/dalle/openapi.json"
-  },
-  {
     "id": "arxivsearch",
     "name": "ArxivSearch",
     "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/arxivsearch/openapi.json"
@@ -13,5 +8,20 @@
     "id": "duckduckgolite",
     "name": "DuckDuckGoLiteSearch",
     "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/duckduckgolite/openapi.json"
+  },
+  {
+    "id": "CodeInterpreter",
+    "name": "代码解释器",
+    "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/codeinterpreterapi/openapi.json"
+  },
+  {
+    "id": "ChatPdf",
+    "name": "ChatPdf",
+    "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/chatpdf/openapi.json"
+  },
+  {
+    "id": "npmSearch",
+    "name": "npmSearch",
+    "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/npmsearch/openapi.json"
   }
 ]
