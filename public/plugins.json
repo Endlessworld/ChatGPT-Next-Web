@@ -1,13 +1,8 @@
 [
   {
-    "id": "arxivsearch",
+    "id": "ArxivSearch",
     "name": "ArxivSearch",
     "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/arxivsearch/openapi.json"
-  },
-  {
-    "id": "duckduckgolite",
-    "name": "DuckDuckGoLiteSearch",
-    "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/duckduckgolite/openapi.json"
   },
   {
     "id": "CodeInterpreter",
@@ -15,8 +10,8 @@
     "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/codeinterpreterapi/openapi.json"
   },
   {
-    "id": "ChatPdf",
-    "name": "ChatPdf",
+    "id": "ChatPDF",
+    "name": "ChatPDF",
     "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/chatpdf/openapi.json"
   },
   {

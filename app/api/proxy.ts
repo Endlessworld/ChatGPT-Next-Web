@@ -51,6 +51,7 @@ export async function handle(
   );
 
   try {
+    console.log("proxy fetch url", fetchUrl);
     const res = await fetch(fetchUrl, fetchOptions);
     // to prevent browser prompt for credentials
     const newHeaders = new Headers(res.headers);

@@ -5,7 +5,7 @@ import { createPersistStore } from "../utils/store";
 import { getClientConfig } from "../config/client";
 import yaml from "js-yaml";
 import { adapter } from "../utils";
-import { functionCall } from "@/app/copiolt/copilot";
+import { functionCall, isIdeaPlugin } from "@/app/copiolt/copilot";
 import { useAccessStore } from "./access";
 
 const isApp = getClientConfig()?.isApp;
@@ -55,7 +55,7 @@ export const FunctionToolService = {
     const authLocation = plugin?.authLocation || "header";
     const definition = yaml.load(plugin.content) as any;
     const serverURL = definition?.servers?.[0]?.url;
-    const baseURL = !isApp ? "/api/proxy" : serverURL;
+    const baseURL = !isApp && !isIdeaPlugin() ? "/api/proxy" : serverURL;
     const headers: Record<string, string | undefined> = {
       "X-Base-URL": !isApp ? serverURL : undefined,
     };
