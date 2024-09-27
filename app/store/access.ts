@@ -114,7 +114,7 @@ const DEFAULT_ACCESS_STATE = {
 
   // server config
   needCode: false,
-  hideUserApiKey: false,
+  hideUserApiKey: true,
   hideBalanceQuery: true,
   disableGPT4: false,
   disableFastLink: false,

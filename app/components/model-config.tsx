@@ -19,11 +19,11 @@ export function ModelConfigList(props: {
   );
   const value = `${props.modelConfig.model}@${props.modelConfig?.providerName}`;
   const compressModelValue = `${props.modelConfig.compressModel}@${props.modelConfig?.compressProviderName}`;
-
   return (
     <>
       <ListItem title={Locale.Settings.Model}>
         <Select
+          className={styles["select-compress-model"]}
           aria-label={Locale.Settings.Model}
           value={value}
           align="left"

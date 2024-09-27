@@ -44,26 +44,29 @@
   animation: slide-in ease 0.6s;
 
   .list-item-free {
-    font-size: 14px;
+    font-size: 11px;
     position: relative;
-    top: -18px;
-    right: -18px;
+    top: -15px;
+    right: -20px;
+    transform: rotate(45deg);
     border-radius: 5px;
     background-color: #06b217;
     color: #f8eb14;
     display: block;
     z-index: 999;
+    //clip-path: polygon(50% 0%, 50% 50%, 0% 0%);
   }
   .list-item-vip {
     font-size: 12px;
     position: relative;
     top: -18px;
-    right: -18px;
+    right: -20px;
     border-radius: 5px;
     background-color: #f1e861;
     color: #ed0c0c;
     display: block;
     z-index: 999;
+    transform: rotate(45deg);
   }
   .list-header {
     display: flex;
@@ -358,4 +361,3 @@
     }
   }
 }
-

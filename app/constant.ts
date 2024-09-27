@@ -34,7 +34,7 @@ export const IFLYTEK_BASE_URL = "https://spark-api-open.xf-yun.com";
 
 export const CACHE_URL_PREFIX = "/api/cache";
 export const UPLOAD_URL = `${CACHE_URL_PREFIX}/upload`;
-
+import BotIcon from "./icons/bot.svg";
 export enum Path {
   Home = "/",
   Chat = "/chat",
@@ -292,7 +292,14 @@ export const DEFAULT_TTS_VOICES = [
   "nova",
   "shimmer",
 ];
-
+export const freeModels = [
+  "deepseek-chat@X-Copilot",
+  "deepseek-coder@X-Copilot",
+  "gpt-3.5-turbo@X-Copilot",
+  "gpt-3.5-turbo-1106@X-Copilot",
+  "gpt-3.5-turbo-0125@X-Copilot",
+  "gpt-4o-mini@X-Copilot",
+];
 const openaiModels = [
   "deepseek-chat",
   "deepseek-coder",
@@ -420,17 +427,20 @@ export const DEFAULT_MODELS = [
       sorted: 1, // 这里是固定的，确保顺序与之前内置的版本一致
     },
   })),
-  ...openaiModels.map((name) => ({
-    name,
-    available: true,
-    sorted: seq++,
-    provider: {
-      id: "azure",
-      providerName: "Azure",
-      providerType: "azure",
-      sorted: 2,
-    },
-  })),
+  ...openaiModels
+    .filter((e) => e.startsWith("gpt"))
+    .map((name) => ({
+      name,
+      available: true,
+      sorted: seq++,
+      provider: {
+        id: "azure",
+        providerName: "Azure",
+        providerType: "azure",
+        sorted: 2,
+        icon: BotIcon,
+      },
+    })),
   ...googleModels.map((name) => ({
     name,
     available: true,

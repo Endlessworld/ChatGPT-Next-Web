@@ -25,6 +25,8 @@ import React, {
 } from "react";
 import { IconButton } from "./button";
 import { LLMModel } from "@/app/client/api";
+import { freeModels } from "@/app/constant";
+import { useUserInfo } from "@/app/copiolt/copilot";
 
 export function Popover(props: {
   children: JSX.Element;
@@ -490,7 +492,6 @@ export function Selector<T>(props: {
       ? [props.defaultSelectedValue]
       : [],
   );
-
   const handleSelection = (e: MouseEvent, value: T) => {
     if (props.multiple) {
       e.stopPropagation();
@@ -505,7 +506,9 @@ export function Selector<T>(props: {
       props.onClose?.();
     }
   };
-
+  const isVIP =
+    new Date() < new Date(useUserInfo()?.vip_exp_date || "1970 00:00:00");
+  console.log(isVIP);
   return (
     <div className={styles["selector"]} onClick={() => props.onClose?.()}>
       <div className={styles["selector-content"]}>
@@ -515,13 +518,19 @@ export function Selector<T>(props: {
             return (
               <ListItem
                 icon={
-                  <div>
+                  <div
+                    className={`${
+                      freeModels?.includes(item.value as string) || isVIP
+                        ? ""
+                        : styles["selector-item-icon-disabled"]
+                    }`}
+                  >
                     <BotIcon />
                   </div>
                 }
                 className={`${styles["selector-item"]} ${
-                  item.disable && styles["selector-item-disabled"]
-                }`}
+                  styles["list-item-free"]
+                } ${item.disable && styles["selector-item-disabled"]}`}
                 key={i}
                 title={item.title}
                 subTitle={item.subTitle}
@@ -545,10 +554,18 @@ export function Selector<T>(props: {
                 ) : (
                   <></>
                 )}
-                {item.title.includes("Copilot") &&
-                (item.title == "gpt-4o-mini (X-Copilot)" ||
-                  item.title.includes("deepseek")) ? (
-                  <div className={styles["list-item-free"]}>{"FREE"}</div>
+                {(item.title as string).includes("Copilot") ? (
+                  <div
+                    className={`${
+                      freeModels?.includes(item.value as string)
+                        ? styles["list-item-free"]
+                        : styles["list-item-vip"]
+                    } `}
+                  >
+                    {freeModels?.includes(item.value as string)
+                      ? "FREE"
+                      : "VIP"}
+                  </div>
                 ) : (
                   <></>
                 )}
