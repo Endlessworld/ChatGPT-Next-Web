@@ -652,7 +652,7 @@ ${MODEL_LIST}
     Failed: "代码合并窗口打开失败",
   },
   Vip: {
-    Title: "付费计划",
+    Title: "订阅",
   },
   Copy: {
     Success: "已写入剪贴板",
@@ -731,7 +731,7 @@ ${MODEL_LIST}
     },
   },
   Mask: {
-    Name: "预制角色",
+    Name: "角色",
     Page: {
       Title: "预设角色面具",
       SubTitle: (count: number) => `${count} 个预设角色定义`,
