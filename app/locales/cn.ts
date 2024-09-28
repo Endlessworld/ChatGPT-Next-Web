@@ -20,9 +20,6 @@ const cn = {
     Input: "在此处填写访问码",
     Confirm: "确认",
     Later: "稍后再说",
-    SaasTips: "配置太麻烦，想要立即使用",
-    TopTips:
-      "🥳 NextChat AI 首发优惠，立刻解锁 OpenAI o1, GPT-4o, Claude-3.5 等最新大模型",
     NotLogin: "未登录",
     Limit: "当前模型请求已达到阈值上限，请换其它模型，或者请稍后再试~",
   },

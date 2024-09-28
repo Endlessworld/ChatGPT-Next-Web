@@ -12,9 +12,6 @@ const jp: PartialLocaleType = {
     Confirm: "確認",
     Later: "後で",
     Return: "戻る",
-    SaasTips: "設定が面倒すぎる、すぐに使いたい",
-    TopTips:
-      "🥳 NextChat AIの発売特典で、OpenAI o1、GPT-4o、Claude-3.5などの最新の大規模モデルを今すぐアンロック",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count}件の会話`,

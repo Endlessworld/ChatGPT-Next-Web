@@ -12,10 +12,6 @@ const no: PartialLocaleType = {
     Confirm: "Bekreft",
     Later: "Kom tilbake senere",
     Return: "Tilbake",
-    SaasTips:
-      "Konfigurasjonen er for komplisert, jeg vil bruke det med en gang",
-    TopTips:
-      "🥳 NextChat AI lanseringstilbud, lås opp OpenAI o1, GPT-4o, Claude-3.5 og de nyeste store modellene nå",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} samtaler`,

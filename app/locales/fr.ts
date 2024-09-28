@@ -12,10 +12,6 @@ const fr: PartialLocaleType = {
     Confirm: "Confirmer",
     Later: "Plus tard",
     Return: "Retour",
-    SaasTips:
-      "La configuration est trop compliquée, je veux l'utiliser immédiatement",
-    TopTips:
-      "🥳 Offre de lancement NextChat AI, débloquez OpenAI o1, GPT-4o, Claude-3.5 et les derniers grands modèles",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} conversations`,

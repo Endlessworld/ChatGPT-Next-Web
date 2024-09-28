@@ -12,9 +12,6 @@ const ko: PartialLocaleType = {
     Confirm: "확인",
     Later: "나중에 하기",
     Return: "돌아가기",
-    SaasTips: "설정이 너무 복잡합니다. 즉시 사용하고 싶습니다.",
-    TopTips:
-      "🥳 NextChat AI 출시 기념 할인, 지금 OpenAI o1, GPT-4o, Claude-3.5 및 최신 대형 모델을 해제하세요",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 개의 대화`,
