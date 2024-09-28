@@ -22,13 +22,12 @@ import {
 import CopyIcon from "../icons/copy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import ChatGptIcon from "../icons/chatgpt.png";
-import ShareIcon from "../icons/share.svg";
 import BotIcon from "../icons/bot.png";
 
 import DownloadIcon from "../icons/download.svg";
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { MessageSelector, useMessageSelector } from "./message-selector";
-import { Avatar } from "./emoji";
+import { UserAvatar, Avatar } from "./emoji";
 import dynamic from "next/dynamic";
 import NextImage from "next/image";
 
@@ -40,6 +39,8 @@ import { EXPORT_MESSAGE_CLASS_NAME } from "../constant";
 import { getClientConfig } from "../config/client";
 import { type ClientApi, getClientApi } from "../client/api";
 import { getMessageTextContent } from "../utils";
+import { isIdeaPlugin } from "@/app/copiolt/copilot";
+import { MaskAvatar } from "@/app/components/mask";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -379,13 +380,13 @@ export function PreviewActions(props: {
           icon={<DownloadIcon />}
           onClick={props.download}
         ></IconButton>
-        <IconButton
-          text={Locale.Export.Share}
-          bordered
-          shadow
-          icon={loading ? <LoadingIcon /> : <ShareIcon />}
-          onClick={share}
-        ></IconButton>
+        {/*<IconButton*/}
+        {/*  text={Locale.Export.Share}*/}
+        {/*  bordered*/}
+        {/*  shadow*/}
+        {/*  icon={loading ? <LoadingIcon /> : <ShareIcon />}*/}
+        {/*  onClick={share}*/}
+        {/*></IconButton>*/}
       </div>
       <div
         style={{
@@ -464,12 +465,11 @@ export function ImagePreviewer(props: {
     if (!dom) return;
 
     const isApp = getClientConfig()?.isApp;
-
     try {
       const blob = await toPng(dom);
       if (!blob) return;
 
-      if (isMobile || (isApp && window.__TAURI__)) {
+      if ((isMobile || (isApp && window.__TAURI__)) && !isIdeaPlugin()) {
         if (isApp && window.__TAURI__) {
           const result = await window.__TAURI__.dialog.save({
             defaultPath: `${props.topic}.png`,
@@ -539,14 +539,17 @@ export function ImagePreviewer(props: {
           </div>
 
           <div>
-            <div className={styles["main-title"]}>X-Copilot</div>
+            <div className={styles["main-title"]}>X-Copilot AI Assistant</div>
             <div className={styles["sub-title"]}>
-              github.com/ChatGPTNextWeb/ChatGPT-Next-Web
+              IDEA Plugin X-Copilot AI Assistant
             </div>
             <div className={styles["icons"]}>
-              <ExportAvatar avatar={config.avatar} />
+              <MaskAvatar
+                avatar={session.mask.avatar}
+                model={session.mask.modelConfig.model}
+              />
               <span className={styles["icon-space"]}>&</span>
-              <ExportAvatar avatar={mask.avatar} />
+              <UserAvatar />
             </div>
           </div>
           <div>
@@ -574,9 +577,14 @@ export function ImagePreviewer(props: {
               key={i}
             >
               <div className={styles["avatar"]}>
-                <ExportAvatar
-                  avatar={m.role === "user" ? config.avatar : mask.avatar}
-                />
+                {m.role === "user" ? (
+                  <UserAvatar />
+                ) : (
+                  <MaskAvatar
+                    avatar={session.mask.avatar}
+                    model={session.mask.modelConfig.model}
+                  />
+                )}
               </div>
 
               <div className={styles["body"]}>

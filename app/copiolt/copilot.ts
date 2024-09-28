@@ -73,7 +73,7 @@ export function getUserInfo(): any {
   };
 }
 
-export function useUserAvatar(): any {
+export function useUserAvatar(): string {
   let userInfo = getCookie("user_info");
   return JSON.parse(userInfo).custom_avatar;
 }

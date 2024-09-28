@@ -470,6 +470,24 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     description: "Meta|8K|81.7|代码精通|稳定|推荐",
     available: true,
   },
+  {
+    name: "meta-llama/Llama-Vision-Free",
+    displayName: "Llama-Vision-Free",
+    description: "Meta|推荐",
+    available: true,
+  },
+  {
+    name: "meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo",
+    displayName: "meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo",
+    description: "Meta|推荐",
+    available: true,
+  },
+  {
+    name: "meta-llama/Llama-3.2-90B-Vision-Instruct-Turbo",
+    displayName: "meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo",
+    description: "Meta|稳定|推荐",
+    available: true,
+  },
   // {
   //   name: "llama3-70b-8192",
   //   displayName: "llama3-70b-8192",

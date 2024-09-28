@@ -110,7 +110,7 @@ import {
   ServiceProvider,
   LAST_INPUT_KEY,
 } from "../constant";
-import { Avatar } from "./emoji";
+import { Avatar, UserAvatar } from "./emoji";
 import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
 import { useMaskStore } from "../store/mask";
 import {
@@ -1448,7 +1448,7 @@ function _Chat() {
         }
       });
     };
-  }, [chatStore.sessions]);
+  }, [chatStore?.sessions]);
   // const functionCallBack = useCallback(() => {
   //   chatStore.updateCurrentSession((session) => {
   //     session.mask.context = session.mask.context.filter(
@@ -1965,7 +1965,7 @@ function _Chat() {
                         ></IconButton>
                       </div>
                       {isUser ? (
-                        <Avatar avatar={config.avatar} />
+                        <UserAvatar />
                       ) : (
                         <>
                           {["system"].includes(message.role) ? (

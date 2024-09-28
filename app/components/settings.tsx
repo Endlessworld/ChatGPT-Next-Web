@@ -18,7 +18,6 @@ import ConfirmIcon from "../icons/confirm.svg";
 import ConnectionIcon from "../icons/connection.svg";
 import CloudSuccessIcon from "../icons/cloud-success.svg";
 import CloudFailIcon from "../icons/cloud-fail.svg";
-import UserIcon from "../icons/user.svg";
 
 import {
   Input,
@@ -26,7 +25,6 @@ import {
   ListItem,
   Modal,
   PasswordInput,
-  Popover,
   Select,
   showConfirm,
   showToast,
@@ -50,7 +48,6 @@ import Locale, {
   getLang,
 } from "../locales";
 import { copyToClipboard } from "../utils";
-import Link from "next/link";
 import {
   Anthropic,
   Azure,
@@ -76,7 +73,7 @@ import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
 import { useNavigate } from "react-router-dom";
-import { Avatar, AvatarPicker } from "./emoji";
+import { UserAvatar } from "./emoji";
 import { getClientConfig } from "../config/client";
 import { useSyncStore } from "../store/sync";
 import { nanoid } from "nanoid";
@@ -1306,63 +1303,67 @@ export function Settings() {
                       ? userInfo["display_name"]
                       : Locale.Auth.NotLogin
                   }
-                  icon={<UserIcon />}
+                  icon={
+                    <div className={"settings-user-avatar"}>
+                      <UserAvatar />
+                    </div>
+                  }
                   shadow
                 />
               </a>
             </div>
           </ListItem>
 
-          <ListItem title={Locale.Settings.Avatar}>
-            <Popover
-              onClose={() => setShowEmojiPicker(false)}
-              content={
-                <AvatarPicker
-                  onEmojiClick={(avatar: string) => {
-                    updateConfig((config) => (config.avatar = avatar));
-                    setShowEmojiPicker(false);
-                  }}
-                />
-              }
-              open={showEmojiPicker}
-            >
-              <div
-                aria-label={Locale.Settings.Avatar}
-                tabIndex={0}
-                className={styles.avatar}
-                onClick={() => {
-                  setShowEmojiPicker(!showEmojiPicker);
-                }}
-              >
-                <Avatar avatar={config.avatar} />
-              </div>
-            </Popover>
-          </ListItem>
+          {/*<ListItem title={Locale.Settings.Avatar}>*/}
+          {/*  <Popover*/}
+          {/*    onClose={() => setShowEmojiPicker(false)}*/}
+          {/*    content={*/}
+          {/*      <AvatarPicker*/}
+          {/*        onEmojiClick={(avatar: string) => {*/}
+          {/*          updateConfig((config) => (config.avatar = avatar));*/}
+          {/*          setShowEmojiPicker(false);*/}
+          {/*        }}*/}
+          {/*      />*/}
+          {/*    }*/}
+          {/*    open={showEmojiPicker}*/}
+          {/*  >*/}
+          {/*    <div*/}
+          {/*      aria-label={Locale.Settings.Avatar}*/}
+          {/*      tabIndex={0}*/}
+          {/*      className={styles.avatar}*/}
+          {/*      onClick={() => {*/}
+          {/*        setShowEmojiPicker(!showEmojiPicker);*/}
+          {/*      }}*/}
+          {/*    >*/}
+          {/*      <Avatar avatar={config.avatar} />*/}
+          {/*    </div>*/}
+          {/*  </Popover>*/}
+          {/*</ListItem>*/}
 
-          <ListItem
-            title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}
-            subTitle={
-              checkingUpdate
-                ? Locale.Settings.Update.IsChecking
-                : hasNewVersion
-                ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")
-                : Locale.Settings.Update.IsLatest
-            }
-          >
-            {checkingUpdate ? (
-              <LoadingIcon />
-            ) : hasNewVersion ? (
-              <Link href={updateUrl} target="_blank" className="link">
-                {Locale.Settings.Update.GoToUpdate}
-              </Link>
-            ) : (
-              <IconButton
-                icon={<ResetIcon></ResetIcon>}
-                text={Locale.Settings.Update.CheckUpdate}
-                onClick={() => checkUpdate(true)}
-              />
-            )}
-          </ListItem>
+          {/*<ListItem*/}
+          {/*  title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}*/}
+          {/*  subTitle={*/}
+          {/*    checkingUpdate*/}
+          {/*      ? Locale.Settings.Update.IsChecking*/}
+          {/*      : hasNewVersion*/}
+          {/*      ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")*/}
+          {/*      : Locale.Settings.Update.IsLatest*/}
+          {/*  }*/}
+          {/*>*/}
+          {/*  {checkingUpdate ? (*/}
+          {/*    <LoadingIcon />*/}
+          {/*  ) : hasNewVersion ? (*/}
+          {/*    <Link href={updateUrl} target="_blank" className="link">*/}
+          {/*      {Locale.Settings.Update.GoToUpdate}*/}
+          {/*    </Link>*/}
+          {/*  ) : (*/}
+          {/*    <IconButton*/}
+          {/*      icon={<ResetIcon></ResetIcon>}*/}
+          {/*      text={Locale.Settings.Update.CheckUpdate}*/}
+          {/*      onClick={() => checkUpdate(true)}*/}
+          {/*    />*/}
+          {/*  )}*/}
+          {/*</ListItem>*/}
 
           <ListItem title={Locale.Settings.SendKey}>
             <Select

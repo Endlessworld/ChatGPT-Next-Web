@@ -8,6 +8,19 @@ import { ModelType } from "../store";
 
 import BotIcon from "../icons/bot.svg";
 import BlackBotIcon from "../icons/black-bot.svg";
+import { useUserAvatar } from "@/app/copiolt/copilot";
+
+export function getChatAvatarUrl(unified: string, style: EmojiStyle) {
+  const UserAvatar = () => {
+    return useUserAvatar();
+  };
+  const userAvatar = UserAvatar();
+  console.log(userAvatar);
+  if (userAvatar) {
+    return userAvatar;
+  }
+  return `https://forum.xr21.me/wp-content/uploads/2023/05/XIcon-64.png`;
+}
 
 export function getEmojiUrl(unified: string, style: EmojiStyle) {
   // Whoever owns this Content Delivery Network (CDN), I am using your CDN to serve emojis
@@ -60,5 +73,21 @@ export function EmojiAvatar(props: { avatar: string; size?: number }) {
       size={props.size ?? 18}
       getEmojiUrl={getEmojiUrl}
     />
+  );
+}
+
+export function UserAvatar({ size }: { size?: number }) {
+  return useUserAvatar() ? (
+    <div className="user-avatar">
+      <Emoji
+        unified={"1f60e"}
+        size={size ? size : 25}
+        getEmojiUrl={getChatAvatarUrl}
+      />
+    </div>
+  ) : (
+    <div className="user-avatar">
+      <BotIcon />
+    </div>
   );
 }
