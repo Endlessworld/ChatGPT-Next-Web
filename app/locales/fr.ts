@@ -1,22 +1,9 @@
 import { SubmitKey } from "../store/config";
 import type { PartialLocaleType } from "./index";
-import { getClientConfig } from "../config/client";
-import { SAAS_CHAT_UTM_URL } from "@/app/constant";
-const isApp = !!getClientConfig()?.isApp;
 
 const fr: PartialLocaleType = {
   WIP: "Prochainement...",
-  Error: {
-    Unauthorized: isApp
-      ? `😆 La conversation a rencontré quelques problèmes, pas de panique :
-    \\ 1️⃣ Si vous souhaitez commencer sans configuration, [cliquez ici pour démarrer la conversation immédiatement 🚀](${SAAS_CHAT_UTM_URL})
-    \\ 2️⃣ Si vous souhaitez utiliser vos propres ressources OpenAI, cliquez [ici](/#/settings) pour modifier les paramètres ⚙️`
-      : `😆 La conversation a rencontré quelques problèmes, pas de panique :
-    \ 1️⃣ Si vous souhaitez commencer sans configuration, [cliquez ici pour démarrer la conversation immédiatement 🚀](${SAAS_CHAT_UTM_URL})
-    \ 2️⃣ Si vous utilisez une version déployée privée, cliquez [ici](/#/auth) pour entrer la clé d'accès 🔑
-    \ 3️⃣ Si vous souhaitez utiliser vos propres ressources OpenAI, cliquez [ici](/#/settings) pour modifier les paramètres ⚙️
- `,
-  },
+  Error: {},
   Auth: {
     Title: "Mot de passe requis",
     Tips: "L'administrateur a activé la vérification par mot de passe. Veuillez entrer le code d'accès ci-dessous",

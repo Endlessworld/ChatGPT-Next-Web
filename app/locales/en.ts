@@ -1,19 +1,11 @@
-import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
 import { PartialLocaleType } from "./index";
 import { LOGIN_HOST } from "@/app/constant";
 
-import { LocaleType } from "./index";
-import { SAAS_CHAT_UTM_URL } from "@/app/constant";
-// if you are adding a new translation, please use PartialLocaleType instead of LocaleType
-
-const isApp = !!getClientConfig()?.isApp;
 const en: PartialLocaleType = {
   WIP: "Coming Soon...",
   Error: {
-    Unauthorized: isApp
-      ? "Invalid API Key, please check it in [Settings](/#/settings) page."
-      : `Unauthorized access, please enter access code in [auth](${LOGIN_HOST}) page, or enter your OpenAI API Key.`,
+    Unauthorized: `Currently not logged in. Please click [here](${LOGIN_HOST}) to log in and use the free model services provided by this plugin, or provide your own API Key on the [Settings](/#/settings) page.`,
   },
   Auth: {
     Return: "Return",

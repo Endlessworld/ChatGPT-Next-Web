@@ -4,16 +4,13 @@ import { isIdeaPlugin } from "@/app/copiolt/copilot";
 import { MODEL_LIST } from "@/app/copiolt/constant";
 import { DEFAULT_MODELS } from "@/app/copiolt/constant";
 import { LOGIN_HOST } from "@/app/constant";
-import { SAAS_CHAT_UTM_URL } from "@/app/constant";
 
 const isApp = !!getClientConfig()?.isApp;
 
 const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
-    Unauthorized: isApp
-      ? "检测到无效 API Key，请前往[设置](/#/settings)页检查 API Key 是否配置正确。"
-      : `访问密码不正确或为空，请前往[登录](${LOGIN_HOST})页输入正确的访问密码，或者在[设置](/#/settings)页填入你自己的 OpenAI API Key。`,
+    Unauthorized: `当前未登录，请点此[登录](${LOGIN_HOST})以使用本插件提供的免费模型服务，或在[设置](/#/settings)页提供自己的 API Key`,
   },
   Auth: {
     Return: "返回",

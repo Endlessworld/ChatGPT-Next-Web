@@ -1,22 +1,9 @@
 import { SubmitKey } from "../store/config";
 import type { PartialLocaleType } from "./index";
-import { getClientConfig } from "../config/client";
-import { SAAS_CHAT_UTM_URL } from "@/app/constant";
-const isApp = !!getClientConfig()?.isApp;
 
 const vi: PartialLocaleType = {
   WIP: "Sắp ra mắt...",
-  Error: {
-    Unauthorized: isApp
-      ? `😆 Cuộc trò chuyện gặp một số vấn đề, đừng lo lắng:
-    \\ 1️⃣ Nếu bạn muốn bắt đầu mà không cần cấu hình, [nhấp vào đây để bắt đầu trò chuyện ngay lập tức 🚀](${SAAS_CHAT_UTM_URL})
-    \\ 2️⃣ Nếu bạn muốn sử dụng tài nguyên OpenAI của riêng mình, hãy nhấp [vào đây](/#/settings) để thay đổi cài đặt ⚙️`
-      : `😆 Cuộc trò chuyện gặp một số vấn đề, đừng lo lắng:
-    \ 1️⃣ Nếu bạn muốn bắt đầu mà không cần cấu hình, [nhấp vào đây để bắt đầu trò chuyện ngay lập tức 🚀](${SAAS_CHAT_UTM_URL})
-    \ 2️⃣ Nếu bạn đang sử dụng phiên bản triển khai riêng, hãy nhấp [vào đây](/#/auth) để nhập khóa truy cập 🔑
-    \ 3️⃣ Nếu bạn muốn sử dụng tài nguyên OpenAI của riêng mình, hãy nhấp [vào đây](/#/settings) để thay đổi cài đặt ⚙️
- `,
-  },
+  Error: {},
   Auth: {
     Title: "Cần mật khẩu",
     Tips: "Quản trị viên đã bật xác thực mật khẩu, vui lòng nhập mã truy cập ở dưới",
