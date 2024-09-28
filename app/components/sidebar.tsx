@@ -312,8 +312,7 @@ export function SideBar(props: { className?: string }) {
               <Link to={Path.Settings}>
                 <IconButton
                   bordered
-                  text={Locale.Settings.Title}
-                  aria={Locale.Settings.Title}
+                  text={shouldNarrow ? undefined : Locale.Settings.Title}
                   icon={<SettingsIcon />}
                   shadow
                 />
