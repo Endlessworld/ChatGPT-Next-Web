@@ -2,11 +2,7 @@ import { getMessageTextContent, trimTopic } from "../utils";
 
 import { indexedDBStorage } from "@/app/utils/indexedDB-storage";
 import { nanoid } from "nanoid";
-import type {
-  ClientApi,
-  MultimodalContent,
-  RequestMessage,
-} from "../client/api";
+import { ClientApi, MultimodalContent, RequestMessage } from "../client/api";
 import { getClientApi } from "../client/api";
 import { ChatControllerPool } from "../client/controller";
 import { showToast } from "../components/ui-lib";
@@ -115,7 +111,7 @@ function fillTemplateWith(input: string, modelConfig: ModelConfig) {
   // Find the model in the DEFAULT_MODELS array that matches the modelConfig.model
   const modelInfo = DEFAULT_MODELS.find((m) => m.name === modelConfig.model);
 
-  var serviceProvider = "OpenAI";
+  var serviceProvider = "X-Copilot";
   if (modelInfo) {
     // TODO: auto detect the providerName from the modelConfig.model
 
@@ -472,6 +468,15 @@ export const useChatStore = createPersistStore(
 
         // in-context prompts
         const contextPrompts = session.mask.context.slice();
+        const context = localStorage.getItem("project-context");
+        if (context != null) {
+          contextPrompts.push({
+            role: "system",
+            date: new Date().toLocaleString(),
+            id: nanoid(),
+            content: context,
+          });
+        }
 
         // system prompts, to get close to OpenAI Web ChatGPT
         const shouldInjectSystemPrompts =

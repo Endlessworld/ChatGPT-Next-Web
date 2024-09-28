@@ -15,7 +15,6 @@ export function getChatAvatarUrl(unified: string, style: EmojiStyle) {
     return useUserAvatar();
   };
   const userAvatar = UserAvatar();
-  console.log(userAvatar);
   if (userAvatar) {
     return userAvatar;
   }
