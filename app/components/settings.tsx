@@ -68,6 +68,7 @@ import {
   Stability,
   Iflytek,
   LOGIN_HOST,
+  openaiModels,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
@@ -80,7 +81,7 @@ import { nanoid } from "nanoid";
 import { useMaskStore } from "../store/mask";
 import { ProviderType } from "../utils/cloud";
 import { TTSConfigList } from "./tts-config";
-import { getUserInfo } from "@/app/copiolt/copilot";
+import { getUserInfo, ideaMessage, isIdeaPlugin } from "@/app/copiolt/copilot";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -578,7 +579,7 @@ export function Settings() {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const config = useAppConfig();
   const updateConfig = config.update;
-
+  const showLocalServer = isIdeaPlugin();
   const updateStore = useUpdateStore();
   const [checkingUpdate, setCheckingUpdate] = useState(false);
   const currentVersion = updateStore.formatVersion(updateStore.version);
@@ -1670,6 +1671,90 @@ export function Settings() {
               }
             ></input>
           </ListItem>
+        </List>
+        <List>
+          <ListItem
+            title={Locale.Settings.CloudCompleteModel.Title}
+            subTitle={Locale.Settings.CloudCompleteModel.SubTitle}
+          >
+            <Select
+              align="left"
+              className={styles["select-compress-model"]}
+              value={config.codeCompleteModel}
+              onChange={(e) => {
+                let selectedModel = e.currentTarget.value;
+                config.update((s) => {
+                  s.codeCompleteModel = selectedModel;
+                  ideaMessage({
+                    event: "sync_session",
+                    message: JSON.stringify({
+                      host: accessStore.openaiUrl,
+                      session_token: userInfo?.session_token,
+                      user_id: userInfo?.user_id,
+                      model: selectedModel,
+                      enableLocalCompletion:
+                        config.enableOllamaLocalCompletionServer,
+                    }),
+                  });
+                });
+              }}
+            >
+              {openaiModels
+                .sort((a, b) => a.localeCompare(b))
+                .sort((a, b) => a.length - b.length)
+                .map((v, i) => (
+                  <option value={v} key={i}>
+                    {v}
+                  </option>
+                ))}
+            </Select>
+          </ListItem>
+          {showLocalServer ? (
+            <>
+              <ListItem
+                title={Locale.Settings.LocalCompletionModel.Title}
+                subTitle={Locale.Settings.LocalCompletionModel.SubTitle}
+              >
+                <input
+                  type="checkbox"
+                  disabled={userInfo.is_vip as boolean}
+                  checked={config.enableOllamaLocalCompletionServer}
+                  onChange={(e) => {
+                    ideaMessage({
+                      event: "sync_session",
+                      message: JSON.stringify({
+                        host: accessStore.openaiUrl,
+                        session_token: userInfo?.session_token,
+                        user_id: userInfo?.user_id,
+                        model: config.codeCompleteModel,
+                        enable_local_completion: e.currentTarget.checked,
+                      }),
+                    });
+                    config.update((config) => {
+                      config.enableOllamaLocalCompletionServer =
+                        e.currentTarget.checked;
+                    });
+                  }}
+                ></input>
+              </ListItem>
+              <ListItem
+                title={Locale.Settings.LocalChatModel.Title}
+                subTitle={Locale.Settings.LocalChatModel.SubTitle}
+              >
+                <input
+                  type="checkbox"
+                  checked={config.enableOllamaLocalChatServer}
+                  onChange={(e) =>
+                    updateConfig((config) => {
+                      config.enableOllamaLocalChatServer =
+                        e.currentTarget.checked;
+                      console.log(config.enableOllamaLocalChatServer);
+                    })
+                  }
+                ></input>
+              </ListItem>
+            </>
+          ) : null}
         </List>
 
         <List>

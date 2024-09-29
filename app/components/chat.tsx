@@ -1562,8 +1562,8 @@ function _Chat() {
           host: DEFAULT_API_HOST,
           session_token: userInfo?.session_token,
           user_id: userInfo?.user_id,
-          model: config.modelConfig.model,
-          enable_local_completion: true,
+          model: `gpt-4o-mini`,
+          enable_local_completion: false,
         }),
       });
     }

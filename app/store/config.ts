@@ -59,6 +59,9 @@ export const DEFAULT_CONFIG = {
 
   customModels: "",
   models: DEFAULT_MODELS as any as LLMModel[],
+  enableOllamaLocalCompletionServer: false,
+  enableOllamaLocalChatServer: false,
+  codeCompleteModel: "gpt-4o-mini",
 
   modelConfig: {
     model: "gpt-4o-mini" as ModelType,

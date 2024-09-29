@@ -300,7 +300,7 @@ export const freeModels = [
   "gpt-3.5-turbo-0125@X-Copilot",
   "gpt-4o-mini@X-Copilot",
 ];
-const openaiModels = [
+export const openaiModels = [
   "deepseek-chat",
   "deepseek-coder",
   "gpt-3.5-turbo",
