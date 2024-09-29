@@ -1,5 +1,4 @@
 import { showToast } from "@/app/components/ui-lib";
-import { getLang } from "@/app/locales";
 
 export function isIdeaPlugin() {
   if (typeof window == "undefined") {
@@ -210,15 +209,6 @@ export function isBase64(str: string) {
     // 如果出现错误，则返回false，表示输入的字符串不是Base64编码
     return false;
   }
-}
-
-export function getJvmLocale() {
-  const jvmLocale: Record<string, string> = {
-    cn: "zh-CN",
-    tw: "zh-TW",
-  };
-  const lang = getLang();
-  return jvmLocale[lang] ?? lang;
 }
 
 export const runtime = "browser";

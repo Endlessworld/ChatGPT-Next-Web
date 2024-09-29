@@ -165,3 +165,12 @@ export function getSTTLang(): string {
     return DEFAULT_STT_LANG;
   }
 }
+
+export function getIDELang() {
+  const langRecord: Record<string, string> = {
+    cn: "zh-CN",
+    tw: "zh-TW",
+  };
+  const lang = getLang();
+  return langRecord[lang] ?? lang;
+}

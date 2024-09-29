@@ -85,7 +85,7 @@ import dynamic from "next/dynamic";
 import { ChatControllerPool } from "../client/controller";
 import { DalleQuality, DalleSize, DalleStyle } from "../typing";
 import { Prompt, usePromptStore } from "../store/prompt";
-import Locale from "../locales";
+import Locale, { getIDELang } from "../locales";
 
 import { IconButton } from "./button";
 import styles from "./chat.module.scss";
@@ -109,6 +109,7 @@ import {
   UNFINISHED_INPUT,
   ServiceProvider,
   LAST_INPUT_KEY,
+  DEFAULT_API_HOST,
 } from "../constant";
 import { Avatar, UserAvatar } from "./emoji";
 import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
@@ -131,7 +132,6 @@ import { createTTSPlayer } from "../utils/audio";
 import { MsEdgeTTS, OUTPUT_FORMAT } from "../utils/ms_edge_tts";
 import {
   clearCache,
-  getJvmLocale,
   getProjectContextAwareness,
   ideaMessage,
   isBase64,
@@ -1549,18 +1549,18 @@ function _Chat() {
         });
       };
 
-      console.log("getJvmLocale", getJvmLocale());
+      console.log("getSTTLang", getIDELang());
       ideaMessage({
         event: "initialized",
-        message: JSON.stringify({ lang: getJvmLocale() }),
+        message: JSON.stringify({ lang: getIDELang() }),
       }).then((r) => {});
 
       const userInfo = getUserInfo();
       ideaMessage({
         event: "sync_session",
         message: JSON.stringify({
-          host: "http://127.0.0.1:11434",
-          session_token: "",
+          host: DEFAULT_API_HOST,
+          session_token: userInfo?.session_token,
           user_id: userInfo?.user_id,
           model: config.modelConfig.model,
           enable_local_completion: true,
