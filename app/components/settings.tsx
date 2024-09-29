@@ -68,7 +68,6 @@ import {
   Stability,
   Iflytek,
   LOGIN_HOST,
-  openaiModels,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
@@ -82,6 +81,8 @@ import { useMaskStore } from "../store/mask";
 import { ProviderType } from "../utils/cloud";
 import { TTSConfigList } from "./tts-config";
 import { getUserInfo, ideaMessage, isIdeaPlugin } from "@/app/copiolt/copilot";
+import { useAllModels } from "@/app/utils/hooks";
+import { groupBy } from "lodash-es";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -587,6 +588,11 @@ export function Settings() {
   const hasNewVersion = currentVersion !== remoteId;
   const updateUrl = getClientConfig()?.isApp ? RELEASE_URL : UPDATE_URL;
 
+  const allModels = useAllModels();
+  const groupModels = groupBy(
+    allModels.filter((v) => v.available),
+    "provider.providerName",
+  );
   function checkUpdate(force = false) {
     setCheckingUpdate(true);
     updateStore.getLatestVersion(force).then(() => {
@@ -1699,14 +1705,15 @@ export function Settings() {
                 });
               }}
             >
-              {openaiModels
-                .sort((a, b) => a.localeCompare(b))
-                .sort((a, b) => a.length - b.length)
-                .map((v, i) => (
-                  <option value={v} key={i}>
-                    {v}
-                  </option>
-                ))}
+              {Object.keys(groupModels).map((providerName, index) => (
+                <optgroup label={providerName} key={index}>
+                  {groupModels[providerName].map((v, i) => (
+                    <option value={`${v.name}`} key={i}>
+                      {v.displayName}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
             </Select>
           </ListItem>
           {showLocalServer ? (
