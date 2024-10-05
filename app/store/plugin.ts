@@ -4,8 +4,8 @@ import { nanoid } from "nanoid";
 import { createPersistStore } from "../utils/store";
 import { getClientConfig } from "../config/client";
 import yaml from "js-yaml";
-import { adapter } from "../utils";
 import { functionCall } from "@/app/copiolt/copilot";
+import { adapter, getOperationId } from "../utils";
 import { useAccessStore } from "./access";
 
 const isApp = getClientConfig()?.isApp;
@@ -119,7 +119,7 @@ export const FunctionToolService = {
         return {
           type: "function",
           function: {
-            name: o.operationId,
+            name: getOperationId(o),
             description: o.description || o.summary,
             parameters: parameters,
           },
@@ -127,7 +127,7 @@ export const FunctionToolService = {
       }),
       funcs: operations.reduce((s, o) => {
         // @ts-ignore
-        s[o.operationId] = function (args) {
+        s[getOperationId(o)] = function (args) {
           const parameters: Record<string, any> = {};
           if (o.parameters instanceof Array) {
             o.parameters.forEach((p) => {
@@ -142,8 +142,8 @@ export const FunctionToolService = {
           } else if (authLocation == "body") {
             args[headerName] = tokenValue;
           }
-          // @ts-ignore
-          return api.client[o.operationId](
+          // @ts-ignore if o.operationId is null, then using o.path and o.method
+          return api.client.paths[o.path][o.method](
             parameters,
             args,
             api.axiosConfigDefaults,

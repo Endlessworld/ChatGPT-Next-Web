@@ -252,7 +252,7 @@ function tryWrapHtmlCode(text: string) {
       },
     )
     .replace(
-      /(<\/body>)([\r\n\s]*?)(<\/html>)([\n\r]*?)([`]*?)([\n\r]*?)/g,
+      /(<\/body>)([\r\n\s]*?)(<\/html>)([\n\r]*)([`]*)([\n\r]*?)/g,
       (match, bodyEnd, space, htmlEnd, newLine, quoteEnd) => {
         return !quoteEnd ? bodyEnd + space + htmlEnd + "\n```\n" : match;
       },
@@ -297,7 +297,7 @@ function _MarkDownContent(props: { content: string }) {
               </video>
             );
           }
-            const isInternal = /^\/#/i.test(href) || href.includes("self");
+          const isInternal = /^\/#/i.test(href) || href.includes("self");
           const target = isInternal ? "_self" : aProps.target ?? "_blank";
           return <a {...aProps} target={target} />;
         },
