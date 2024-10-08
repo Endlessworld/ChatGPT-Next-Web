@@ -99,6 +99,8 @@ export async function requestOpenai(req: NextRequest) {
         "OpenAI-Organization": serverConfig.openaiOrgId,
       }),
       Cookie: req.headers.get("cookie") || "",
+      "x-id": req.headers.get("x-id") || "",
+      "x-session": req.headers.get("x-session") || "",
     },
     method: req.method,
     body: req.body,
