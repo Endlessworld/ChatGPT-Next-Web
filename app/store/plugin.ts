@@ -55,11 +55,9 @@ export const FunctionToolService = {
     const authLocation = plugin?.authLocation || "header";
     const definition = yaml.load(plugin.content) as any;
     const serverURL = definition?.servers?.[0]?.url;
-    // const baseURL = !isApp && !isIdeaPlugin() ? "/api/proxy" : serverURL;
-    const baseURL = "/api/proxy";
+    const baseURL = !isApp ? "/api/proxy" : serverURL;
     const headers: Record<string, string | undefined> = {
       "X-Base-URL": !isApp ? serverURL : undefined,
-      mode: "no-cors", // 使用 no-cors 模式来避免跨域阻止
     };
     if (authLocation == "header") {
       headers[headerName] = tokenValue;

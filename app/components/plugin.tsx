@@ -111,6 +111,7 @@ export function PluginPage() {
           const tool = FunctionToolService.add(plugin, true);
           plugin.title = tool.api.definition.info.title;
           plugin.version = tool.api.definition.info.version;
+          plugin.builtin = false;
         });
       })
       .catch((e) => {
