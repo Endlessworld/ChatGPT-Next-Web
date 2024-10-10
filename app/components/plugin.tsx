@@ -343,6 +343,7 @@ export function PluginPage() {
                   >
                     <pre>
                       <code
+                        className={"hljs language-json"}
                         contentEditable={true}
                         dangerouslySetInnerHTML={{
                           __html: editingPlugin.content,
