@@ -37,8 +37,8 @@ const tw = {
       PinToastAction: "檢視",
       Delete: "刪除",
       Edit: "編輯",
-      RefreshTitle: "刷新標題",
-      RefreshToast: "已發送刷新標題請求",
+      RefreshTitle: "重新整理標題",
+      RefreshToast: "已傳送重新整理標題請求",
     },
     Commands: {
       new: "新建聊天",
@@ -79,10 +79,10 @@ const tw = {
     IsContext: "預設提示詞",
     ShortcutKey: {
       Title: "鍵盤快捷方式",
-      newChat: "打開新聊天",
+      newChat: "開啟新聊天",
       focusInput: "聚焦輸入框",
       copyLastMessage: "複製最後一個回覆",
-      copyLastCode: "複製最後一個代碼塊",
+      copyLastCode: "複製最後一個程式碼區塊",
       showShortcutKey: "顯示快捷方式",
     },
   },
@@ -158,9 +158,9 @@ const tw = {
       SubTitle: "聊天內容的字型大小",
     },
     FontFamily: {
-      Title: "聊天字體",
-      SubTitle: "聊天內容的字體，若置空則應用全局默認字體",
-      Placeholder: "字體名稱",
+      Title: "聊天字型",
+      SubTitle: "聊天內容的字型，若留空則套用全域預設字型",
+      Placeholder: "字型名稱",
     },
     InjectSystemPrompts: {
       Title: "匯入系統提示",
@@ -285,8 +285,8 @@ const tw = {
         Title: "使用 NextChat AI",
         Label: "(性價比最高的方案)",
         SubTitle:
-          "由 NextChat 官方維護，零配置開箱即用，支持 OpenAI o1、GPT-4o、Claude-3.5 等最新大模型",
-        ChatNow: "立刻對話",
+          "由 NextChat 官方維護，無須設定開箱即用，支援 OpenAI o1、GPT-4o、Claude-3.5 等最新的大型語言模型",
+        ChatNow: "立刻開始對話",
       },
 
       AccessCode: {
@@ -469,18 +469,18 @@ const tw = {
     },
   },
   SearchChat: {
-    Name: "搜索",
+    Name: "搜尋",
     Page: {
-      Title: "搜索聊天記錄",
-      Search: "輸入搜索關鍵詞",
+      Title: "搜尋聊天記錄",
+      Search: "輸入搜尋關鍵詞",
       NoResult: "沒有找到結果",
-      NoData: "沒有數據",
-      Loading: "加載中",
+      NoData: "沒有資料",
+      Loading: "載入中",
 
       SubTitle: (count: number) => `找到 ${count} 條結果`,
     },
     Item: {
-      View: "查看",
+      View: "檢視",
     },
   },
   NewChat: {
