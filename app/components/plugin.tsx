@@ -28,6 +28,7 @@ import {
 import Locale from "../locales";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { validateJson } from "@/app/utils";
 
 export function PluginPage() {
   const navigate = useNavigate();
@@ -98,8 +99,9 @@ export function PluginPage() {
       .then((res) => res.text())
       .then((content) => {
         try {
-          return JSON.stringify(JSON.parse(content), null, "  ");
+          return JSON.stringify(validateJson(JSON.parse(content)), null, "  ");
         } catch (e) {
+          console.error(e);
           return content;
         }
       })
@@ -212,7 +214,7 @@ export function PluginPage() {
                     text={Locale.Plugin.Item.Edit}
                     onClick={() => setEditingPluginId(m.id)}
                   />
-                  {!!m.builtin && (
+                  {!m.builtin && (
                     <IconButton
                       icon={<DeleteIcon />}
                       text={Locale.Plugin.Item.Delete}

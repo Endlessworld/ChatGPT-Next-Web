@@ -222,11 +222,12 @@ export function stream(
               ),
             )
               .then((res) => {
-                let content = res.data || res?.statusText;
-                if (res.status >= 300) {
+                let content = res.data;
+                try {
+                  return JSON.stringify(res);
+                } catch (e) {
                   return Promise.reject(content);
                 }
-                return content;
               })
               .then((content) => {
                 options?.onAfterTool?.({

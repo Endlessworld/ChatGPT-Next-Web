@@ -395,7 +395,27 @@ export function getOperationId(operation: {
 }) {
   // pattern '^[a-zA-Z0-9_-]+$'
   return (
-    operation?.operationId ||
+    operation?.operationId?.replaceAll("/", "_") ||
     `${operation.method.toUpperCase()}${operation.path.replaceAll("/", "_")}`
   );
+}
+
+export function validateJson(json: any) {
+  if (json.paths) {
+    for (const path in json.paths) {
+      const methods = json.paths[path];
+      for (const method in methods) {
+        const description = methods[method].description;
+        methods[method].description = description.substring(
+          0,
+          Math.min(description.length, 1024),
+        );
+        console.log(
+          methods[method].description.length,
+          methods[method].description,
+        );
+      }
+    }
+  }
+  return json;
 }
