@@ -215,7 +215,7 @@ export function PluginPage() {
                     text={Locale.Plugin.Item.Edit}
                     onClick={() => setEditingPluginId(m.id)}
                   />
-                  {!m.builtin && (
+                  {
                     <IconButton
                       icon={<DeleteIcon />}
                       text={Locale.Plugin.Item.Delete}
@@ -227,7 +227,7 @@ export function PluginPage() {
                         }
                       }}
                     />
-                  )}
+                  }
                 </div>
               </div>
             ))}
