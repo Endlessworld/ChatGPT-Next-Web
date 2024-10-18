@@ -13,6 +13,7 @@ import {
   MOONSHOT_BASE_URL,
   STABILITY_BASE_URL,
   IFLYTEK_BASE_URL,
+  OLLAMA_BASE_URL,
 } from "../constant";
 import { getHeaders } from "../client/api";
 import { getClientConfig } from "../config/client";
@@ -44,6 +45,8 @@ const DEFAULT_STABILITY_URL = isApp ? STABILITY_BASE_URL : ApiPath.Stability;
 
 const DEFAULT_IFLYTEK_URL = isApp ? IFLYTEK_BASE_URL : ApiPath.Iflytek;
 
+const DEFAULT_OLLAMA_URL = OLLAMA_BASE_URL;
+
 const DEFAULT_ACCESS_STATE = {
   accessCode: "",
   useCustomConfig: false,
@@ -53,7 +56,8 @@ const DEFAULT_ACCESS_STATE = {
   // openai
   openaiUrl: DEFAULT_OPENAI_URL,
   openaiApiKey: "",
-
+  //ollama
+  ollamaUrl: DEFAULT_OLLAMA_URL,
   // azure
   azureUrl: "",
   azureApiKey: "",

@@ -82,18 +82,26 @@ export class ChatGPTApi implements LLMApi {
 
   path(path: string): string {
     const accessStore = useAccessStore.getState();
+    const chatStore = useChatStore.getState();
 
-    let baseUrl = "";
-
+    let baseUrl = accessStore.openaiUrl;
     const isAzure = path.includes("deployments");
     if (accessStore.useCustomConfig) {
+      const isOllama =
+        chatStore.currentSession().mask.modelConfig.providerName ===
+        ServiceProvider.Ollama;
       if (isAzure && !accessStore.isValidAzure()) {
         throw Error(
           "incomplete azure config, please check it in your settings page",
         );
       }
-
-      baseUrl = isAzure ? accessStore.azureUrl : accessStore.openaiUrl;
+      if (isAzure) {
+        baseUrl = accessStore.azureUrl;
+      }
+      console.log("isOllama: ", isOllama);
+      if (isOllama) {
+        baseUrl = accessStore.ollamaUrl;
+      }
     }
 
     if (baseUrl.length === 0) {
@@ -229,8 +237,7 @@ export class ChatGPTApi implements LLMApi {
         presence_penalty: !isO1 ? modelConfig.presence_penalty : 0,
         frequency_penalty: !isO1 ? modelConfig.frequency_penalty : 0,
         top_p: !isO1 ? modelConfig.top_p : 1,
-        // max_tokens: Math.max(modelConfig.max_tokens, 1024),
-        // Please do not ask me why not send max_tokens, no reason, this param is just shit, I dont want to explain anymore.
+        max_tokens: Math.max(modelConfig.max_tokens, 1024),
       };
 
       // add max_tokens to vision model

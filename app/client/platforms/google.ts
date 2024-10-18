@@ -182,10 +182,12 @@ export class GeminiProApi implements LLMApi {
       );
 
       if (shouldStream) {
+        const currentSession = useChatStore.getState().currentSession();
         const [tools, funcs] = usePluginStore
           .getState()
           .getAsTools(
             useChatStore.getState().currentSession().mask?.plugin || [],
+            currentSession.id,
           );
         return stream(
           chatPath,

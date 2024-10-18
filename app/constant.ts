@@ -32,6 +32,8 @@ export const TENCENT_BASE_URL = "https://hunyuan.tencentcloudapi.com";
 export const MOONSHOT_BASE_URL = "https://api.moonshot.cn";
 export const IFLYTEK_BASE_URL = "https://spark-api-open.xf-yun.com";
 
+export const OLLAMA_BASE_URL = "http://localhost:11434";
+
 export const CACHE_URL_PREFIX = "/api/cache";
 export const UPLOAD_URL = `${CACHE_URL_PREFIX}/upload`;
 import BotIcon from "./icons/bot.svg";
@@ -63,6 +65,7 @@ export enum ApiPath {
   Iflytek = "/api/iflytek",
   Stability = "/api/stability",
   Artifacts = "/api/artifacts",
+  Ollama = "/api/openai",
 }
 
 export enum SlotID {
@@ -105,7 +108,7 @@ export const REQUEST_TIMEOUT_MS = 60000;
 export const EXPORT_MESSAGE_CLASS_NAME = "export-markdown";
 
 export enum ServiceProvider {
-  OpenAI = "X-Copilot",
+  OpenAI = "OpenAI",
   Azure = "Azure",
   Google = "Google",
   Anthropic = "Anthropic",
@@ -116,6 +119,8 @@ export enum ServiceProvider {
   Moonshot = "Moonshot",
   Stability = "Stability",
   Iflytek = "Iflytek",
+  Ollama = "Ollama",
+  Copilot = "X-Copilot",
 }
 
 // Google API safety settings, see https://ai.google.dev/gemini-api/docs/safety-settings
