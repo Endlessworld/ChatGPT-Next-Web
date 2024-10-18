@@ -220,11 +220,15 @@ export function getHeaders(ignoreHeaders: boolean = false) {
     headers = {
       "Content-Type": "application/json",
       Accept: "application/json",
-      "x-id": userInfo.user_id,
-      "x-session": userInfo.session_token,
     };
   }
-
+  const isCopilot =
+    chatStore.currentSession().mask.modelConfig.providerName ===
+    ServiceProvider.Copilot;
+  if (isCopilot) {
+    headers["x-id"] = userInfo.user_id;
+    headers["x-session"] = userInfo.session_token;
+  }
   const clientConfig = getClientConfig();
 
   function getConfig() {

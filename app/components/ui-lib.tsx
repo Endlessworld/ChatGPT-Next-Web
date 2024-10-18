@@ -25,7 +25,7 @@ import React, {
 } from "react";
 import { IconButton } from "./button";
 import { LLMModel } from "@/app/client/api";
-import { freeModels } from "@/app/constant";
+import { freeModels, ServiceProvider } from "@/app/constant";
 import { useUserInfo } from "@/app/copiolt/copilot";
 
 export function Popover(props: {
@@ -73,7 +73,7 @@ export function ListItem(props: {
       onClick={props.onClick}
     >
       <div className={styles["list-header"]}>
-        {props.title && props.title.includes("Copilot") && props.icon && (
+        {props.title && props.icon && (
           <div className={styles["list-icon"]}> {props.icon}</div>
         )}
         <div className={styles["list-item-title"]}>
@@ -473,6 +473,77 @@ export function showImageModal(
   });
 }
 
+export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
+  const serviceProvider = props.modeName.split("@")[1] as ServiceProvider;
+  const isAnthropic = serviceProvider === ServiceProvider.Anthropic;
+  const isTencent = serviceProvider === ServiceProvider.Tencent;
+  const isMoonshot = serviceProvider === ServiceProvider.Moonshot;
+  const isOllama = serviceProvider === ServiceProvider.Ollama;
+  const isByteDance = serviceProvider === ServiceProvider.ByteDance;
+  const isBaidu = serviceProvider === ServiceProvider.Baidu;
+  const isAlibaba = serviceProvider === ServiceProvider.Alibaba;
+  console.log(
+    props,
+    isAlibaba,
+    isAlibaba,
+    isByteDance,
+    isOllama,
+    isMoonshot,
+    isTencent,
+    isAnthropic,
+  );
+
+  return (
+    <div
+      className={`${
+        freeModels?.includes(props.modeName as string) || props.isVIP
+          ? ""
+          : styles["selector-item-icon-disabled"]
+      }`}
+    >
+      {isTencent ? (
+        <img
+          className={styles["list-icon"]}
+          src={"provider/qq.png"}
+          style={{ display: "block", maxHeight: "35px", maxWidth: "35px" }}
+        />
+      ) : isAnthropic ? (
+        <img
+          className={styles["list-icon"]}
+          src={"provider/claude_icon.png"}
+          style={{ display: "block", maxHeight: "35px", maxWidth: "35px" }}
+        />
+      ) : isOllama ? (
+        <img
+          className={styles["list-icon"]}
+          src={"provider/ollama.png"}
+          style={{ maxHeight: "35px", maxWidth: "35px" }}
+        />
+      ) : isByteDance ? (
+        <img
+          className={styles["list-icon"]}
+          src={"provider/doubao-icon.png"}
+          style={{ maxHeight: "35px", maxWidth: "35px" }}
+        />
+      ) : isMoonshot ? (
+        <img
+          className={styles["list-icon"]}
+          src={"provider/moonshot.ico"}
+          style={{ maxHeight: "35px", maxWidth: "35px" }}
+        />
+      ) : isBaidu ? (
+        <img
+          className={styles["list-icon"]}
+          src={"provider/baidu-icon.png"}
+          style={{ maxHeight: "35px", maxWidth: "35px" }}
+        />
+      ) : (
+        <BotIcon />
+      )}
+    </div>
+  );
+}
+
 export function Selector<T>(props: {
   items: Array<{
     title: string;
@@ -508,7 +579,6 @@ export function Selector<T>(props: {
   };
   const isVIP =
     new Date() < new Date(useUserInfo()?.vip_exp_date || "1970 00:00:00");
-  console.log(isVIP);
   return (
     <div className={styles["selector"]} onClick={() => props.onClose?.()}>
       <div className={styles["selector-content"]}>
@@ -517,17 +587,7 @@ export function Selector<T>(props: {
             const selected = selectedValues.includes(item.value);
             return (
               <ListItem
-                icon={
-                  <div
-                    className={`${
-                      freeModels?.includes(item.value as string) || isVIP
-                        ? ""
-                        : styles["selector-item-icon-disabled"]
-                    }`}
-                  >
-                    <BotIcon />
-                  </div>
-                }
+                icon={ModelIcon({ modeName: item.value as string, isVIP })}
                 className={`${styles["selector-item"]} ${
                   styles["list-item-free"]
                 } ${item.disable && styles["selector-item-disabled"]}`}
