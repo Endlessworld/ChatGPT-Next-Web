@@ -482,9 +482,11 @@ export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
   const isByteDance = serviceProvider === ServiceProvider.ByteDance;
   const isBaidu = serviceProvider === ServiceProvider.Baidu;
   const isAlibaba = serviceProvider === ServiceProvider.Alibaba;
+  const isIflytek = serviceProvider === ServiceProvider.Iflytek;
+  const isAzure = serviceProvider === ServiceProvider.Azure;
+  const isGoogle = serviceProvider === ServiceProvider.Google;
   console.log(
     props,
-    isAlibaba,
     isAlibaba,
     isByteDance,
     isOllama,
@@ -507,11 +509,17 @@ export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
           src={"provider/qq.png"}
           style={{ display: "block", maxHeight: "35px", maxWidth: "35px" }}
         />
+      ) : isAlibaba ? (
+        <img
+          className={styles["list-icon"]}
+          src={"provider/tongyi.png"}
+          style={{ maxHeight: "35px", maxWidth: "35px" }}
+        />
       ) : isAnthropic ? (
         <img
           className={styles["list-icon"]}
           src={"provider/claude_icon.png"}
-          style={{ display: "block", maxHeight: "35px", maxWidth: "35px" }}
+          style={{ maxHeight: "35px", maxWidth: "35px" }}
         />
       ) : isOllama ? (
         <img
@@ -535,6 +543,24 @@ export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
         <img
           className={styles["list-icon"]}
           src={"provider/baidu-icon.png"}
+          style={{ maxHeight: "35px", maxWidth: "35px" }}
+        />
+      ) : isIflytek ? (
+        <img
+          className={styles["list-icon"]}
+          src={"provider/spark_icon.svg"}
+          style={{ maxHeight: "35px", maxWidth: "35px" }}
+        />
+      ) : isAzure ? (
+        <img
+          className={styles["list-icon"]}
+          src={"provider/azure.jpeg"}
+          style={{ maxHeight: "35px", maxWidth: "35px" }}
+        />
+      ) : isGoogle ? (
+        <img
+          className={styles["list-icon"]}
+          src={"provider/gemini.png"}
           style={{ maxHeight: "35px", maxWidth: "35px" }}
         />
       ) : (
