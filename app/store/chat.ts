@@ -25,6 +25,7 @@ import { ModelConfig, ModelType, useAppConfig } from "./config";
 import { useAccessStore } from "./access";
 import { collectModelsWithDefaultModel } from "../utils/model";
 import { createEmptyMask, Mask } from "./mask";
+import { ideaMessage } from "@/app/copiolt/copilot";
 
 const localStorage = safeLocalStorage();
 
@@ -425,6 +426,17 @@ export const useChatStore = createPersistStore(
             if (message) {
               botMessage.content = message;
               get().onNewMessage(botMessage);
+              if (
+                message &&
+                !message.includes("Login has expired") &&
+                !message.includes("empty response from server")
+              ) {
+                ideaMessage({
+                  event: "auto",
+                  message: message,
+                  session: get().currentSession().id,
+                }).then((r) => {});
+              }
             }
             ChatControllerPool.remove(session.id, botMessage.id);
           },
