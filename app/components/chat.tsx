@@ -1556,7 +1556,7 @@ function _Chat() {
       ideaMessage({
         event: "initialized",
         message: JSON.stringify({ lang: getIDELang() }),
-      }).then((r) => {});
+      });
 
       const userInfo = getUserInfo();
       ideaMessage({

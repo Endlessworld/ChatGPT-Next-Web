@@ -435,7 +435,7 @@ export const useChatStore = createPersistStore(
                   event: "auto",
                   message: message,
                   session: get().currentSession().id,
-                }).then((r) => {});
+                });
               }
             }
             ChatControllerPool.remove(session.id, botMessage.id);

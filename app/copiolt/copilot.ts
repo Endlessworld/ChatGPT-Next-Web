@@ -96,18 +96,20 @@ export async function ideaMessage(
     event: "replace",
     message: "",
     session: "",
+    callback: (response: any) => {},
   },
 ) {
-  if (message.event === "") {
+  if (!message.event) {
     return;
   }
-  // console.log((window as any).cefQuery);
+  const callback = message.callback || (() => {});
   try {
     if ((window as any).cefQuery) {
       console.log("cefQuery", message);
       (window as any).cefQuery({
         request: JSON.stringify(message),
-        onSuccess: function (cefResponse: any) {
+        onSuccess: (cefResponse: any) => {
+          console.log("cefResponse", cefResponse);
           if (message.event === "replace") {
             // showToast(Locale.Replace.Success);
           }
@@ -118,18 +120,12 @@ export async function ideaMessage(
             // showToast("自动回写成功");
           }
           if (message.event === "function_call") {
-            console.log(cefResponse);
-            localStorage.setItem("function-response", cefResponse);
-            showToast("function call success");
+            showToast("tool call success");
           }
+          callback(cefResponse);
         },
-        onFailure: function (error_code: any, error_message: any) {
-          if (message.event === "replace") {
-            showToast(error_message);
-          }
-          if (message.event === "diff") {
-            showToast(error_message);
-          }
+        onFailure: (error_code: any, error_message: any) => {
+          showToast("tool call failed " + error_message);
         },
       });
     } else {
@@ -149,25 +145,20 @@ export async function Replace(messageText: string, session: string) {
 }
 
 export async function functionCall(messageText: string, session: string) {
-  ideaMessage({
-    event: "function_call",
-    message: messageText,
-    session: session,
-  });
   return new Promise((resolve) => {
-    const intervalId = setInterval(() => {
-      const response = localStorage.getItem("function-response");
-      if (response !== null) {
-        localStorage.removeItem("function-response");
-        clearInterval(intervalId); // 停止定时器
+    ideaMessage({
+      event: "function_call",
+      message: messageText,
+      session: session,
+      callback: (response: any) => {
         resolve({
           status: 200,
           data: {
             content: response,
           },
         });
-      }
-    }, 1000);
+      },
+    });
   });
 }
 
