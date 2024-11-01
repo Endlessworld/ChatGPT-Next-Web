@@ -131,7 +131,7 @@ export async function ideaMessage(
           callback(cefResponse);
         },
         onFailure: (error_code: any, error_message: any) => {
-          showToast("tool call failed " + error_message);
+          // showToast("tool call failed " + error_message);
         },
       });
     } else {
