@@ -92,7 +92,12 @@ export function getCookie(name: string | any[]) {
 }
 
 export async function ideaMessage(
-  message: Record<string, unknown> = {
+  message: {
+    event: string;
+    message?: string;
+    session?: string;
+    callback?: (response: any) => void;
+  } = {
     event: "replace",
     message: "",
     session: "",
@@ -102,7 +107,8 @@ export async function ideaMessage(
   if (!message.event) {
     return;
   }
-  const callback = message.callback || (() => {});
+  const callback: (response: any) => void =
+    message.callback || ((response: any) => {});
   try {
     if ((window as any).cefQuery) {
       console.log("cefQuery", message);
