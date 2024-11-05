@@ -361,3 +361,101 @@
     }
   }
 }
+
+@mixin single-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box; /* 确保内边距和边框不会增加元素的宽度 */
+}
+
+.prompt-hints {
+  min-height: 20px;
+  width: 100%;
+  max-height: 50vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+
+  background-color: var(--white);
+  border: var(--border-in-light);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow);
+
+  .prompt-hint {
+    color: var(--black);
+    padding: 6px 10px;
+    animation: slide-in ease 0.3s;
+    cursor: pointer;
+    transition: all ease 0.3s;
+    border: transparent 1px solid;
+    margin: 4px;
+    border-radius: 8px;
+    display: -webkit-flex; /* Safari */
+    display: flex; /* Standard syntax */
+
+    &:not(:last-child) {
+      margin-top: 0;
+    }
+
+    .hint-icon{
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+      margin-right: 10px;
+      //margin-left: 5px;
+      max-height: 30px;
+      max-width: 30px;
+    }
+
+    .hint-text {
+      width: 75vw;
+      display: flex;
+      flex-direction: column; /* 垂直排列标题和内容 */
+    }
+
+    .hint-title {
+      font-size: 12px;
+      font-weight: bolder;
+    }
+
+    .hint-content {
+      font-size: 12px;
+      @include single-line();
+    }
+    .hint-tag{
+      font-size: 11px;
+      position: relative;
+      display: inline-block;
+      width: auto;
+      z-index: 999;
+      transform: rotate(45deg);
+      p {
+        border-radius: 5px;
+      }
+    }
+    .hint-free {
+      p {
+        background-color: #06b217;
+        color: #f8eb14;
+      }
+    }
+    .hint-vip {
+      p {
+        background-color: #f1e861;
+        color: #ed0c0c;
+      }
+    }
+    .hint-custom {
+      p {
+        background-color: #137cfa;
+        color: rgb(255, 255, 255);
+      }
+    }
+    &-selected,
+    &:hover {
+      border-color: var(--primary);
+    }
+  }
+}

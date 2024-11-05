@@ -84,16 +84,18 @@ import dynamic from "next/dynamic";
 
 import { ChatControllerPool } from "../client/controller";
 import { DalleQuality, DalleSize, DalleStyle } from "../typing";
-import { Prompt, usePromptStore } from "../store/prompt";
+import { usePromptStore } from "../store/prompt";
 import Locale, { getIDELang } from "../locales";
 
 import { IconButton } from "./button";
 import styles from "./chat.module.scss";
 
 import {
+  ChatHints,
   List,
   ListItem,
   Modal,
+  RenderPrompt,
   Selector,
   showConfirm,
   showPrompt,
@@ -131,7 +133,6 @@ import { createTTSPlayer } from "../utils/audio";
 import { MsEdgeTTS, OUTPUT_FORMAT } from "../utils/ms_edge_tts";
 import {
   clearCache,
-  getProjectContextAwareness,
   ideaMessage,
   isBase64,
   isIdeaPlugin,
@@ -292,8 +293,6 @@ function useSubmitHandler() {
     shouldSubmit,
   };
 }
-
-export type RenderPrompt = Pick<Prompt, "title" | "content">;
 
 export function PromptHints(props: {
   prompts: RenderPrompt[];
@@ -474,10 +473,12 @@ export function ChatActions(props: {
   showPromptModal: () => void;
   scrollToBottom: () => void;
   showPromptHints: () => void;
+  showChatHints: (input: any[]) => void;
   hitBottom: boolean;
   uploading: boolean;
   setShowShortcutKeyModal: React.Dispatch<React.SetStateAction<boolean>>;
   setUserInput: (input: string) => void;
+  setChatHints: (input: RenderPrompt[]) => void;
 }) {
   const config = useAppConfig();
   const navigate = useNavigate();
@@ -649,7 +650,9 @@ export function ChatActions(props: {
       />
 
       <ChatAction
-        onClick={() => setShowModelSelector(true)}
+        onClick={() => {
+          props.showChatHints(models);
+        }}
         text={currentModelName}
         icon={<RobotIcon />}
       />
@@ -981,6 +984,7 @@ function _Chat() {
   // prompt hints
   const promptStore = usePromptStore();
   const [promptHints, setPromptHints] = useState<RenderPrompt[]>([]);
+  const [chatHints, setChatHints] = useState<RenderPrompt[]>([]);
   const onSearch = useDebouncedCallback(
     (text: string) => {
       const matchedPrompts = promptStore.search(text);
@@ -1108,6 +1112,22 @@ function _Chat() {
         setUserInput(prompt.content);
       }
       inputRef.current?.focus();
+    }, 30);
+  };
+  const onChatHintsSelect = (hints: RenderPrompt) => {
+    setTimeout(() => {
+      setChatHints([]);
+      console.log(hints);
+      inputRef.current?.focus();
+      if (hints.content.length === 0) return;
+      const model = hints.title;
+      const providerName = hints.providerName;
+      chatStore.updateCurrentSession((session) => {
+        session.mask.modelConfig.model = model as ModelType;
+        session.mask.modelConfig.providerName = providerName as ServiceProvider;
+        session.mask.syncGlobalConfig = false;
+      });
+      showToast(model);
     }, 30);
   };
 
@@ -1406,41 +1426,6 @@ function _Chat() {
 
   const autoFocus = !isMobileScreen; // wont auto focus on mobile screen
   const showMaxIcon = !isMobileScreen && !clientConfig?.isApp;
-
-  const contextAwarenessHandler = useCallback(() => {
-    chatStore.updateCurrentSession((session) => {
-      session.mask.context = session.mask.context.filter(
-        (message) => !getMessageTextContent(message).startsWith("\u200D\u200D"),
-      );
-    });
-    const projectContext = localStorage.getItem("project-context");
-    if (projectContext) {
-      if (JSON.parse(projectContext).enableContext) {
-        const contextAwareness = getProjectContextAwareness();
-        chatStore.updateCurrentSession((session) => {
-          const awareMessage = createMessage({
-            role: "system",
-            content: contextAwareness,
-          });
-          session.mask.context.unshift(awareMessage);
-        });
-      }
-    }
-  }, [chatStore]);
-  const functionCallBack = useCallback(() => {
-    chatStore.updateCurrentSession((session) => {
-      session.mask.context = session.mask.context.filter(
-        (message) => !getMessageTextContent(message).startsWith("\u200D\u200D"),
-      );
-    });
-    const responsesJSON = localStorage.getItem("function-response");
-    if (responsesJSON) {
-      const responses = JSON.parse(responsesJSON);
-      if (responses) {
-        chatStore.onUserInput(responses.response);
-      }
-    }
-  }, []);
   useEffect(() => {
     console.log("_Chat installed XSelectSession");
     (window as any).XSelectSession = (selectSession: string) => {
@@ -2169,8 +2154,8 @@ function _Chat() {
       </div>
 
       <div className={styles["chat-input-panel"]}>
-        <PromptHints prompts={promptHints} onPromptSelect={onPromptSelect} />
-
+        <ChatHints hints={promptHints} onSelect={onPromptSelect} />
+        <ChatHints hints={chatHints} onSelect={onChatHintsSelect} />
         <ChatActions
           uploadImage={uploadImage}
           setAttachImages={setAttachImages}
@@ -2180,6 +2165,7 @@ function _Chat() {
           hitBottom={hitBottom}
           uploading={uploading}
           showPromptHints={() => {
+            setChatHints([]);
             // Click again to close
             if (promptHints.length > 0) {
               setPromptHints([]);
@@ -2192,6 +2178,16 @@ function _Chat() {
           }}
           setShowShortcutKeyModal={setShowShortcutKeyModal}
           setUserInput={setUserInput}
+          setChatHints={setChatHints}
+          showChatHints={(models: any[]) => {
+            setPromptHints([]);
+            const hints = models.map((m) => ({
+              title: `${m.displayName}`,
+              content: `${m?.provider?.providerName}`,
+              providerName: `${m?.provider?.providerName}`,
+            }));
+            setChatHints(hints);
+          }}
         />
         <label
           className={`${styles["chat-input-panel-inner"]} ${

@@ -10,6 +10,8 @@ import CancelIcon from "../icons/cancel.svg";
 import MaxIcon from "../icons/max.svg";
 import MinIcon from "../icons/min.svg";
 import BotIcon from "../icons/bot.svg";
+import SparkIcon from "../icons/spark_icon.svg";
+import GLMIcon from "../icons/glm.svg";
 
 import Locale from "../locales";
 
@@ -18,10 +20,10 @@ import React, {
   CSSProperties,
   HTMLProps,
   MouseEvent,
-  useEffect,
-  useState,
   useCallback,
+  useEffect,
   useRef,
+  useState,
 } from "react";
 import { IconButton } from "./button";
 import { LLMModel } from "@/app/client/api";
@@ -122,6 +124,7 @@ interface ModalProps {
   footer?: React.ReactNode;
   onClose?: () => void;
 }
+
 export function Modal(props: ModalProps) {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -276,6 +279,7 @@ export function PasswordInput(
   props: HTMLProps<HTMLInputElement> & { aria?: string },
 ) {
   const [visible, setVisible] = useState(false);
+
   function changeVisibility() {
     setVisible(!visible);
   }
@@ -485,15 +489,12 @@ export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
   const isIflytek = serviceProvider === ServiceProvider.Iflytek;
   const isAzure = serviceProvider === ServiceProvider.Azure;
   const isGoogle = serviceProvider === ServiceProvider.Google;
-  console.log(
-    props,
-    isAlibaba,
-    isByteDance,
-    isOllama,
-    isMoonshot,
-    isTencent,
-    isAnthropic,
-  );
+  const isGlm = serviceProvider === ServiceProvider.ChatGLM;
+  const isXAi = serviceProvider === ServiceProvider.XAI;
+  // console.log(
+  //   props,
+  //   serviceProvider
+  // );
 
   return (
     <div
@@ -504,67 +505,63 @@ export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
       }`}
     >
       {isTencent ? (
-        <img
-          className={styles["list-icon"]}
-          src={"provider/qq.png"}
-          style={{ display: "block", maxHeight: "35px", maxWidth: "35px" }}
-        />
+        <img className={styles["hint-icon"]} src={"provider/qq.png"} alt={""} />
       ) : isAlibaba ? (
         <img
-          className={styles["list-icon"]}
+          className={styles["hint-icon"]}
           src={"provider/tongyi.png"}
-          style={{ maxHeight: "35px", maxWidth: "35px" }}
+          alt={""}
         />
       ) : isAnthropic ? (
         <img
-          className={styles["list-icon"]}
+          className={styles["hint-icon"]}
           src={"provider/claude_icon.png"}
-          style={{ maxHeight: "35px", maxWidth: "35px" }}
+          alt={""}
         />
       ) : isOllama ? (
         <img
-          className={styles["list-icon"]}
+          className={styles["hint-icon"]}
           src={"provider/ollama.png"}
-          style={{ maxHeight: "35px", maxWidth: "35px" }}
+          alt={""}
         />
       ) : isByteDance ? (
         <img
-          className={styles["list-icon"]}
+          className={styles["hint-icon"]}
           src={"provider/doubao-icon.png"}
-          style={{ maxHeight: "35px", maxWidth: "35px" }}
+          alt={""}
         />
       ) : isMoonshot ? (
         <img
-          className={styles["list-icon"]}
+          className={styles["hint-icon"]}
           src={"provider/moonshot.ico"}
-          style={{ maxHeight: "35px", maxWidth: "35px" }}
+          alt={""}
         />
       ) : isBaidu ? (
         <img
-          className={styles["list-icon"]}
+          className={styles["hint-icon"]}
           src={"provider/baidu-icon.png"}
-          style={{ maxHeight: "35px", maxWidth: "35px" }}
-        />
-      ) : isIflytek ? (
-        <img
-          className={styles["list-icon"]}
-          src={"provider/spark_icon.svg"}
-          style={{ maxHeight: "35px", maxWidth: "35px" }}
+          alt={""}
         />
       ) : isAzure ? (
         <img
-          className={styles["list-icon"]}
+          className={styles["hint-icon"]}
           src={"provider/azure.jpeg"}
-          style={{ maxHeight: "35px", maxWidth: "35px" }}
+          alt={""}
         />
       ) : isGoogle ? (
         <img
-          className={styles["list-icon"]}
+          className={styles["hint-icon"]}
           src={"provider/gemini.png"}
-          style={{ maxHeight: "35px", maxWidth: "35px" }}
+          alt={""}
         />
+      ) : isXAi ? (
+        <img className={styles["hint-icon"]} src={"provider/x.png"} alt={""} />
+      ) : isIflytek ? (
+        <SparkIcon className={styles["hint-icon"]} />
+      ) : isGlm ? (
+        <GLMIcon className={styles["hint-icon"]} />
       ) : (
-        <BotIcon />
+        <BotIcon className={styles["hint-icon"]} />
       )}
     </div>
   );
@@ -663,6 +660,7 @@ export function Selector<T>(props: {
     </div>
   );
 }
+
 export function FullScreen(props: any) {
   const { children, right = 10, top = 10, ...rest } = props;
   const ref = useRef<HTMLDivElement>();
@@ -695,6 +693,115 @@ export function FullScreen(props: any) {
         />
       </div>
       {children}
+    </div>
+  );
+}
+
+export type RenderPrompt = {
+  title: string;
+  content: string;
+  providerName?: string;
+};
+
+export function ChatHints(props: {
+  hints: RenderPrompt[];
+  onSelect: (prompt: RenderPrompt) => void;
+}) {
+  const noPrompts = props.hints.length === 0;
+  const [selectIndex, setSelectIndex] = useState(0);
+  const selectedRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setSelectIndex(0);
+  }, [props.hints.length]);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (noPrompts || e.metaKey || e.altKey || e.ctrlKey) {
+        return;
+      }
+      // arrow up / down to select prompt
+      const changeIndex = (delta: number) => {
+        e.stopPropagation();
+        e.preventDefault();
+        const nextIndex = Math.max(
+          0,
+          Math.min(props.hints.length - 1, selectIndex + delta),
+        );
+        setSelectIndex(nextIndex);
+        selectedRef.current?.scrollIntoView({
+          block: "center",
+        });
+      };
+
+      if (e.key === "ArrowUp") {
+        changeIndex(1);
+      } else if (e.key === "ArrowDown") {
+        changeIndex(-1);
+      } else if (e.key === "Enter") {
+        const selectedPrompt = props.hints.at(selectIndex);
+        if (selectedPrompt) {
+          props.onSelect(selectedPrompt);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => window.removeEventListener("keydown", onKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.hints.length, selectIndex]);
+  if (noPrompts) return null;
+  return (
+    <div className={styles["hints"]}>
+      <div className={styles["prompt-hints"]}>
+        {props.hints.map((hint, i) => {
+          const modeName = (hint.title + "@" + hint.providerName) as string;
+          const isFree = freeModels?.includes(modeName);
+          return (
+            <div
+              ref={i === selectIndex ? selectedRef : null}
+              className={
+                styles["prompt-hint"] +
+                ` ${i === selectIndex ? styles["prompt-hint-selected"] : ""}`
+              }
+              key={hint.title + i.toString()}
+              onClick={() => props.onSelect(hint)}
+              onMouseEnter={() => setSelectIndex(i)}
+            >
+              {hint.providerName && (
+                <>
+                  {ModelIcon({
+                    modeName: modeName,
+                    isVIP: false,
+                  })}
+                </>
+              )}
+              <div className={styles["hint-text"]}>
+                <div className={styles["hint-title"]}>{hint.title}</div>
+                <div className={styles["hint-content"]}>{hint.content}</div>
+              </div>
+              {hint?.providerName?.includes("X-Copilot") ? (
+                <div
+                  className={
+                    styles["hint-tag"] +
+                    " " +
+                    (isFree ? styles["hint-free"] : styles["hint-vip"])
+                  }
+                >
+                  {isFree ? <p>FREE</p> : <p>VIP</p>}
+                </div>
+              ) : (
+                <div
+                  className={styles["hint-tag"] + " " + styles["hint-custom"]}
+                >
+                  {<p>Custom</p>}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
