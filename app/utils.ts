@@ -282,7 +282,9 @@ export function isVisionModel(model: string) {
     model.includes("gpt-4-turbo") && !model.includes("preview");
 
   return (
-    visionKeywords.some((keyword) => model.includes(keyword)) || isGpt4Turbo
+    visionKeywords.some((keyword) => model.includes(keyword)) ||
+    isGpt4Turbo ||
+    isDalle3(model)
   );
 }
 
@@ -295,7 +297,8 @@ export function showPlugins(provider: ServiceProvider, model: string) {
     provider == ServiceProvider.OpenAI ||
     provider == ServiceProvider.Copilot ||
     provider == ServiceProvider.Azure ||
-    provider == ServiceProvider.Moonshot
+    provider == ServiceProvider.Moonshot ||
+    provider == ServiceProvider.ChatGLM
   ) {
     return true;
   }
