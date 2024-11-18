@@ -65,6 +65,7 @@ export interface RequestPayload {
   frequency_penalty: number;
   top_p: number;
   max_tokens?: number;
+  max_completion_tokens?: number;
 }
 
 export interface DalleRequestPayload {
@@ -239,6 +240,11 @@ export class ChatGPTApi implements LLMApi {
         top_p: !isO1 ? modelConfig.top_p : 1,
         max_tokens: Math.max(modelConfig.max_tokens, 1024),
       };
+
+      // O1 使用 max_completion_tokens 控制token数 (https://platform.openai.com/docs/guides/reasoning#controlling-costs)
+      if (isO1) {
+        requestPayload["max_completion_tokens"] = modelConfig.max_tokens;
+      }
 
       // add max_tokens to vision model
       if (visionModel) {

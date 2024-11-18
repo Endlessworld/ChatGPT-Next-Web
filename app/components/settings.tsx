@@ -85,6 +85,7 @@ import { TTSConfigList } from "./tts-config";
 import { getUserInfo, ideaMessage, isIdeaPlugin } from "@/app/copiolt/copilot";
 import { useAllModels } from "@/app/utils/hooks";
 import { groupBy } from "lodash-es";
+import { RealtimeConfigList } from "./realtime-chat/realtime-config";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -1878,7 +1879,18 @@ export function Settings() {
         {shouldShowPromptModal && (
           <UserPromptModal onClose={() => setShowPromptModal(false)} />
         )}
-
+        <List>
+          <RealtimeConfigList
+            realtimeConfig={config.realtimeConfig}
+            updateConfig={(updater) => {
+              const realtimeConfig = { ...config.realtimeConfig };
+              updater(realtimeConfig);
+              config.update(
+                (config) => (config.realtimeConfig = realtimeConfig),
+              );
+            }}
+          />
+        </List>
         <List>
           <TTSConfigList
             ttsConfig={config.ttsConfig}

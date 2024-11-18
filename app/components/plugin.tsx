@@ -29,6 +29,7 @@ import Locale from "../locales";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { validateJson } from "@/app/utils";
+import clsx from "clsx";
 
 export function PluginPage() {
   const navigate = useNavigate();
@@ -202,7 +203,7 @@ export function PluginPage() {
                     <div className={styles["mask-name"]}>
                       {m.title}@<small>{m.version}</small>
                     </div>
-                    <div className={styles["mask-info"] + " one-line"}>
+                    <div className={clsx(styles["mask-info"], "one-line")}>
                       {Locale.Plugin.Item.Info(
                         FunctionToolService.add(m).length,
                       )}
@@ -338,7 +339,10 @@ export function PluginPage() {
               <ListItem
                 subTitle={
                   <div
-                    className={`markdown-body ${pluginStyles["plugin-content"]}`}
+                    className={clsx(
+                      "markdown-body",
+                      pluginStyles["plugin-content"],
+                    )}
                     dir="auto"
                   >
                     <pre>

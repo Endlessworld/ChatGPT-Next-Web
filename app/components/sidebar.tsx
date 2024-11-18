@@ -30,6 +30,9 @@ import { isIOS, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { Selector, showModal } from "./ui-lib";
 import { Markdown } from "@/app/components/markdown";
+
+import clsx from "clsx";
+
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
 });
@@ -140,9 +143,9 @@ export function SideBarContainer(props: {
   const { children, className, onDragStart, shouldNarrow } = props;
   return (
     <div
-      className={`${styles.sidebar} ${className} ${
-        shouldNarrow && styles["narrow-sidebar"]
-      }`}
+      className={clsx(styles.sidebar, className, {
+        [styles["narrow-sidebar"]]: shouldNarrow,
+      })}
       style={{
         // #3016 disable transition on ios mobile screen
         transition: isMobileScreen && isIOSMobile ? "none" : undefined,
@@ -170,9 +173,9 @@ export function SideBarHeader(props: {
   return (
     <Fragment>
       <div
-        className={`${styles["sidebar-header"]} ${
-          shouldNarrow ? styles["sidebar-header-narrow"] : ""
-        }`}
+        className={clsx(styles["sidebar-header"], {
+          [styles["sidebar-header-narrow"]]: shouldNarrow,
+        })}
         data-tauri-drag-region
       >
         <div className={styles["sidebar-title-container"]}>
@@ -181,7 +184,7 @@ export function SideBarHeader(props: {
           </div>
           <div className={styles["sidebar-sub-title"]}>{subTitle}</div>
         </div>
-        <div className={styles["sidebar-logo"] + " no-dark"}>{logo}</div>
+        <div className={clsx(styles["sidebar-logo"], "no-dark")}>{logo}</div>
       </div>
       {children}
     </Fragment>
@@ -305,7 +308,8 @@ export function SideBar(props: { className?: string }) {
             {/*    }}*/}
             {/*  />*/}
             {/*</div>*/}
-            <div className={styles["sidebar-action"]}>
+
+            <div className={clsx(styles["sidebar-action"], styles.mobile)}>
               <IconButton
                 bordered
                 icon={<UserIcon />}
