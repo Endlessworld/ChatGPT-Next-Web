@@ -727,6 +727,7 @@ export function ChatHints(props: {
       if (noPrompts || e.metaKey || e.altKey || e.ctrlKey) {
         return;
       }
+
       // arrow up / down to select prompt
       const changeIndex = (delta: number) => {
         e.stopPropagation();
@@ -754,13 +755,13 @@ export function ChatHints(props: {
     };
 
     window.addEventListener("keydown", onKeyDown);
-
-    return () => window.removeEventListener("keydown", onKeyDown);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [props.hints.length, selectIndex]);
   if (noPrompts) return null;
   return (
-    <div className={styles["hints"]}>
+    <div className={styles["hints"]} onBlur={() => props.hints.length == 0}>
       <div className={styles["prompt-hints"]}>
         {props.hints.map((hint, i) => {
           const modeName = (hint.title + "@" + hint.providerName) as string;
@@ -798,13 +799,13 @@ export function ChatHints(props: {
                 >
                   {isFree ? <p>FREE</p> : <p>VIP</p>}
                 </div>
-              ) : (
+              ) : hint?.providerName ? (
                 <div
                   className={styles["hint-tag"] + " " + styles["hint-custom"]}
                 >
                   {<p>Custom</p>}
                 </div>
-              )}
+              ) : null}
             </div>
           );
         })}

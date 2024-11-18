@@ -658,7 +658,9 @@ export function ChatActions(props: {
         />
 
         <ChatAction
-          onClick={() => setShowModelSelector(true)}
+          onClick={() => {
+            props.showChatHints(models);
+          }}
           text={currentModelName}
           icon={<RobotIcon />}
         />
@@ -1445,6 +1447,7 @@ function _Chat() {
   function scrollToBottom() {
     setMsgRenderIndex(renderMessages.length - CHAT_PAGE_SIZE);
     scrollDomToBottom();
+    setChatHints([]);
   }
 
   // clear context index = context length + index in messages
@@ -2239,6 +2242,10 @@ function _Chat() {
                 setChatHints={setChatHints}
                 showChatHints={(models: any[]) => {
                   setPromptHints([]);
+                  if (chatHints.length > 0) {
+                    setChatHints([]);
+                    return;
+                  }
                   const hints = models.map((m) => ({
                     title: `${m.displayName}`,
                     content: `${m?.provider?.providerName}`,
