@@ -658,7 +658,9 @@ export function ChatActions(props: {
         />
 
         <ChatAction
-          onClick={() => setShowModelSelector(true)}
+          onClick={() => {
+            props.showChatHints(models);
+          }}
           text={currentModelName}
           icon={<RobotIcon />}
         />
