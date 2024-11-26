@@ -303,6 +303,13 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     free: true,
   },
   {
+    name: "Qwen/Qwen2.5-Coder-32B-Instruct",
+    displayName: "qwen2.5-coder",
+    description: "通义千问",
+    available: true,
+    free: true,
+  },
+  {
     name: "Qwen/Qwen1.5-4B-Chat",
     displayName: "qwen1.5-4b",
     description: "通义千问",

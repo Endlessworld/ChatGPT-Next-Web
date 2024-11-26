@@ -373,9 +373,11 @@ export const openaiModels = [
   "google/gemma-2-27b-it",
   "Qwen/Qwen1.5-72B-Chat",
   "Qwen/Qwen1.5-110B-Chat",
+  "Qwen/Qwen2.5-Coder-32B-Instruct",
   "mistralai/Mixtral-8x7B-v0.1",
   "mistralai/Mixtral-8x22B-Instruct-v0.1",
-
+  "o1-mini",
+  "grok-beta",
   // "o1-mini",
   // "o1-preview",
 ];
