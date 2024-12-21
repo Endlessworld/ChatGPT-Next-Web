@@ -272,6 +272,7 @@ export function isVisionModel(model: string) {
   const excludeKeywords = ["claude-3-5-haiku-20241022"];
   const visionKeywords = [
     "vision",
+    "Vision",
     "gpt-4o",
     "claude-3",
     "gemini-1.5",
