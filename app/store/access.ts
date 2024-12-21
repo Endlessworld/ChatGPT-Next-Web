@@ -65,6 +65,7 @@ const DEFAULT_ACCESS_STATE = {
   openaiApiKey: "",
   //ollama
   ollamaUrl: DEFAULT_OLLAMA_URL,
+  ollamaApiKey: DEFAULT_OLLAMA_URL,
   // azure
   azureUrl: "",
   azureApiKey: "",
@@ -123,7 +124,7 @@ const DEFAULT_ACCESS_STATE = {
   // server config
   needCode: false,
   hideUserApiKey: true,
-  hideBalanceQuery: true,
+  hideBalanceQuery: false,
   disableGPT4: false,
   disableFastLink: false,
   customModels: "",

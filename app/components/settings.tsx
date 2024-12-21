@@ -70,6 +70,7 @@ import {
   Iflytek,
   LOGIN_HOST,
   ChatGLM,
+  OLLAMA_BASE_URL,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
@@ -753,7 +754,44 @@ export function Settings() {
       </ListItem>
     </>
   );
-
+  const ollamaConfigComponent = accessStore.provider ===
+      ServiceProvider.Ollama && (
+          <>
+            <ListItem
+                title={Locale.Settings.Access.Ollama.Endpoint.Title}
+                subTitle={Locale.Settings.Access.Ollama.Endpoint.SubTitle}
+            >
+              <input
+                  aria-label={Locale.Settings.Access.Ollama.Endpoint.Title}
+                  type="text"
+                  value={accessStore.ollamaUrl}
+                  placeholder={OLLAMA_BASE_URL}
+                  onChange={(e) => {
+                    accessStore.update(
+                        (access) => (access.ollamaUrl = e.currentTarget.value),
+                    );
+                  }}
+              ></input>
+            </ListItem>
+            <ListItem
+                title={Locale.Settings.Access.Ollama.ApiKey.Title}
+                subTitle={Locale.Settings.Access.Ollama.ApiKey.SubTitle}
+            >
+              <PasswordInput
+                  aria={Locale.Settings.ShowPassword}
+                  aria-label={Locale.Settings.Access.Ollama.ApiKey.Title}
+                  value={accessStore.openaiApiKey}
+                  type="text"
+                  placeholder={Locale.Settings.Access.Ollama.ApiKey.Placeholder}
+                  onChange={(e) => {
+                    accessStore.update(
+                        (access) => (access.ollamaApiKey = e.currentTarget.value),
+                    );
+                  }}
+              />
+            </ListItem>
+          </>
+      );
   const azureConfigComponent = accessStore.provider ===
     ServiceProvider.Azure && (
     <>
@@ -1719,6 +1757,7 @@ export function Settings() {
                   </ListItem>
 
                   {openAIConfigComponent}
+                  {ollamaConfigComponent}
                   {azureConfigComponent}
                   {googleConfigComponent}
                   {anthropicConfigComponent}
@@ -1736,7 +1775,7 @@ export function Settings() {
             </>
           )}
 
-          {accessStore.hideBalanceQuery ? (
+          {false ? (
             <ListItem
               title={Locale.Settings.Usage.Title}
               subTitle={
