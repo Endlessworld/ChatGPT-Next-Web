@@ -71,6 +71,7 @@ import {
   LOGIN_HOST,
   ChatGLM,
   OLLAMA_BASE_URL,
+  DEEPSEEK_BASE_URL,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
@@ -728,11 +729,11 @@ export function Settings() {
           type="text"
           value={accessStore.openaiUrl}
           placeholder={OPENAI_BASE_URL}
-          onChange={(e) => {
+          onChange={(e) =>
             accessStore.update(
               (access) => (access.openaiUrl = e.currentTarget.value),
-            );
-          }}
+            )
+          }
         ></input>
       </ListItem>
       <ListItem
@@ -755,43 +756,81 @@ export function Settings() {
     </>
   );
   const ollamaConfigComponent = accessStore.provider ===
-      ServiceProvider.Ollama && (
-          <>
-            <ListItem
-                title={Locale.Settings.Access.Ollama.Endpoint.Title}
-                subTitle={Locale.Settings.Access.Ollama.Endpoint.SubTitle}
-            >
-              <input
-                  aria-label={Locale.Settings.Access.Ollama.Endpoint.Title}
-                  type="text"
-                  value={accessStore.ollamaUrl}
-                  placeholder={OLLAMA_BASE_URL}
-                  onChange={(e) => {
-                    accessStore.update(
-                        (access) => (access.ollamaUrl = e.currentTarget.value),
-                    );
-                  }}
-              ></input>
-            </ListItem>
-            <ListItem
-                title={Locale.Settings.Access.Ollama.ApiKey.Title}
-                subTitle={Locale.Settings.Access.Ollama.ApiKey.SubTitle}
-            >
-              <PasswordInput
-                  aria={Locale.Settings.ShowPassword}
-                  aria-label={Locale.Settings.Access.Ollama.ApiKey.Title}
-                  value={accessStore.openaiApiKey}
-                  type="text"
-                  placeholder={Locale.Settings.Access.Ollama.ApiKey.Placeholder}
-                  onChange={(e) => {
-                    accessStore.update(
-                        (access) => (access.ollamaApiKey = e.currentTarget.value),
-                    );
-                  }}
-              />
-            </ListItem>
-          </>
-      );
+    ServiceProvider.Ollama && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.Ollama.Endpoint.Title}
+        subTitle={Locale.Settings.Access.Ollama.Endpoint.SubTitle}
+      >
+        <input
+          aria-label={Locale.Settings.Access.Ollama.Endpoint.Title}
+          type="text"
+          value={accessStore.ollamaUrl}
+          placeholder={OLLAMA_BASE_URL}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.ollamaUrl = e.currentTarget.value),
+            );
+          }}
+        ></input>
+      </ListItem>
+      <ListItem
+        title={Locale.Settings.Access.Ollama.ApiKey.Title}
+        subTitle={Locale.Settings.Access.Ollama.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          aria={Locale.Settings.ShowPassword}
+          aria-label={Locale.Settings.Access.Ollama.ApiKey.Title}
+          value={accessStore.openaiApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.Ollama.ApiKey.Placeholder}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.ollamaApiKey = e.currentTarget.value),
+            );
+          }}
+        />
+      </ListItem>
+    </>
+  );
+  const deepSeekConfigComponent = accessStore.provider ===
+    ServiceProvider.DeepSeek && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.DeepSeek.Endpoint.Title}
+        subTitle={Locale.Settings.Access.DeepSeek.Endpoint.SubTitle}
+      >
+        <input
+          aria-label={Locale.Settings.Access.DeepSeek.Endpoint.Title}
+          type="text"
+          value={accessStore.deepseekUrl}
+          placeholder={DEEPSEEK_BASE_URL}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.deepseekUrl = e.currentTarget.value),
+            );
+          }}
+        ></input>
+      </ListItem>
+      <ListItem
+        title={Locale.Settings.Access.DeepSeek.ApiKey.Title}
+        subTitle={Locale.Settings.Access.DeepSeek.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          aria={Locale.Settings.ShowPassword}
+          aria-label={Locale.Settings.Access.DeepSeek.ApiKey.Title}
+          value={accessStore.deepseekApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.DeepSeek.ApiKey.Placeholder}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.deepseekApiKey = e.currentTarget.value),
+            );
+          }}
+        />
+      </ListItem>
+    </>
+  );
   const azureConfigComponent = accessStore.provider ===
     ServiceProvider.Azure && (
     <>
@@ -1758,6 +1797,7 @@ export function Settings() {
 
                   {openAIConfigComponent}
                   {ollamaConfigComponent}
+                  {deepSeekConfigComponent}
                   {azureConfigComponent}
                   {googleConfigComponent}
                   {anthropicConfigComponent}

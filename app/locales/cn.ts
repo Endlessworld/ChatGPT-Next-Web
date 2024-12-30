@@ -382,7 +382,7 @@ ${MODEL_LIST}
       },
       CustomEndpoint: {
         Title: "自定义接口",
-        SubTitle: "是否使用自定义 Azure 或 OpenAI 服务",
+        SubTitle: "是否启用自定义模型供应商",
       },
       Provider: {
         Title: "模型服务商",
@@ -405,6 +405,17 @@ ${MODEL_LIST}
           Title: "API Key",
           SubTitle: "设置 API Key",
           Placeholder: "Ollama API Key",
+        },
+        Endpoint: {
+          Title: "接口地址",
+          SubTitle: "默认地址 必须包含 http(s)://",
+        },
+      },
+      DeepSeek: {
+        ApiKey: {
+          Title: "API Key",
+          SubTitle: "设置 API Key",
+          Placeholder: "DeepSeek API Key",
         },
         Endpoint: {
           Title: "接口地址",

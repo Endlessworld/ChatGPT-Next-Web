@@ -341,6 +341,28 @@ const en: PartialLocaleType = {
           SubTitle: "Must start with http(s):// or use /api/openai as default",
         },
       },
+      Ollama: {
+        ApiKey: {
+          Title: "API Key",
+          SubTitle: "设置 API Key",
+          Placeholder: "Ollama API Key",
+        },
+        Endpoint: {
+          Title: "接口地址",
+          SubTitle: "默认地址 必须包含 http(s)://",
+        },
+      },
+      DeepSeek: {
+        ApiKey: {
+          Title: "API Key",
+          SubTitle: "设置 API Key",
+          Placeholder: "DeepSeek API Key",
+        },
+        Endpoint: {
+          Title: "接口地址",
+          SubTitle: "默认地址 必须包含 http(s)://",
+        },
+      },
       Azure: {
         ApiKey: {
           Title: "Azure Api Key",
