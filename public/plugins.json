@@ -2,21 +2,21 @@
   {
     "id": "ArxivSearch",
     "name": "ArxivSearch",
-    "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/arxivsearch/openapi.json"
+    "schema": "https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/arxivsearch/openapi.json"
   },
   {
     "id": "CodeInterpreter",
     "name": "代码解释器",
-    "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/codeinterpreterapi/openapi.json"
+    "schema": "https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/codeinterpreterapi/openapi.json"
   },
   {
     "id": "ChatPDF",
     "name": "ChatPDF",
-    "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/chatpdf/openapi.json"
+    "schema": "https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/chatpdf/openapi.json"
   },
   {
     "id": "npmSearch",
     "name": "npmSearch",
-    "schema": "https://ghp.ci/https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/npmsearch/openapi.json"
+    "schema": "https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/main/plugins/npmsearch/openapi.json"
   }
 ]
