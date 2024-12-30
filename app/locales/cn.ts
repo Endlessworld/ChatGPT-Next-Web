@@ -411,6 +411,17 @@ ${MODEL_LIST}
           SubTitle: "默认地址 必须包含 http(s)://",
         },
       },
+      DeepSeek: {
+        ApiKey: {
+          Title: "API Key",
+          SubTitle: "设置 API Key",
+          Placeholder: "DeepSeek API Key",
+        },
+        Endpoint: {
+          Title: "接口地址",
+          SubTitle: "默认地址 必须包含 http(s)://",
+        },
+      },
       Azure: {
         ApiKey: {
           Title: "接口密钥",

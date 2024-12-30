@@ -498,6 +498,7 @@ export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
   const isGoogle = serviceProvider === ServiceProvider.Google;
   const isGlm = serviceProvider === ServiceProvider.ChatGLM;
   const isXAi = serviceProvider === ServiceProvider.XAI;
+  const isDeepSeek = serviceProvider === ServiceProvider.DeepSeek;
   // console.log(
   //   props,
   //   serviceProvider
@@ -553,6 +554,12 @@ export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
         <img
           className={styles["hint-icon"]}
           src={"provider/azure.jpeg"}
+          alt={""}
+        />
+      ) : isDeepSeek ? (
+        <img
+          className={styles["hint-icon"]}
+          src={"provider/deepseek-icon.ico"}
           alt={""}
         />
       ) : isGoogle ? (
