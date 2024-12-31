@@ -2108,7 +2108,7 @@ function _Chat() {
                                           onClick={() =>
                                             Merge(
                                               getMessageTextContent(message),
-                                              session.id,
+                                              chatStore.currentSession().id,
                                             )
                                           }
                                         />
