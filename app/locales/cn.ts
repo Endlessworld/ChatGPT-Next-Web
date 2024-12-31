@@ -382,7 +382,7 @@ ${MODEL_LIST}
       },
       CustomEndpoint: {
         Title: "自定义接口",
-        SubTitle: "是否使用自定义 Azure 或 OpenAI 服务",
+        SubTitle: "是否启用自定义模型供应商",
       },
       Provider: {
         Title: "模型服务商",
