@@ -68,7 +68,7 @@ const DEFAULT_ACCESS_STATE = {
   openaiApiKey: "",
   //ollama
   ollamaUrl: DEFAULT_OLLAMA_URL,
-  ollamaApiKey: DEFAULT_OLLAMA_URL,
+  ollamaApiKey: "",
   // azure
   azureUrl: "",
   azureApiKey: "",
