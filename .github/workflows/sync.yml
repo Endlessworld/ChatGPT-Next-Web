@@ -22,7 +22,7 @@ jobs:
       # Step 2: run the sync action
       - name: Sync upstream changes
         id: sync
-        uses: Endlessworld/Fork-Sync-With-Upstream-action
+        uses: Endlessworld/Fork-Sync-With-Upstream-action@main
         with:
           upstream_sync_repo: ChatGPTNextWeb/ChatGPT-Next-Web
           upstream_sync_branch: main
