@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import styles from "./settings.module.scss";
 
@@ -72,6 +72,7 @@ import {
   ChatGLM,
   OLLAMA_BASE_URL,
   DEEPSEEK_BASE_URL,
+  DEFAULT_API_HOST,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
@@ -84,7 +85,7 @@ import { nanoid } from "nanoid";
 import { useMaskStore } from "../store/mask";
 import { ProviderType } from "../utils/cloud";
 import { TTSConfigList } from "./tts-config";
-import { getUserInfo, ideaMessage, isIdeaPlugin } from "@/app/copiolt/copilot";
+import { getUserInfo, ideaMessage } from "@/app/copiolt/copilot";
 import { useAllModels } from "@/app/utils/hooks";
 import { groupBy } from "lodash-es";
 import { RealtimeConfigList } from "./realtime-chat/realtime-config";
@@ -585,7 +586,6 @@ export function Settings() {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const config = useAppConfig();
   const updateConfig = config.update;
-  const showLocalServer = isIdeaPlugin();
   const updateStore = useUpdateStore();
   const [checkingUpdate, setCheckingUpdate] = useState(false);
   const currentVersion = updateStore.formatVersion(updateStore.version);
@@ -1860,6 +1860,7 @@ export function Settings() {
             ></input>
           </ListItem>
         </List>
+
         <List>
           <ListItem
             title={Locale.Settings.CloudCompleteModel.Title}
@@ -1870,27 +1871,144 @@ export function Settings() {
               className={styles["select-compress-model"]}
               value={config.codeCompleteModel}
               onChange={(e) => {
-                let selectedModel = e.currentTarget.value;
-                config.update((s) => {
-                  s.codeCompleteModel = selectedModel;
-                  ideaMessage({
-                    event: "sync_session",
-                    message: JSON.stringify({
-                      host: accessStore.openaiUrl,
-                      session_token: userInfo?.session_token,
-                      user_id: userInfo?.user_id,
-                      model: selectedModel,
-                      enableLocalCompletion:
-                        config.enableOllamaLocalCompletionServer,
-                    }),
+                const selectedOption = e.target.options[e.target.selectedIndex];
+                const selectedModel = JSON.parse(
+                  selectedOption.getAttribute("data-json") as string,
+                );
+                const model = selectedModel.name;
+
+                const provider = selectedModel.provider
+                  .providerName as ServiceProvider;
+                console.log(selectedModel);
+                let url: string = "",
+                  apiKey: string = "";
+
+                switch (provider) {
+                  case ServiceProvider.OpenAI:
+                    url = accessStore.openaiUrl;
+                    apiKey = accessStore.openaiApiKey;
+                    break;
+
+                  case ServiceProvider.Ollama:
+                    url = accessStore.ollamaUrl;
+                    apiKey = accessStore.ollamaApiKey;
+                    break;
+
+                  case ServiceProvider.Azure:
+                    url = accessStore.azureUrl;
+                    apiKey = accessStore.azureApiKey;
+                    break;
+
+                  case ServiceProvider.Google:
+                    url = accessStore.googleUrl;
+                    apiKey = accessStore.googleApiKey;
+                    break;
+
+                  case ServiceProvider.Anthropic:
+                    url = accessStore.anthropicUrl;
+                    apiKey = accessStore.anthropicApiKey;
+                    break;
+
+                  case ServiceProvider.Baidu:
+                    url = accessStore.baiduUrl;
+                    apiKey = accessStore.baiduApiKey;
+                    break;
+
+                  case ServiceProvider.ByteDance:
+                    url = accessStore.bytedanceUrl;
+                    apiKey = accessStore.bytedanceApiKey;
+                    break;
+
+                  case ServiceProvider.Alibaba:
+                    url = accessStore.alibabaUrl;
+                    apiKey = accessStore.alibabaApiKey;
+                    break;
+
+                  case ServiceProvider.Moonshot:
+                    url = accessStore.moonshotUrl;
+                    apiKey = accessStore.moonshotApiKey;
+                    break;
+
+                  case ServiceProvider.Stability:
+                    url = accessStore.stabilityUrl;
+                    apiKey = accessStore.stabilityApiKey;
+                    break;
+
+                  case ServiceProvider.Tencent:
+                    url = accessStore.tencentUrl;
+                    apiKey = accessStore.tencentSecretKey;
+                    break;
+
+                  case ServiceProvider.Iflytek:
+                    url = accessStore.iflytekUrl;
+                    apiKey = accessStore.iflytekApiKey;
+                    break;
+
+                  case ServiceProvider.DeepSeek:
+                    url = accessStore.deepseekUrl;
+                    apiKey = accessStore.deepseekApiKey;
+                    break;
+
+                  case ServiceProvider.XAI:
+                    url = accessStore.xaiUrl;
+                    apiKey = accessStore.xaiApiKey;
+                    break;
+
+                  case ServiceProvider.ChatGLM:
+                    url = accessStore.chatglmUrl;
+                    apiKey = accessStore.chatglmApiKey;
+                    break;
+                  case ServiceProvider.Copilot:
+                    url = DEFAULT_API_HOST;
+                    console.log("userInfo Key:", userInfo);
+                    if (!userInfo?.session_token) {
+                      showConfirm(
+                        "当前未登录，登录后方可使用内置模型服务！点击确认跳转至登录页。",
+                      ).then((res) => {
+                        if (res) {
+                          location.href = LOGIN_HOST;
+                        }
+                      });
+                      return;
+                    }
+                    apiKey = userInfo?.session_token;
+                    break;
+                  default:
+                    console.error("Unknown provider:", provider);
+                    break;
+                }
+                console.log("URL:", url);
+                console.log("API Key:", apiKey);
+                if (provider !== ServiceProvider.Ollama && !apiKey) {
+                  showConfirm(
+                    "友情提示: 所选模型没有配置API-KEY. 请登录后选择X-Copilot内置模型或在该模型供应商下添加API-KEY!",
+                  ).then((res) => {});
+                } else {
+                  config.update((s) => {
+                    s.codeCompleteModel = selectedModel.name;
+                    ideaMessage({
+                      event: "sync_session",
+                      message: JSON.stringify({
+                        host: url,
+                        session_token: apiKey,
+                        user_id: userInfo?.user_id,
+                        model: model,
+                        provider: provider,
+                      }),
+                    });
                   });
-                });
+                }
               }}
             >
               {Object.keys(groupModels).map((providerName, index) => (
                 <optgroup label={providerName} key={index}>
                   {groupModels[providerName].map((v, i) => (
-                    <option value={`${v.name}`} key={i}>
+                    <option
+                      value={`${v.name}`}
+                      data-json={JSON.stringify(v)}
+                      key={i}
+                      label={v.displayName}
+                    >
                       {v.displayName}
                     </option>
                   ))}
@@ -1898,55 +2016,6 @@ export function Settings() {
               ))}
             </Select>
           </ListItem>
-          {showLocalServer ? (
-            <>
-              <ListItem
-                title={Locale.Settings.LocalCompletionModel.Title}
-                subTitle={Locale.Settings.LocalCompletionModel.SubTitle}
-              >
-                <input
-                  type="checkbox"
-                  disabled={userInfo.is_vip as boolean}
-                  checked={config.enableOllamaLocalCompletionServer}
-                  onChange={(e) => {
-                    ideaMessage({
-                      event: "sync_session",
-                      message: JSON.stringify({
-                        host: accessStore.openaiUrl,
-                        session_token: userInfo?.session_token,
-                        user_id: userInfo?.user_id,
-                        model: config.codeCompleteModel,
-                        enable_local_completion: e.currentTarget.checked,
-                      }),
-                    });
-                    config.update((config) => {
-                      config.enableOllamaLocalCompletionServer =
-                        e.currentTarget.checked;
-                    });
-                  }}
-                ></input>
-              </ListItem>
-              <ListItem
-                title={Locale.Settings.LocalChatModel.Title}
-                subTitle={Locale.Settings.LocalChatModel.SubTitle}
-              >
-                <input
-                  type="checkbox"
-                  checked={config.enableOllamaLocalChatServer}
-                  onChange={(e) =>
-                    updateConfig((config) => {
-                      config.enableOllamaLocalChatServer =
-                        e.currentTarget.checked;
-                      console.log(config.enableOllamaLocalChatServer);
-                    })
-                  }
-                ></input>
-              </ListItem>
-            </>
-          ) : null}
-        </List>
-
-        <List>
           <ModelConfigList
             modelConfig={config.modelConfig}
             updateConfig={(updater) => {
