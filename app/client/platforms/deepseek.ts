@@ -128,9 +128,14 @@ export class DeepSeekApi implements LLMApi {
           // parseSSE
           (text: string, runTools: ChatMessageTool[]) => {
             // console.log("parseSSE", text, runTools);
+            // console.log(">>>", text);
+            if (!text) {
+              return text;
+            }
             const json = JSON.parse(text);
             const choices = json.choices as Array<{
               delta: {
+                reasoning_content: string;
                 content: string;
                 tool_calls: ChatMessageTool[];
               };
@@ -154,7 +159,14 @@ export class DeepSeekApi implements LLMApi {
                 runTools[index]["function"]["arguments"] += args;
               }
             }
-            return choices[0]?.delta?.content;
+            let reasoning_content = choices[0]?.delta?.reasoning_content;
+            if (reasoning_content === "") {
+              return "> ";
+            }
+            if (reasoning_content) {
+              reasoning_content = reasoning_content.replaceAll("\n", "\n> ");
+            }
+            return reasoning_content || choices[0]?.delta?.content;
           },
           // processToolMessage, include tool_calls message and tool call results
           (
