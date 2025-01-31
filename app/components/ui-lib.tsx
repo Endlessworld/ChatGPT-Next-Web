@@ -597,8 +597,8 @@ export function Selector<T>(props: {
     Array.isArray(props.defaultSelectedValue)
       ? props.defaultSelectedValue
       : props.defaultSelectedValue !== undefined
-      ? [props.defaultSelectedValue]
-      : [],
+        ? [props.defaultSelectedValue]
+        : [],
   );
   const handleSelection = (e: MouseEvent, value: T) => {
     if (props.multiple) {
@@ -765,7 +765,7 @@ export function ChatHints(props: {
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [props.hints.length, selectIndex]);
+  }, [props.hints.length, selectIndex, noPrompts, props]);
   if (noPrompts) return null;
   return (
     <div className={styles["hints"]} onBlur={() => props.hints.length == 0}>

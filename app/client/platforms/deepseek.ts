@@ -13,7 +13,7 @@ import {
   ChatMessageTool,
   usePluginStore,
 } from "@/app/store";
-import { stream } from "@/app/utils/chat";
+import { streamWithThink } from "@/app/utils/chat";
 import {
   ChatOptions,
   getHeaders,
@@ -22,7 +22,10 @@ import {
   SpeechOptions,
 } from "../api";
 import { getClientConfig } from "@/app/config/client";
-import { getMessageTextContent } from "@/app/utils";
+import {
+  getMessageTextContent,
+  getMessageTextContentWithoutThinking,
+} from "@/app/utils";
 import { RequestPayload } from "./openai";
 import { fetch } from "@/app/utils/stream";
 
@@ -67,8 +70,13 @@ export class DeepSeekApi implements LLMApi {
   async chat(options: ChatOptions) {
     const messages: ChatOptions["messages"] = [];
     for (const v of options.messages) {
-      const content = getMessageTextContent(v);
-      messages.push({ role: v.role, content });
+      if (v.role === "assistant") {
+        const content = getMessageTextContentWithoutThinking(v);
+        messages.push({ role: v.role, content });
+      } else {
+        const content = getMessageTextContent(v);
+        messages.push({ role: v.role, content });
+      }
     }
 
     const modelConfig = {
@@ -107,6 +115,8 @@ export class DeepSeekApi implements LLMApi {
         headers: getHeaders(),
       };
 
+      // console.log(chatPayload);
+
       // make a fetch request
       const requestTimeoutId = setTimeout(
         () => controller.abort(),
@@ -118,7 +128,7 @@ export class DeepSeekApi implements LLMApi {
           .getState()
           .getAsTools(currentSession.mask?.plugin || [], currentSession.id);
         console.log("getAsTools", tools, funcs);
-        return stream(
+        return streamWithThink(
           chatPath,
           requestPayload,
           getHeaders(),
@@ -130,14 +140,17 @@ export class DeepSeekApi implements LLMApi {
             // console.log("parseSSE", text, runTools);
             // console.log(">>>", text);
             if (!text) {
-              return text;
+              return {
+                isThinking: false,
+                content: "",
+              };
             }
             const json = JSON.parse(text);
             const choices = json.choices as Array<{
               delta: {
-                reasoning_content: string;
-                content: string;
+                content: string | null;
                 tool_calls: ChatMessageTool[];
+                reasoning_content: string | null;
               };
             }>;
             const tool_calls = choices[0]?.delta?.tool_calls;
@@ -159,14 +172,22 @@ export class DeepSeekApi implements LLMApi {
                 runTools[index]["function"]["arguments"] += args;
               }
             }
-            let reasoning_content = choices[0]?.delta?.reasoning_content;
-            if (reasoning_content === "") {
-              return "> ";
+            const reasoning = choices[0]?.delta?.reasoning_content;
+            const content = choices[0]?.delta?.content;
+
+            if (
+              (!reasoning || reasoning.trim().length === 0) &&
+              (!content || content.trim().length === 0)
+            ) {
+              return {
+                isThinking: false,
+                content: "",
+              };
             }
-            if (reasoning_content) {
-              reasoning_content = reasoning_content.replaceAll("\n", "\n> ");
-            }
-            return reasoning_content || choices[0]?.delta?.content;
+            return {
+              isThinking: !!(reasoning || content),
+              content: reasoning || content || "",
+            };
           },
           // processToolMessage, include tool_calls message and tool call results
           (
