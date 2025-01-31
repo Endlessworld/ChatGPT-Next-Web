@@ -123,4 +123,11 @@
   .hljs-strong {
     font-weight: 700;
   }
+
+  /* 添加全局blockquote样式*/
+  blockquote{
+    margin: 1em 0;
+    color: #8b8b8b;
+    font-size: 12px;
+  }
 }
