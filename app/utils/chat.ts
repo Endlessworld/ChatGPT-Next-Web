@@ -575,10 +575,36 @@ export function streamWithThink(
           if (!chunk?.content || chunk.content.trim().length === 0) {
             return;
           }
+          // Check if thinking mode changed
+          const isThinkingChanged = lastIsThinking !== chunk.isThinking;
+          lastIsThinking = chunk.isThinking;
+
           if (chunk.isThinking) {
-            remainText += remainText.replaceAll("\n", "\n> ");
+            // If in thinking mode
+            if (!isInThinkingMode || isThinkingChanged) {
+              // If this is a new thinking block or mode changed, add prefix
+              isInThinkingMode = true;
+              if (remainText.length > 0) {
+                remainText += "\n";
+              }
+              remainText += "> " + chunk.content;
+            } else {
+              // Handle newlines in thinking content
+              if (chunk.content.includes("\n")) {
+                remainText += chunk.content.replaceAll("\n", "\n> ");
+              } else {
+                remainText += chunk.content;
+              }
+            }
           } else {
-            remainText += chunk.content;
+            // If in normal mode
+            if (isInThinkingMode || isThinkingChanged) {
+              // If switching from thinking mode to normal mode
+              isInThinkingMode = false;
+              remainText += "\n\n" + chunk.content;
+            } else {
+              remainText += chunk.content;
+            }
           }
         } catch (e) {
           console.error("[Request] parse error", text, msg, e);

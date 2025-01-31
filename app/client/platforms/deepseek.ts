@@ -185,7 +185,7 @@ export class DeepSeekApi implements LLMApi {
               };
             }
             return {
-              isThinking: !!(reasoning || content),
+              isThinking: reasoning != null,
               content: reasoning || content || "",
             };
           },
