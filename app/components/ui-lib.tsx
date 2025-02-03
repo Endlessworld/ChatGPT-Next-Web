@@ -12,6 +12,7 @@ import MinIcon from "../icons/min.svg";
 import BotIcon from "../icons/bot.svg";
 import SparkIcon from "../icons/spark_icon.svg";
 import GLMIcon from "../icons/glm.svg";
+import DeepseekIcon from "../icons/deepseek.svg";
 
 import Locale from "../locales";
 
@@ -499,42 +500,45 @@ export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
   const isGlm = serviceProvider === ServiceProvider.ChatGLM;
   const isXAi = serviceProvider === ServiceProvider.XAI;
   const isDeepSeek = serviceProvider === ServiceProvider.DeepSeek;
-  // console.log(
-  //   props,
-  //   serviceProvider
-  // );
-
   return (
-    <div
-      className={`${
-        freeModels?.includes(props.modeName as string) || props.isVIP
-          ? ""
-          : styles["selector-item-icon-disabled"]
-      }`}
-    >
+    <div className={"no-dark"}>
       {isTencent ? (
-        <img className={styles["hint-icon"]} src={"provider/qq.png"} alt={""} />
+        <img
+          className={styles["hint-icon"]}
+          width={32}
+          height={32}
+          src={"provider/qq.png"}
+          alt={""}
+        />
       ) : isAlibaba ? (
         <img
           className={styles["hint-icon"]}
+          width={32}
+          height={32}
           src={"provider/tongyi.png"}
           alt={""}
         />
       ) : isAnthropic ? (
         <img
           className={styles["hint-icon"]}
+          width={32}
+          height={32}
           src={"provider/claude_icon.png"}
           alt={""}
         />
       ) : isOllama ? (
         <img
           className={styles["hint-icon"]}
+          width={32}
+          height={32}
           src={"provider/ollama.png"}
           alt={""}
         />
       ) : isByteDance ? (
         <img
           className={styles["hint-icon"]}
+          width={32}
+          height={32}
           src={"provider/doubao-icon.png"}
           alt={""}
         />
@@ -547,6 +551,8 @@ export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
       ) : isBaidu ? (
         <img
           className={styles["hint-icon"]}
+          width={32}
+          height={32}
           src={"provider/baidu-icon.png"}
           alt={""}
         />
@@ -557,11 +563,7 @@ export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
           alt={""}
         />
       ) : isDeepSeek ? (
-        <img
-          className={styles["hint-icon"]}
-          src={"provider/deepseek-icon.ico"}
-          alt={""}
-        />
+        <DeepseekIcon className={styles["hint-icon"]} />
       ) : isGoogle ? (
         <img
           className={styles["hint-icon"]}

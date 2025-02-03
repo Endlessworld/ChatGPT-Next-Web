@@ -1,14 +1,10 @@
-import EmojiPicker, {
-  Emoji,
-  EmojiStyle,
-  Theme as EmojiTheme,
-} from "emoji-picker-react";
+import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
 
 import { ModelType } from "../store";
 
 import BotIcon from "../icons/bot.svg";
-import BlackBotIcon from "../icons/black-bot.svg";
 import { useUserAvatar } from "@/app/copiolt/copilot";
+import { ModelIcon } from "@/app/components/ui-lib";
 
 export function getChatAvatarUrl(unified: string, style: EmojiStyle) {
   const UserAvatar = () => {
@@ -35,7 +31,6 @@ export function AvatarPicker(props: {
     <EmojiPicker
       width={"100%"}
       lazyLoadEmojis
-      theme={EmojiTheme.AUTO}
       getEmojiUrl={getEmojiUrl}
       onEmojiClick={(e) => {
         props.onEmojiClick(e.unified);
@@ -48,19 +43,13 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
   if (props.model) {
     return (
       <div className="no-dark">
-        {props.model?.startsWith("gpt-4") ||
-        props.model?.startsWith("chatgpt-4o") ||
-        props.model?.startsWith("o1") ? (
-          <BlackBotIcon className="user-avatar" />
-        ) : (
-          <BotIcon className="user-avatar" />
-        )}
+        {ModelIcon({ modeName: props.model as string })}
       </div>
     );
   }
 
   return (
-    <div className="user-avatar">
+    <div className="user-avatar no-dark">
       {props.avatar && <EmojiAvatar avatar={props.avatar} />}
     </div>
   );
@@ -78,7 +67,7 @@ export function EmojiAvatar(props: { avatar: string; size?: number }) {
 
 export function UserAvatar({ size }: { size?: number }) {
   return useUserAvatar() ? (
-    <div className="user-avatar">
+    <div className="user-avatar no-dark">
       <Emoji
         unified={"1f60e"}
         size={size ? size : 25}
@@ -86,7 +75,7 @@ export function UserAvatar({ size }: { size?: number }) {
       />
     </div>
   ) : (
-    <div className="user-avatar">
+    <div className="user-avatar no-dark">
       <BotIcon />
     </div>
   );

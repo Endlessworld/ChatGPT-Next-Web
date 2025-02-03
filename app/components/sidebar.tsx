@@ -294,7 +294,7 @@ export function SideBar(props: { className?: string }) {
             bordered
             icon={<VipIcon />}
             text={shouldNarrow ? undefined : Locale.Vip.Title}
-            className={styles["sidebar-bar-button"]}
+            className={styles["sidebar-bar-button"] + " no-dark"}
             onClick={() => (location.href = "https://forum.xr21.me/user/vip")}
             shadow
           />

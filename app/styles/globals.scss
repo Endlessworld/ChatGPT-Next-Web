@@ -58,7 +58,7 @@
   --inline-code-font-background-color: var(--white);
 
   div:not(.no-dark) > svg {
-    filter: invert(0.5);
+    filter: invert(0.6);
   }
 }
 
@@ -395,17 +395,7 @@ pre {
   }
 }
 
-.user-avatar {
-  height: 30px;
-  min-height: 30px;
-  width: 30px;
-  min-width: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: var(--border-in-light);
-  box-shadow: var(--card-shadow);
-  border-radius: 11px;
+.chat-bot-avatar {
 }
 
 .settings-user-avatar{

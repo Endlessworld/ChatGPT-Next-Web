@@ -2,6 +2,7 @@ import { IconButton } from "./button";
 import { ErrorBoundary } from "./error";
 
 import styles from "./mask.module.scss";
+import globalsStyles from "../styles/globals.scss";
 
 import DownloadIcon from "../icons/download.svg";
 import UploadIcon from "../icons/upload.svg";
@@ -13,7 +14,7 @@ import EyeIcon from "../icons/eye.svg";
 import CopyIcon from "../icons/copy.svg";
 import DragIcon from "../icons/drag.svg";
 
-import { DEFAULT_MASK_AVATAR, Mask, useMaskStore } from "../store/mask";
+import { Mask, useMaskStore } from "../store/mask";
 import {
   ChatMessage,
   createMessage,
@@ -28,20 +29,22 @@ import {
   List,
   ListItem,
   Modal,
+  ModelIcon,
   Popover,
   Select,
   showConfirm,
 } from "./ui-lib";
-import { Avatar, AvatarPicker } from "./emoji";
+import { AvatarPicker } from "./emoji";
 import Locale, { AllLangs, ALL_LANG_OPTIONS, Lang } from "../locales";
 import { useNavigate } from "react-router-dom";
 
 import chatStyle from "./chat.module.scss";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   copyToClipboard,
   downloadAs,
   getMessageImages,
+  getMessageTextContent,
   readFromFile,
 } from "../utils";
 import { Updater } from "../typing";
@@ -50,11 +53,10 @@ import { FileName, Path } from "../constant";
 import { BUILTIN_MASK_STORE } from "../masks";
 import {
   DragDropContext,
-  Droppable,
   Draggable,
+  Droppable,
   OnDragEndResponder,
 } from "@hello-pangea/dnd";
-import { getMessageTextContent } from "../utils";
 import clsx from "clsx";
 
 // drag and drop helper function
@@ -66,10 +68,11 @@ function reorder<T>(list: T[], startIndex: number, endIndex: number): T[] {
 }
 
 export function MaskAvatar(props: { avatar: string; model?: ModelType }) {
-  return props.avatar !== DEFAULT_MASK_AVATAR ? (
-    <Avatar avatar={props.avatar} />
-  ) : (
-    <Avatar model={props.model} />
+  return (
+    <div className={globalsStyles["user-avatar"]}>
+      {" "}
+      {ModelIcon({ modeName: props.model as string })}
+    </div>
   );
 }
 
