@@ -2,10 +2,10 @@
 // azure and openai, using same models. so using same LLMApi.
 import {
   ApiPath,
-  OPENAI_BASE_URL,
-  DEFAULT_MODELS,
-  OpenaiPath,
   Azure,
+  DEFAULT_MODELS,
+  OPENAI_BASE_URL,
+  OpenaiPath,
   REQUEST_TIMEOUT_MS,
   ServiceProvider,
 } from "@/app/constant";
@@ -18,13 +18,13 @@ import {
 } from "@/app/store";
 import { collectModelsWithDefaultModel } from "@/app/utils/model";
 import {
-  preProcessImageContent,
-  uploadImage,
   base64Image2Blob,
-  stream,
+  preProcessImageContent,
+  streamWithThink,
+  uploadImage,
 } from "@/app/utils/chat";
 import { cloudflareAIGatewayUrl } from "@/app/utils/cloudflare";
-import { ModelSize, DalleQuality, DalleStyle } from "@/app/typing";
+import { DalleQuality, DalleStyle, ModelSize } from "@/app/typing";
 
 import {
   ChatOptions,
@@ -39,8 +39,8 @@ import Locale from "../../locales";
 import { getClientConfig } from "@/app/config/client";
 import {
   getMessageTextContent,
-  isVisionModel,
   isDalle3 as _isDalle3,
+  isVisionModel,
 } from "@/app/utils";
 import { fetch } from "@/app/utils/stream";
 
@@ -78,7 +78,7 @@ export interface DalleRequestPayload {
   style: DalleStyle;
 }
 
-export class ChatGPTApi implements LLMApi {
+export class CopilotApi implements LLMApi {
   private disableListModels = true;
 
   path(path: string): string {
@@ -300,7 +300,8 @@ export class ChatGPTApi implements LLMApi {
           .getState()
           .getAsTools(currentSession.mask?.plugin || [], currentSession.id);
         console.log("getAsTools", tools, funcs);
-        stream(
+        let isThinking = false;
+        streamWithThink(
           chatPath,
           requestPayload,
           getHeaders(),
@@ -310,11 +311,18 @@ export class ChatGPTApi implements LLMApi {
           // parseSSE
           (text: string, runTools: ChatMessageTool[]) => {
             // console.log("parseSSE", text, runTools);
+            if (!text) {
+              return {
+                isThinking: false,
+                content: "",
+              };
+            }
             const json = JSON.parse(text);
             const choices = json.choices as Array<{
               delta: {
                 content: string;
                 tool_calls: ChatMessageTool[];
+                reasoning_content?: string | null;
               };
             }>;
             const tool_calls = choices[0]?.delta?.tool_calls;
@@ -336,7 +344,30 @@ export class ChatGPTApi implements LLMApi {
                 runTools[index]["function"]["arguments"] += args;
               }
             }
-            return choices[0]?.delta?.content;
+            const reasoning = choices[0]?.delta?.reasoning_content;
+            let content = choices[0]?.delta?.content;
+
+            if (
+              (!reasoning || reasoning.trim().length === 0) &&
+              (!content || content.trim().length === 0)
+            ) {
+              return {
+                isThinking: false,
+                content: "",
+              };
+            }
+            if (!isThinking && content?.includes("<think>")) {
+              isThinking = true;
+              content = "";
+            }
+            if (isThinking && content?.includes("</think>")) {
+              isThinking = false;
+              content = "";
+            }
+            return {
+              isThinking: reasoning != null || isThinking,
+              content: reasoning || content || "",
+            };
           },
           // processToolMessage, include tool_calls message and tool call results
           (
@@ -383,6 +414,7 @@ export class ChatGPTApi implements LLMApi {
       options.onError?.(e as Error);
     }
   }
+
   async usage() {
     const formatDate = (d: Date) =>
       `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, "0")}-${d
@@ -486,4 +518,5 @@ export class ChatGPTApi implements LLMApi {
     }));
   }
 }
+
 export { OpenaiPath };

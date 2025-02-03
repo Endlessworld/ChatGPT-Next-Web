@@ -160,6 +160,7 @@ export enum ModelProvider {
   XAI = "XAI",
   ChatGLM = "ChatGLM",
   DeepSeek = "DeepSeek",
+  Copilot = "Copilot",
 }
 
 export const Stability = {
@@ -480,14 +481,14 @@ export const EXCLUDE_VISION_MODEL_REGEXES = [/claude-3-5-haiku-20241022/];
 export const freeModels = [
   "deepseek-chat@X-Copilot",
   "deepseek-coder@X-Copilot",
-  "gpt-3.5-turbo@X-Copilot",
-  "gpt-3.5-turbo-1106@X-Copilot",
-  "gpt-3.5-turbo-0125@X-Copilot",
   "gpt-4o-mini@X-Copilot",
 ];
 export const openaiModels = [
   "deepseek-chat",
   "deepseek-coder",
+  "deepseek-reasoner",
+  "deepseek-ai/DeepSeek-V3",
+  "deepseek-ai/DeepSeek-R1",
   "gpt-3.5-turbo",
   "gpt-3.5-turbo-1106",
   "gpt-3.5-turbo-0125",
@@ -508,9 +509,12 @@ export const openaiModels = [
   "gpt-4-vision-preview",
   "gpt-4-turbo-2024-04-09",
   "gpt-4-1106-preview",
-  "o1-mini",
-  "o1-preview",
+  // "o1-mini",
+  // "o1-preview",
   "o3-mini",
+  "o3-mini-high",
+  // "glm-4-air",
+  // "glm-4-airx",
   "grok-beta",
   "claude-3-5-haiku-20241022",
   "claude-3-5-sonnet-20241022",
@@ -522,7 +526,6 @@ export const openaiModels = [
   "moonshot-v1-8k",
   "moonshot-v1-32k",
   "moonshot-v1-128k",
-
   "WizardLM/WizardCoder-15B-V1.0",
   "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
   "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",

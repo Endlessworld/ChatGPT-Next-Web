@@ -115,7 +115,6 @@ import {
   LAST_INPUT_KEY,
   DEFAULT_API_HOST,
   UNFINISHED_INPUT,
-  DEFAULT_MODELS,
 } from "../constant";
 import { Avatar, UserAvatar } from "./emoji";
 import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
@@ -2090,12 +2089,7 @@ function XChat() {
                                         (message.model ||
                                           session.mask.modelConfig.model) +
                                         "@" +
-                                        DEFAULT_MODELS.find(
-                                          (e) =>
-                                            e.name ==
-                                            (message.model ||
-                                              session.mask.modelConfig.model),
-                                        )?.provider.providerName
+                                        session.mask.modelConfig.providerName
                                       }
                                     />
                                   )}
