@@ -510,6 +510,7 @@ export const openaiModels = [
   "gpt-4-1106-preview",
   "o1-mini",
   "o1-preview",
+  "o3-mini",
   "grok-beta",
   "claude-3-5-haiku-20241022",
   "claude-3-5-sonnet-20241022",
@@ -537,10 +538,7 @@ export const openaiModels = [
   "Qwen/Qwen2.5-Coder-32B-Instruct",
   "mistralai/Mixtral-8x7B-v0.1",
   "mistralai/Mixtral-8x22B-Instruct-v0.1",
-  "o1-mini",
   "grok-beta",
-  // "o1-mini",
-  // "o1-preview",
 ];
 
 const googleModels = [
