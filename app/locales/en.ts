@@ -93,6 +93,7 @@ const en: PartialLocaleType = {
       copyLastMessage: "Copy Last Reply",
       copyLastCode: "Copy Last Code Block",
       showShortcutKey: "Show Shortcuts",
+      clearContext: "Clear Context",
     },
   },
   Export: {
@@ -354,13 +355,13 @@ const en: PartialLocaleType = {
       },
       DeepSeek: {
         ApiKey: {
-          Title: "API Key",
-          SubTitle: "设置 API Key",
+          Title: "DeepSeek API Key",
+          SubTitle: "Use a custom DeepSeek API Key",
           Placeholder: "DeepSeek API Key",
         },
         Endpoint: {
-          Title: "接口地址",
-          SubTitle: "默认地址 必须包含 http(s)://",
+          Title: "Endpoint Address",
+          SubTitle: "Example: ",
         },
       },
       Azure: {
@@ -690,6 +691,9 @@ const en: PartialLocaleType = {
   },
   Discovery: {
     Name: "Discovery",
+  },
+  Mcp: {
+    Name: "MCP",
   },
   FineTuned: {
     Sysmessage: "You are an assistant that",

@@ -282,7 +282,7 @@ export function RealtimeChat({
       audioHandlerRef.current?.close().catch(console.error);
       disconnect();
     };
-  }, []);
+  }, [handleConnect, isRecording, toggleRecording]);
 
   useEffect(() => {
     let animationFrameId: number;
