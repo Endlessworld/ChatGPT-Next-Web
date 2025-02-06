@@ -2,6 +2,7 @@ import { LLMModel } from "../client/api";
 import { DalleQuality, DalleStyle, ModelSize } from "../typing";
 import { getClientConfig } from "../config/client";
 import {
+  DEFAULT_API_HOST,
   DEFAULT_INPUT_TEMPLATE,
   DEFAULT_MODELS,
   DEFAULT_SIDEBAR_WIDTH,
@@ -11,8 +12,8 @@ import {
   DEFAULT_TTS_MODELS,
   DEFAULT_TTS_VOICE,
   DEFAULT_TTS_VOICES,
-  StoreKey,
   ServiceProvider,
+  StoreKey,
 } from "../constant";
 import { createPersistStore } from "../utils/store";
 import type { Voice } from "rt-client";
@@ -62,7 +63,9 @@ export const DEFAULT_CONFIG = {
 
   customModels: "",
   models: DEFAULT_MODELS as any as LLMModel[],
-  codeCompleteModel: "gpt-4o-mini",
+  completeModel: "gpt-4o-mini",
+  completeBaseUrl: DEFAULT_API_HOST,
+  completeProviderName: "X-Copilot" as ServiceProvider,
 
   modelConfig: {
     model: "gpt-4o-mini" as ModelType,

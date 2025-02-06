@@ -113,7 +113,6 @@ import {
   REQUEST_TIMEOUT_MS,
   ServiceProvider,
   LAST_INPUT_KEY,
-  DEFAULT_API_HOST,
   UNFINISHED_INPUT,
 } from "../constant";
 import { Avatar, UserAvatar } from "./emoji";
@@ -1634,10 +1633,10 @@ function XChat() {
       ideaMessage({
         event: "sync_session",
         message: JSON.stringify({
-          host: DEFAULT_API_HOST,
           session_token: userInfo?.session_token,
           user_id: userInfo?.user_id,
-          model: `gpt-4o-mini`,
+          model: config.completeModel,
+          provider: config.completeProviderName,
           enable_local_completion: false,
         }),
       });

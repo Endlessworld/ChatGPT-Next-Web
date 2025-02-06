@@ -1869,7 +1869,7 @@ export function Settings() {
             <Select
               align="left"
               className={styles["select-compress-model"]}
-              value={config.codeCompleteModel}
+              value={config.completeModel}
               onChange={(e) => {
                 const selectedOption = e.target.options[e.target.selectedIndex];
                 const selectedModel = JSON.parse(
@@ -1981,11 +1981,13 @@ export function Settings() {
                 console.log("API Key:", apiKey);
                 if (provider !== ServiceProvider.Ollama && !apiKey) {
                   showConfirm(
-                    "友情提示: 所选模型没有配置API-KEY. 请登录后选择X-Copilot内置模型或在该模型供应商下添加API-KEY!",
+                    "友情提示: 所选模型没有配置API-KEY. 请在该模型供应商下添加API-KEY! 或登录后选择X-Copilot内置模型",
                   ).then((res) => {});
                 } else {
                   config.update((s) => {
-                    s.codeCompleteModel = selectedModel.name;
+                    s.completeModel = selectedModel.name;
+                    s.completeProviderName = provider;
+                    s.completeBaseUrl = url;
                     ideaMessage({
                       event: "sync_session",
                       message: JSON.stringify({
