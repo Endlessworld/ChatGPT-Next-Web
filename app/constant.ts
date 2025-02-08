@@ -483,6 +483,8 @@ export const freeModels = [
   "deepseek-chat@X-Copilot",
   "deepseek-coder@X-Copilot",
   "gpt-4o-mini@X-Copilot",
+  "deepseek-ai/DeepSeek-R1-Distill-Llama-8B@X-Copilot",
+  "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B@X-Copilot",
 ];
 export const openaiModels = [
   "deepseek-chat",
@@ -539,10 +541,15 @@ export const openaiModels = [
   "google/gemma-2-27b-it",
   "Qwen/Qwen1.5-72B-Chat",
   "Qwen/Qwen1.5-110B-Chat",
+  "Qwen/Qwen2.5-Coder-7B-Instruct",
   "Qwen/Qwen2.5-Coder-32B-Instruct",
   "mistralai/Mixtral-8x7B-v0.1",
   "mistralai/Mixtral-8x22B-Instruct-v0.1",
   "grok-beta",
+  "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+  "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+  "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+  "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
 ];
 
 const googleModels = [
