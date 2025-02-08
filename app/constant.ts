@@ -161,6 +161,7 @@ export enum ModelProvider {
   ChatGLM = "ChatGLM",
   DeepSeek = "DeepSeek",
   Copilot = "Copilot",
+  Ollama = "Ollama",
 }
 
 export const Stability = {

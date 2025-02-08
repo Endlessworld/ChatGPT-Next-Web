@@ -346,14 +346,10 @@ export class CopilotApi implements LLMApi {
             }
             const reasoning = choices[0]?.delta?.reasoning_content;
             let content = choices[0]?.delta?.content;
-
-            if (
-              (!reasoning || reasoning.trim().length === 0) &&
-              (!content || content.trim().length === 0)
-            ) {
+            if (reasoning != null) {
               return {
-                isThinking: false,
-                content: "",
+                isThinking: true,
+                content: reasoning,
               };
             }
             if (!isThinking && content?.includes("<think>")) {
@@ -366,7 +362,7 @@ export class CopilotApi implements LLMApi {
             }
             return {
               isThinking: reasoning != null || isThinking,
-              content: reasoning || content || "",
+              content: reasoning || content || undefined,
             };
           },
           // processToolMessage, include tool_calls message and tool call results

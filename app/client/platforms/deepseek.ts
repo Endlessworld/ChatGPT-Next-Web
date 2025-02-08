@@ -128,6 +128,7 @@ export class DeepSeekApi implements LLMApi {
           .getState()
           .getAsTools(currentSession.mask?.plugin || [], currentSession.id);
         console.log("getAsTools", tools, funcs);
+        let isThinking = false;
         return streamWithThink(
           chatPath,
           requestPayload,
@@ -142,7 +143,7 @@ export class DeepSeekApi implements LLMApi {
             if (!text) {
               return {
                 isThinking: false,
-                content: "",
+                content: undefined,
               };
             }
             const json = JSON.parse(text);
@@ -173,20 +174,25 @@ export class DeepSeekApi implements LLMApi {
               }
             }
             const reasoning = choices[0]?.delta?.reasoning_content;
-            const content = choices[0]?.delta?.content;
-
-            if (
-              (!reasoning || reasoning.trim().length === 0) &&
-              (!content || content.trim().length === 0)
-            ) {
+            let content = choices[0]?.delta?.content;
+            console.log(choices[0]?.delta);
+            if (reasoning != null) {
               return {
-                isThinking: false,
-                content: "",
+                isThinking: true,
+                content: reasoning,
               };
             }
+            if (!isThinking && content?.includes("<think>")) {
+              isThinking = true;
+              content = "";
+            }
+            if (isThinking && content?.includes("</think>")) {
+              isThinking = false;
+              content = "";
+            }
             return {
-              isThinking: reasoning != null,
-              content: reasoning || content || "",
+              isThinking: reasoning != null || isThinking,
+              content: reasoning || content || undefined,
             };
           },
           // processToolMessage, include tool_calls message and tool call results

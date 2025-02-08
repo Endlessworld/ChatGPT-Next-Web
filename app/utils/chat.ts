@@ -525,7 +525,7 @@ export function streamWithThink(
       async onopen(res) {
         clearTimeout(requestTimeoutId);
         const contentType = res.headers.get("content-type");
-        console.log("[Request] response content type: ", contentType);
+        console.log("onopen [Request] response  : ", res);
         responseRes = res;
 
         if (contentType?.startsWith("text/plain")) {
@@ -572,7 +572,7 @@ export function streamWithThink(
         try {
           const chunk = parseSSE(text, runTools);
           // Skip if content is empty
-          if (!chunk?.content || chunk.content.trim().length === 0) {
+          if (chunk?.content == undefined) {
             return;
           }
           // Check if thinking mode changed
