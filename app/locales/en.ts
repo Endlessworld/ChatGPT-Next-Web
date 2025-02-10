@@ -486,6 +486,17 @@ const en: PartialLocaleType = {
           SubTitle: "Example: ",
         },
       },
+      SiliconFlow: {
+        ApiKey: {
+          Title: "SiliconFlow API Key",
+          SubTitle: "Use a custom SiliconFlow API Key",
+          Placeholder: "SiliconFlow API Key",
+        },
+        Endpoint: {
+          Title: "Endpoint Address",
+          SubTitle: "Example: ",
+        },
+      },
       Stability: {
         ApiKey: {
           Title: "Stability API Key",

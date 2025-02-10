@@ -30,6 +30,7 @@ import { IconButton } from "./button";
 import { LLMModel } from "@/app/client/api";
 import { freeModels, ServiceProvider } from "@/app/constant";
 import { useUserInfo } from "@/app/copiolt/copilot";
+import { Avatar } from "./emoji";
 import clsx from "clsx";
 
 export function Popover(props: {
@@ -626,13 +627,14 @@ export function Selector<T>(props: {
             const selected = selectedValues.includes(item.value);
             return (
               <ListItem
-                icon={ModelIcon({ modeName: item.value as string, isVIP })}
+                // icon={ModelIcon({ modeName: item.value as string, isVIP })}
                 className={`${styles["selector-item"]} ${
                   styles["list-item-free"]
                 } ${item.disable && styles["selector-item-disabled"]}`}
                 key={i}
                 title={item.title}
                 subTitle={item.subTitle}
+                icon={<Avatar model={item.value as string} />}
                 onClick={(e) => {
                   if (item.disable) {
                     e.stopPropagation();

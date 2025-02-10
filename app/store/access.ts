@@ -17,6 +17,7 @@ import {
   DEEPSEEK_BASE_URL,
   XAI_BASE_URL,
   CHATGLM_BASE_URL,
+  SILICONFLOW_BASE_URL,
 } from "../constant";
 import { getHeaders } from "../client/api";
 import { getClientConfig } from "../config/client";
@@ -56,6 +57,10 @@ const DEFAULT_DEEPSEEK_URL = isApp ? DEEPSEEK_BASE_URL : ApiPath.DeepSeek;
 const DEFAULT_XAI_URL = isApp ? XAI_BASE_URL : ApiPath.XAI;
 
 const DEFAULT_CHATGLM_URL = isApp ? CHATGLM_BASE_URL : ApiPath.ChatGLM;
+
+const DEFAULT_SILICONFLOW_URL = isApp
+  ? SILICONFLOW_BASE_URL
+  : ApiPath.SiliconFlow;
 
 const DEFAULT_ACCESS_STATE = {
   accessCode: "",
@@ -127,6 +132,10 @@ const DEFAULT_ACCESS_STATE = {
   // chatglm
   chatglmUrl: DEFAULT_CHATGLM_URL,
   chatglmApiKey: "",
+
+  // siliconflow
+  siliconflowUrl: DEFAULT_SILICONFLOW_URL,
+  siliconflowApiKey: "",
 
   // server config
   needCode: false,
@@ -211,6 +220,10 @@ export const useAccessStore = createPersistStore(
       return ensure(get(), ["chatglmApiKey"]);
     },
 
+    isValidSiliconFlow() {
+      return ensure(get(), ["siliconflowApiKey"]);
+    },
+
     isAuthorized() {
       this.fetch();
 
@@ -229,6 +242,7 @@ export const useAccessStore = createPersistStore(
         this.isValidDeepSeek() ||
         this.isValidXAI() ||
         this.isValidChatGLM() ||
+        this.isValidSiliconFlow() ||
         !this.enabledAccessControl() ||
         (this.enabledAccessControl() && ensure(get(), ["accessCode"]))
       );

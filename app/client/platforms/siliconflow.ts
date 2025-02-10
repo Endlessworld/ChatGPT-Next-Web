@@ -2,9 +2,8 @@
 // azure and openai, using same models. so using same LLMApi.
 import {
   ApiPath,
-  DEEPSEEK_BASE_URL,
-  DeepSeek,
-  REQUEST_TIMEOUT_MS,
+  SILICONFLOW_BASE_URL,
+  SiliconFlow,
   REQUEST_TIMEOUT_MS_FOR_THINKING,
 } from "@/app/constant";
 import {
@@ -30,7 +29,7 @@ import {
 import { RequestPayload } from "./openai";
 import { fetch } from "@/app/utils/stream";
 
-export class DeepSeekApi implements LLMApi {
+export class SiliconflowApi implements LLMApi {
   private disableListModels = true;
 
   path(path: string): string {
@@ -39,19 +38,22 @@ export class DeepSeekApi implements LLMApi {
     let baseUrl = "";
 
     if (accessStore.useCustomConfig) {
-      baseUrl = accessStore.deepseekUrl;
+      baseUrl = accessStore.siliconflowUrl;
     }
 
     if (baseUrl.length === 0) {
       const isApp = !!getClientConfig()?.isApp;
-      const apiPath = ApiPath.DeepSeek;
-      baseUrl = isApp ? DEEPSEEK_BASE_URL : apiPath;
+      const apiPath = ApiPath.SiliconFlow;
+      baseUrl = isApp ? SILICONFLOW_BASE_URL : apiPath;
     }
 
     if (baseUrl.endsWith("/")) {
       baseUrl = baseUrl.slice(0, baseUrl.length - 1);
     }
-    if (!baseUrl.startsWith("http") && !baseUrl.startsWith(ApiPath.DeepSeek)) {
+    if (
+      !baseUrl.startsWith("http") &&
+      !baseUrl.startsWith(ApiPath.SiliconFlow)
+    ) {
       baseUrl = "https://" + baseUrl;
     }
 
@@ -108,7 +110,7 @@ export class DeepSeekApi implements LLMApi {
     options.onController?.(controller);
 
     try {
-      const chatPath = this.path(DeepSeek.ChatPath);
+      const chatPath = this.path(SiliconFlow.ChatPath);
       const chatPayload = {
         method: "POST",
         body: JSON.stringify(requestPayload),
@@ -118,22 +120,18 @@ export class DeepSeekApi implements LLMApi {
 
       // console.log(chatPayload);
 
-      const isR1 =
-        options.config.model.endsWith("-reasoner") ||
-        options.config.model.endsWith("-r1");
-
-      // make a fetch request
+      // Use extended timeout for thinking models as they typically require more processing time
       const requestTimeoutId = setTimeout(
         () => controller.abort(),
-        isR1 ? REQUEST_TIMEOUT_MS_FOR_THINKING : REQUEST_TIMEOUT_MS,
+        REQUEST_TIMEOUT_MS_FOR_THINKING,
       );
+
       if (shouldStream) {
-        const currentSession = useChatStore.getState().currentSession();
         const [tools, funcs] = usePluginStore
           .getState()
-          .getAsTools(currentSession.mask?.plugin || [], currentSession.id);
-        console.log("getAsTools", tools, funcs);
-        let isThinking = false;
+          .getAsTools(
+            useChatStore.getState().currentSession().mask?.plugin || [],
+          );
         return streamWithThink(
           chatPath,
           requestPayload,
@@ -144,13 +142,6 @@ export class DeepSeekApi implements LLMApi {
           // parseSSE
           (text: string, runTools: ChatMessageTool[]) => {
             // console.log("parseSSE", text, runTools);
-            // console.log(">>>", text);
-            if (!text) {
-              return {
-                isThinking: false,
-                content: undefined,
-              };
-            }
             const json = JSON.parse(text);
             const choices = json.choices as Array<{
               delta: {
@@ -179,25 +170,34 @@ export class DeepSeekApi implements LLMApi {
               }
             }
             const reasoning = choices[0]?.delta?.reasoning_content;
-            let content = choices[0]?.delta?.content;
-            console.log(choices[0]?.delta);
-            if (reasoning != null) {
+            const content = choices[0]?.delta?.content;
+
+            // Skip if both content and reasoning_content are empty or null
+            if (
+              (!reasoning || reasoning.length === 0) &&
+              (!content || content.length === 0)
+            ) {
+              return {
+                isThinking: false,
+                content: "",
+              };
+            }
+
+            if (reasoning && reasoning.length > 0) {
               return {
                 isThinking: true,
                 content: reasoning,
               };
+            } else if (content && content.length > 0) {
+              return {
+                isThinking: false,
+                content: content,
+              };
             }
-            if (!isThinking && content?.includes("<think>")) {
-              isThinking = true;
-              content = "";
-            }
-            if (isThinking && content?.includes("</think>")) {
-              isThinking = false;
-              content = "";
-            }
+
             return {
-              isThinking: reasoning != null || isThinking,
-              content: reasoning || content || undefined,
+              isThinking: false,
+              content: "",
             };
           },
           // processToolMessage, include tool_calls message and tool call results
