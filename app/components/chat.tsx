@@ -116,7 +116,7 @@ import {
   UNFINISHED_INPUT,
 } from "../constant";
 import { Avatar, UserAvatar } from "./emoji";
-import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
+import { ContextPrompts, MaskConfig } from "./mask";
 import { useMaskStore } from "../store/mask";
 import {
   AgentPrefix,
@@ -2082,8 +2082,7 @@ function XChat() {
                                   {["system"].includes(message.role) ? (
                                     <Avatar avatar="2699-fe0f" />
                                   ) : (
-                                    <MaskAvatar
-                                      avatar={session.mask.avatar}
+                                    <Avatar
                                       model={
                                         (message.model ||
                                           session.mask.modelConfig.model) +
@@ -2091,6 +2090,15 @@ function XChat() {
                                         session.mask.modelConfig.providerName
                                       }
                                     />
+                                    // <MaskAvatar
+                                    //   avatar={session.mask.avatar}
+                                    //   model={
+                                    //     (message.model ||
+                                    //       session.mask.modelConfig.model) +
+                                    //     "@" +
+                                    //     session.mask.modelConfig.providerName
+                                    //   }
+                                    // />
                                   )}
                                 </>
                               )}

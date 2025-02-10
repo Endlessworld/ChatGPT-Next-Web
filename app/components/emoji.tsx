@@ -9,10 +9,7 @@ import { ModelType } from "../store";
 import BotIconDefault from "../icons/llm-icons/default.svg";
 import BotIconOpenAI from "../icons/llm-icons/openai.svg";
 import BotIconGemini from "../icons/llm-icons/gemini.svg";
-import BotIconGemma from "../icons/llm-icons/gemma.svg";
 import BotIconClaude from "../icons/llm-icons/claude.svg";
-import BotIconMeta from "../icons/llm-icons/meta.svg";
-import BotIconMistral from "../icons/llm-icons/mistral.svg";
 import BotIconDeepseek from "../icons/llm-icons/deepseek.svg";
 import BotIconMoonshot from "../icons/llm-icons/moonshot.svg";
 import BotIconQwen from "../icons/llm-icons/qwen.svg";
@@ -21,8 +18,12 @@ import BotIconGrok from "../icons/llm-icons/grok.svg";
 import BotIconHunyuan from "../icons/llm-icons/hunyuan.svg";
 import BotIconDoubao from "../icons/llm-icons/doubao.svg";
 import BotIconChatglm from "../icons/llm-icons/chatglm.svg";
+import BotIconSpark from "../icons/llm-icons/spark.svg";
 import BotIcon from "../icons/bot.svg";
 import { useUserAvatar } from "@/app/copiolt/copilot";
+import { ServiceProvider } from "@/app/constant";
+import styles from "@/app/components/ui-lib.module.scss";
+import React from "react";
 
 export function getChatAvatarUrl(unified: string, style: EmojiStyle) {
   const UserAvatar = () => {
@@ -62,49 +63,106 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
   let LlmIcon = BotIconDefault;
 
   if (props.model) {
-    const modelName = props.model.toLowerCase();
+    console.log("Avatar", props.model);
+    const modelName = props.model;
+    const serviceProvider = modelName.split("@")[1] as ServiceProvider;
+    console.log(
+      "Avatar",
+      serviceProvider,
+      serviceProvider === ServiceProvider.Ollama,
+    );
+    const isAnthropic = serviceProvider === ServiceProvider.Anthropic;
+    const isTencent = serviceProvider === ServiceProvider.Tencent;
+    const isMoonshot = serviceProvider === ServiceProvider.Moonshot;
+    const isOllama = serviceProvider === ServiceProvider.Ollama;
+    const isByteDance = serviceProvider === ServiceProvider.ByteDance;
+    const isBaidu = serviceProvider === ServiceProvider.Baidu;
+    const isAlibaba = serviceProvider === ServiceProvider.Alibaba;
+    const isIflytek = serviceProvider === ServiceProvider.Iflytek;
+    const isAzure = serviceProvider === ServiceProvider.Azure;
+    const isGoogle = serviceProvider === ServiceProvider.Google;
+    const isGlm = serviceProvider === ServiceProvider.ChatGLM;
+    const isXAi = serviceProvider === ServiceProvider.XAI;
+    const isDeepSeek = serviceProvider === ServiceProvider.DeepSeek;
+    const isOpenAI = serviceProvider === ServiceProvider.OpenAI;
+    const isSiliconFlow = serviceProvider === ServiceProvider.SiliconFlow;
 
-    if (
-      modelName.startsWith("gpt") ||
-      modelName.startsWith("chatgpt") ||
-      modelName.startsWith("dall-e") ||
-      modelName.startsWith("dalle") ||
-      modelName.startsWith("o1") ||
-      modelName.startsWith("o3")
-    ) {
+    if (isOllama) {
+      return (
+        <div className="no-dark">
+          <img
+            className={styles["hint-icon"]}
+            width={30}
+            height={30}
+            src={"provider/ollama.png"}
+            alt={""}
+          />
+        </div>
+      );
+    }
+    if (isSiliconFlow) {
+      return (
+        <div className="no-dark">
+          <img
+            className={styles["hint-icon"]}
+            width={30}
+            height={30}
+            src={"provider/siliconflow.png"}
+            alt={""}
+          />
+        </div>
+      );
+    }
+    if (isAzure) {
+      return (
+        <div className="no-dark">
+          <img
+            className={styles["hint-icon"]}
+            width={30}
+            height={30}
+            src={"provider/azure.png"}
+            alt={""}
+          />
+        </div>
+      );
+    }
+    if (isOpenAI) {
       LlmIcon = BotIconOpenAI;
-    } else if (modelName.startsWith("gemini")) {
-      LlmIcon = BotIconGemini;
-    } else if (modelName.startsWith("gemma")) {
-      LlmIcon = BotIconGemma;
-    } else if (modelName.startsWith("claude")) {
+    }
+    if (isAnthropic) {
       LlmIcon = BotIconClaude;
-    } else if (modelName.startsWith("llama")) {
-      LlmIcon = BotIconMeta;
-    } else if (modelName.startsWith("mixtral")) {
-      LlmIcon = BotIconMistral;
-    } else if (modelName.startsWith("deepseek")) {
-      LlmIcon = BotIconDeepseek;
-    } else if (modelName.startsWith("moonshot")) {
-      LlmIcon = BotIconMoonshot;
-    } else if (modelName.startsWith("qwen")) {
-      LlmIcon = BotIconQwen;
-    } else if (modelName.startsWith("ernie")) {
-      LlmIcon = BotIconWenxin;
-    } else if (modelName.startsWith("grok")) {
-      LlmIcon = BotIconGrok;
-    } else if (modelName.startsWith("hunyuan")) {
+    }
+    if (isTencent) {
       LlmIcon = BotIconHunyuan;
-    } else if (modelName.startsWith("doubao") || modelName.startsWith("ep-")) {
+    }
+    if (isMoonshot) {
+      LlmIcon = BotIconMoonshot;
+    }
+    if (isByteDance) {
       LlmIcon = BotIconDoubao;
-    } else if (
-      modelName.startsWith("glm") ||
-      modelName.startsWith("cogview-") ||
-      modelName.startsWith("cogvideox-")
-    ) {
-      LlmIcon = BotIconChatglm;
+    }
+    if (isBaidu) {
+      LlmIcon = BotIconWenxin;
+    }
+    if (isAlibaba) {
+      LlmIcon = BotIconQwen;
+    }
+    if (isIflytek) {
+      LlmIcon = BotIconSpark;
     }
 
+    if (isGoogle) {
+      LlmIcon = BotIconGemini;
+    }
+    if (isGlm) {
+      LlmIcon = BotIconChatglm;
+    }
+    if (isDeepSeek) {
+      LlmIcon = BotIconDeepseek;
+    }
+    if (isXAi) {
+      LlmIcon = BotIconGrok;
+    }
     return (
       <div className="no-dark">
         <LlmIcon className="user-avatar" width={30} height={30} />

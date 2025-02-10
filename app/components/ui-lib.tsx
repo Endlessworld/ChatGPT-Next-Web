@@ -501,6 +501,7 @@ export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
   const isGlm = serviceProvider === ServiceProvider.ChatGLM;
   const isXAi = serviceProvider === ServiceProvider.XAI;
   const isDeepSeek = serviceProvider === ServiceProvider.DeepSeek;
+  const isSiliconFlow = serviceProvider === ServiceProvider.SiliconFlow;
   return (
     <div className={"no-dark"}>
       {isTencent ? (
@@ -560,7 +561,7 @@ export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
       ) : isAzure ? (
         <img
           className={styles["hint-icon"]}
-          src={"provider/azure.jpeg"}
+          src={"provider/azure.png"}
           alt={""}
         />
       ) : isDeepSeek ? (
@@ -569,6 +570,12 @@ export function ModelIcon(props: { modeName: string; isVIP?: boolean }) {
         <img
           className={styles["hint-icon"]}
           src={"provider/gemini.png"}
+          alt={""}
+        />
+      ) : isSiliconFlow ? (
+        <img
+          className={styles["hint-icon"]}
+          src={"provider/siliconflow.png"}
           alt={""}
         />
       ) : isXAi ? (
