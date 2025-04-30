@@ -132,11 +132,11 @@ export class DoubaoApi implements LLMApi {
       );
 
       if (shouldStream) {
+        const currentSession = useChatStore.getState().currentSession();
         const [tools, funcs] = usePluginStore
           .getState()
-          .getAsTools(
-            useChatStore.getState().currentSession().mask?.plugin || [],
-          );
+          .getAsTools(currentSession.mask?.plugin || [], currentSession.id);
+        console.log("getAsTools", tools, funcs);
         return streamWithThink(
           chatPath,
           requestPayload,
