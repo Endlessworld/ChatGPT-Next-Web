@@ -22,17 +22,15 @@ import {
 import CopyIcon from "../icons/copy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import ChatGptIcon from "../icons/chatgpt.png";
-import BotIcon from "../icons/bot.png";
 
 import DownloadIcon from "../icons/download.svg";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { MessageSelector, useMessageSelector } from "./message-selector";
-import { UserAvatar, Avatar } from "./emoji";
+import { UserAvatar } from "./emoji";
 import dynamic from "next/dynamic";
 import NextImage from "next/image";
 
 import { toBlob, toPng } from "html-to-image";
-import { DEFAULT_MASK_AVATAR } from "../store/mask";
 
 import { prettyObject } from "../utils/format";
 import { EXPORT_MESSAGE_CLASS_NAME } from "../constant";
@@ -40,7 +38,7 @@ import { getClientConfig } from "../config/client";
 import { type ClientApi, getClientApi } from "../client/api";
 import { getMessageTextContent } from "../utils";
 import { isIdeaPlugin } from "@/app/copiolt/copilot";
-import { MaskAvatar } from "@/app/components/mask";
+import { MaskAvatar } from "./mask";
 import clsx from "clsx";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
@@ -279,7 +277,7 @@ export function RenderExport(props: {
       return {
         id: i.toString(),
         role: role as any,
-        content: role === "user" ? v.textContent ?? "" : v.innerHTML,
+        content: role === "user" ? (v.textContent ?? "") : v.innerHTML,
         date: "",
       };
     });
@@ -406,22 +404,6 @@ export function PreviewActions(props: {
       </div>
     </>
   );
-}
-
-function ExportAvatar(props: { avatar: string }) {
-  if (props.avatar === DEFAULT_MASK_AVATAR) {
-    return (
-      <img
-        src={BotIcon.src}
-        width={30}
-        height={30}
-        alt="bot"
-        className="user-avatar"
-      />
-    );
-  }
-
-  return <Avatar avatar={props.avatar} />;
 }
 
 export function ImagePreviewer(props: {
