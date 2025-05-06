@@ -567,6 +567,15 @@ export function ChatActions(props: {
       return filteredModels;
     }
   }, [allModels]);
+  const selectorModels = useMemo(() => {
+    console.log(models);
+    return models.map((m) => ({
+      title: `${m.displayName}${
+        m?.provider?.providerName ? " (" + m?.provider?.providerName + ")" : ""
+      }`,
+      value: `${m.name}@${m?.provider?.providerName}`,
+    }));
+  }, [models]);
   const currentModelName = useMemo(() => {
     const model = models.find(
       (m) =>
@@ -707,14 +716,7 @@ export function ChatActions(props: {
         {showModelSelector && (
           <Selector
             defaultSelectedValue={`${currentModel}@${currentProviderName}`}
-            items={models.map((m) => ({
-              title: `${m.displayName}${
-                m?.provider?.providerName
-                  ? " (" + m?.provider?.providerName + ")"
-                  : ""
-              }`,
-              value: `${m.name}@${m?.provider?.providerName}`,
-            }))}
+            items={selectorModels}
             onClose={() => setShowModelSelector(false)}
             onSelection={(s) => {
               if (s.length === 0) return;

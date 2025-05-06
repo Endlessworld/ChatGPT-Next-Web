@@ -63,14 +63,14 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
   let LlmIcon = BotIconDefault;
 
   if (props.model) {
-    console.log("Avatar", props.model);
+    // console.log("Avatar", props.model);
     const modelName = props.model;
     const serviceProvider = modelName.split("@")[1] as ServiceProvider;
-    console.log(
-      "Avatar",
-      serviceProvider,
-      serviceProvider === ServiceProvider.Ollama,
-    );
+    // console.log(
+    //   "Avatar",
+    //   serviceProvider,
+    //   serviceProvider === ServiceProvider.Ollama,
+    // );
     const isAnthropic = serviceProvider === ServiceProvider.Anthropic;
     const isTencent = serviceProvider === ServiceProvider.Tencent;
     const isMoonshot = serviceProvider === ServiceProvider.Moonshot;
