@@ -420,42 +420,109 @@
       font-weight: bolder;
     }
 
+    .hint-tag-theme-0  {
+      border: 0.5px solid rgba(186, 31, 180, 0.16);
+      background-color: rgba(186, 31, 180, 0.16);
+      color: rgba(198, 5, 250, 0.85);
+    }
+
+    .hint-tag-theme-1  {
+      border: 0.5px solid rgba(92, 163, 239, 0.4);
+      background-color: rgba(92, 163, 239, 0.4);
+      color: rgba(255, 81, 81, 0.85);
+    }
+
+    .hint-tag-theme-2 {
+      border: 0.5px solid rgba(255, 219, 65, 0.34);
+      background-color: rgba(255, 219, 65, 0.34);
+      color: rgb(225, 47, 176);
+    }
+
+    .hint-tag-theme-3 {
+      border: 0.5px solid rgba(255, 176, 176, 0.53);
+      background-color: rgba(255, 176, 176, 0.53);
+      color: rgba(255, 81, 81, 0.85);
+    }
+
+    .hint-tag-theme-4 {
+      background-color: rgb(182, 237, 154);
+      background-color: rgba(205, 250, 182, 0.85);
+      color: rgb(30, 195, 47);
+    }
+
     .hint-content {
       font-size: 12px;
       @include single-line();
+      display: flex; /* 使用 flexbox */
+      align-items: center; /* 垂直居中对齐 */
     }
-    .hint-tag{
+    .hint-tags {
+      font-size: 12px;
+      position: relative;
+      display: inline-block; /* 确保标签在同一行 */
+      z-index: 999;
+    }
+    .hint-tag {
+      padding: 0; /* 内边距 */
+      margin: 0 0 0 5px;
+      border-radius: 5px;
+    }
+    .hint-pay {
       font-size: 11px;
       position: relative;
       display: inline-block;
       width: auto;
       z-index: 999;
+      float: left; /* 默认左浮动 */
+      margin-right: 5px;
+      white-space: nowrap; /* 防止换行 */
+      flex-direction: column; /* 垂直排列标题和内容 */
+    }
+    .hint-pay:last-child {
+      float: right; /* 最后一个右浮动 */
+      margin-right: 0;
       transform: rotate(45deg);
-      p {
-        border-radius: 5px;
-      }
     }
-    .hint-free {
-      p {
-        background-color: #06b217;
-        color: #f8eb14;
-      }
+    .hint-pay p {
+      border-radius: 5px;
+      margin: 0; /* 去除默认p边距 */
     }
-    .hint-vip {
-      p {
-        background-color: #f1e861;
-        color: #ed0c0c;
-      }
+    .hint-free p {
+      background-color: #06b217;
+      color: #f8eb14;
     }
-    .hint-custom {
-      p {
-        background-color: #137cfa;
-        color: rgb(255, 255, 255);
-      }
+    .hint-vip p {
+      background-color: #f1e861;
+      color: #ed0c0c;
+    }
+    .hint-custom p {
+      background-color: #137cfa;
+      color: rgb(255, 255, 255);
     }
     &-selected,
     &:hover {
       border-color: var(--primary);
     }
+  }
+}
+
+.selector-model {
+  display: flex;
+  flex-direction: initial;
+  gap: 4px;
+  padding: 4px 0;
+
+  .selector-model-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .selector-model-tag {
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 8px;
+    line-height: 1.5;
+    white-space: nowrap;
   }
 }

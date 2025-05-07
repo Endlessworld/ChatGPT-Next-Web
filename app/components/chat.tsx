@@ -568,12 +568,12 @@ export function ChatActions(props: {
     }
   }, [allModels]);
   const selectorModels = useMemo(() => {
-    console.log(models);
     return models.map((m) => ({
       title: `${m.displayName}${
         m?.provider?.providerName ? " (" + m?.provider?.providerName + ")" : ""
       }`,
       value: `${m.name}@${m?.provider?.providerName}`,
+      tags: m.tags,
     }));
   }, [models]);
   const currentModelName = useMemo(() => {
@@ -721,6 +721,7 @@ export function ChatActions(props: {
             onSelection={(s) => {
               if (s.length === 0) return;
               const [model, providerName] = getModelProvider(s[0]);
+              console.log(model);
               chatStore.updateTargetSession(session, (session) => {
                 session.mask.modelConfig.model = model as ModelType;
                 session.mask.modelConfig.providerName =
@@ -2340,6 +2341,7 @@ function XChat() {
                     title: `${m.displayName}`,
                     content: `${m?.provider?.providerName}`,
                     providerName: `${m?.provider?.providerName}`,
+                    tags: m.tags,
                   }));
                   setChatHints(hints);
                 }}

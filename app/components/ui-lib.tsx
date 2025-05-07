@@ -597,6 +597,7 @@ export function Selector<T>(props: {
     subTitle?: string;
     value: T;
     disable?: boolean;
+    tags?: string[];
   }>;
   defaultSelectedValue?: T[] | T;
   onSelection?: (selection: T[]) => void;
@@ -607,8 +608,8 @@ export function Selector<T>(props: {
     Array.isArray(props.defaultSelectedValue)
       ? props.defaultSelectedValue
       : props.defaultSelectedValue !== undefined
-        ? [props.defaultSelectedValue]
-        : [],
+      ? [props.defaultSelectedValue]
+      : [],
   );
   const handleSelection = (e: MouseEvent, value: T) => {
     if (props.multiple) {
@@ -624,6 +625,7 @@ export function Selector<T>(props: {
       props.onClose?.();
     }
   };
+  console.log(props.items);
   const isVIP =
     new Date() < new Date(useUserInfo()?.vip_exp_date || "1970 00:00:00");
   return (
@@ -662,6 +664,7 @@ export function Selector<T>(props: {
                 ) : (
                   <></>
                 )}
+
                 {(item.title as string).includes("Copilot") ? (
                   <div
                     className={`${
@@ -726,6 +729,7 @@ export type RenderPrompt = {
   title: string;
   content: string;
   providerName?: string;
+  tags?: string[];
 };
 
 export function ChatHints(props: {
@@ -778,6 +782,11 @@ export function ChatHints(props: {
     };
   }, [props.hints.length, selectIndex, noPrompts, props]);
   if (noPrompts) return null;
+
+  const getRandomThemeClass = () => {
+    return "hint-tag-theme-" + Math.floor(Math.random() * 5); // 随机选择一种颜色
+  };
+
   return (
     <div className={styles["hints"]} onBlur={() => props.hints.length == 0}>
       <div className={styles["prompt-hints"]}>
@@ -805,12 +814,36 @@ export function ChatHints(props: {
               )}
               <div className={styles["hint-text"]}>
                 <div className={styles["hint-title"]}>{hint.title}</div>
-                <div className={styles["hint-content"]}>{hint.content}</div>
+                <div className={styles["hint-content"]}>
+                  {hint.content}
+                  {Array.isArray(hint.tags) && hint.tags.length > 0 ? (
+                    <div className={styles["hint-tags"]}>
+                      {hint.tags.map((tag: string, index: number) => (
+                        <span
+                          key={index}
+                          className={
+                            styles["hint-tags"] +
+                            " " +
+                            styles["hint-tag"] +
+                            " " +
+                            styles[getRandomThemeClass()]
+                          }
+                          // style={{ backgroundColor: getRandomColor(index) }} // 设置随机背景色
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </div>
+
               {hint?.providerName?.includes("X-Copilot") ? (
                 <div
                   className={
-                    styles["hint-tag"] +
+                    styles["hint-pay"] +
                     " " +
                     (isFree ? styles["hint-free"] : styles["hint-vip"])
                   }
@@ -819,7 +852,7 @@ export function ChatHints(props: {
                 </div>
               ) : hint?.providerName ? (
                 <div
-                  className={styles["hint-tag"] + " " + styles["hint-custom"]}
+                  className={styles["hint-pay"] + " " + styles["hint-custom"]}
                 >
                   {<p>Custom</p>}
                 </div>

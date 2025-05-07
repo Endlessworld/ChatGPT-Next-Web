@@ -61,6 +61,7 @@ export function collectModelTable(
       sorted: number;
       provider?: LLMModel["provider"]; // Marked as optional
       isDefault?: boolean;
+      tags?: string[];
     }
   > = {};
 
@@ -81,7 +82,7 @@ export function collectModelTable(
       const available = !m.startsWith("-");
       const nameConfig =
         m.startsWith("+") || m.startsWith("-") ? m.slice(1) : m;
-      let [name, displayName] = nameConfig.split("=");
+      let [name, displayName, description, tags] = nameConfig.split("=");
 
       // enable or disable all models
       if (name === "all") {

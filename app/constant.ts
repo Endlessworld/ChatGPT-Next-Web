@@ -739,18 +739,29 @@ const chatglmModels = [
 const siliconflowModels = [
   "Qwen/Qwen2.5-7B-Instruct",
   "Qwen/Qwen2.5-72B-Instruct",
-  "deepseek-ai/DeepSeek-R1",
   "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
   "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
   "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
   "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
   "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
   "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+  "deepseek-ai/DeepSeek-R1",
   "deepseek-ai/DeepSeek-V3",
-  "meta-llama/Llama-3.3-70B-Instruct",
-  "THUDM/glm-4-9b-chat",
   "Pro/deepseek-ai/DeepSeek-R1",
   "Pro/deepseek-ai/DeepSeek-V3",
+  "meta-llama/Llama-3.3-70B-Instruct",
+  "THUDM/glm-4-9b-chat",
+  "Qwen/Qwen3-235B-A22B",
+  "Qwen/Qwen3-30B-A3B",
+  "Qwen/Qwen3-32B",
+  "Qwen/Qwen3-14B",
+  "Qwen/Qwen3-8B",
+  "Qwen/Qwen2.5-72B-Instruct-128K",
+  "Qwen/Qwen2-VL-72B-Instruct",
+  "THUDM/GLM-Z1-32B-0414",
+  "THUDM/GLM-4-32B-0414",
+  "THUDM/GLM-Z1-9B-0414",
+  "THUDM/GLM-4-9B-0414",
 ];
 
 let seq = 1000; // 内置的模型序号生成器从1000开始
@@ -758,12 +769,24 @@ export const DEFAULT_MODELS = [
   ...openaiModels.map((name) => ({
     name,
     available: true,
-    sorted: seq++, // Global sequence sort(index)
+    sorted: seq++,
+    tags:
+      name.includes("deepseek-coder") || name.includes("deepseek-chat")
+        ? ["官方API", "稳定", "推荐"]
+        : name.includes("gpt-4.1-nano")
+        ? ["快速", "推荐"]
+        : name.includes("deepseek-reasoner")
+        ? ["满血版R1", "稳定", "推荐"]
+        : name.includes("gpt-4-")
+        ? ["即将下线"]
+        : name.includes("gpt-3.5-")
+        ? ["即将下线"]
+        : [],
     provider: {
       id: "openai",
       providerName: "X-Copilot",
       providerType: "openai",
-      sorted: 1, // 这里是固定的，确保顺序与之前内置的版本一致
+      sorted: 1,
     },
   })),
   ...openaiModels
@@ -772,6 +795,7 @@ export const DEFAULT_MODELS = [
       name,
       available: true,
       sorted: seq++,
+      tags: [],
       provider: {
         id: "azure",
         providerName: "Azure",
@@ -784,6 +808,7 @@ export const DEFAULT_MODELS = [
     name,
     available: true,
     sorted: seq++,
+    tags: [],
     provider: {
       id: "google",
       providerName: "Google",
@@ -795,6 +820,7 @@ export const DEFAULT_MODELS = [
     name,
     available: true,
     sorted: seq++,
+    tags: [],
     provider: {
       id: "anthropic",
       providerName: "Anthropic",
@@ -806,6 +832,7 @@ export const DEFAULT_MODELS = [
     name,
     available: true,
     sorted: seq++,
+    tags: [],
     provider: {
       id: "baidu",
       providerName: "Baidu",
@@ -817,6 +844,7 @@ export const DEFAULT_MODELS = [
     name,
     available: true,
     sorted: seq++,
+    tags: [],
     provider: {
       id: "bytedance",
       providerName: "ByteDance",
@@ -828,6 +856,7 @@ export const DEFAULT_MODELS = [
     name,
     available: true,
     sorted: seq++,
+    tags: [],
     provider: {
       id: "alibaba",
       providerName: "Alibaba",
@@ -839,6 +868,7 @@ export const DEFAULT_MODELS = [
     name,
     available: true,
     sorted: seq++,
+    tags: [],
     provider: {
       id: "tencent",
       providerName: "Tencent",
@@ -850,6 +880,7 @@ export const DEFAULT_MODELS = [
     name,
     available: true,
     sorted: seq++,
+    tags: [],
     provider: {
       id: "moonshot",
       providerName: "Moonshot",
@@ -861,6 +892,7 @@ export const DEFAULT_MODELS = [
     name,
     available: true,
     sorted: seq++,
+    tags: [],
     provider: {
       id: "iflytek",
       providerName: "Iflytek",
@@ -872,6 +904,7 @@ export const DEFAULT_MODELS = [
     name,
     available: true,
     sorted: seq++,
+    tags: [],
     provider: {
       id: "xai",
       providerName: "XAI",
@@ -883,6 +916,7 @@ export const DEFAULT_MODELS = [
     name,
     available: true,
     sorted: seq++,
+    tags: [],
     provider: {
       id: "chatglm",
       providerName: "ChatGLM",
@@ -894,6 +928,7 @@ export const DEFAULT_MODELS = [
     name,
     available: true,
     sorted: seq++,
+    tags: [],
     provider: {
       id: "deepseek",
       providerName: "DeepSeek",
@@ -905,6 +940,7 @@ export const DEFAULT_MODELS = [
     name,
     available: true,
     sorted: seq++,
+    tags: [],
     provider: {
       id: "siliconflow",
       providerName: "SiliconFlow",

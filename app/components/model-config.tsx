@@ -43,6 +43,7 @@ export function ModelConfigList(props: {
               {groupModels[providerName].map((v, i) => (
                 <option value={`${v.name}@${v.provider?.providerName}`} key={i}>
                   {v.displayName}
+                  {/*{v.tags ? `[${v.tags.join("|")}]` : ''}*/}
                 </option>
               ))}
             </optgroup>
