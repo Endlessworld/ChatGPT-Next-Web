@@ -45,6 +45,7 @@ export const SILICONFLOW_BASE_URL = "https://api.siliconflow.cn";
 export const CACHE_URL_PREFIX = "/api/cache";
 export const UPLOAD_URL = `${CACHE_URL_PREFIX}/upload`;
 import BotIcon from "./icons/bot.svg";
+
 export enum Path {
   Home = "/",
   Chat = "/chat",
@@ -95,7 +96,7 @@ export enum StoreKey {
   Chat = "chat-next-web-store",
   Plugin = "chat-next-web-plugin",
   Access = "access-control",
-  Config = "app-config",
+  Config = "app-config-20250809",
   Mask = "mask-store",
   Prompt = "prompt-store",
   Update = "chat-update",
@@ -438,41 +439,18 @@ You are an AI assistant with access to system tools. Your role is to help users 
    
 `;
 
-export const SUMMARIZE_MODEL = "gpt-4o-mini";
-export const GEMINI_SUMMARIZE_MODEL = "gemini-pro";
-export const DEEPSEEK_SUMMARIZE_MODEL = "deepseek-chat";
+export const SUMMARIZE_MODEL = "gpt-oss-20b";
+export const GEMINI_SUMMARIZE_MODEL = "gpt-oss-20b";
+export const DEEPSEEK_SUMMARIZE_MODEL = "gpt-oss-20b";
 
 export const KnowledgeCutOffDate: Record<string, string> = {
   default: "2021-09",
-  "gpt-4-turbo": "2023-12",
-  "gpt-4-turbo-2024-04-09": "2023-12",
-  "gpt-4-turbo-preview": "2023-12",
-  "gpt-4.1": "2024-06",
-  "gpt-4.1-2025-04-14": "2024-06",
-  "gpt-4.1-mini": "2024-06",
-  "gpt-4.1-mini-2025-04-14": "2024-06",
-  "gpt-4.1-nano": "2024-06",
-  "gpt-4.1-nano-2025-04-14": "2024-06",
-  "gpt-4.5-preview": "2023-10",
-  "gpt-4.5-preview-2025-02-27": "2023-10",
-  "gpt-4o": "2023-10",
-  "gpt-4o-2024-05-13": "2023-10",
-  "gpt-4o-2024-08-06": "2023-10",
-  "gpt-4o-2024-11-20": "2023-10",
-  "chatgpt-4o-latest": "2023-10",
-  "gpt-4o-mini": "2023-10",
-  "gpt-4o-mini-2024-07-18": "2023-10",
-  "gpt-4-vision-preview": "2023-04",
-  "o1-mini-2024-09-12": "2023-10",
-  "o1-mini": "2023-10",
-  "o1-preview-2024-09-12": "2023-10",
-  "o1-preview": "2023-10",
-  "o1-2024-12-17": "2023-10",
-  o1: "2023-10",
-  "o3-mini-2025-01-31": "2023-10",
-  "o3-mini": "2023-10",
-  // After improvements,
-  // it's now easier to add "KnowledgeCutOffDate" instead of stupid hardcoding it, as was done previously.
+  "gpt-5": "2024-10-01",
+  "gpt-5-chat": "2024-09-30",
+  "gpt-5-mini": "2024-05-30",
+  "gpt-5-nano": "2024-05-30",
+  "o3-min": "2023-10",
+  "o4-mini": "2024-06-01",
   "gemini-pro": "2023-12",
   "gemini-pro-vision": "2023-12",
   "deepseek-chat": "2024-07",
@@ -515,93 +493,56 @@ export const VISION_MODEL_REGEXES = [
 export const EXCLUDE_VISION_MODEL_REGEXES = [/claude-3-5-haiku-20241022/];
 
 export const freeModels = [
-  "deepseek-chat@X-Copilot",
-  "deepseek-coder@X-Copilot",
-  "gpt-4o-mini@X-Copilot",
-  "gpt-4.1-nano@X-Copilot",
-  "gpt-4.1-mini@X-Copilot",
-  "deepseek-ai/DeepSeek-R1-Distill-Llama-8B@X-Copilot",
-  "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B@X-Copilot",
-  "Qwen/Qwen3-8B@X-Copilot",
-  "THUDM/GLM-Z1-9B-0414@X-Copilot",
+  "gpt-5.1-mini@X-Copilot",
+  "gpt-5.1-nano@X-Copilot",
+  "gpt-oss-20b@X-Copilot",
+  "deepseek-r1-t2@X-Copilot",
+  "kimi-vl-a3b-thinking@X-Copilot",
+  "qwen3-30b-a3b@X-Copilot",
+  "qwen3-235b-a22b@X-Copilot",
 ];
 export const openaiModels = [
-  "deepseek-chat",
-  "deepseek-coder",
-  "gpt-4o-mini",
-  "gpt-4.1-mini",
-  "gpt-4.1-nano",
-  "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
-  "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
-  "Qwen/Qwen3-8B",
-  "THUDM/GLM-Z1-9B-0414",
-  "deepseek-reasoner",
-  "deepseek-ai/DeepSeek-V3",
-  "deepseek-ai/DeepSeek-R1",
-  "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
-  "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
-  "gpt-3.5-turbo",
-  "gpt-3.5-turbo-1106",
-  "gpt-3.5-turbo-0125",
-  "gpt-4o-mini-2024-07-18",
-  "gpt-4",
-  "gpt-4-0613",
-  "gpt-4-32k",
-  "gpt-4-32k-0613",
-  "gpt-4-turbo",
-  "gpt-4-turbo-preview",
-  "gpt-4.1",
-  "gpt-4.1-2025-04-14",
-  "gpt-4.1-mini-2025-04-14",
-  "gpt-4.1-nano-2025-04-14",
-  "gpt-4.5-preview",
-  "gpt-4.5-preview-2025-02-27",
-  "gpt-4o",
-  "gpt-4o-plus",
-  "gpt-4o-2024-05-13",
-  "gpt-4o-2024-08-06",
-  "gpt-4o-2024-11-20",
-  "dall-e-3",
-  "gpt-4-vision-preview",
-  "gpt-4-turbo-2024-04-09",
-  "gpt-4-1106-preview",
-  // "o1-mini",
-  // "o1-preview",
-  "o3-mini",
-  "o3-mini-high",
+  "gpt-5.1-nano",
+  "gpt-5.1-mini",
+  "gpt-oss-20b",
+  "deepseek-r1-t2",
+  "kimi-vl-a3b-thinking",
+  "qwen3-30b-a3b",
+  "qwen3-235b-a22b",
+  "qwen3-coder",
+  "gpt-oss-120b",
+  "gpt-5",
+  "gpt-5-chat",
   "o4-mini",
-  // "glm-4-air",
-  // "glm-4-airx",
-  "grok-beta",
-  "claude-3-5-haiku-20241022",
-  "claude-3-5-sonnet-20241022",
-  "claude-3-opus-20240229",
-  "claude-3-sonnet-20240229",
-  "claude-3-haiku-20240307",
-  "claude-3-5-sonnet-latest",
-  "chatgpt-4o-latest",
+  "deepseek-v3",
+  "deepseek-reasoner",
+  "deepseek-r1-0528",
+  "deepseek/deepseek-r1-0528",
+  "deepseek-ai/DeepSeek-R1-0528",
   "moonshot-v1-8k",
   "moonshot-v1-32k",
   "moonshot-v1-128k",
-  "WizardLM/WizardCoder-15B-V1.0",
-  "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
-  "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
-  "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo",
-  "meta-llama/Llama-Vision-Free",
-  "meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo",
-  "meta-llama/Llama-3.2-90B-Vision-Instruct-Turbo",
-  "codellama/CodeLlama-34b-Instruct-hf",
-  "google/gemma-2-9b-it",
-  "google/gemma-2-27b-it",
-  "Qwen/Qwen1.5-72B-Chat",
-  "Qwen/Qwen1.5-110B-Chat",
-  "Qwen/Qwen2.5-Coder-7B-Instruct",
-  "Qwen/Qwen2.5-Coder-32B-Instruct",
-  "Qwen/Qwen3-235B-A22B",
-  "Qwen/Qwen3-30B-A3B",
-  "mistralai/Mixtral-8x7B-v0.1",
-  "mistralai/Mixtral-8x22B-Instruct-v0.1",
-  "grok-beta",
+  "moonshotai/Kimi-K2-Instruct",
+  "Qwen/Qwen3-235B-A22B-Instruct-2507",
+  "Qwen/Qwen3-30B-A3B-Instruct-2507",
+  "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+  "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+  "Qwen/Qwen2.5-VL-72B-Instruct",
+  "grok-4",
+  "claude-3-7-sonnet-latest",
+  "claude-3-7-sonnet-latest-thinking",
+  "claude-opus-4-1-20250805",
+  "claude-opus-4-1-20250805-thinking",
+  "gemini-2.5-pro",
+  "gemini-2.5-flash",
+  "gemini-2.5-flash-lite",
+  "glm-4",
+  "glm-4-plus",
+  "glm-4v",
+  "glm-4v-plus",
+  "llama-4-maverick",
+  "llama-4-scout",
+  "doubao-seed-1-6-250615",
 ];
 
 const googleModels = [
@@ -770,17 +711,10 @@ export const DEFAULT_MODELS = [
     name,
     available: true,
     sorted: seq++,
-    tags:
-      name.includes("deepseek-coder") || name.includes("deepseek-chat")
-        ? ["官方API", "稳定", "推荐"]
-        : name.includes("gpt-4.1-nano")
-        ? ["快速", "推荐"]
-        : name.includes("deepseek-reasoner")
-        ? ["满血版R1", "稳定", "推荐"]
-        : name.includes("gpt-4-")
-        ? ["即将下线"]
-        : name.includes("gpt-3.5-")
-        ? ["即将下线"]
+    tags: name.includes("gpt-5.1-nano")
+      ? []
+      : name.includes("deepseek-reasoner")
+        ? []
         : [],
     provider: {
       id: "openai",

@@ -568,97 +568,10 @@ export const DEFAULT_MODELS: readonly CopilotModel[] = [
     available: false,
   },
   {
-    name: "gpt-3.5-plus",
-    available: false,
-  },
-  {
-    name: "gpt-3.5-turbo",
-    available: true,
-    description: "最新|函数调用|本地命令执行|推荐",
-    free: true,
-  },
-  {
-    name: "gpt-3.5-turbo-0125",
-    available: true,
-    description: "最新|函数调用|本地命令执行",
-    free: true,
-  },
-  {
-    name: "gpt-3.5-turbo-1106",
-    description: "函数调用|本地命令执行",
-    available: true,
-    free: true,
-  },
-  {
-    name: "gpt-3.5-turbo-16k",
-    available: true,
-    description: "函数调用|本地命令执行",
-    free: true,
-  },
-  {
-    name: "gpt-4",
-    available: true,
-  },
-  {
-    name: "gpt-4-0613",
-    available: true,
-  },
-  {
-    name: "gpt-4-32k",
-    available: true,
-  },
-  {
-    name: "gpt-4-32k-0613",
-    available: false,
-  },
-  {
-    name: "gpt-4-1106-preview",
-    available: true,
-  },
-  {
-    name: "gpt-4-0125-preview",
-    available: true,
-  },
-  {
-    name: "gpt-4-turbo",
-    description: "OpenAI|最新|强烈推荐",
-    available: true,
-  },
-  {
-    name: "gpt-4o-2024-05-13",
-    description: "OpenAI|最强",
-    available: true,
-  },
-
-  {
-    name: "gpt-4-turbo-preview",
-    available: true,
-  },
-  {
-    name: "gpt-4-vision-preview",
-    available: true,
-    description: "传图|识图",
-  },
-  {
-    name: "gpt-4o",
-    available: true,
-    description: "OpenAI|最新",
-  },
-  {
-    name: "gpt-4o-2024-08-06",
-    available: true,
-    description: "OpenAI|最新",
-  },
-  {
     name: "gpt-4o-mini",
     description: "OpenAI|最新",
     available: true,
     free: true,
-  },
-  {
-    name: "gpt-4o-mini-2024-07-18",
-    description: "OpenAI|最新",
-    available: true,
   },
   {
     name: "chatgpt-4o-latest",

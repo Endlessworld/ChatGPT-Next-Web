@@ -63,12 +63,12 @@ export const DEFAULT_CONFIG = {
 
   customModels: "",
   models: DEFAULT_MODELS as any as LLMModel[],
-  completeModel: "gpt-4o-mini",
+  completeModel: "gpt-oss-20b",
   completeBaseUrl: DEFAULT_API_HOST,
   completeProviderName: "X-Copilot" as ServiceProvider,
 
   modelConfig: {
-    model: "gpt-4o-mini" as ModelType,
+    model: "gpt-oss-20b" as ModelType,
     providerName: "X-Copilot" as ServiceProvider,
     temperature: 0.5,
     top_p: 1,
@@ -249,7 +249,7 @@ export const useAppConfig = createPersistStore(
         state.modelConfig.template =
           state.modelConfig.template !== DEFAULT_INPUT_TEMPLATE
             ? state.modelConfig.template
-            : config?.template ?? DEFAULT_INPUT_TEMPLATE;
+            : (config?.template ?? DEFAULT_INPUT_TEMPLATE);
       }
 
       if (version < 4.1) {

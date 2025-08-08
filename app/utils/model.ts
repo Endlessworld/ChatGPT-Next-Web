@@ -208,7 +208,7 @@ export function isModelAvailableInServer(
  * Check if the model name is a GPT-4 related model
  *
  * @param modelName The name of the model to check
- * @returns True if the model is a GPT-4 related model (excluding gpt-4o-mini)
+ * @returns True if the model is a GPT-4 related model (excluding gpt-5.1-mini)
  */
 export function isGPT4Model(modelName: string): boolean {
   return (
