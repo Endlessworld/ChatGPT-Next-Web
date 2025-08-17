@@ -189,7 +189,7 @@ export class DeepSeekApi implements LLMApi {
             const reasoning = choices[0]?.delta?.reasoning_content;
             let content = choices[0]?.delta?.content;
             console.log(choices[0]?.delta);
-            if (reasoning != null) {
+            if (reasoning != null && reasoning != "") {
               return {
                 isThinking: true,
                 content: reasoning,

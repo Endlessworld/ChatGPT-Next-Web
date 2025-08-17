@@ -1,15 +1,9 @@
-import {
-  FETCH_COMMIT_URL,
-  FETCH_TAG_URL,
-  ModelProvider,
-  StoreKey,
-} from "../constant";
+import { FETCH_COMMIT_URL, FETCH_TAG_URL, StoreKey } from "../constant";
 import { getClientConfig } from "../config/client";
 import { createPersistStore } from "../utils/store";
 import { clientUpdate } from "../utils";
 import ChatGptIcon from "../icons/chatgpt.png";
 import Locale from "../locales";
-import { ClientApi } from "../client/api";
 
 const ONE_MINUTE = 60 * 1000;
 const isApp = !!getClientConfig()?.isApp;
@@ -143,9 +137,9 @@ export const useUpdateStore = createPersistStore(
       }));
 
       try {
-        const api = new ClientApi(ModelProvider.GPT);
-        const usage = await api.llm.usage();
-
+        // const api = new ClientApi(ModelProvider.GPT);
+        // const usage = await api.llm.usage();
+        let usage: { used: any; total: any } = { used: 0, total: 0 };
         if (usage) {
           set(() => ({
             used: usage.used,
