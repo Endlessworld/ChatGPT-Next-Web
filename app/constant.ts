@@ -497,6 +497,7 @@ export const freeModels = [
   "openai/gpt-oss-120b",
   "xiaomi/mimo-v2-flash",
   "kwaipilot/kat-coder-pro",
+  "mistralai/devstral-2512",
 ];
 
 export const openaiModels = [
@@ -504,7 +505,7 @@ export const openaiModels = [
   "openai/gpt-oss-120b",
   "xiaomi/mimo-v2-flash",
   "kwaipilot/kat-coder-pro",
-  "mistralai/devstral-2512:free",
+  "mistralai/devstral-2512",
   "openai/gpt-5.1-codex-mini",
   "openai/gpt-5.1-codex-max",
   "openai/gpt-5.2",
