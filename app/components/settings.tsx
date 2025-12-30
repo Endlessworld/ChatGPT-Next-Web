@@ -2005,7 +2005,8 @@ export function Settings() {
                     console.log("userInfo Key:", userInfo);
                     if (!userInfo?.session_token) {
                       showConfirm(
-                        "当前未登录，登录后方可使用内置模型服务！点击确认跳转至登录页。",
+                        `当前所选模型${selectedModel}供应商为Copilot内置模型服务,登录后方可使用内置模型服务！点击确认跳转至登录页。
+                        如果您选择的模型为自定义模型请使用@指定供应商，例如自定模型名【gpt-oss-120b@Ollama】即在Ollama服务商下添加模型gpt-oss-120b，然后重新选择该模型即可！`,
                       ).then((res) => {
                         if (res) {
                           location.href = LOGIN_HOST;
@@ -2023,7 +2024,8 @@ export function Settings() {
                 console.log("API Key:", apiKey);
                 if (provider !== ServiceProvider.Ollama && !apiKey) {
                   showConfirm(
-                    "友情提示: 所选模型没有配置API-KEY. 请在该模型供应商下添加API-KEY! 或登录后选择X-Copilot内置模型",
+                    `友情提示: 所选模型${selectedModel}没有配置API-KEY. 请在该模型供应商下添加API-KEY! 或登录后选择X-Copilot内置模型  
+                    如果您选择的模型为自定义模型请使用@指定供应商，例如自定模型名【gpt-oss-120b@Ollama】即在Ollama服务商下添加模型gpt-oss-120b，然后重新选择该模型即可！`,
                   ).then((res) => {});
                 } else {
                   config.update((s) => {
