@@ -1,10 +1,10 @@
-"use server";
-import {
-  createClient,
-  executeRequest,
-  listTools,
-  removeClient,
-} from "./client";
+"use client";
+// import {
+//   createClient,
+//   executeRequest,
+//   listTools,
+//   removeClient,
+// } from "./client";
 import { MCPClientLogger } from "./logger";
 import {
   DEFAULT_MCP_CONFIG,
@@ -14,12 +14,12 @@ import {
   ServerConfig,
   ServerStatusResponse,
 } from "./types";
-import fs from "fs/promises";
-import path from "path";
+// import fs from "fs/promises";
+// import path from "path";
 import { getServerSideConfig } from "../config/server";
 
 const logger = new MCPClientLogger("MCP Actions");
-const CONFIG_PATH = path.join(process.cwd(), "app/mcp/mcp_config.json");
+// const CONFIG_PATH = path.join(process.cwd(), "app/mcp/mcp_config.json");
 
 const clientsMap = new Map<string, McpClientData>();
 
@@ -119,23 +119,23 @@ async function initializeSingleClient(
   });
 
   // 异步初始化
-  createClient(clientId, serverConfig)
-    .then(async (client) => {
-      const tools = await listTools(client);
-      logger.info(
-        `Supported tools for [${clientId}]: ${JSON.stringify(tools, null, 2)}`,
-      );
-      clientsMap.set(clientId, { client, tools, errorMsg: null });
-      logger.success(`Client [${clientId}] initialized successfully`);
-    })
-    .catch((error) => {
-      clientsMap.set(clientId, {
-        client: null,
-        tools: null,
-        errorMsg: error instanceof Error ? error.message : String(error),
-      });
-      logger.error(`Failed to initialize client [${clientId}]: ${error}`);
-    });
+  // createClient(clientId, serverConfig)
+  //   .then(async (client) => {
+  //     const tools = await listTools(client);
+  //     logger.info(
+  //       `Supported tools for [${clientId}]: ${JSON.stringify(tools, null, 2)}`,
+  //     );
+  //     clientsMap.set(clientId, { client, tools, errorMsg: null });
+  //     logger.success(`Client [${clientId}] initialized successfully`);
+  //   })
+  //   .catch((error) => {
+  //     clientsMap.set(clientId, {
+  //       client: null,
+  //       tools: null,
+  //       errorMsg: error instanceof Error ? error.message : String(error),
+  //     });
+  //     logger.error(`Failed to initialize client [${clientId}]: ${error}`);
+  //   });
 }
 
 // 初始化系统
@@ -217,7 +217,7 @@ export async function pauseMcpServer(clientId: string) {
     // 然后关闭客户端
     const client = clientsMap.get(clientId);
     if (client?.client) {
-      await removeClient(client.client);
+      // await removeClient(client.client);
     }
     clientsMap.delete(clientId);
 
@@ -240,9 +240,9 @@ export async function resumeMcpServer(clientId: string): Promise<void> {
     // 先尝试初始化客户端
     logger.info(`Trying to initialize client [${clientId}]...`);
     try {
-      const client = await createClient(clientId, serverConfig);
-      const tools = await listTools(client);
-      clientsMap.set(clientId, { client, tools, errorMsg: null });
+      // const client = await createClient(clientId, serverConfig);
+      // const tools = await listTools(client);
+      // clientsMap.set(clientId, { client, tools, errorMsg: null });
       logger.success(`Client [${clientId}] initialized successfully`);
 
       // 初始化成功后更新配置
@@ -296,7 +296,7 @@ export async function removeMcpServer(clientId: string) {
     // 关闭并移除客户端
     const client = clientsMap.get(clientId);
     if (client?.client) {
-      await removeClient(client.client);
+      // await removeClient(client.client);
     }
     clientsMap.delete(clientId);
 
@@ -314,7 +314,7 @@ export async function restartAllClients() {
     // 关闭所有客户端
     for (const client of clientsMap.values()) {
       if (client.client) {
-        await removeClient(client.client);
+        // await removeClient(client.client);
       }
     }
 
@@ -344,7 +344,7 @@ export async function executeMcpAction(
       throw new Error(`Client ${clientId} not found`);
     }
     logger.info(`Executing request for [${clientId}]`);
-    return await executeRequest(client.client, request);
+    // return await executeRequest(client.client, request);
   } catch (error) {
     logger.error(`Failed to execute request for [${clientId}]: ${error}`);
     throw error;
@@ -354,8 +354,8 @@ export async function executeMcpAction(
 // 获取 MCP 配置文件
 export async function getMcpConfigFromFile(): Promise<McpConfigData> {
   try {
-    const configStr = await fs.readFile(CONFIG_PATH, "utf-8");
-    return JSON.parse(configStr);
+    // const configStr = await fs.readFile(CONFIG_PATH, "utf-8");
+    return JSON.parse("{}");
   } catch (error) {
     logger.error(`Failed to load MCP config, using default config: ${error}`);
     return DEFAULT_MCP_CONFIG;
@@ -366,8 +366,8 @@ export async function getMcpConfigFromFile(): Promise<McpConfigData> {
 async function updateMcpConfig(config: McpConfigData): Promise<void> {
   try {
     // 确保目录存在
-    await fs.mkdir(path.dirname(CONFIG_PATH), { recursive: true });
-    await fs.writeFile(CONFIG_PATH, JSON.stringify(config, null, 2));
+    // await fs.mkdir(path.dirname(CONFIG_PATH), { recursive: true });
+    // await fs.writeFile(CONFIG_PATH, JSON.stringify(config, null, 2));
   } catch (error) {
     throw error;
   }
