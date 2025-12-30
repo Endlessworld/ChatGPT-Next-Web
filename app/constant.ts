@@ -439,9 +439,9 @@ You are an AI assistant with access to system tools. Your role is to help users 
    
 `;
 
-export const SUMMARIZE_MODEL = "gpt-oss-20b";
-export const GEMINI_SUMMARIZE_MODEL = "gpt-oss-20b";
-export const DEEPSEEK_SUMMARIZE_MODEL = "gpt-oss-20b";
+export const SUMMARIZE_MODEL = "openai/gpt-oss-120b";
+export const GEMINI_SUMMARIZE_MODEL = "openai/gpt-oss-120b";
+export const DEEPSEEK_SUMMARIZE_MODEL = "openai/gpt-oss-120b";
 
 export const KnowledgeCutOffDate: Record<string, string> = {
   default: "2021-09",
@@ -493,53 +493,36 @@ export const VISION_MODEL_REGEXES = [
 export const EXCLUDE_VISION_MODEL_REGEXES = [/claude-3-5-haiku-20241022/];
 
 export const freeModels = [
-  "gpt-5.1-mini@X-Copilot",
-  "gpt-5.1-nano@X-Copilot",
-  "deepseek-r1-t2@X-Copilot",
-];
-export const openaiModels = [
-  "gpt-5.1-nano",
-  "gpt-5.1-mini",
-  "gpt-oss-20b",
-  "ling-flash-2.0",
-  "deepseek-r1-t2",
-  "kimi-vl-a3b-thinking",
-  "qwen3-30b-a3b",
-  "qwen3-235b-a22b",
-  "qwen3-coder",
   "gpt-oss-120b",
-  "gpt-5",
-  "gpt-5-chat",
-  "o4-mini",
-  "deepseek-v3",
-  "deepseek-reasoner",
-  "deepseek-r1-0528",
-  "deepseek/deepseek-r1-0528",
-  "deepseek-ai/DeepSeek-R1-0528",
-  "moonshot-v1-8k",
-  "moonshot-v1-32k",
-  "moonshot-v1-128k",
-  "moonshotai/Kimi-K2-Instruct",
-  "Qwen/Qwen3-235B-A22B-Instruct-2507",
-  "Qwen/Qwen3-30B-A3B-Instruct-2507",
+  "openai/gpt-oss-120b",
+  "xiaomi/mimo-v2-flash",
+  "kwaipilot/kat-coder-pro",
+];
+
+export const openaiModels = [
+  "gpt-oss-120b",
+  "openai/gpt-oss-120b",
+  "xiaomi/mimo-v2-flash",
+  "kwaipilot/kat-coder-pro",
+  "mistralai/devstral-2512:free",
+  "openai/gpt-5.1-codex-mini",
+  "openai/gpt-5.1-codex-max",
+  "openai/gpt-5.2",
+  "openai/o4-mini",
+  "openai/o4-mini-high",
+  "bytedance-seed/seed-1.6-flash",
+  "z-ai/glm-4.7",
+  "Pro/zai-org/GLM-4.7",
+  "minimax/minimax-m2.1",
+  "qwen/qwen3-235b-a22b-2507",
+  "x-ai/grok-code-fast-1",
+  "x-ai/grok-4.1-fast",
+  "anthropic/claude-haiku-4.5",
+  "google/gemini-3-flash-preview",
+  "Pro/deepseek-ai/DeepSeek-V3.2",
+  "Pro/deepseek-ai/DeepSeek-V3.1-Terminus",
+  "inclusionAI/Ling-flash-2.0",
   "Qwen/Qwen3-Coder-480B-A35B-Instruct",
-  "Qwen/Qwen3-Coder-30B-A3B-Instruct",
-  "Qwen/Qwen2.5-VL-72B-Instruct",
-  "grok-4",
-  "claude-3-7-sonnet-latest",
-  "claude-3-7-sonnet-latest-thinking",
-  "claude-opus-4-1-20250805",
-  "claude-opus-4-1-20250805-thinking",
-  "gemini-2.5-pro",
-  "gemini-2.5-flash",
-  "gemini-2.5-flash-lite",
-  "glm-4",
-  "glm-4-plus",
-  "glm-4v",
-  "glm-4v-plus",
-  "llama-4-maverick",
-  "llama-4-scout",
-  "doubao-seed-1-6-250615",
 ];
 
 const googleModels = [
