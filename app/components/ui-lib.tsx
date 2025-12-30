@@ -608,8 +608,8 @@ export function Selector<T>(props: {
     Array.isArray(props.defaultSelectedValue)
       ? props.defaultSelectedValue
       : props.defaultSelectedValue !== undefined
-      ? [props.defaultSelectedValue]
-      : [],
+        ? [props.defaultSelectedValue]
+        : [],
   );
   const handleSelection = (e: MouseEvent, value: T) => {
     if (props.multiple) {
@@ -792,7 +792,7 @@ export function ChatHints(props: {
       <div className={styles["prompt-hints"]}>
         {props.hints.map((hint, i) => {
           const modeName = (hint.title + "@" + hint.providerName) as string;
-          const isFree = freeModels?.includes(modeName);
+          const isFree = freeModels?.includes(hint.title);
           return (
             <div
               ref={i === selectIndex ? selectedRef : null}
