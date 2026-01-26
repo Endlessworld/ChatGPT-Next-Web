@@ -7,15 +7,14 @@ import RemarkGfm from "remark-gfm";
 import RehypeHighlight from "rehype-highlight";
 import hljs from "highlight.js";
 import "highlight.js/styles/github-dark.css";
-import { useRef, useState, RefObject, useEffect, useMemo } from "react";
+import React, { RefObject, useEffect, useMemo, useRef, useState } from "react";
 import { copyToClipboard, useWindowSize } from "../utils";
 import mermaid from "mermaid";
 import Locale from "../locales";
 import LoadingIcon from "../icons/three-dots.svg";
 import ReloadButtonIcon from "../icons/reload.svg";
-import React from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { showImageModal, FullScreen } from "./ui-lib";
+import { FullScreen, showImageModal } from "./ui-lib";
 import {
   ArtifactsShareButton,
   HTMLPreview,
@@ -39,40 +38,24 @@ export function ToolResult(props: {
   const [collapsed, setCollapsed] = useState(true);
   const codeRef = useRef<HTMLElement>(null);
   const { tool } = props;
-  const content = tool.content;
-
-  // Detect content format for syntax highlighting
-  const detectLanguage = (text: string): string => {
-    if (!text) return "";
-    const trimmed = text.trim();
-    if (trimmed.startsWith("{")) return "json";
-    if (trimmed.startsWith("<")) return "xml";
-    if (trimmed.startsWith("<?xml")) return "xml";
-    if (trimmed.startsWith("<?php")) return "php";
-    if (trimmed.startsWith("<!DOCTYPE")) return "html";
-    if (trimmed.startsWith("SELECT") || trimmed.startsWith("INSERT"))
-      return "sql";
-    return "";
-  };
-
-  const language = detectLanguage(content || "");
-
-  // Highlight content when expanded
+  // Ensure content is a string (handle cases where content might be an object)
+  console.log(typeof tool.content);
+  const content =
+    typeof tool.content === "string" && tool.content
+      ? tool.content
+      : JSON.stringify(tool.content, null, 2);
+  console.log(content);
   useEffect(() => {
     if (!content || !codeRef.current) return;
     if (!collapsed) {
-      if (language) {
-        try {
-          const result = hljs.highlightAuto(content);
-          codeRef.current.innerHTML = result.value;
-        } catch {
-          codeRef.current.textContent = content;
-        }
-      } else {
+      try {
+        const result = hljs.highlightAuto(content);
+        codeRef.current.innerHTML = result.value;
+      } catch {
         codeRef.current.textContent = content;
       }
     }
-  }, [collapsed, content, language]);
+  }, [collapsed, content]);
 
   // If no content, don't render
   if (!content) return null;
@@ -104,20 +87,6 @@ export function ToolResult(props: {
         <span className="tool-result-name" style={{ fontWeight: 500 }}>
           {tool.function?.name || "Tool Call"}
         </span>
-        {/*{language && (*/}
-        {/*  <span*/}
-        {/*    className="tool-result-lang"*/}
-        {/*    style={{*/}
-        {/*      fontSize: "11px",*/}
-        {/*      color: "var(--secondary-text)",*/}
-        {/*      backgroundColor: "var(--hover-color)",*/}
-        {/*      padding: "2px 6px",*/}
-        {/*      borderRadius: "4px",*/}
-        {/*    }}*/}
-        {/*  >*/}
-        {/*    {language.toUpperCase()}*/}
-        {/*  </span>*/}
-        {/*)}*/}
         <span
           className="tool-result-status"
           style={{
@@ -156,10 +125,10 @@ export function ToolResult(props: {
           >
             <code
               ref={codeRef}
-              className={language ? `hljs language-${language}` : ""}
+              className={`hljs language-json`}
               style={{ display: "block" }}
             >
-              {!language && content}
+              {content}
             </code>
           </pre>
         </div>
