@@ -5,6 +5,8 @@ import RemarkBreaks from "remark-breaks";
 import RehypeKatex from "rehype-katex";
 import RemarkGfm from "remark-gfm";
 import RehypeHighlight from "rehype-highlight";
+import hljs from "highlight.js";
+import "highlight.js/styles/github-dark.css";
 import { useRef, useState, RefObject, useEffect, useMemo } from "react";
 import { copyToClipboard, useWindowSize } from "../utils";
 import mermaid from "mermaid";
@@ -24,6 +26,147 @@ import { IconButton } from "./button";
 
 import { useAppConfig } from "../store/config";
 import clsx from "clsx";
+
+// Tool Result Component - Collapsible display of tool call results
+export function ToolResult(props: {
+  tool: {
+    id: string;
+    function?: { name: string };
+    content?: string;
+    isError?: boolean;
+  };
+}) {
+  const [collapsed, setCollapsed] = useState(true);
+  const codeRef = useRef<HTMLElement>(null);
+  const { tool } = props;
+  const content = tool.content;
+
+  // Detect content format for syntax highlighting
+  const detectLanguage = (text: string): string => {
+    if (!text) return "";
+    const trimmed = text.trim();
+    if (trimmed.startsWith("{")) return "json";
+    if (trimmed.startsWith("<")) return "xml";
+    if (trimmed.startsWith("<?xml")) return "xml";
+    if (trimmed.startsWith("<?php")) return "php";
+    if (trimmed.startsWith("<!DOCTYPE")) return "html";
+    if (trimmed.startsWith("SELECT") || trimmed.startsWith("INSERT"))
+      return "sql";
+    return "";
+  };
+
+  const language = detectLanguage(content || "");
+
+  // Highlight content when expanded
+  useEffect(() => {
+    if (!content || !codeRef.current) return;
+    if (!collapsed) {
+      if (language) {
+        try {
+          const result = hljs.highlightAuto(content);
+          codeRef.current.innerHTML = result.value;
+        } catch {
+          codeRef.current.textContent = content;
+        }
+      } else {
+        codeRef.current.textContent = content;
+      }
+    }
+  }, [collapsed, content, language]);
+
+  // If no content, don't render
+  if (!content) return null;
+
+  return (
+    <div className="tool-result-container" style={{ margin: "8px 0" }}>
+      <div
+        className="tool-result-header"
+        onClick={() => setCollapsed(!collapsed)}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          cursor: "pointer",
+          userSelect: "none",
+          padding: "4px 0",
+        }}
+      >
+        <span
+          className={clsx("tool-result-arrow", { collapsed })}
+          style={{
+            display: "inline-flex",
+            transition: "transform 0.2s",
+            transform: collapsed ? "rotate(0deg)" : "rotate(90deg)",
+          }}
+        >
+          ▶
+        </span>
+        <span className="tool-result-name" style={{ fontWeight: 500 }}>
+          {tool.function?.name || "Tool Call"}
+        </span>
+        {/*{language && (*/}
+        {/*  <span*/}
+        {/*    className="tool-result-lang"*/}
+        {/*    style={{*/}
+        {/*      fontSize: "11px",*/}
+        {/*      color: "var(--secondary-text)",*/}
+        {/*      backgroundColor: "var(--hover-color)",*/}
+        {/*      padding: "2px 6px",*/}
+        {/*      borderRadius: "4px",*/}
+        {/*    }}*/}
+        {/*  >*/}
+        {/*    {language.toUpperCase()}*/}
+        {/*  </span>*/}
+        {/*)}*/}
+        <span
+          className="tool-result-status"
+          style={{
+            fontSize: "12px",
+            color: tool.isError ? "#ef4444" : "#22c55e",
+          }}
+        >
+          {tool.isError === false
+            ? "✓ Success"
+            : tool.isError
+              ? "✗ Error"
+              : "..."}
+        </span>
+      </div>
+      {!collapsed && (
+        <div
+          className="tool-result-content"
+          style={{
+            marginLeft: "24px",
+            padding: "8px",
+            backgroundColor: "var(--gray)",
+            borderRadius: "6px",
+            fontSize: "13px",
+            maxHeight: "400px",
+            overflow: "auto",
+          }}
+        >
+          <pre
+            style={{
+              margin: 0,
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              fontFamily:
+                "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+            }}
+          >
+            <code
+              ref={codeRef}
+              className={language ? `hljs language-${language}` : ""}
+              style={{ display: "block" }}
+            >
+              {!language && content}
+            </code>
+          </pre>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function Mermaid(props: { code: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -267,53 +410,131 @@ function tryWrapHtmlCode(text: string) {
     );
 }
 
-function MarkDownContent(props: { content: string }) {
-  const escapedContent = useMemo(() => {
-    return tryWrapHtmlCode(escapeBrackets(props.content));
-  }, [props.content]);
+function MarkDownContent(props: {
+  content: string;
+  tools?: Array<{
+    id: string;
+    function?: { name: string };
+    content?: string;
+    isError?: boolean;
+  }>;
+}) {
+  const { content, tools } = props;
 
-  return (
-    <ReactMarkdown
-      remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}
-      rehypePlugins={[
-        RehypeKatex,
-        [
-          RehypeHighlight,
-          {
-            detect: true,
-            ignoreMissing: true,
+  // Prepare escaped content
+  const escapedContent = useMemo(() => {
+    return tryWrapHtmlCode(escapeBrackets(content));
+  }, [content]);
+
+  // If no tools, render normally
+  if (!tools || tools.length === 0) {
+    return (
+      <ReactMarkdown
+        remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}
+        rehypePlugins={[
+          RehypeKatex,
+          [
+            RehypeHighlight,
+            {
+              detect: true,
+              ignoreMissing: true,
+            },
+          ],
+        ]}
+        components={{
+          pre: PreCode,
+          code: CustomCode,
+          p: (pProps) => <p {...pProps} dir="auto" />,
+          a: (aProps) => {
+            const href = aProps.href || "";
+            if (/\.(aac|mp3|opus|wav)$/.test(href)) {
+              return (
+                <figure>
+                  <audio controls src={href}></audio>
+                </figure>
+              );
+            }
+            if (/\.(3gp|3g2|webm|ogv|mpeg|mp4|avi)$/.test(href)) {
+              return (
+                <video controls width="99.9%">
+                  <source src={href} />
+                </video>
+              );
+            }
+            const isInternal = /^\/#/i.test(href) || href.includes("self");
+            const target = isInternal ? "_self" : (aProps.target ?? "_blank");
+            return <a {...aProps} target={target} />;
           },
-        ],
-      ]}
-      components={{
-        pre: PreCode,
-        code: CustomCode,
-        p: (pProps) => <p {...pProps} dir="auto" />,
-        a: (aProps) => {
-          const href = aProps.href || "";
-          if (/\.(aac|mp3|opus|wav)$/.test(href)) {
-            return (
-              <figure>
-                <audio controls src={href}></audio>
-              </figure>
-            );
-          }
-          if (/\.(3gp|3g2|webm|ogv|mpeg|mp4|avi)$/.test(href)) {
-            return (
-              <video controls width="99.9%">
-                <source src={href} />
-              </video>
-            );
-          }
-          const isInternal = /^\/#/i.test(href) || href.includes("self");
-          const target = isInternal ? "_self" : (aProps.target ?? "_blank");
-          return <a {...aProps} target={target} />;
-        },
-      }}
-    >
-      {escapedContent}
-    </ReactMarkdown>
-  );
+        }}
+      >
+        {escapedContent}
+      </ReactMarkdown>
+    );
+  }
+
+  // Split content by tool placeholders
+  const parts = content.split(/%%tool_call_(\d+)%%/g);
+  const result: React.ReactNode[] = [];
+
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i];
+    const isPlaceholder = i % 2 === 1;
+
+    if (isPlaceholder) {
+      const toolIndex = parseInt(part, 10);
+      const tool = tools[toolIndex];
+      if (tool) {
+        result.push(<ToolResult key={`tool-${toolIndex}`} tool={tool} />);
+      }
+    } else if (part) {
+      const escapedContent = tryWrapHtmlCode(escapeBrackets(part));
+      result.push(
+        <ReactMarkdown
+          key={`md-${i}`}
+          remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}
+          rehypePlugins={[
+            RehypeKatex,
+            [
+              RehypeHighlight,
+              {
+                detect: true,
+                ignoreMissing: true,
+              },
+            ],
+          ]}
+          components={{
+            pre: PreCode,
+            code: CustomCode,
+            p: (pProps) => <p {...pProps} dir="auto" />,
+            a: (aProps) => {
+              const href = aProps.href || "";
+              if (/\.(aac|mp3|opus|wav)$/.test(href)) {
+                return (
+                  <figure>
+                    <audio controls src={href}></audio>
+                  </figure>
+                );
+              }
+              if (/\.(3gp|3g2|webm|ogv|mpeg|mp4|avi)$/.test(href)) {
+                return (
+                  <video controls width="99.9%">
+                    <source src={href} />
+                  </video>
+                );
+              }
+              const isInternal = /^\/#/i.test(href) || href.includes("self");
+              const target = isInternal ? "_self" : (aProps.target ?? "_blank");
+              return <a {...aProps} target={target} />;
+            },
+          }}
+        >
+          {escapedContent}
+        </ReactMarkdown>,
+      );
+    }
+  }
+
+  return <>{result}</>;
 }
 
 export const MarkdownContent = React.memo(MarkDownContent);
@@ -326,6 +547,12 @@ export function Markdown(
     fontFamily?: string;
     parentRef?: RefObject<HTMLDivElement>;
     defaultShow?: boolean;
+    tools?: Array<{
+      id: string;
+      function?: { name: string };
+      content?: string;
+      isError?: boolean;
+    }>;
   } & React.DOMAttributes<HTMLDivElement>,
 ) {
   const mdRef = useRef<HTMLDivElement>(null);
@@ -345,7 +572,7 @@ export function Markdown(
       {props.loading ? (
         <LoadingIcon />
       ) : (
-        <MarkdownContent content={props.content} />
+        <MarkdownContent content={props.content} tools={props.tools} />
       )}
     </div>
   );

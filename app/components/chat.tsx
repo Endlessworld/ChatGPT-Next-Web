@@ -71,6 +71,7 @@ import {
   copyToClipboard,
   getMessageImages,
   getMessageTextContent,
+  injectToolPlaceholders,
   isDalle3,
   isVisionModel,
   safeLocalStorage,
@@ -498,6 +499,7 @@ function useScrollToBottom(
   // auto scroll when messages length changes
   const lastMessagesLength = useRef(messages.length);
   useEffect(() => {
+    console.log(messages);
     if (messages.length > lastMessagesLength.current && !detach) {
       scrollDomToBottom();
     }
@@ -2235,7 +2237,10 @@ function XChat() {
                           <div className={styles["chat-message-item"]}>
                             <Markdown
                               key={message.streaming ? "loading" : "done"}
-                              content={getMessageTextContent(message)}
+                              content={injectToolPlaceholders(
+                                getMessageTextContent(message),
+                                message?.tools,
+                              )}
                               loading={
                                 (message.preview || message.streaming) &&
                                 message.content.length === 0 &&
@@ -2250,6 +2255,7 @@ function XChat() {
                               fontFamily={fontFamily}
                               parentRef={scrollRef}
                               defaultShow={i >= messages.length - 6}
+                              tools={message?.tools}
                             />
                             {getMessageImages(message).length == 1 && (
                               <img

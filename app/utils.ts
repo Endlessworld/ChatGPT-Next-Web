@@ -256,6 +256,53 @@ export function getMessageTextContent(message: RequestMessage) {
   return "";
 }
 
+/**
+ * Inject tool call placeholders into content for inline tool result display.
+ * Inserts %%tool_call_{index}%% markers after the first paragraph.
+ */
+export function injectToolPlaceholders(
+  content: string,
+  tools: Array<{ id: string; content?: string }> | undefined,
+): string {
+  if (!tools || tools.length === 0 || !content) {
+    return content;
+  }
+
+  // Filter out tools without content
+  const validTools = tools.filter((t) => t.content);
+  if (validTools.length === 0) {
+    return content;
+  }
+
+  // Find the end of the first paragraph (double newline or after first sentence)
+  const firstParaEnd = content.indexOf("\n\n");
+  if (firstParaEnd !== -1) {
+    // Insert after first paragraph
+    const beforeFirstPara = content.slice(0, firstParaEnd);
+    const afterFirstPara = content.slice(firstParaEnd);
+    const toolPlaceholders = validTools
+      .map((_, i) => `%%tool_call_${i}%%`)
+      .join("\n\n");
+    return `${beforeFirstPara}\n\n${toolPlaceholders}\n\n${afterFirstPara}`;
+  }
+
+  // If no double newline, insert after first sentence ending with period
+  const firstSentenceMatch = content.match(/^[^.!?]*[.!?]/);
+  if (firstSentenceMatch) {
+    const endIndex = firstSentenceMatch[0].length;
+    const toolPlaceholders = validTools
+      .map((_, i) => `%%tool_call_${i}%%`)
+      .join("\n\n");
+    return `${content.slice(0, endIndex)}\n\n${toolPlaceholders}\n\n${content.slice(endIndex)}`;
+  }
+
+  // Fallback: prepend at the beginning
+  const toolPlaceholders = validTools
+    .map((_, i) => `%%tool_call_${i}%%`)
+    .join("\n\n");
+  return `${toolPlaceholders}\n\n${content}`;
+}
+
 export function getMessageTextContentWithoutThinking(message: RequestMessage) {
   let content = "";
 
