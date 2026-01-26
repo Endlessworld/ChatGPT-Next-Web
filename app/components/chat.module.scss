@@ -98,6 +98,12 @@
       align-items: center;
       justify-content: center;
     }
+
+    &.auto-mode-active {
+      background-color: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
   }
 }
 

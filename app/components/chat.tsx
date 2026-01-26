@@ -427,6 +427,7 @@ export function ChatAction(props: {
   text: string;
   icon: JSX.Element;
   onClick: () => void;
+  className?: string;
 }) {
   const iconRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -448,7 +449,11 @@ export function ChatAction(props: {
 
   return (
     <div
-      className={clsx(styles["chat-input-action"], "clickable")}
+      className={clsx(
+        styles["chat-input-action"],
+        "clickable",
+        props.className,
+      )}
       onClick={() => {
         props.onClick();
         setTimeout(updateWidth, 1);
@@ -593,6 +598,7 @@ export function ChatActions(props: {
   const [showSizeSelector, setShowSizeSelector] = useState(false);
   const [showQualitySelector, setShowQualitySelector] = useState(false);
   const [showStyleSelector, setShowStyleSelector] = useState(false);
+  const [autoMode, setAutoMode] = useState(false);
   const modelSizes = getModelSizes(currentModel);
   const dalle3Qualitys: DalleQuality[] = ["standard", "hd"];
   const dalle3Styles: DalleStyle[] = ["vivid", "natural"];
@@ -600,6 +606,32 @@ export function ChatActions(props: {
     session.mask.modelConfig?.size ?? ("1024x1024" as ModelSize);
   const currentQuality = session.mask.modelConfig?.quality ?? "standard";
   const currentStyle = session.mask.modelConfig?.style ?? "vivid";
+
+  // Toggle auto mode - automatically include builtin plugins
+  const toggleAutoMode = () => {
+    const newAutoMode = !autoMode;
+    setAutoMode(newAutoMode);
+    if (newAutoMode) {
+      // Auto mode on: add all builtin plugins automatically
+      const builtinPlugins = pluginStore
+        .getAll()
+        .filter((p) => p.builtin)
+        .map((p) => p.id);
+      const currentPlugins = session.mask.plugin || [];
+      // Merge builtin plugins with current plugins, avoiding duplicates
+      const mergedPlugins = [
+        ...new Set([...currentPlugins, ...builtinPlugins]),
+      ];
+      chatStore.updateTargetSession(session, (session) => {
+        session.mask.plugin = mergedPlugins;
+      });
+    } else {
+      // Auto mode off: clear all plugins (no tools will be sent)
+      chatStore.updateTargetSession(session, (session) => {
+        session.mask.plugin = [];
+      });
+    }
+  };
 
   const isMobileScreen = useMobileScreen();
 
@@ -822,6 +854,15 @@ export function ChatActions(props: {
               });
               showToast(style);
             }}
+          />
+        )}
+
+        {showPlugins(currentProviderName, currentModel) && (
+          <ChatAction
+            onClick={toggleAutoMode}
+            text={autoMode ? "Auto On" : "Auto"}
+            icon={<AutoIcon />}
+            className={autoMode ? "auto-mode-active" : ""}
           />
         )}
 
