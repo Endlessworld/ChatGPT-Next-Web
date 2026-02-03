@@ -495,17 +495,13 @@ export const EXCLUDE_VISION_MODEL_REGEXES = [/claude-3-5-haiku-20241022/];
 export const freeModels = [
   "gpt-oss-120b",
   "openai/gpt-oss-120b",
-  "xiaomi/mimo-v2-flash",
-  "kwaipilot/kat-coder-pro",
-  "mistralai/devstral-2512",
+  "stepfun/step-3.5-flash",
 ];
 
 export const openaiModels = [
   "gpt-oss-120b",
   "openai/gpt-oss-120b",
-  "xiaomi/mimo-v2-flash",
-  "kwaipilot/kat-coder-pro",
-  "mistralai/devstral-2512",
+  "stepfun/step-3.5-flash",
   "openai/gpt-5.1-codex-mini",
   "openai/gpt-5.1-codex-max",
   "openai/gpt-5.2",
@@ -524,6 +520,9 @@ export const openaiModels = [
   "Pro/deepseek-ai/DeepSeek-V3.1-Terminus",
   "inclusionAI/Ling-flash-2.0",
   "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+  "qwen/qwen3-coder-plus",
+  "moonshotai/kimi-k2.5",
+  "moonshotai/kimi-k2-thinking",
 ];
 
 const googleModels = [
