@@ -291,7 +291,7 @@ export const DEFAULT_INPUT_TEMPLATE = `{{input}}`; // input / time / model / lan
 export const DEFAULT_SYSTEM_TEMPLATE = `
 Your personality is cute lively and mischievous.
 You are X-Copilot,A programming assistant embedded in IDEA,You support the use of 50+ different mainstream AI models to help users code.
-Users can access your community at the top of your screen for discussion and feedback [X-Copilot](https://forum.xr21.me/) 
+Users can access your community at the top of your screen for discussion and feedback [X-Copilot](https://forum.xr21.me/)
 Your support use Groovy custom callback functions, and then execute them locally on the user's local side. At present, we have implemented local command execution, searching git repositories.
 When a user asks you about using X-Copilot and you can't help, Invite users to Click on the QQ icon above to enter the internal test exchange group.
 When a user compliments you. Ask for a donation in a lovely way and give a link to donate.
@@ -311,7 +311,7 @@ Knowledge cutoff: {{cutoff}}
 Current model: {{model}}
 Current time: {{time}}
 Reply to the user in the current language: {{lang}}
-Latex inline: \\(x^2\\) 
+Latex inline: \\(x^2\\)
 Latex block: $$e=mc^2$$
 `;
 
@@ -342,7 +342,7 @@ You are an AI assistant with access to system tools. Your role is to help users 
       - Use markdown code blocks with format: \`\`\`json:mcp:{clientId}\`\`\`
       - Always include:
         * method: "tools/call"（Only this method is supported）
-        * params: 
+        * params:
           - name: must match an available primitive name
           - arguments: required parameters for the primitive
 
@@ -411,7 +411,7 @@ You are an AI assistant with access to system tools. Your role is to help users 
    \`\`\`
 
    This is wrong because the method is not tools/call.
-   
+
    \`\`\`{
   "method": "search_repositories",
   "params": {
@@ -434,14 +434,14 @@ You are an AI assistant with access to system tools. Your role is to help users 
      }
    }
    \`\`\`
-   
+
    please follow the format strictly ONLY use tools/call method!!!!!!!!!!!
-   
+
 `;
 
-export const SUMMARIZE_MODEL = "openai/gpt-oss-120b";
-export const GEMINI_SUMMARIZE_MODEL = "openai/gpt-oss-120b";
-export const DEEPSEEK_SUMMARIZE_MODEL = "openai/gpt-oss-120b";
+export const SUMMARIZE_MODEL = "deepseek-v4-flash";
+export const GEMINI_SUMMARIZE_MODEL = "deepseek-v4-flash";
+export const DEEPSEEK_SUMMARIZE_MODEL = "deepseek-v4-flash";
 
 export const KnowledgeCutOffDate: Record<string, string> = {
   default: "2021-09",
@@ -493,36 +493,23 @@ export const VISION_MODEL_REGEXES = [
 export const EXCLUDE_VISION_MODEL_REGEXES = [/claude-3-5-haiku-20241022/];
 
 export const freeModels = [
-  "gpt-oss-120b",
-  "openai/gpt-oss-120b",
-  "stepfun/step-3.5-flash",
+  "deepseek-v4-flash",
+  "deepseek-v4-pro",
+  "minimax-m3",
 ];
 
 export const openaiModels = [
-  "gpt-oss-120b",
-  "openai/gpt-oss-120b",
-  "stepfun/step-3.5-flash",
-  "openai/gpt-5.1-codex-mini",
-  "openai/gpt-5.1-codex-max",
-  "openai/gpt-5.2",
-  "openai/o4-mini",
-  "openai/o4-mini-high",
-  "bytedance-seed/seed-1.6-flash",
-  "z-ai/glm-4.7",
-  "Pro/zai-org/GLM-4.7",
-  "minimax/minimax-m2.1",
-  "qwen/qwen3-235b-a22b-2507",
-  "x-ai/grok-code-fast-1",
-  "x-ai/grok-4.1-fast",
-  "anthropic/claude-haiku-4.5",
-  "google/gemini-3-flash-preview",
-  "Pro/deepseek-ai/DeepSeek-V3.2",
-  "Pro/deepseek-ai/DeepSeek-V3.1-Terminus",
-  "inclusionAI/Ling-flash-2.0",
-  "Qwen/Qwen3-Coder-480B-A35B-Instruct",
-  "qwen/qwen3-coder-plus",
-  "moonshotai/kimi-k2.5",
-  "moonshotai/kimi-k2-thinking",
+  "deepseek-v4-flash",
+  "deepseek-v4-pro",
+  "kimi-k2.6",
+  "qwen/qwen3.7-plus",
+  "moonshotai/kimi-k2.7-code",
+  "minimax-m3",
+  "glm-5.1",
+  "doubao-seed-2.0-pro",
+  "openai/gpt-5.5",
+  "x-ai/grok-4.3",
+  "anthropic/claude-opus-4.8",
 ];
 
 const googleModels = [

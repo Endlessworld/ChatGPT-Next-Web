@@ -63,12 +63,12 @@ export const DEFAULT_CONFIG = {
 
   customModels: "",
   models: DEFAULT_MODELS as any as LLMModel[],
-  completeModel: "openai/gpt-oss-120b",
+  completeModel: "deepseek-v4-flash",
   completeBaseUrl: DEFAULT_API_HOST,
   completeProviderName: "X-Copilot" as ServiceProvider,
 
   modelConfig: {
-    model: "openai/gpt-oss-120b" as ModelType,
+    model: "deepseek-v4-flash" as ModelType,
     providerName: "X-Copilot" as ServiceProvider,
     temperature: 0.5,
     top_p: 1,

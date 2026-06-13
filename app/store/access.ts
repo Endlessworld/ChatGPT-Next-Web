@@ -144,7 +144,7 @@ const DEFAULT_ACCESS_STATE = {
   disableGPT4: false,
   disableFastLink: false,
   customModels: "",
-  defaultModel: "openai/gpt-oss-120b",
+  defaultModel: "deepseek-v4-flash",
   visionModels: "",
 
   // tts config
